@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "415705875568",
+    "project_id": "my-physiotrack-project",
+    "storage_bucket": "my-physiotrack-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415705875568:android:2407d0dad78d9f128fa0b5",
+        "android_client_info": {
+          "package_name": "com.example.physio_track"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415705875568-ib3bliakhas8n66e5lnhm2j0vhrnql1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.physio_track",
+            "certificate_hash": "47212c0c2a393f8c58745dc1db61ec0c2d1465d1"
+          }
+        },
+        {
+          "client_id": "415705875568-hl59d6fg4n76lek4elhla1ai6s3dpkm3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH-ZqM3NE3Mi1HjL9eMOs0FgpYWfXCWbQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415705875568-drhv7qa8qr586ak945m6i5431k3k9ibu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
