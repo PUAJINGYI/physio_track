@@ -341,10 +341,13 @@ class AppointmentInPendingService {
   // send email to notify user
   void sendEmailToNotifyRejection(AppointmentInPending appointmentInPending,
       bool isRejectNewAppointment) async {
-    String patientName = await userManagementService.getUsernameById(appointmentInPending.patientId);
-    String patientEmail = await userManagementService.getEmailById(appointmentInPending.patientId);
+    String patientName = await userManagementService
+        .getUsernameById(appointmentInPending.patientId);
+    String patientEmail = await userManagementService
+        .getEmailById(appointmentInPending.patientId);
     final mailer = Mailer(
-        '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');
+      dotenv.get('SENDGRID_API_KEY', fallback: ''),
+    );
     final toAddress = Address(patientEmail);
     //change to admin email
     final fromAddress = Address(dotenv.get('ADMIN_EMAIL', fallback: ''));
@@ -402,10 +405,11 @@ class AppointmentInPendingService {
 
   void sendEmailToNotifyApprove(
       AppointmentInPending appointmentInPending, String approveType) async {
-    String patientName = await userManagementService.getUsernameById(appointmentInPending.patientId);
-    String patientEmail = await userManagementService.getEmailById(appointmentInPending.patientId);
-    final mailer = Mailer(
-        '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');
+    String patientName = await userManagementService
+        .getUsernameById(appointmentInPending.patientId);
+    String patientEmail = await userManagementService
+        .getEmailById(appointmentInPending.patientId);
+    final mailer = Mailer(dotenv.get('SENDGRID_API_KEY', fallback: ''));
     final toAddress = Address(patientEmail);
     //change to admin email
     final fromAddress = Address(dotenv.get('ADMIN_EMAIL', fallback: ''));
@@ -453,13 +457,12 @@ class AppointmentInPendingService {
       DateTime updateStartTime,
       DateTime updateEndTime) async {
     try {
-      String patientName =
-          await userManagementService.getUsernameById(appointmentInPending.patientId);
-      String patientEmail = await userManagementService.getEmailById(appointmentInPending.patientId);
+      String patientName = await userManagementService
+          .getUsernameById(appointmentInPending.patientId);
+      String patientEmail = await userManagementService
+          .getEmailById(appointmentInPending.patientId);
 
-      final mailer = Mailer(
-        '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',
-      );
+      final mailer = Mailer(dotenv.get('SENDGRID_API_KEY', fallback: ''));
 
       final fromAddress = Address(dotenv.get('ADMIN_EMAIL', fallback: ''));
       final toAddress = Address(patientEmail);
