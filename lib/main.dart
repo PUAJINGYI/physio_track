@@ -23,6 +23,8 @@ import 'authentication/change_password_screen.dart';
 import 'authentication/service/auth_manager.dart';
 import 'authentication/splash_screen.dart';
 import 'journal/screen/add_journal_ori_screen.dart';
+import 'ot_library/screen/ot_library_detail_screen.dart';
+import 'ot_library/screen/ot_library_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,20 +45,21 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: 
-      // QuestionListNavPage(),
-      SplashScreen(
-        onFinish: () {
-          if (authManager.isLoggedIn) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => RedirectScreen()),
-            );
-          } else {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => SignInScreen()),
-            );
-          }
-        },
-      ),
+       OTLibraryDetailScreen(recordId: 1),
+       //AddQuestionScreen(),
+      // SplashScreen(
+      //   onFinish: () {
+      //     if (authManager.isLoggedIn) {
+      //       Navigator.of(context).pushReplacement(
+      //         MaterialPageRoute(builder: (_) => RedirectScreen()),
+      //       );
+      //     } else {
+      //       Navigator.of(context).pushReplacement(
+      //         MaterialPageRoute(builder: (_) => SignInScreen()),
+      //       );
+      //     }
+      //   },
+      // ),
     );
   }
 }
