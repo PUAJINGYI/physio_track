@@ -18,4 +18,6 @@ class ColorConstant {
   static const RED_BUTTON_TEXT = Color.fromRGBO(255, 0, 0, 1);
   static const RED_BUTTON_UNPRESSED = Color.fromRGBO(246, 195, 195, 1);
   static const RED_BUTTON_PRESSED = Color.fromRGBO(253, 124, 124, 1);
+
+  static const HELLO_COLOR = Color.fromRGBO(255, 205, 210, 1);
 }
