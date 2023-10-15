@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:physio_track/journal/screen/add_journal_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_screen.dart';
 
+import '../../constant/ImageConstant.dart';
 import '../../patient/patient_home_screen.dart';
 import '../model/journal_model.dart';
 
@@ -71,7 +72,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
             top: 80,
             right: 5,
             child: Image.asset(
-              'assets/images/journal-image.png',
+              ImageConstant.JOURNAL_IMAGE,
               width: 211.0,
               height: 169.0,
             ),
@@ -92,7 +93,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
-                height: 225.0,
+                height: 240.0,
               ),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
@@ -118,7 +119,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                                'assets/images/data-not-found.png'), // Replace 'assets/no_data_image.png' with the actual image asset path
+                                ImageConstant.DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
                             Text('No Journal Found',
                                 style: TextStyle(
                                     fontSize: 20.0,
@@ -129,6 +130,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                     }
 
                     return ListView(
+                      padding: EdgeInsets.zero,
                       children:
                           snapshot.data!.docs.map((DocumentSnapshot document) {
                         Journal journal = Journal.fromSnapshot(document);
@@ -153,7 +155,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                           errorBuilder:
                                               (context, error, stackTrace) {
                                             return Image.asset(
-                                              'assets/images/default-journal.png', // Replace with the default image path
+                                              ImageConstant.DEFAULT_JOURNAL, // Replace with the default image path
                                               fit: BoxFit.cover,
                                             );
                                           },
@@ -205,6 +207,8 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                   },
                 ),
               ),
+              SizedBox(
+                height: 90.0,)
             ],
           ),
           Positioned(

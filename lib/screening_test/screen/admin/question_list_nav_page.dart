@@ -5,6 +5,7 @@ import 'package:physio_track/screening_test/screen/admin/daily_question_list_scr
 import 'package:physio_track/screening_test/screen/admin/lower_question_list_screen.dart';
 import 'package:physio_track/screening_test/screen/admin/upper_question_list_screen.dart';
 
+import '../../../constant/ImageConstant.dart';
 import 'general_question_list_screen.dart';
 
 class QuestionListNavPage extends StatefulWidget {
@@ -88,7 +89,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
             right: 0,
             left: 0,
             child: Image.asset(
-              'assets/images/screening-test-admin.png',
+              ImageConstant.SCREENING_TEST_ADMIN,
               width: 271.0,
               height: 170.0,
             ),

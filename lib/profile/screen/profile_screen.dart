@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import '../../authentication/change_password_screen.dart';
 import '../../authentication/service/auth_manager.dart';
 import '../../authentication/signin_screen.dart';
+import '../../constant/ColorConstant.dart';
+import '../../constant/ImageConstant.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -197,21 +200,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             radius: 75,
                             backgroundImage: profileImageUrl == null ||
                                     profileImageUrl == ''
-                                ? AssetImage('assets/images/default-user.png')
+                                ? AssetImage(ImageConstant.DEFAULT_USER)
                                 : NetworkImage(profileImageUrl!)
                                     as ImageProvider<Object>?,
                             backgroundColor: Colors.grey,
                           ),
                           SizedBox(width: 10),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Text(
-                              userData['username'] != ''
-                                  ? userData['username']
-                                  : 'N/A',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: AutoSizeText(
+                                userData['username'] != ''
+                                    ? userData['username']
+                                    : 'N/A',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                minFontSize: 12,
+                                maxFontSize: 20,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ),
@@ -237,9 +246,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: customButton(
                       context,
                       'Edit Profile',
-                      Color.fromRGBO(158, 134, 6, 1),
-                      Color.fromRGBO(255, 249, 132, 1),
-                      Color.fromRGBO(230, 199, 46, 0.784), () {
+                      ColorConstant.YELLOW_BUTTON_TEXT,
+                      ColorConstant.YELLOW_BUTTON_UNPRESSED,
+                      ColorConstant.YELLOW_BUTTON_PRESSED, () {
                     _navigateToEditProfileScreen(context);
                   }),
                 ),
@@ -248,9 +257,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: customButton(
                       context,
                       'Change Language',
-                      Color.fromRGBO(72, 208, 254, 1),
-                      Color.fromRGBO(174, 235, 255, 1),
-                      Color.fromRGBO(72, 208, 254, 0.8), () {
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED, () {
                     // navigate to change language page
                   }),
                 ),
@@ -259,9 +268,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: customButton(
                       context,
                       'Log Out',
-                      Color.fromRGBO(255, 0, 0, 1),
-                      Color.fromRGBO(246, 195, 195, 1),
-                      Color.fromRGBO(253, 124, 124, 1), () {
+                      ColorConstant.RED_BUTTON_TEXT,
+                      ColorConstant.RED_BUTTON_UNPRESSED,
+                      ColorConstant.RED_BUTTON_PRESSED, () {
                     signOut();
                   }),
                 ),

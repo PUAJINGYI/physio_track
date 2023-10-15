@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
 import '../service/user_management_service.dart';
 import 'navigation_page.dart';
@@ -143,7 +144,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                           backgroundColor: Colors.transparent,
                           child: user.profileImageUrl.isEmpty
                               ? Image.asset(
-                                  'assets/images/default-user.png', // Replace with the default image path
+                                  ImageConstant.DEFAULT_USER, // Replace with the default image path
                                   fit: BoxFit.cover,
                                 )
                               : null,

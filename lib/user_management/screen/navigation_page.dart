@@ -4,6 +4,7 @@ import 'package:physio_track/user_management/screen/patient_list_screen.dart';
 import 'package:physio_track/user_management/screen/physio_list_screen.dart';
 import 'package:physio_track/user_management/service/user_management_service.dart';
 
+import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
 
 class UserManagementPage extends StatefulWidget {
@@ -84,7 +85,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
             right: 0,
             left: 0,
             child: Image.asset(
-              'assets/images/account-manage.png',
+              ImageConstant.ACCOUNT_MANAGE,
               width: 271.0,
               height: 170.0,
             ),

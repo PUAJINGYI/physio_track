@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/authentication/signin_screen.dart';
 
+import '../constant/ColorConstant.dart';
+import '../constant/ImageConstant.dart';
 import '../reusable_widget/reusable_widget.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -67,7 +69,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           height: MediaQuery.of(context).size.height * 0.7,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/reset-password-pic.png'),
+              image: AssetImage(ImageConstant.RESET_PASSWORD_PIC),
               alignment: Alignment.center,
             ),
           ),
@@ -99,9 +101,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     customButton(
                         context,
                         'Reset Password',
-                        Colors.white,
-                        Color.fromARGB(255, 43, 222, 253),
-                        Color.fromARGB(255, 66, 157, 173), () {
+                        ColorConstant.BLUE_BUTTON_TEXT,
+                        ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ColorConstant.BLUE_BUTTON_PRESSED, () {
                       setState(() {
                         _emailTextController.text.isEmpty ||
                                 !_emailTextController.text.contains("@")

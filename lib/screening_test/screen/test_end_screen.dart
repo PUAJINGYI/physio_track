@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:physio_track/patient/patient_home_page.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
 
+import '../../constant/ColorConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 
 class TestFinishScreen extends StatefulWidget {
@@ -40,7 +42,7 @@ class _TestFinishScreenState extends State<TestFinishScreen> {
             width: MediaQuery.of(context).size.width * 0.8,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/test-finish.PNG'),
+                image: AssetImage(ImageConstant.TEST_FINISH),
                 fit: BoxFit.contain,
               ),
             ),
@@ -84,9 +86,9 @@ class _TestFinishScreenState extends State<TestFinishScreen> {
                   customButton(
                       context,
                       'Go Homepage',
-                        Colors.white,
-                      Color.fromARGB(255, 43, 222, 253),
-                      Color.fromARGB(255, 66, 157, 173), () {
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED, () {
                     finishTest();
                   })
                 ],

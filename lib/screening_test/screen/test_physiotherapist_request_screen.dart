@@ -7,8 +7,11 @@ import 'package:physio_track/screening_test/model/question_model.dart';
 import 'package:physio_track/screening_test/model/question_response_model.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
 
+import '../../constant/ColorConstant.dart';
+import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../user_management/service/user_management_service.dart';
 
 class TestPhysiotherapistRequestScreen extends StatefulWidget {
   const TestPhysiotherapistRequestScreen({Key? key}) : super(key: key);
@@ -22,7 +25,7 @@ class _TestPhysiotherapistRequestScreenState
     extends State<TestPhysiotherapistRequestScreen> {
   List<UserModel> physioList = [];
   UserModel? selectedUser;
-  QuestionService questionService = QuestionService();
+  UserManagementService userManagementService = UserManagementService();
   String userId = FirebaseAuth.instance.currentUser!.uid;
   bool isSelectionEmpty = false;
   final _formKey = GlobalKey<FormState>();
@@ -35,7 +38,7 @@ class _TestPhysiotherapistRequestScreenState
 
   Future<void> fetchPhysios() async {
     List<UserModel> fetchedPhysios =
-        await questionService.fetchUsersByRole('physio');
+        await userManagementService.fetchUsersByRole('physio');
 
     setState(() {
       physioList = fetchedPhysios;
@@ -54,8 +57,7 @@ class _TestPhysiotherapistRequestScreenState
       FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'physio': selectedUser.username})
-          .then((_) {
+          .update({'physio': selectedUser.username}).then((_) {
         print('Field added successfully!');
         Navigator.push(
           context,
@@ -100,7 +102,7 @@ class _TestPhysiotherapistRequestScreenState
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Image.asset(
-                    'assets/images/physio.png',
+                    ImageConstant.PHYSIO,
                     width: double.infinity,
                     height: 200,
                     fit: BoxFit.fitHeight,
@@ -125,13 +127,14 @@ class _TestPhysiotherapistRequestScreenState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 150),
-                            
                             Padding(
                               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               child: Text(
                                 'Select your physiotherapist',
                                 style: TextStyle(
-                                    fontSize: 18.0, fontWeight: FontWeight.bold),textAlign: TextAlign.start,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.start,
                               ),
                             ),
                             Padding(
@@ -181,9 +184,9 @@ class _TestPhysiotherapistRequestScreenState
             child: customButton(
               context,
               'Next',
-              Colors.white,
-              Color.fromARGB(255, 43, 222, 253),
-              Color.fromARGB(255, 66, 157, 173),
+              ColorConstant.BLUE_BUTTON_TEXT,
+              ColorConstant.BLUE_BUTTON_UNPRESSED,
+              ColorConstant.BLUE_BUTTON_PRESSED,
               () {
                 addPhysioToUser(userId, selectedUser);
               },

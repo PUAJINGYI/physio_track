@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/screening_test/screen/test_part_1_screen.dart';
 import 'package:physio_track/screening_test/screen/test_physiotherapist_request_screen.dart';
 
+import '../../constant/ColorConstant.dart';
+import '../../constant/ImageConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 
 class TestStartScreen extends StatefulWidget {
@@ -26,7 +28,7 @@ class _TestStartScreenState extends State<TestStartScreen> {
             width: MediaQuery.of(context).size.width * 0.8,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/test-start.png'),
+                image: AssetImage(ImageConstant.TEST_START),
                 fit: BoxFit.contain,
               ),
             ),
@@ -66,13 +68,14 @@ class _TestStartScreenState extends State<TestStartScreen> {
                   customButton(
                       context,
                       'Start Quiz',
-                      Colors.white,
-                      Color.fromARGB(255, 43, 222, 253),
-                      Color.fromARGB(255, 66, 157, 173), () {
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED, () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TestPhysiotherapistRequestScreen(),
+                        builder: (context) =>
+                            TestPhysiotherapistRequestScreen(),
                       ),
                     );
                   })

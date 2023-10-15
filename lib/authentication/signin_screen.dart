@@ -14,6 +14,8 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 
 import '../admin/admin_home_screeen.dart';
+import '../constant/ColorConstant.dart';
+import '../constant/ImageConstant.dart';
 import 'service/auth_manager.dart';
 import '../patient/patient_home_page.dart';
 import 'forget_password_screen.dart';
@@ -189,7 +191,7 @@ class _SignInScreenState extends State<SignInScreen> {
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/login-pic.png'),
+                  image: AssetImage(ImageConstant.LOGIN_PIC),
                   alignment: Alignment.center,
                 ),
               ),
@@ -207,7 +209,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   child: Column(
                     children: [
-                      logoWidget('assets/images/logo.png'),
+                      logoWidget(ImageConstant.LOGO),
                       SizedBox(height: 10),
                       reusableTextField(
                         "Enter Email",
@@ -236,9 +238,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       customButton(
                           context,
                           'Login',
-                          Colors.white,
-                          Color.fromARGB(255, 43, 222, 253),
-                          Color.fromARGB(255, 66, 157, 173), () {
+                          ColorConstant.BLUE_BUTTON_TEXT,
+                          ColorConstant.BLUE_BUTTON_UNPRESSED,
+                          ColorConstant.BLUE_BUTTON_PRESSED, () {
                         setState(() {
                           _emailTextController.text.isEmpty ||
                                   !_emailTextController.text.contains("@")

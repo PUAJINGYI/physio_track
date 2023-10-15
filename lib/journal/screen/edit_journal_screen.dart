@@ -14,6 +14,8 @@ import 'package:physio_track/journal/screen/view_journal_screen.dart';
 import 'package:physio_track/journal/service/journal_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
+import '../../constant/ColorConstant.dart';
+import '../../constant/ImageConstant.dart';
 import '../model/journal_model.dart';
 import '../widget/custom_feeling_icon.dart';
 import '../widget/custom_weather_icon.dart';
@@ -124,8 +126,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ViewJournalListScreen(
-          ), 
+          builder: (context) => ViewJournalListScreen(),
         ),
       );
       print('Journal: $journal');
@@ -162,7 +163,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
       );
     }
     return Image.asset(
-      'assets/images/default-journal.png',
+      ImageConstant.DEFAULT_JOURNAL,
       fit: BoxFit.cover,
     );
   }
@@ -493,9 +494,9 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                     child: customButton(
                         context,
                         'Save',
-                        Colors.white,
-                        Color.fromARGB(255, 43, 222, 253),
-                        Color.fromARGB(255, 66, 157, 173), () {
+                        ColorConstant.BLUE_BUTTON_TEXT,
+                        ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ColorConstant.BLUE_BUTTON_PRESSED, () {
                       updateJournal();
                     }),
                   )

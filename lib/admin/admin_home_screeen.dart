@@ -7,6 +7,7 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/user_management/screen/navigation_page.dart';
 
 import '../authentication/signin_screen.dart';
+import '../constant/ImageConstant.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
@@ -55,7 +56,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             top: 50,
             right: -10,
             child: Image.asset(
-              'assets/images/admin-home.png',
+              ImageConstant.ADMIN_HOME,
               width: 211.0,
               height: 169.0,
             ),
@@ -77,21 +78,21 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             SizedBox(
               height: 250,
             ),
-            customClickableCard('Appointment Management', AssetImage('assets/images/appointment.png'), () => {
+            customClickableCard('Appointment Management', AssetImage(ImageConstant.APPOINTMENT), () => {
               print('press'),
               //action
             }),
             SizedBox(
               height: 10,
             ),
-            customClickableCard('Screening Test', AssetImage('assets/images/screening-test.png'), () => {
+            customClickableCard('Screening Test', AssetImage(ImageConstant.SCREENING_TEST), () => {
               print('press'),
               //action
             }),
             SizedBox(
               height: 10,
             ),
-            customClickableCard('User Management', AssetImage('assets/images/account-manage.png'), () => {
+            customClickableCard('User Management', AssetImage(ImageConstant.ACCOUNT_MANAGE), () => {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => UserManagementPage())),
             }),

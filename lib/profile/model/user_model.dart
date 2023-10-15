@@ -10,6 +10,9 @@ class UserModel{
   String address;
   String phone;
   String profileImageUrl;
+  int level;
+  int totalExp;
+  double progressToNextLevel;
 
   UserModel({
     required this.id,
@@ -20,7 +23,10 @@ class UserModel{
     required this.isTakenTest,
     required this.address,
     required this.phone,
-    required this.profileImageUrl
+    required this.profileImageUrl,
+    required this.level,
+    required this.totalExp,
+    required this.progressToNextLevel,
   });
 
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot){
@@ -34,7 +40,10 @@ class UserModel{
       isTakenTest: data['isTakenTest'],
       address: data['address'],
       phone: data['phone'],
-      profileImageUrl: data['profileImageUrl']
+      profileImageUrl: data['profileImageUrl'],
+      level: data['level'],
+      totalExp: data['totalExp'],
+      progressToNextLevel: (data['progressToNextLevel'] ?? 0).toDouble()
     );
   }
 
@@ -48,7 +57,10 @@ class UserModel{
       'isTakenTest': isTakenTest,
       'address': address,
       'phone': phone,
-      'profileImageUrl': profileImageUrl
+      'profileImageUrl': profileImageUrl,
+      'level': level,
+      'totalExp': totalExp,
+      'progressToNextLevel': progressToNextLevel,
     };
     return map;
   }

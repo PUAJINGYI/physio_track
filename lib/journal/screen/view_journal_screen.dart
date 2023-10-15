@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:physio_track/journal/model/journal_model.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 
+import '../../constant/ColorConstant.dart';
+import '../../constant/ImageConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../service/journal_service.dart';
 import 'edit_journal_screen.dart';
@@ -116,7 +118,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
       );
     }
     return Image.asset(
-      'assets/images/default-journal.png',
+      ImageConstant.DEFAULT_JOURNAL,
       fit: BoxFit.cover,
     );
   }
@@ -543,9 +545,9 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                   child: customButton(
                       context,
                       'Back',
-                      Colors.white,
-                      Color.fromARGB(255, 43, 222, 253),
-                      Color.fromARGB(255, 66, 157, 173), () {
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED, () {
                     back();
                   }),
                 )

@@ -12,6 +12,8 @@ class OTLibraryService {
     required int duration,
     required String level,
     required String videoUrl,
+    required String thumbnailUrl,
+    required int exp,
   }) async {
     QuerySnapshot querySnapshot = await otLibraryCollection
         .orderBy('id', descending: true)
@@ -28,19 +30,23 @@ class OTLibraryService {
       duration: duration,
       level: level,
       videoUrl: videoUrl,
+      thumbnailUrl: thumbnailUrl,
+      exp: exp,
     );
 
     await otLibraryCollection.add(otLibrary.toMap());
   }
 
-  // edit OT Library record
-  Future<void> editOTLibrary({
+  // update OT Library record
+  Future<void> updateOTLibrary({
     required int id,
     required String title,
     required String description,
     required int duration,
     required String level,
     required String videoUrl,
+    required String thumbnailUrl,
+    required int exp,
   }) async {
     QuerySnapshot querySnapshot =
         await otLibraryCollection.where('id', isEqualTo: id).get();
@@ -54,6 +60,8 @@ class OTLibraryService {
         duration: duration,
         level: level,
         videoUrl: videoUrl,
+        thumbnailUrl: thumbnailUrl,
+        exp: exp,
       );
 
       await otLibraryCollection.doc(documentId).update(otLibrary.toMap());
@@ -71,10 +79,24 @@ class OTLibraryService {
     }
   }
 
-  Future<List<OTLibrary>> fetchOTLibrary(int recordId) async {
+  // get all OT Library records
+  Future<List<OTLibrary>> fetchOTLibraryList() async {
     final querySnapshot = await otLibraryCollection.get();
     return querySnapshot.docs.map((doc) {
       return OTLibrary.fromSnapshot(doc);
     }).toList();
+  }
+
+ // get OT Library record by id
+  Future<OTLibrary?> fetchOTLibrary(int recordId) async {
+    final querySnapshot =
+        await otLibraryCollection.where('id', isEqualTo: recordId).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final doc = querySnapshot.docs.first;
+      return OTLibrary.fromSnapshot(doc);
+    } else {
+      return null;
+    }
   }
 }

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
+import '../constant/ColorConstant.dart';
+import '../constant/ImageConstant.dart';
 import '../profile/screen/profile_screen.dart';
 import '../reusable_widget/reusable_widget.dart';
 
@@ -99,7 +101,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           height: MediaQuery.of(context).size.height * 0.7,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/reset-password-pic.png'),
+              image: AssetImage(ImageConstant.RESET_PASSWORD_PIC),
               alignment: Alignment.center,
             ),
           ),
@@ -155,9 +157,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     customButton(
                         context,
                         'Reset Password',
-                        Colors.white,
-                        Color.fromARGB(255, 43, 222, 253),
-                        Color.fromARGB(255, 66, 157, 173), () {
+                        ColorConstant.BLUE_BUTTON_TEXT,
+                        ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ColorConstant.BLUE_BUTTON_PRESSED, () {
                       setState(() {
                         _passwordTextController.text.isEmpty
                             ? _validatePasswordInput = true
@@ -214,15 +216,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       } else {
         // Show error message to the user
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Both existing password and confirmation password must be the same!')),
+          SnackBar(
+              content: Text(
+                  'Both existing password and confirmation password must be the same!')),
         );
       }
     } catch (e) {
       // Show error message to the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Wrong password provided for the current user.')),
+        SnackBar(
+            content: Text('Wrong password provided for the current user.')),
       );
     }
   }
-
 }

@@ -6,8 +6,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:physio_track/authentication/signin_screen.dart';
+import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
+import '../constant/ColorConstant.dart';
 import '../profile/model/user_model.dart';
 import '../profile/service/user_service.dart';
 
@@ -57,6 +59,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   address: '',
                   phone: '',
                   profileImageUrl: '',
+                  level: 1,
+                  totalExp: 0,
+                  progressToNextLevel: 0.0,
                 ),
                 _userService.addNewUserToFirestore(user, value.user!.uid),
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -98,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: MediaQuery.of(context).size.height * 0.5,
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/signup-pic.png'),
+                image: AssetImage(ImageConstant.SIGNUP_PIC),
                 alignment: Alignment.center,
                 fit: BoxFit.fitWidth),
           ),
@@ -151,9 +156,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     customButton(
                         context,
                         'Sign Up',
-                        Colors.white,
-                        Color.fromARGB(255, 43, 222, 253),
-                        Color.fromARGB(255, 66, 157, 173), () {
+                        ColorConstant.BLUE_BUTTON_TEXT,
+                        ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ColorConstant.BLUE_BUTTON_PRESSED, () {
                       setState(() {
                         _usernameController.text.isEmpty
                             ? _validateUsernameInput = true

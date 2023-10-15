@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+
+import '../constant/ImageConstant.dart';
 
 Image logoWidget(String imageName) {
   return Image.asset(
@@ -108,7 +111,7 @@ Container signInGmailButton(BuildContext context, Function onTap) {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             new Image.asset(
-              'assets/images/google-icon.png',
+              ImageConstant.GOOGLE_ICON,
               height: 35.0,
               alignment: Alignment.center,
             ),
@@ -572,7 +575,7 @@ GestureDetector customHalfSizeCard(BuildContext context, String imagePath,
     String title, Color color, Function() onTap) {
   return GestureDetector(
     onTap: () {
-     onTap();
+      onTap();
     },
     child: Container(
       width:
@@ -608,13 +611,13 @@ GestureDetector customHalfSizeCard(BuildContext context, String imagePath,
   );
 }
 
-GestureDetector exerciseCard(BuildContext context, String imagePath1, String imagePath2, String upperText, String title, Function() onTap) {
+GestureDetector exerciseCard(BuildContext context, double progress,
+    String imagePath2, String upperText, String title, Function() onTap) {
   return GestureDetector(
-    onTap: () {
-      // Handle the tap event
-    },
+    onTap: onTap,
     child: Container(
-      width: MediaQuery.of(context).size.width * 0.45, // Half of the screen width
+      width:
+          MediaQuery.of(context).size.width * 0.45, // Half of the screen width
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: Card(
@@ -622,7 +625,8 @@ GestureDetector exerciseCard(BuildContext context, String imagePath1, String ima
           child: Container(
             color: Colors.blue[100],
             child: Stack(
-              alignment: Alignment.topRight, // Align the progress bar to the top-right
+              alignment:
+                  Alignment.topRight, // Align the progress bar to the top-right
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -669,10 +673,18 @@ GestureDetector exerciseCard(BuildContext context, String imagePath1, String ima
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 5, 10, 0),
-                  child: Image.asset(
-                    imagePath1,
-                    width: 30,
-                    height: 30,
+                  child: CircularPercentIndicator(
+                    radius: 15,
+                    lineWidth: 3.0,
+                    percent: progress,
+                    progressColor: Colors.blue,
+                    backgroundColor: Colors.blue.shade100,
+                    circularStrokeCap: CircularStrokeCap.round,
+                    center: new Text(
+                      "${(progress * 100).toInt().toString()}%",
+                      style: new TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 10.0),
+                    ),
                   ),
                 ),
               ],

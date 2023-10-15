@@ -9,6 +9,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:physio_track/profile/screen/profile_screen.dart';
 
+import '../../constant/ColorConstant.dart';
+import '../../constant/ImageConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -210,7 +212,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                 userData['profileImageUrl'])
                                             as ImageProvider<Object>?
                                         : AssetImage(
-                                            'assets/images/default-user.png'),
+                                            ImageConstant.DEFAULT_USER),
                                 backgroundColor: Colors.grey,
                               ),
                               if (userData['profileImageUrl'] == null)
@@ -278,9 +280,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: customButton(
                       context,
                       'Update Profile',
-                      Color.fromARGB(255, 4, 161, 51),
-                      Color.fromARGB(255, 130, 241, 149),
-                      Color.fromARGB(255, 46, 203, 80), () {
+                      ColorConstant.GREEN_BUTTON_TEXT,
+                      ColorConstant.GREEN_BUTTON_UNPRESSED,
+                      ColorConstant.GREEN_BUTTON_PRESSED, () {
                     setState(() {
                       _usernameController.text.isEmpty
                           ? _validateUsernameInput = true

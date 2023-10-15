@@ -61,6 +61,8 @@ class QuestionCard extends StatelessWidget {
             responseValue, onValueChanged, context); // Pass the context
       case 'option':
         return buildRadioButton(responseValue, onValueChanged);
+      case 'gender':
+        return buildGenderRadioButton(responseValue, onValueChanged);  
       default:
         return SizedBox.shrink();
     }
@@ -75,8 +77,8 @@ class QuestionCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Least Affected', style: TextStyle(fontSize: 12)),
-            Text('Most Affected', style: TextStyle(fontSize: 12)),
+            Text('Extreme Difficulty', style: TextStyle(fontSize: 12)),
+            Text('No Difficulty', style: TextStyle(fontSize: 12)),
           ],
         ),
         Slider(
@@ -155,6 +157,29 @@ class QuestionCard extends StatelessWidget {
         ),
         RadioListTile<double>(
           title: Text('No'),
+          value: 0.0,
+          groupValue: value,
+          onChanged: (newValue) {
+            onChanged(newValue!);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget buildGenderRadioButton(double value, ValueChanged<double> onChanged) {
+    return Column(
+      children: [
+        RadioListTile<double>(
+          title: Text('Male'),
+          value: 1.0,
+          groupValue: value,
+          onChanged: (newValue) {
+            onChanged(newValue!);
+          },
+        ),
+        RadioListTile<double>(
+          title: Text('Female'),
           value: 0.0,
           groupValue: value,
           onChanged: (newValue) {

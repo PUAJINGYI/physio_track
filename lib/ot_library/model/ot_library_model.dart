@@ -7,6 +7,8 @@ class OTLibrary{
   int duration;
   String level;
   String videoUrl;
+  String thumbnailUrl;
+  int exp;
 
     OTLibrary({
     required this.id,
@@ -15,6 +17,8 @@ class OTLibrary{
     required this.duration,
     required this.level,
     required this.videoUrl,
+    required this.thumbnailUrl,
+    required this.exp,
   });
 
   factory OTLibrary.fromSnapshot(DocumentSnapshot snapshot) {
@@ -26,6 +30,8 @@ class OTLibrary{
       duration: data['duration'],
       level: data['level'],
       videoUrl: data['videoUrl'],
+      thumbnailUrl: data['thumbnailUrl'],
+      exp: data['exp'], 
     );
   }
 
@@ -37,6 +43,8 @@ class OTLibrary{
       'duration': duration,
       'level': level,
       'videoUrl': videoUrl,
+      'thumbnailUrl': thumbnailUrl,
+      'exp': exp,
     };
 
     return map;

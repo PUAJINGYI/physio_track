@@ -9,6 +9,8 @@ import 'package:physio_track/screening_test/model/question_model.dart';
 import 'package:physio_track/screening_test/model/question_response_model.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
 
+import '../../constant/ColorConstant.dart';
+import '../../constant/ImageConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 
 class TestPart3Screen extends StatefulWidget {
@@ -146,7 +148,7 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Image.asset(
-                    'assets/images/test-lower.png',
+                    ImageConstant.TEST_LOWER,
                     width: double.infinity,
                     height: 200,
                     fit: BoxFit.fitHeight,
@@ -207,8 +209,12 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: customButton(context, 'Next', Colors.white, Color.fromARGB(255, 43, 222, 253),
-                Color.fromARGB(255, 66, 157, 173), () {
+            child: customButton(
+                context,
+                'Next',
+                ColorConstant.BLUE_BUTTON_TEXT,
+                ColorConstant.BLUE_BUTTON_UNPRESSED,
+                ColorConstant.BLUE_BUTTON_PRESSED, () {
               submitResponses();
             }),
           )

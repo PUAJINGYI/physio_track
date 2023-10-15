@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:physio_track/authentication/signin_screen.dart';
 import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 
 import '../admin/admin_home_page.dart';
@@ -89,6 +90,9 @@ class _RedirectScreenState extends State<RedirectScreen> {
       }
     } else {
       print("User does not exist");
+        Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => SignInScreen()),
+            );
     }
   }
 

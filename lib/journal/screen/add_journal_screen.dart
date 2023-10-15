@@ -13,6 +13,9 @@ import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 import 'package:physio_track/journal/service/journal_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
+import '../../achievement/service/achievement_service.dart';
+import '../../constant/ColorConstant.dart';
+import '../../constant/ImageConstant.dart';
 import '../model/journal_model.dart';
 import '../widget/custom_feeling_icon.dart';
 import '../widget/custom_weather_icon.dart';
@@ -25,6 +28,7 @@ class AddJournalScreen extends StatefulWidget {
 }
 
 class _AddJournalScreenState extends State<AddJournalScreen> {
+  AchievementService achievementService = AchievementService();
   String userId = FirebaseAuth.instance.currentUser!.uid;
   JournalService journalService = JournalService();
   final _formKey = GlobalKey<FormState>();
@@ -90,6 +94,12 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
 
       // TODO: Handle saving the journal object
       journalService.addJournal(userId, journal);
+      bool newArchievement = await achievementService.checkFirstJournal(userId);
+      if (newArchievement) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Emotional Explorer badge unlocked!")),
+        );
+      }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Journal added successfully!")),
       );
@@ -444,9 +454,9 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                     child: customButton(
                         context,
                         'Complete',
-                        Colors.white,
-                        Color.fromARGB(255, 43, 222, 253),
-                        Color.fromARGB(255, 66, 157, 173), () {
+                        ColorConstant.BLUE_BUTTON_TEXT,
+                        ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ColorConstant.BLUE_BUTTON_PRESSED, () {
                       createJournal();
                     }),
                   )
@@ -475,7 +485,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                   fit: BoxFit.fill,
                                 )
                               : Image.asset(
-                                  'assets/images/default-journal.png',
+                                  ImageConstant.DEFAULT_JOURNAL,
                                   fit: BoxFit.fill,
                                 ),
                         ),
