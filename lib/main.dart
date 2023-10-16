@@ -50,7 +50,6 @@ import 'appointment/screen/appointment_history_screen.dart';
 import 'appointment/screen/appointment_list_screen.dart';
 import 'appointment/screen/appointment_patient_screeen.dart';
 import 'appointment/screen/appointment_booking_screen.dart';
-import 'appointment/screen/my_app.dart';
 import 'appointment/screen/physio/appointment_history_physio_screen.dart';
 import 'appointment/screen/physio/appointment_schedule_screen.dart';
 import 'authentication/change_password_screen.dart';
@@ -58,6 +57,7 @@ import 'authentication/service/auth_manager.dart';
 import 'authentication/splash_screen.dart';
 import 'journal/screen/add_journal_ori_screen.dart';
 import 'notification/noti.dart';
+import 'notification/screen/notification_list_screen.dart';
 import 'ot_library/screen/edit_ot_activity_library.dart';
 import 'ot_library/screen/ot_daily_list_screen.dart';
 import 'ot_library/screen/ot_library_detail_screen.dart';
@@ -115,6 +115,7 @@ class MyApp extends StatelessWidget {
     //   DeviceOrientation.portraitDown,
     // ]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'PhysioTrack',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -132,19 +133,20 @@ class MyApp extends StatelessWidget {
           //AddPTActivityScreen(),
           //OTLibraryDetailScreen2(),
           //AddQuestionScreen(),
-              SplashScreen(
-            onFinish: () {
-              if (authManager.isLoggedIn) {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => RedirectScreen()),
-                );
-              } else {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => SignInScreen()),
-                );
-              }
-            },
-          ),
+          //     SplashScreen(
+          //   onFinish: () {
+          //     if (authManager.isLoggedIn) {
+          //       Navigator.of(context).pushReplacement(
+          //         MaterialPageRoute(builder: (_) => RedirectScreen()),
+          //       );
+          //     } else {
+          //       Navigator.of(context).pushReplacement(
+          //         MaterialPageRoute(builder: (_) => SignInScreen()),
+          //       );
+          //     }
+          //   },
+          // ),
+          //NotificationListScreen(),
           //TestPart1Screen(),
           //HomePage(noti: noti,),
           //OTDailyListScreen(),
@@ -153,7 +155,7 @@ class MyApp extends StatelessWidget {
           //YoutubeAppDemo(),
           //AchievementListScreen(),
           //ProgressScreen(),
-          //AppointmentPatientScreen(),
+          AppointmentPatientScreen(),
           //AppointmentHistoryScreen(),
           //AppointmentAdminNavPage(),
           //AppointmentListScreen(),

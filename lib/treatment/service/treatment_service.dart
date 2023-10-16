@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
+import '../../notification/service/notification_service.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/treatment_model.dart';
 
@@ -9,6 +11,7 @@ class TreatmentService {
   CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
   UserManagementService userManagementService = UserManagementService();
+  NotificationService notificationService = NotificationService();
 
   // add treatment report
   Future<void> addTreatmentReport(
@@ -25,6 +28,8 @@ class TreatmentService {
       // Add the treatment record data to Firestore
       await treatmentCollection.add(treatment.toMap());
 
+      String uid = await userManagementService.fetchUidByUserId(treatment.patientId);
+      notificationService.addNotificationFromAdmin(uid, "Treatment Report on ${DateFormat('hh:mm a').format(treatment.dateTime)}, ${DateFormat('dd MMM yyyy').format(treatment.dateTime)} Generated", "Physiotherpist has created the treatment report for the appointment on ${DateFormat('hh:mm a').format(treatment.dateTime)}, ${DateFormat('dd MMM yyyy').format(treatment.dateTime)}. You may have a look for the details.");
       print('Treatment record added successfully');
     } catch (error) {
       print('Error adding treatment record: $error');

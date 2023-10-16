@@ -17,6 +17,7 @@ class ImageConstant {
   static const String LOGIN_PIC = "assets/images/login-pic.png";
   static const String LOGO = "assets/images/logo.png";
   static const String MONDAY = "assets/images/monday.png";
+  static const String NOTIFICATION = "assets/images/notification.png";
   static const String OT = "assets/images/ot.png";
   static const String PATIENT_LIST = "assets/images/patient-list.png";
   static const String PHYSIO_HOME = "assets/images/physio-home.png";

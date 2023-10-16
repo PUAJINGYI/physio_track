@@ -5,8 +5,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 import 'package:physio_track/appointment/screen/appointment_booking_screen.dart';
+import 'package:physio_track/notification/screen/notification_list_screen.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../notification/service/notification_service.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../service/appointment_in_pending_service.dart';
 import 'appointment_history_screen.dart';
@@ -23,13 +25,16 @@ class AppointmentPatientScreen extends StatefulWidget {
 class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
   AppointmentInPendingService appointmentInPendingService =
       AppointmentInPendingService();
+  NotificationService notificationService = NotificationService();
   String uid = FirebaseAuth.instance.currentUser!.uid;
   late AppointmentInPending latestPendingAppointment;
   bool hasRecord = false;
+  bool hasUnreadNotifications = false;
 
   @override
   void initState() {
     super.initState();
+    checkUnreadNotifications();
   }
 
   Future<void> _loadLatestRecord() async {
@@ -221,6 +226,15 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
     showConfirmationDialog(context, title, message, onConfirm);
   }
 
+  Future<void> checkUnreadNotifications() async {
+    final notifications = await notificationService.fetchNotificationList(uid);
+    final unreadNotifications =
+        notifications.where((notification) => !notification.isRead).toList();
+    setState(() {
+      hasUnreadNotifications = unreadNotifications.isNotEmpty;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -258,15 +272,36 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
               Positioned(
                 top: 25,
                 right: 0,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.notifications_outlined,
-                    size: 35.0,
-                  ),
-                  onPressed: () {
-                    // Perform your desired action here
-                    // For example, show notifications
-                  },
+                child: Stack(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.notifications_outlined,
+                        size: 35.0,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationListScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    if (hasUnreadNotifications)
+                      Positioned(
+                        right: 5,
+                        top: 5,
+                        child: Container(
+                          width: 10, // Adjust the size as needed
+                          height: 10, // Adjust the size as needed
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ),
               Positioned(
@@ -448,7 +483,8 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AppointmentHistoryScreen(uid: uid),
+                              builder: (context) =>
+                                  AppointmentHistoryScreen(uid: uid),
                             ),
                           );
                         },
@@ -514,15 +550,36 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
         Positioned(
           top: 25,
           right: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.notifications_outlined,
-              size: 35.0,
-            ),
-            onPressed: () {
-              // Perform your desired action here
-              // For example, show notifications
-            },
+          child: Stack(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.notifications_outlined,
+                  size: 35.0,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationListScreen(),
+                    ),
+                  );
+                },
+              ),
+              if (hasUnreadNotifications)
+                Positioned(
+                  right: 5,
+                  top: 5,
+                  child: Container(
+                    width: 10, // Adjust the size as needed
+                    height: 10, // Adjust the size as needed
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
         Positioned(
@@ -1083,7 +1140,8 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AppointmentHistoryScreen(uid: uid),
+                        builder: (context) =>
+                            AppointmentHistoryScreen(uid: uid),
                       ),
                     );
                   },
