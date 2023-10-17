@@ -28,7 +28,7 @@ class QuestionService {
   AchievementService achievementService = AchievementService();
   UserOTListService userOTListService = UserOTListService();
   UserPTListService userPTListService = UserPTListService();
-  UserService userService = UserService();
+  //UserService userService = UserService();
 
   // Fetch the questiFons from Firestore
   Future<List<Question>> fetchQuestions() async {
@@ -129,15 +129,61 @@ class QuestionService {
   Future<void> updateTestStatus(String userId) async {
     DocumentReference userRef = usersCollection.doc(userId);
 
-    await userService.updateStatusForTopic(userRef, 'upper');
-    await userService.updateStatusForTopic(userRef, 'lower');
-    await userService.updateStatusForTopic(userRef, 'daily');
-    await userService.updateGender(userRef);
+    await updateStatusForTopic(userRef, 'upper');
+    await updateStatusForTopic(userRef, 'lower');
+    await updateStatusForTopic(userRef, 'daily');
+    await updateGender(userRef);
     // await _updateLevelAndProgress(userRef);
-    await userService.updateTakenTestStatus(userRef);
+    await updateTakenTestStatus(userRef);
     await userOTListService.suggestOTActivityList(userRef, userId);
     await userPTListService.suggestPTActivityList(userRef, userId);
     await achievementService.addAchievementCollectionToUser(userId);
+  }
+
+  Future<void> updateGender(DocumentReference userRef) async {
+    QuerySnapshot querySnapshot = await userRef
+        .collection('questionResponses')
+        .where('questionType', isEqualTo: 'gender')
+        .limit(1)
+        .get();
+
+    DocumentSnapshot genderSnapshot = querySnapshot.docs[0];
+    String gender = genderSnapshot.get('response');
+
+    if (gender == '1.0') {
+      await userRef.update({'gender': 'male'});
+    } else if (gender == '0.0') {
+      await userRef.update({'gender': 'female'});
+    }
+  }
+
+  Future<void> updateStatusForTopic(
+      DocumentReference userRef, String topic) async {
+    List<QuestionResponse> topicResponse =
+        await fetchQuestionResponseByTopic(userRef, topic);
+    print(topicResponse);
+
+    double topicScore = 0.0; // Initialize as double
+    topicResponse.forEach((response) {
+      print("response: ${response.response}");
+      topicScore += double.parse(response.response); // Parse as double
+    });
+
+    double topicStatusScore =
+        topicScore / (topicResponse.length * 5); // Use double division
+    if (topicStatusScore <= 0.4) {
+      userRef.update({'${topic}Status': 'beginner'});
+    } else if (topicStatusScore <= 0.8) {
+      userRef.update({'${topic}Status': 'intermediate'});
+    } else if (topicStatusScore <= 1.0) {
+      userRef.update({'${topic}Status': 'advanced'});
+    } else {
+      userRef.update({'${topic}Status': '-'});
+    }
+  }
+
+  Future<void> updateTakenTestStatus(DocumentReference userRef) async {
+    await userRef.update({'isTakenTest': true});
   }
 
   Future<List<QuestionResponse>> fetchQuestionResponseByTopic(

@@ -12,12 +12,14 @@ class PatientListScreen extends StatefulWidget {
 
 class _PatientListScreenState extends State<PatientListScreen> {
   UserManagementService userManagementService = UserManagementService();
-  late Future<List<UserModel>> _patientListFuture; // Add a member variable for the future
+  late Future<List<UserModel>>
+      _patientListFuture; // Add a member variable for the future
 
   @override
   void initState() {
     super.initState();
-    _patientListFuture = _fetchPatientList(); // Initialize the future in initState
+    _patientListFuture =
+        _fetchPatientList(); // Initialize the future in initState
   }
 
   Future<List<UserModel>> _fetchPatientList() async {
@@ -69,9 +71,11 @@ class _PatientListScreenState extends State<PatientListScreen> {
                       style: TextStyle(color: Color.fromRGBO(18, 190, 246, 1)),
                     ),
                     onPressed: () async {
-                      await performDeleteLogic(id, context); // Wait for the deletion to complete
+                      await performDeleteLogic(
+                          id, context); // Wait for the deletion to complete
                       setState(() {
-                        _patientListFuture = _fetchPatientList(); // Refresh the patient list
+                        _patientListFuture =
+                            _fetchPatientList(); // Refresh the patient list
                       });
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -103,7 +107,8 @@ class _PatientListScreenState extends State<PatientListScreen> {
 
   Future<void> performDeleteLogic(int id, context) async {
     try {
-      await userManagementService.deleteUser(id); // Wait for the deletion to complete
+      await userManagementService
+          .deleteUser(id); // Wait for the deletion to complete
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Patient deleted")),
       );
@@ -138,13 +143,16 @@ class _PatientListScreenState extends State<PatientListScreen> {
                       child: ListTile(
                         leading: CircleAvatar(
                           radius: 30.0,
-                          backgroundImage: NetworkImage(
-                            user.profileImageUrl, // Replace with the actual image URL
-                          ),
+                          backgroundImage: user.profileImageUrl.isNotEmpty
+                              ? NetworkImage(user.profileImageUrl)
+                                  as ImageProvider
+                              : AssetImage(ImageConstant.DEFAULT_USER)
+                                  as ImageProvider,
                           backgroundColor: Colors.transparent,
                           child: user.profileImageUrl.isEmpty
                               ? Image.asset(
-                                  ImageConstant.DEFAULT_USER, // Replace with the default image path
+                                  ImageConstant
+                                      .DEFAULT_USER, // Replace with the default image path
                                   fit: BoxFit.cover,
                                 )
                               : null,

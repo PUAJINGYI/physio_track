@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -90,55 +91,57 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     if (userData.isEmpty) {
-      return Stack(
-        children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
+      return Scaffold(
+        body: Stack(
+          children: [
+            Positioned(
+              top: 25,
+              left: 0,
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  size: 35.0,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
             ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
+            Positioned(
+              top: 25,
+              right: 0,
+              child: IconButton(
+                icon: Icon(
+                  Icons.notifications_outlined,
+                  size: 35.0,
+                ),
+                onPressed: () {
+                  // Perform your desired action here
+                  // For example, show notifications
+                },
               ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
             ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
+            Positioned(
+              top: 25,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: kToolbarHeight,
+                alignment: Alignment.center,
+                child: Text(
+                  'Profile',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Center(
-            child: CircularProgressIndicator(),
-          ),
-        ],
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+          ],
+        ),
       );
     } else {
       return Scaffold(
@@ -243,12 +246,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           SizedBox(width: 10),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Text(
-                              userData['username'] ?? 'N/A',
+                            child: AutoSizeText(
+                              userData['username'],
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 15.0,
                                 fontWeight: FontWeight.bold,
                               ),
+                              maxLines: 1,
+                              minFontSize: 11,
                             ),
                           ),
                         ],

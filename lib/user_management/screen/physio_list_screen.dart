@@ -138,9 +138,11 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                       child: ListTile(
                         leading: CircleAvatar(
                           radius: 30.0,
-                          backgroundImage: NetworkImage(
-                            user.profileImageUrl, // Replace with the actual image URL
-                          ),
+                          backgroundImage: user.profileImageUrl.isNotEmpty
+                              ? NetworkImage(user.profileImageUrl)
+                                  as ImageProvider
+                              : AssetImage(ImageConstant.DEFAULT_USER)
+                                  as ImageProvider,
                           backgroundColor: Colors.transparent,
                           child: user.profileImageUrl.isEmpty
                               ? Image.asset(

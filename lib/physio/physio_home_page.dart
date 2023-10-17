@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:physio_track/achievement/screen/physio/patient_list_by_phiso_screen.dart';
+import 'package:physio_track/appointment/screen/physio/appointment_schedule_screen.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
 import 'package:physio_track/physio/physio_navbar.dart';
 
@@ -12,72 +14,62 @@ class PhysioHomePage extends StatefulWidget {
   State<PhysioHomePage> createState() => _PhysioHomePageState();
 }
 
-class _PhysioHomePageState extends State<PhysioHomePage> {
-  PersistentTabController? _controller;
+class _PhysioHomePageState extends State<PhysioHomePage> with TickerProviderStateMixin{
+  PageController? _pageController;
+  int _currentIndex = 0;
+
+  List<Widget> _page = [
+    PhysioHomeScreen(),
+    AppointmentScheduleScreen(),
+    PatientListByPhysioScreen(),
+    ProfileScreen(),
+  ];
 
   @override
   void initState() {
     super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
+    _pageController = PageController(initialPage: 0, keepPage: true);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: [
-          PhysioHomeScreen(),
-          Placeholder(),
-          Placeholder(),
-          ProfileScreen(),
-        ],
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.black,
+        currentIndex: _currentIndex,
         items: _navBarItems(),
-        confineInSafeArea: true,
-        handleAndroidBackButtonPress: true,
-        resizeToAvoidBottomInset: true,
-        hideNavigationBarWhenKeyboardShows: true,
-        decoration: NavBarDecoration(
-          colorBehindNavBar: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        popAllScreensOnTapOfSelectedTab: true,
-        navBarStyle: NavBarStyle.style12,
-        onItemSelected: (int index) {
+        onTap: (value) {
           setState(() {
-            _controller?.index = index;
+            _currentIndex = value;
+            _pageController?.jumpToPage(value);
           });
         },
+      ),
+      body: PageView(
+        controller: _pageController,
+        children: _page,
       ),
     );
   }
 
-  List<PersistentBottomNavBarItem> _navBarItems() {
+  List<BottomNavigationBarItem> _navBarItems() {
     return [
-      PersistentBottomNavBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.home_outlined),
-        title: 'Home',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: 'Home',
       ),
-      PersistentBottomNavBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.calendar_month_outlined),
-        title: 'Appointment',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: 'Appointment',
       ),
-      PersistentBottomNavBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.healing_outlined),
-        title: 'Screening Test',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: 'Patients',
       ),
-      PersistentBottomNavBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.settings_outlined),
-        title: 'Settings',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: 'Settings',
       ),
     ];
   }

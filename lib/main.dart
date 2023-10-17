@@ -31,6 +31,8 @@ import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 import 'package:physio_track/screening_test/screen/add_question_screen.dart';
+import 'package:physio_track/screening_test/screen/admin/daily_question_list_screen.dart';
+import 'package:physio_track/screening_test/screen/admin/general_question_list_screen.dart';
 import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.dart';
 import 'package:physio_track/screening_test/screen/test_end_screen.dart';
 import 'package:physio_track/screening_test/screen/test_part_1_screen.dart';
@@ -133,19 +135,19 @@ class MyApp extends StatelessWidget {
           //AddPTActivityScreen(),
           //OTLibraryDetailScreen2(),
           //AddQuestionScreen(),
-          //     SplashScreen(
-          //   onFinish: () {
-          //     if (authManager.isLoggedIn) {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (_) => RedirectScreen()),
-          //       );
-          //     } else {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (_) => SignInScreen()),
-          //       );
-          //     }
-          //   },
-          // ),
+              SplashScreen(
+            onFinish: () {
+              if (authManager.isLoggedIn) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => RedirectScreen()),
+                );
+              } else {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => SignInScreen()),
+                );
+              }
+            },
+          ),
           //NotificationListScreen(),
           //TestPart1Screen(),
           //HomePage(noti: noti,),
@@ -155,7 +157,7 @@ class MyApp extends StatelessWidget {
           //YoutubeAppDemo(),
           //AchievementListScreen(),
           //ProgressScreen(),
-          AppointmentPatientScreen(),
+          //AppointmentPatientScreen(),
           //AppointmentHistoryScreen(),
           //AppointmentAdminNavPage(),
           //AppointmentListScreen(),
@@ -169,6 +171,9 @@ class MyApp extends StatelessWidget {
       //AddAchievementScreen(),
       //AppointmentScheduleScreen(),
       //PatientListScreen(),
+      //QuestionListNavPage(),
+      //GeneralQuestionListScreen(),
+      //DailyQuestionListScreen(),
     );
   }
 }

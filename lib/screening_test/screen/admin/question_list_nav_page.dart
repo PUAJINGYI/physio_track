@@ -144,7 +144,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
                 ), // Adds spacing between text and underline
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: EdgeInsets.zero,
                     child: IndexedStack(
                       index: _selectedIndex,
                       children: _pages,

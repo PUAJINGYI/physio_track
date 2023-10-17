@@ -1,95 +1,80 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:physio_track/achievement/screen/progress_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 import 'package:physio_track/patient/patient_home_screen.dart';
-import 'package:physio_track/patient/patient_navbar.dart';
 
-import '../admin/admin_home_page.dart';
-import '../admin/admin_home_screeen.dart';
-import '../physio/physio_home_screen.dart';
+import '../appointment/screen/appointment_patient_screeen.dart';
 import '../profile/screen/profile_screen.dart';
 
 class PatientHomePage extends StatefulWidget {
-  const PatientHomePage({Key? key}): super(key: key);
+  const PatientHomePage({Key? key}) : super(key: key);
 
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
 }
 
-class _PatientHomePageState extends State<PatientHomePage> {
-  PersistentTabController? _controller;
-  
-   @override
+class _PatientHomePageState extends State<PatientHomePage>
+    with TickerProviderStateMixin {
+  PageController? _pageController;
+   int _currentIndex = 0;
+
+  List<Widget> _page = [
+    PatientHomeScreen(),
+    ProgressScreen(),
+    ViewJournalListScreen(),
+    AppointmentPatientScreen(),
+    ProfileScreen(),
+  ];
+
+  @override
   void initState() {
     super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
+    _pageController = PageController(initialPage: 0, keepPage: true);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: [
-          PatientHomeScreen(),
-          Placeholder(),
-          ViewJournalListScreen(),
-          Placeholder(),
-          ProfileScreen(),
-        ],
+      bottomNavigationBar: BottomNavigationBar(
+         selectedItemColor: Colors.blue,
+         unselectedItemColor: Colors.black,
+          currentIndex: _currentIndex,
         items: _navBarItems(),
-        confineInSafeArea: true,
-        handleAndroidBackButtonPress: true,
-        resizeToAvoidBottomInset: true,
-        hideNavigationBarWhenKeyboardShows: true,
-        decoration: NavBarDecoration(
-          colorBehindNavBar: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        popAllScreensOnTapOfSelectedTab: true,
-        navBarStyle: NavBarStyle.style12,
-        onItemSelected: (int index) {
+        onTap: (value) {
           setState(() {
-            _controller?.index = index;
+            _currentIndex = value;
+            _pageController?.jumpToPage(value);
           });
         },
       ),
+      body: PageView(
+        controller: _pageController,
+        children: _page,
+      ),
     );
-}
+  }
 
- List<PersistentBottomNavBarItem> _navBarItems() {
-    return [
-      PersistentBottomNavBarItem(
+  List<BottomNavigationBarItem> _navBarItems() {
+    return const [
+      BottomNavigationBarItem(
         icon: Icon(Icons.home_outlined),
-        title: 'Home',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: "Home",
       ),
-      PersistentBottomNavBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.pie_chart_outline),
-        title: 'Progress',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: 'Progress',
       ),
-      PersistentBottomNavBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.book_outlined),
-        title: 'Journal',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: 'Journal',
       ),
-      PersistentBottomNavBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.calendar_month_outlined),
-        title: 'Appointment',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: 'Appointment',
       ),
-      PersistentBottomNavBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.settings_outlined),
-        title: 'Settings',
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
+        label: 'Settings',
       ),
     ];
   }
