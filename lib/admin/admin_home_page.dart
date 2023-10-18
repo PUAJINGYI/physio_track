@@ -4,6 +4,7 @@ import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.
 
 import '../profile/screen/profile_screen.dart';
 import '../user_management/screen/navigation_page.dart';
+import 'admin_activity_management_screen.dart';
 import 'admin_home_screeen.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _AdminHomePageState extends State<AdminHomePage>
     AppointmentAdminNavPage(),
     QuestionListNavPage(),
     UserManagementPage(),
+    AdminActivityManagementScreen(),
     ProfileScreen(),
   ];
 
@@ -72,10 +74,14 @@ class _AdminHomePageState extends State<AdminHomePage>
         label: 'Screening Test',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.calendar_month_outlined),
+        icon: Icon(Icons.person_outline),
         label: 'Manage Account',
       ),
       BottomNavigationBarItem(
+        icon: Icon(Icons.directions_run_outlined),
+        label: 'Settings',
+      ),
+       BottomNavigationBarItem(
         icon: Icon(Icons.settings_outlined),
         label: 'Settings',
       ),

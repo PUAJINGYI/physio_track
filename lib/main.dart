@@ -46,6 +46,7 @@ import 'achievement/screen/bar_chart_sample1.dart';
 import 'achievement/screen/physio/patient_list_by_phiso_screen.dart';
 import 'achievement/screen/progress_screen.dart';
 import 'achievement/screen/weekly_analysis_screen.dart';
+import 'admin/admin_activity_management_screen.dart';
 import 'appointment/screen/admin/appointment_admin_nav_page.dart';
 import 'appointment/screen/appointment_history_screen.dart';
 import 'appointment/screen/appointment_list_screen.dart';
@@ -147,6 +148,7 @@ class MyApp extends StatelessWidget {
               }
             },
           ),
+          //AdminActivityManagementScreen(),
           //NotificationListScreen(),
           //TestPart1Screen(),
           //HomePage(noti: noti,),
