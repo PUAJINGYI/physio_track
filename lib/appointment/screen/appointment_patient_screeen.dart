@@ -25,7 +25,6 @@ class AppointmentPatientScreen extends StatefulWidget {
 class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
   AppointmentInPendingService appointmentInPendingService =
       AppointmentInPendingService();
-  NotificationService notificationService = NotificationService();
   String uid = FirebaseAuth.instance.currentUser!.uid;
   late AppointmentInPending latestPendingAppointment;
   bool hasRecord = false;
@@ -34,7 +33,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
   @override
   void initState() {
     super.initState();
-    checkUnreadNotifications();
   }
 
   Future<void> _loadLatestRecord() async {
@@ -224,15 +222,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
     }
 
     showConfirmationDialog(context, title, message, onConfirm);
-  }
-
-  Future<void> checkUnreadNotifications() async {
-    final notifications = await notificationService.fetchNotificationList(uid);
-    final unreadNotifications =
-        notifications.where((notification) => !notification.isRead).toList();
-    setState(() {
-      hasUnreadNotifications = unreadNotifications.isNotEmpty;
-    });
   }
 
   @override
@@ -445,41 +434,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                ),
-              ),
-              Positioned(
-                top: 25,
-                right: 0,
-                child: Stack(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.notifications_outlined,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NotificationListScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    if (hasUnreadNotifications)
-                      Positioned(
-                        right: 5,
-                        top: 5,
-                        child: Container(
-                          width: 10, // Adjust the size as needed
-                          height: 10, // Adjust the size as needed
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ),
-                  ],
                 ),
               ),
               Positioned(
@@ -915,41 +869,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             onPressed: () {
               Navigator.pop(context);
             },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          right: 0,
-          child: Stack(
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.notifications_outlined,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NotificationListScreen(),
-                    ),
-                  );
-                },
-              ),
-              if (hasUnreadNotifications)
-                Positioned(
-                  right: 5,
-                  top: 5,
-                  child: Container(
-                    width: 10, // Adjust the size as needed
-                    height: 10, // Adjust the size as needed
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-            ],
           ),
         ),
         Positioned(
