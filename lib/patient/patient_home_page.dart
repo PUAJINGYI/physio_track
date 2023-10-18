@@ -36,6 +36,7 @@ class _PatientHomePageState extends State<PatientHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
          selectedItemColor: Colors.blue,
          unselectedItemColor: Colors.black,
           currentIndex: _currentIndex,
