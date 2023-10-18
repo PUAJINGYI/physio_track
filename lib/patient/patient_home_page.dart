@@ -16,7 +16,7 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage>
     with TickerProviderStateMixin {
   PageController? _pageController;
-   int _currentIndex = 0;
+  int _currentIndex = 0;
 
   List<Widget> _page = [
     PatientHomeScreen(),
@@ -37,9 +37,11 @@ class _PatientHomePageState extends State<PatientHomePage>
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-         selectedItemColor: Colors.blue,
-         unselectedItemColor: Colors.black,
-          currentIndex: _currentIndex,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.black,
+        currentIndex: _currentIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: _navBarItems(),
         onTap: (value) {
           setState(() {

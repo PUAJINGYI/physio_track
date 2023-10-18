@@ -20,7 +20,6 @@ import 'package:physio_track/notification/home_screen.dart';
 import 'package:physio_track/notification/notification_services.dart';
 import 'package:physio_track/patient/patient_home_page.dart';
 import 'package:physio_track/patient/patient_home_screen.dart';
-import 'package:physio_track/patient/patient_navbar.dart';
 import 'package:physio_track/physio/physio_home_page.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/edit_profile_screen.dart';

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:physio_track/patient/patient_navbar.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/profile_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';

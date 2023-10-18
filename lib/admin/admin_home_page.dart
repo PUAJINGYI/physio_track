@@ -5,7 +5,6 @@ import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.
 import '../profile/screen/profile_screen.dart';
 import '../user_management/screen/navigation_page.dart';
 import 'admin_home_screeen.dart';
-import 'admin_navbar.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
@@ -41,6 +40,8 @@ class _AdminHomePageState extends State<AdminHomePage>
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.black,
         currentIndex: _currentIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: _navBarItems(),
         onTap: (value) {
           setState(() {

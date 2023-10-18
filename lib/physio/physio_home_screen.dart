@@ -6,7 +6,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:physio_track/achievement/screen/physio/patient_list_by_phiso_screen.dart';
 import 'package:physio_track/appointment/screen/physio/appointment_schedule_screen.dart';
-import 'package:physio_track/physio/physio_navbar.dart';
 import 'package:physio_track/user_management/screen/patient_list_screen.dart';
 
 import '../appointment/model/appointment_model.dart';
