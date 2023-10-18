@@ -106,19 +106,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Positioned(
               top: 25,
-              left: 0,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
               right: 0,
               child: IconButton(
                 icon: Stack(
@@ -270,19 +257,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   }),
                 ),
               ],
-            ),
-            Positioned(
-              top: 25,
-              left: 0,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
             ),
             Positioned(
               top: 25,

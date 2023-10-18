@@ -426,19 +426,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
               Positioned(
                 top: 25,
                 left: 0,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    size: 35.0,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              Positioned(
-                top: 25,
-                left: 0,
                 right: 0,
                 child: Container(
                   height: kToolbarHeight,
@@ -856,19 +843,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             ImageConstant.SCHEDULE,
             width: 200.0,
             height: 200.0,
-          ),
-        ),
-        Positioned(
-          top: 25,
-          left: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: 35.0,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
           ),
         ),
         Positioned(

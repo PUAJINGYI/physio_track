@@ -124,19 +124,6 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
           Positioned(
             top: 25,
             left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
             right: 0,
             child: Container(
               height: kToolbarHeight,
