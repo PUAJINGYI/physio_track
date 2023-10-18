@@ -12,7 +12,8 @@ class PatientListByPhysioScreen extends StatefulWidget {
   const PatientListByPhysioScreen({super.key});
 
   @override
-  State<PatientListByPhysioScreen> createState() => _PatientListByPhysioScreenState();
+  State<PatientListByPhysioScreen> createState() =>
+      _PatientListByPhysioScreenState();
 }
 
 class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
@@ -32,59 +33,6 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Patient List',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 60,
-            right: 0,
-            left: 0,
-            child: Image.asset(
-              ImageConstant.PATIENT_LIST,
-              width: 271.0,
-              height: 200.0,
-            ),
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -137,15 +85,15 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
                                     children: [
                                       CircleAvatar(
                                         radius: 40.0,
-                                        backgroundImage: patient
-                                                        .profileImageUrl ==
-                                                    null ||
-                                                patient.profileImageUrl == ''
-                                            ? AssetImage(
-                                                ImageConstant.DEFAULT_USER)
-                                            : NetworkImage(
-                                                    patient.profileImageUrl)
-                                                as ImageProvider<Object>?,
+                                        backgroundImage:
+                                            patient.profileImageUrl == null ||
+                                                    patient.profileImageUrl ==
+                                                        ''
+                                                ? AssetImage(
+                                                    ImageConstant.DEFAULT_USER)
+                                                : NetworkImage(
+                                                        patient.profileImageUrl)
+                                                    as ImageProvider<Object>?,
                                         backgroundColor: Colors.grey,
                                       ),
                                       SizedBox(height: 8.0),
@@ -172,6 +120,45 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
                 ),
               ),
             ],
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                'Patient List',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 60,
+            right: 0,
+            left: 0,
+            child: Image.asset(
+              ImageConstant.PATIENT_LIST,
+              width: 271.0,
+              height: 200.0,
+            ),
           ),
         ],
       ),

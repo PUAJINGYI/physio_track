@@ -41,45 +41,6 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
     return Scaffold(
         body: Stack(
       children: [
-        Positioned(
-          top: 25,
-          left: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: 35.0,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: kToolbarHeight,
-            alignment: Alignment.center,
-            child: Text(
-              'Notification',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 70,
-          right: 0,
-          left: 0,
-          child: Image.asset(
-            ImageConstant.NOTIFICATION,
-            width: 271.0,
-            height: 190.0,
-          ),
-        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -150,7 +111,6 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                     ],
                                   ),
                                 )),
-                               
                               ],
                             ),
                           ),
@@ -158,19 +118,58 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                       }
                       return Container();
                     })),
-                     Padding(
-                       padding: const EdgeInsets.all(8.0),
-                       child: customButton(
-                                      context,
-                                      'Back',
-                                      ColorConstant.BLUE_BUTTON_TEXT,
-                                      ColorConstant.BLUE_BUTTON_UNPRESSED,
-                                      ColorConstant.BLUE_BUTTON_PRESSED, () {
-                                    Navigator.pop(context);
-                                  }),
-                     )
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: customButton(
+                  context,
+                  'Back',
+                  ColorConstant.BLUE_BUTTON_TEXT,
+                  ColorConstant.BLUE_BUTTON_UNPRESSED,
+                  ColorConstant.BLUE_BUTTON_PRESSED, () {
+                Navigator.pop(context);
+              }),
+            )
           ],
-        )
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 35.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              'Notification',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 70,
+          right: 0,
+          left: 0,
+          child: Image.asset(
+            ImageConstant.NOTIFICATION,
+            width: 271.0,
+            height: 190.0,
+          ),
+        ),
       ],
     ));
   }

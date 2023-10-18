@@ -54,49 +54,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
-        Positioned(
-          top: 25,
-          left: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: 35.0,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          right: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.notifications_outlined,
-              size: 35.0,
-            ),
-            onPressed: () {
-              // Perform your desired action here
-              // For example, show notifications
-            },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: kToolbarHeight,
-            alignment: Alignment.center,
-            child: Text(
-              'Reset Password',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
         Container(
           height: MediaQuery.of(context).size.height * 0.7,
           decoration: BoxDecoration(
@@ -184,6 +141,35 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
               ),
             )),
+        Positioned(
+          top: 25,
+          left: 0,
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 35.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              'Reset Password',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       ]),
     );
   }

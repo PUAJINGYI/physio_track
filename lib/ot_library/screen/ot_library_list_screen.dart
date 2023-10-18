@@ -16,7 +16,7 @@ class OTLibraryListScreen extends StatefulWidget {
 
 class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
   final YoutubeExplode _ytExplode = YoutubeExplode();
-  
+
   @override
   void initState() {
     super.initState();
@@ -28,59 +28,6 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'OT Activity Library',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 60,
-            left: 0,
-            right: 5,
-            child: Image.asset(
-              ImageConstant.OT,
-              width: 211.0,
-              height: 169.0,
-            ),
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -108,8 +55,8 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                                ImageConstant.DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
+                            Image.asset(ImageConstant
+                                .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
                             Text('No OT Activity Found',
                                 style: TextStyle(
                                     fontSize: 20.0,
@@ -144,12 +91,13 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                               BorderRadius.circular(8.0),
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: otLibrary.thumbnailUrl != null
+                                            image: otLibrary.thumbnailUrl !=
+                                                    null
                                                 ? NetworkImage(
                                                         otLibrary.thumbnailUrl!)
                                                     as ImageProvider
-                                                : AssetImage(
-                                                        ImageConstant.DATA_NOT_FOUND)
+                                                : AssetImage(ImageConstant
+                                                        .DATA_NOT_FOUND)
                                                     as ImageProvider,
                                           ),
                                         ),
@@ -185,7 +133,6 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                     ),
                                   ),
                                 ),
-                                
                               ],
                             ),
                           ),
@@ -199,6 +146,45 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                 height: 90.0,
               )
             ],
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                'OT Activity Library',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 60,
+            left: 0,
+            right: 5,
+            child: Image.asset(
+              ImageConstant.OT,
+              width: 211.0,
+              height: 169.0,
+            ),
           ),
           Positioned(
             bottom: 20,

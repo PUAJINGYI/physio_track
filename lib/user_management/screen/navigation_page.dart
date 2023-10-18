@@ -13,12 +13,11 @@ class UserManagementPage extends StatefulWidget {
 }
 
 class _UserManagementPageState extends State<UserManagementPage> {
-
   void initState() {
     super.initState();
-    setState(() {
-    });
+    setState(() {});
   }
+
   int _selectedIndex = 0;
 
   static List<Widget> _pages = [
@@ -37,59 +36,6 @@ class _UserManagementPageState extends State<UserManagementPage> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'User Management',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 80,
-            right: 0,
-            left: 0,
-            child: Image.asset(
-              ImageConstant.ACCOUNT_MANAGE,
-              width: 271.0,
-              height: 170.0,
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Column(
@@ -130,6 +76,45 @@ class _UserManagementPageState extends State<UserManagementPage> {
                   ),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                'User Management',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 80,
+            right: 0,
+            left: 0,
+            child: Image.asset(
+              ImageConstant.ACCOUNT_MANAGE,
+              width: 271.0,
+              height: 170.0,
             ),
           ),
         ],
@@ -174,6 +159,3 @@ class NavigationBarItem extends StatelessWidget {
     );
   }
 }
-
-
-

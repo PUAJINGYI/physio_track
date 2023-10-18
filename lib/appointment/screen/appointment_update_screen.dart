@@ -138,7 +138,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
       "client_x509_cert_url": dotenv.get('CLIENT_X509_CERT_URL', fallback: ""),
       "universe_domain": dotenv.get('UNIVERSE_DOMAIN', fallback: ""),
     });
-    
+
     final scopes = [Calendar.CalendarApi.calendarScope];
 
     try {
@@ -172,70 +172,6 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Appointment Update',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 80,
-            right: 5,
-            child: Image.asset(
-              ImageConstant.APPOINTMENT,
-              width: 211.0,
-              height: 169.0,
-            ),
-          ),
-          Positioned(
-            top: 125,
-            left: 20,
-            child: Text('Physiotherapist incharge:',
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-          ),
-          Positioned(
-            top: 150,
-            left: 20,
-            child: Text(patientData['physio'] ?? '',
-                style: TextStyle(fontSize: 15.0)),
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -460,6 +396,56 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                 )
               ],
             ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                'Appointment Update',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 80,
+            right: 5,
+            child: Image.asset(
+              ImageConstant.APPOINTMENT,
+              width: 211.0,
+              height: 169.0,
+            ),
+          ),
+          Positioned(
+            top: 125,
+            left: 20,
+            child: Text('Physiotherapist incharge:',
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          ),
+          Positioned(
+            top: 150,
+            left: 20,
+            child: Text(patientData['physio'] ?? '',
+                style: TextStyle(fontSize: 15.0)),
           ),
         ],
       ),

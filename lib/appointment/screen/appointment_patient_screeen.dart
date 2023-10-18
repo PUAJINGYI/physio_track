@@ -247,99 +247,13 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             hasRecord == false) {
           return Stack(
             children: [
-              Positioned(
-                top: 50,
-                right: 0,
-                child: Image.asset(
-                  ImageConstant.SCHEDULE,
-                  width: 200.0,
-                  height: 200.0,
-                ),
-              ),
-              Positioned(
-                top: 25,
-                left: 0,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    size: 35.0,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              Positioned(
-                top: 25,
-                right: 0,
-                child: Stack(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.notifications_outlined,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NotificationListScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    if (hasUnreadNotifications)
-                      Positioned(
-                        right: 5,
-                        top: 5,
-                        child: Container(
-                          width: 10, // Adjust the size as needed
-                          height: 10, // Adjust the size as needed
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 25,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: kToolbarHeight,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Appointment',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 125,
-                left: 25,
-                child: Text('Planning',
-                    style:
-                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
-              ),
-              Positioned(
-                top: 160,
-                left: 50,
-                child: Text('appointment schedule',
-                    style: TextStyle(fontSize: 15.0)),
-              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(
-                      height: 230,
+                      height: 220,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -510,7 +424,93 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                     )
                   ],
                 ),
-              )
+              ),
+              Positioned(
+                top: 50,
+                right: 0,
+                child: Image.asset(
+                  ImageConstant.SCHEDULE,
+                  width: 200.0,
+                  height: 200.0,
+                ),
+              ),
+              Positioned(
+                top: 25,
+                left: 0,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 35.0,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              Positioned(
+                top: 25,
+                right: 0,
+                child: Stack(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.notifications_outlined,
+                        size: 35.0,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationListScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    if (hasUnreadNotifications)
+                      Positioned(
+                        right: 5,
+                        top: 5,
+                        child: Container(
+                          width: 10, // Adjust the size as needed
+                          height: 10, // Adjust the size as needed
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 25,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: kToolbarHeight,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Appointment',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 125,
+                left: 25,
+                child: Text('Planning',
+                    style:
+                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
+              ),
+              Positioned(
+                top: 160,
+                left: 50,
+                child: Text('appointment schedule',
+                    style: TextStyle(fontSize: 15.0)),
+              ),
             ],
           );
         } else {
@@ -525,6 +525,376 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
   Widget buildAppointmentWidget() {
     return Stack(
       children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 220,
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Appointment Status',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          15.0), // Adjust the radius as needed
+                      child: Card(
+                        color: _getCardBackgroundColor(
+                            latestPendingAppointment.isApproved),
+                        elevation: 5.0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _getText(
+                                          latestPendingAppointment.isApproved,
+                                          latestPendingAppointment.status,
+                                        ),
+                                        style: TextStyle(
+                                          color: _getTextColor(
+                                              latestPendingAppointment
+                                                  .isApproved),
+                                          fontSize: 22.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          DateFormat('jm').format(
+                                                  latestPendingAppointment
+                                                      .startTime) +
+                                              DateFormat(', dd MMM').format(
+                                                  latestPendingAppointment
+                                                      .startTime),
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Visibility(
+                              // Conditionally show the "Update" button
+                              visible: latestPendingAppointment.isApproved,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AppointmentUpdateScreen(
+                                                  appointmentId:
+                                                      latestPendingAppointment
+                                                          .id,
+                                                  appointmentDate:
+                                                      latestPendingAppointment
+                                                          .startTime,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Color.fromARGB(
+                                                255, 179, 209, 235),
+                                            primary: Colors.white,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.update,
+                                                color: Colors.blue,
+                                              ),
+                                              SizedBox(width: 10.0),
+                                              Text(
+                                                "Update",
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            showCancelConfirmationDialog(
+                                              context,
+                                              latestPendingAppointment
+                                                  .isApproved,
+                                              latestPendingAppointment.status,
+                                            );
+                                          },
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Color.fromARGB(
+                                                255, 241, 163, 157),
+                                            primary: Colors.white,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.cancel,
+                                                color: Colors.red,
+                                              ),
+                                              SizedBox(width: 10.0),
+                                              Text(
+                                                "Cancel",
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              // Conditionally show the "Update" button
+                              visible: !latestPendingAppointment.isApproved,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            showCancelConfirmationDialog(
+                                              context,
+                                              latestPendingAppointment
+                                                  .isApproved,
+                                              latestPendingAppointment.status,
+                                            );
+                                          },
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Color.fromARGB(
+                                                255, 241, 163, 157),
+                                            primary: Colors.white,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.cancel,
+                                                color: Colors.red,
+                                              ),
+                                              SizedBox(width: 10.0),
+                                              Text(
+                                                "Cancel",
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Appointment Booking',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                    child: latestPendingAppointment.startTime
+                            .isAfter(DateTime.now())
+                        ? IgnorePointer(
+                            ignoring: true,
+                            child: Card(
+                              color: Colors.grey.shade400,
+                              //elevation: 5.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  height: 150.0, // Adjust the height as needed
+                                  width: double.infinity,
+                                  child: Image.asset(
+                                    ImageConstant.APPOINTMENT_GREY,
+                                    // fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AppointmentBookingScreen(),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              color: Colors.blue.shade100,
+                              elevation: 5.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  height: 150.0, // Adjust the height as needed
+                                  width: double.infinity,
+                                  child: Image.asset(
+                                    ImageConstant.APPOINTMENT,
+                                    // fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Appointment History',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                AppointmentHistoryScreen(uid: uid),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        color: Colors.blue.shade100,
+                        elevation: 5.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: Container(
+                            height: 150.0, // Adjust the height as needed
+                            width: double.infinity,
+                            child: Image.asset(
+                              ImageConstant.APPOINTMENT_HISTORY,
+                              // fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
         Positioned(
           top: 50,
           right: 0,
@@ -609,362 +979,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
           left: 50,
           child: Text('appointment schedule', style: TextStyle(fontSize: 15.0)),
         ),
-        SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: 220,
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Appointment Status',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            15.0), // Adjust the radius as needed
-                        child: Card(
-                          color: _getCardBackgroundColor(
-                              latestPendingAppointment.isApproved),
-                          elevation: 5.0,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          _getText(
-                                            latestPendingAppointment.isApproved,
-                                            latestPendingAppointment.status,
-                                          ),
-                                          style: TextStyle(
-                                            color: _getTextColor(
-                                                latestPendingAppointment.isApproved),
-                                            fontSize: 22.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            DateFormat('jm').format(
-                                                    latestPendingAppointment
-                                                        .startTime) +
-                                                DateFormat(', dd MMM').format(
-                                                    latestPendingAppointment
-                                                        .startTime),
-                                            style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                // Conditionally show the "Update" button
-                                visible: latestPendingAppointment.isApproved,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(25.0),
-                                          child: TextButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AppointmentUpdateScreen(
-                                                    appointmentId:
-                                                        latestPendingAppointment.id,
-                                                    appointmentDate:
-                                                        latestPendingAppointment
-                                                            .startTime,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            style: TextButton.styleFrom(
-                                              backgroundColor:
-                                                  Color.fromARGB(255, 179, 209, 235),
-                                              primary: Colors.white,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.update,
-                                                  color: Colors.blue,
-                                                ),
-                                                SizedBox(width: 10.0),
-                                                Text(
-                                                  "Update",
-                                                  style: TextStyle(
-                                                    fontSize: 15.0,
-                                                    color: Colors.blue,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(25.0),
-                                          child: TextButton(
-                                            onPressed: () {
-                                              showCancelConfirmationDialog(
-                                                context,
-                                                latestPendingAppointment.isApproved,
-                                                latestPendingAppointment.status,
-                                              );
-                                            },
-                                            style: TextButton.styleFrom(
-                                              backgroundColor:
-                                                  Color.fromARGB(255, 241, 163, 157),
-                                              primary: Colors.white,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.cancel,
-                                                  color: Colors.red,
-                                                ),
-                                                SizedBox(width: 10.0),
-                                                Text(
-                                                  "Cancel",
-                                                  style: TextStyle(
-                                                    fontSize: 15.0,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                // Conditionally show the "Update" button
-                                visible: !latestPendingAppointment.isApproved,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(25.0),
-                                          child: TextButton(
-                                            onPressed: () {
-                                              showCancelConfirmationDialog(
-                                                context,
-                                                latestPendingAppointment.isApproved,
-                                                latestPendingAppointment.status,
-                                              );
-                                            },
-                                            style: TextButton.styleFrom(
-                                              backgroundColor:
-                                                  Color.fromARGB(255, 241, 163, 157),
-                                              primary: Colors.white,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.cancel,
-                                                  color: Colors.red,
-                                                ),
-                                                SizedBox(width: 10.0),
-                                                Text(
-                                                  "Cancel",
-                                                  style: TextStyle(
-                                                    fontSize: 15.0,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Appointment Booking',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      child: latestPendingAppointment.startTime
-                              .isAfter(DateTime.now())
-                          ? IgnorePointer(
-                              ignoring: true,
-                              child: Card(
-                                color: Colors.grey.shade400,
-                                //elevation: 5.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  child: Container(
-                                    height: 150.0, // Adjust the height as needed
-                                    width: double.infinity,
-                                    child: Image.asset(
-                                      ImageConstant.APPOINTMENT_GREY,
-                                      // fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          : GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AppointmentBookingScreen(),
-                                  ),
-                                );
-                              },
-                              child: Card(
-                                color: Colors.blue.shade100,
-                                elevation: 5.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  child: Container(
-                                    height: 150.0, // Adjust the height as needed
-                                    width: double.infinity,
-                                    child: Image.asset(
-                                      ImageConstant.APPOINTMENT,
-                                      // fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Appointment History',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  AppointmentHistoryScreen(uid: uid),
-                            ),
-                          );
-                        },
-                        child: Card(
-                          color: Colors.blue.shade100,
-                          elevation: 5.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15.0),
-                            child: Container(
-                              height: 150.0, // Adjust the height as needed
-                              width: double.infinity,
-                              child: Image.asset(
-                                ImageConstant.APPOINTMENT_HISTORY,
-                                // fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        )
       ],
     );
   }

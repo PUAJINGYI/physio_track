@@ -135,67 +135,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
             } else {
               return Stack(
                 children: [
-                  Positioned(
-                    top: 25,
-                    left: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 25,
-                    right: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.notifications_outlined,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        // Perform your desired action here
-                        // For example, show notifications
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 25,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: kToolbarHeight,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'PT Activities',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 90,
-                    left: 0,
-                    right: 0,
-                    child: CircularPercentIndicator(
-                      radius: 90,
-                      lineWidth: 20.0,
-                      percent: progress,
-                      progressColor: Colors.blue,
-                      backgroundColor: Colors.blue.shade100,
-                      circularStrokeCap: CircularStrokeCap.round,
-                      center: Image.asset(
-                        ImageConstant.PT,
-                        width: 211.0,
-                        height: 169.0,
-                      ),
-                    ),
-                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -817,6 +756,53 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                         height: 60.0,
                       )
                     ],
+                  ),
+                  Positioned(
+                    top: 25,
+                    left: 0,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 35.0,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    top: 25,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: kToolbarHeight,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'PT Activities',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 90,
+                    left: 0,
+                    right: 0,
+                    child: CircularPercentIndicator(
+                      radius: 90,
+                      lineWidth: 20.0,
+                      percent: progress,
+                      progressColor: Colors.blue,
+                      backgroundColor: Colors.blue.shade100,
+                      circularStrokeCap: CircularStrokeCap.round,
+                      center: Image.asset(
+                        ImageConstant.PT,
+                        width: 211.0,
+                        height: 169.0,
+                      ),
+                    ),
                   ),
                 ],
               );

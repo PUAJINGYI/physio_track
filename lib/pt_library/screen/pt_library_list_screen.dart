@@ -15,7 +15,7 @@ class PTLibraryListScreen extends StatefulWidget {
 
 class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
   final YoutubeExplode _ytExplode = YoutubeExplode();
-  
+
   @override
   void initState() {
     super.initState();
@@ -27,59 +27,6 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'PT Activity Library',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 60,
-            left: 0,
-            right: 5,
-            child: Image.asset(
-              ImageConstant.PT,
-              width: 211.0,
-              height: 169.0,
-            ),
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -107,8 +54,8 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                                ImageConstant.DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
+                            Image.asset(ImageConstant
+                                .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
                             Text('No PT Activity Found',
                                 style: TextStyle(
                                     fontSize: 20.0,
@@ -143,12 +90,13 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                                               BorderRadius.circular(8.0),
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: ptLibrary.thumbnailUrl != null
+                                            image: ptLibrary.thumbnailUrl !=
+                                                    null
                                                 ? NetworkImage(
                                                         ptLibrary.thumbnailUrl!)
                                                     as ImageProvider
-                                                : AssetImage(
-                                                        ImageConstant.DATA_NOT_FOUND)
+                                                : AssetImage(ImageConstant
+                                                        .DATA_NOT_FOUND)
                                                     as ImageProvider,
                                           ),
                                         ),
@@ -184,7 +132,6 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                                     ),
                                   ),
                                 ),
-                                
                               ],
                             ),
                           ),
@@ -198,6 +145,45 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                 height: 90.0,
               )
             ],
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                'PT Activity Library',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 60,
+            left: 0,
+            right: 5,
+            child: Image.asset(
+              ImageConstant.PT,
+              width: 211.0,
+              height: 169.0,
+            ),
           ),
           Positioned(
             bottom: 20,

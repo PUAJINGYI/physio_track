@@ -139,51 +139,6 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
           key: _formKey,
           child: Stack(
             children: [
-              Positioned(
-                top: 25,
-                left: 0,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    size: 35.0,
-                  ),
-                  onPressed: () {
-                    // Perform your desired action here
-                    // For example, navigate to the previous screen
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              Positioned(
-                top: 25,
-                right: 0,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.notifications_outlined,
-                    size: 35.0,
-                  ),
-                  onPressed: () {
-                    // Perform your desired action here
-                    // For example, show notifications
-                  },
-                ),
-              ),
-              Positioned(
-                top: 25,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: kToolbarHeight,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Journal',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -461,6 +416,37 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                     }),
                   )
                 ],
+              ),
+              Positioned(
+                top: 25,
+                left: 0,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 35.0,
+                  ),
+                  onPressed: () {
+                    // Perform your desired action here
+                    // For example, navigate to the previous screen
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              Positioned(
+                top: 25,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: kToolbarHeight,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Journal',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
               Positioned(
                 top: 135,

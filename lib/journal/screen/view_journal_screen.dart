@@ -231,86 +231,6 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Positioned(
-              top: 25,
-              left: 0,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  // Perform your desired action here
-                  // For example, navigate to the previous screen
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
-              right: 60,
-              child: IconButton(
-                icon: Icon(
-                  Icons.edit_outlined,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  // Perform your desired action here
-                  // For example, navigate to the edit journal screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditJournalScreen(
-                        journalId: widget.journalId,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
-              right: 30,
-              child: IconButton(
-                icon: Icon(
-                  Icons.delete_outline,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  showDeleteConfirmationDialog(context);
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
-              right: 0,
-              child: IconButton(
-                icon: Icon(
-                  Icons.notifications_outlined,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  // Perform your desired action here
-                  // For example, show notifications
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: kToolbarHeight,
-                alignment: Alignment.center,
-                child: Text(
-                  'Journal',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -552,6 +472,72 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                   }),
                 )
               ],
+            ),
+            Positioned(
+              top: 25,
+              left: 0,
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  size: 35.0,
+                ),
+                onPressed: () {
+                  // Perform your desired action here
+                  // For example, navigate to the previous screen
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Positioned(
+              top: 25,
+              right: 60,
+              child: IconButton(
+                icon: Icon(
+                  Icons.edit_outlined,
+                  size: 35.0,
+                ),
+                onPressed: () {
+                  // Perform your desired action here
+                  // For example, navigate to the edit journal screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditJournalScreen(
+                        journalId: widget.journalId,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Positioned(
+              top: 25,
+              right: 30,
+              child: IconButton(
+                icon: Icon(
+                  Icons.delete_outline,
+                  size: 35.0,
+                ),
+                onPressed: () {
+                  showDeleteConfirmationDialog(context);
+                },
+              ),
+            ),
+            Positioned(
+              top: 25,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: kToolbarHeight,
+                alignment: Alignment.center,
+                child: Text(
+                  'Journal',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
             Positioned(
               top: 110,

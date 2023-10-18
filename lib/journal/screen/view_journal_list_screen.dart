@@ -25,70 +25,6 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Journal',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 80,
-            right: 5,
-            child: Image.asset(
-              ImageConstant.JOURNAL_IMAGE,
-              width: 211.0,
-              height: 169.0,
-            ),
-          ),
-          Positioned(
-            top: 125,
-            left: 25,
-            child: Text('Express',
-                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
-          ),
-          Positioned(
-            top: 160,
-            left: 40,
-            child: Text('your feelings and thought',
-                style: TextStyle(fontSize: 15.0)),
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -118,8 +54,8 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                                ImageConstant.DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
+                            Image.asset(ImageConstant
+                                .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
                             Text('No Journal Found',
                                 style: TextStyle(
                                     fontSize: 20.0,
@@ -155,7 +91,8 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                           errorBuilder:
                                               (context, error, stackTrace) {
                                             return Image.asset(
-                                              ImageConstant.DEFAULT_JOURNAL, // Replace with the default image path
+                                              ImageConstant
+                                                  .DEFAULT_JOURNAL, // Replace with the default image path
                                               fit: BoxFit.cover,
                                             );
                                           },
@@ -208,8 +145,59 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                 ),
               ),
               SizedBox(
-                height: 90.0,)
+                height: 90.0,
+              )
             ],
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                'Journal',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 80,
+            right: 5,
+            child: Image.asset(
+              ImageConstant.JOURNAL_IMAGE,
+              width: 211.0,
+              height: 169.0,
+            ),
+          ),
+          Positioned(
+            top: 125,
+            left: 25,
+            child: Text('Express',
+                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
+          ),
+          Positioned(
+            top: 160,
+            left: 40,
+            child: Text('your feelings and thought',
+                style: TextStyle(fontSize: 15.0)),
           ),
           Positioned(
             bottom: 20,

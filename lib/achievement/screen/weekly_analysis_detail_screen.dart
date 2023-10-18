@@ -30,70 +30,6 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                '${DateFormat('MMM dd').format(widget.ot.date.toDate())}\'s progress',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 45,
-            right: 5,
-            child: Image.asset(
-              ImageConstant.PROGRESS,
-              width: 220.0,
-              height: 220.0,
-            ),
-          ),
-          Positioned(
-            top: 125,
-            left: 25,
-            child: Text('Keep Going',
-                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
-          ),
-          Positioned(
-            top: 160,
-            left: 50,
-            child: Text('Start today’s progress',
-                style: TextStyle(fontSize: 15.0)),
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -120,7 +56,9 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
                                 WeeklyAnalysisPTActivityDetailScreen(
-                              id: widget.pt.id, uid: widget.uid, isPatientView: true,
+                              id: widget.pt.id,
+                              uid: widget.uid,
+                              isPatientView: true,
                             ),
                           ));
                         }
@@ -185,7 +123,9 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
                                 WeeklyAnalysisOTActivityDetailScreen(
-                              id: widget.ot.id, uid: widget.uid, isPatientView: true,
+                              id: widget.ot.id,
+                              uid: widget.uid,
+                              isPatientView: true,
                             ),
                           ));
                         }
@@ -235,6 +175,56 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                 ),
               ],
             ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                '${DateFormat('MMM dd').format(widget.ot.date.toDate())}\'s progress',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 45,
+            right: 5,
+            child: Image.asset(
+              ImageConstant.PROGRESS,
+              width: 220.0,
+              height: 220.0,
+            ),
+          ),
+          Positioned(
+            top: 125,
+            left: 25,
+            child: Text('Keep Going',
+                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
+          ),
+          Positioned(
+            top: 160,
+            left: 50,
+            child: Text('Start today’s progress',
+                style: TextStyle(fontSize: 15.0)),
           ),
         ],
       ),

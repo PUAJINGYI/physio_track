@@ -305,7 +305,10 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
 
       // Construct the WhatsApp URL
       //final url = 'https://wa.me/$number/?text=${Uri.parse(message)}';
-      final url = dotenv.get('WHATSAPP_API_KEY', fallback: '') + number + dotenv.get('WHATSAPP_WITH_TEXT', fallback: '') + Uri.parse(message).toString();
+      final url = dotenv.get('WHATSAPP_API_KEY', fallback: '') +
+          number +
+          dotenv.get('WHATSAPP_WITH_TEXT', fallback: '') +
+          Uri.parse(message).toString();
 
       if (await canLaunch(url)) {
         await launch(url);
@@ -343,49 +346,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     return Scaffold(
         body: Stack(
       children: [
-        Positioned(
-          top: 25,
-          left: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: 35.0,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          right: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.notifications_outlined,
-              size: 35.0,
-            ),
-            onPressed: () {
-              // Perform your desired action here
-              // For example, show notifications
-            },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: kToolbarHeight,
-            alignment: Alignment.center,
-            child: Text(
-              'Patient Details',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -461,7 +421,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: Image.asset(
-                                          ImageConstant.LEVEL, // Replace with your image path
+                                          ImageConstant
+                                              .LEVEL, // Replace with your image path
                                           width: 60.0,
                                           height: 60.0,
                                         ),
@@ -654,14 +615,14 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                   child: GestureDetector(
                                     onTap: () {
                                       // Navigate to the other page when the card is tapped
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            WeeklyAnalysisPTActivityDetailScreen(
-                                           id: todayPT.id, uid: uid, isPatientView: false,
-
-                                            )
-                                      ));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  WeeklyAnalysisPTActivityDetailScreen(
+                                                    id: todayPT.id,
+                                                    uid: uid,
+                                                    isPatientView: false,
+                                                  )));
                                     },
                                     child: Card(
                                       elevation: 5.0,
@@ -710,11 +671,12 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                   child: GestureDetector(
                                     onTap: () {
                                       // Navigate to the other page when the card is tapped
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) =>
-                                         WeeklyAnalysisOTActivityDetailScreen(id: todayOT.id, uid: uid, isPatientView: false)
-                                      ));
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) =>
+                                              WeeklyAnalysisOTActivityDetailScreen(
+                                                  id: todayOT.id,
+                                                  uid: uid,
+                                                  isPatientView: false)));
                                     },
                                     child: Card(
                                       elevation: 5.0,
@@ -912,6 +874,35 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
               ),
             )
           ],
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 35.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              'Patient Details',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
         Positioned(
             top: 190,

@@ -105,89 +105,6 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
           } else {
             return Stack(
               children: [
-                Positioned(
-                  top: 25,
-                  left: 0,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      size: 35.0,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                Positioned(
-                  top: 25,
-                  right: 0,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.notifications_outlined,
-                      size: 35.0,
-                    ),
-                    onPressed: () {
-                      // Perform your desired action here
-                      // For example, show notifications
-                    },
-                  ),
-                ),
-                Positioned(
-                  top: 25,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: kToolbarHeight,
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Weekly Analysis',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 64,
-                  right: 5,
-                  child: Image.asset(
-                    ImageConstant.WEEKLY_ANALYSIS,
-                    width: 200.0,
-                    height: 170.0,
-                  ),
-                ),
-                Positioned(
-                  top: 125,
-                  left: 25,
-                  child: Text('Check it out!',
-                      style: TextStyle(
-                          fontSize: 30.0, fontWeight: FontWeight.bold)),
-                ),
-                Positioned(
-                  top: 160,
-                  left: 60,
-                  child: Text('Here is your records',
-                      style: TextStyle(fontSize: 15.0)),
-                ),
-                Positioned(
-                  top: kToolbarHeight + 240,
-                  left: 16.0,
-                  right: 16.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'From: ${DateFormat('dd/MM/yyyy').format(fromDate)}',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Text(
-                        'To: ${DateFormat('dd/MM/yyyy').format(toDate)}',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -203,8 +120,8 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                               Container(
                                 width: 100.0,
                                 height: 100.0,
-                                child: Image.asset(
-                                    ImageConstant.DATA_NOT_FOUND),
+                                child:
+                                    Image.asset(ImageConstant.DATA_NOT_FOUND),
                               ),
                               Text('No Record Found',
                                   style: TextStyle(
@@ -270,6 +187,75 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                       height: 40.0,
                     ),
                   ],
+                ),
+                Positioned(
+                  top: 25,
+                  left: 0,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 35.0,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Positioned(
+                  top: 25,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: kToolbarHeight,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Weekly Analysis',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 64,
+                  right: 5,
+                  child: Image.asset(
+                    ImageConstant.WEEKLY_ANALYSIS,
+                    width: 200.0,
+                    height: 170.0,
+                  ),
+                ),
+                Positioned(
+                  top: 125,
+                  left: 25,
+                  child: Text('Check it out!',
+                      style: TextStyle(
+                          fontSize: 30.0, fontWeight: FontWeight.bold)),
+                ),
+                Positioned(
+                  top: 160,
+                  left: 60,
+                  child: Text('Here is your records',
+                      style: TextStyle(fontSize: 15.0)),
+                ),
+                Positioned(
+                  top: kToolbarHeight + 240,
+                  left: 16.0,
+                  right: 16.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'From: ${DateFormat('dd/MM/yyyy').format(fromDate)}',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        'To: ${DateFormat('dd/MM/yyyy').format(toDate)}',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
                 ),
                 Positioned(
                     top: kToolbarHeight + 150,

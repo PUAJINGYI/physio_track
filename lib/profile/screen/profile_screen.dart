@@ -11,6 +11,8 @@ import '../../authentication/service/auth_manager.dart';
 import '../../authentication/signin_screen.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../notification/screen/notification_list_screen.dart';
+import '../../notification/service/notification_service.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -21,14 +23,27 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   late Map<String, dynamic> userData = {};
   String? profileImageUrl;
   AuthManager _authManager = AuthManager();
+  NotificationService notificationService = NotificationService();
+  bool hasUnreadNotifications = false;
 
   @override
   void initState() {
     super.initState();
+    checkUnreadNotifications();
     getUserData();
+  }
+
+  Future<void> checkUnreadNotifications() async {
+    final notifications = await notificationService.fetchNotificationList(uid);
+    final unreadNotifications =
+        notifications.where((notification) => !notification.isRead).toList();
+    setState(() {
+      hasUnreadNotifications = unreadNotifications.isNotEmpty;
+    });
   }
 
   Future<void> getUserData() async {
@@ -86,57 +101,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     if (userData.isEmpty) {
-      return Stack(
-        children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: CircularProgressIndicator(),
-          ),
-        ],
-      );
-    } else {
       return Scaffold(
         body: Stack(
           children: [
@@ -157,13 +121,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
               top: 25,
               right: 0,
               child: IconButton(
-                icon: Icon(
-                  Icons.notifications_outlined,
-                  size: 35.0,
+                icon: Stack(
+                  children: [
+                    Icon(
+                      Icons.notifications_outlined,
+                      size: 35.0,
+                    ),
+                    if (hasUnreadNotifications)
+                      Positioned(
+                        right: 5,
+                        top: 5,
+                        child: Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
                 onPressed: () {
-                  // Perform your desired action here
-                  // For example, show notifications
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationListScreen(),
+                    ),
+                  );
                 },
               ),
             ),
@@ -183,6 +168,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Scaffold(
+        body: Stack(
+          children: [
             ListView(
               // padding: EdgeInsets.all(16.0),
               children: [
@@ -198,11 +193,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           CircleAvatar(
                             radius: 75,
-                            backgroundImage: profileImageUrl == null ||
-                                    profileImageUrl == ''
-                                ? AssetImage(ImageConstant.DEFAULT_USER)
-                                : NetworkImage(profileImageUrl!)
-                                    as ImageProvider<Object>?,
+                            backgroundImage:
+                                profileImageUrl == null || profileImageUrl == ''
+                                    ? AssetImage(ImageConstant.DEFAULT_USER)
+                                    : NetworkImage(profileImageUrl!)
+                                        as ImageProvider<Object>?,
                             backgroundColor: Colors.grey,
                           ),
                           SizedBox(width: 10),
@@ -275,6 +270,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   }),
                 ),
               ],
+            ),
+            Positioned(
+              top: 25,
+              left: 0,
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  size: 35.0,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Positioned(
+              top: 25,
+              right: 0,
+              child: IconButton(
+                icon: Stack(
+                  children: [
+                    Icon(
+                      Icons.notifications_outlined,
+                      size: 35.0,
+                    ),
+                    if (hasUnreadNotifications)
+                      Positioned(
+                        right: 5,
+                        top: 5,
+                        child: Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationListScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Positioned(
+              top: 25,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: kToolbarHeight,
+                alignment: Alignment.center,
+                child: Text(
+                  'Profile',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

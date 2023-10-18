@@ -22,82 +22,79 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return Scaffold(
         body: Stack(
       children: [
-        Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Home',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        Positioned(
-            top: 50,
-            right: -10,
-            child: Image.asset(
-              ImageConstant.ADMIN_HOME,
-              width: 211.0,
-              height: 169.0,
-            ),
-          ),
-          Positioned(
-            top: 125,
-            left: 25,
-            child: Text('Welcome, Admin',
-                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
-          ),
-          Positioned(
-            top: 160,
-            left: 40,
-            child: Text('Start your administration task',
-                style: TextStyle(fontSize: 13.0)),
-          ),
         Column(
           children: [
             SizedBox(
               height: 250,
             ),
-            customClickableCard('Appointment Management', AssetImage(ImageConstant.APPOINTMENT), () => {
-              print('press'),
-              //action
-            }),
+            customClickableCard(
+                'Appointment Management',
+                AssetImage(ImageConstant.APPOINTMENT),
+                () => {
+                      print('press'),
+                      //action
+                    }),
             SizedBox(
               height: 10,
             ),
-            customClickableCard('Screening Test', AssetImage(ImageConstant.SCREENING_TEST), () => {
-              print('press'),
-              //action
-            }),
+            customClickableCard(
+                'Screening Test',
+                AssetImage(ImageConstant.SCREENING_TEST),
+                () => {
+                      print('press'),
+                      //action
+                    }),
             SizedBox(
               height: 10,
             ),
-            customClickableCard('User Management', AssetImage(ImageConstant.ACCOUNT_MANAGE), () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UserManagementPage())),
-            }),
+            customClickableCard(
+                'User Management',
+                AssetImage(ImageConstant.ACCOUNT_MANAGE),
+                () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserManagementPage())),
+                    }),
           ],
-        )
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              'Home',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 50,
+          right: -10,
+          child: Image.asset(
+            ImageConstant.ADMIN_HOME,
+            width: 211.0,
+            height: 169.0,
+          ),
+        ),
+        Positioned(
+          top: 125,
+          left: 25,
+          child: Text('Welcome, Admin',
+              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
+        ),
+        Positioned(
+          top: 160,
+          left: 40,
+          child: Text('Start your administration task',
+              style: TextStyle(fontSize: 13.0)),
+        ),
       ],
     ));
   }

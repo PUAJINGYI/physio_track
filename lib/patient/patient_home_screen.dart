@@ -101,48 +101,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Home',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 100,
-            left: 25,
-            child: Text('Welcome, User',
-                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
-          ),
-          Positioned(
-            top: 135,
-            left: 60,
-            child: Text('Start your today\'s progress',
-                style: TextStyle(fontSize: 17.0)),
-          ),
           Column(
             children: [
               SizedBox(
@@ -167,8 +125,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                     horizontal: 14.0), // Adjust the padding as needed
                 child: Row(
                   children: [
-                    exerciseCard(context, ptProgress, ImageConstant.PT,
-                        'PT', '8.00 AM - 1.30 PM', () {
+                    exerciseCard(context, ptProgress, ImageConstant.PT, 'PT',
+                        '8.00 AM - 1.30 PM', () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -177,8 +135,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       );
                     }),
                     SizedBox(width: 10.0), // Add spacing between cards
-                    exerciseCard(context, otProgress, ImageConstant.OT,
-                        'OT', '8.00 AM - 1.30 PM', () {
+                    exerciseCard(context, otProgress, ImageConstant.OT, 'OT',
+                        '8.00 AM - 1.30 PM', () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -217,12 +175,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                     customHalfSizeCard(context, ImageConstant.PROGRESS,
                         'Progress', Color.fromARGB(255, 255, 205, 210), () {}),
                     SizedBox(width: 10.0), // Add spacing between cards
-                    customHalfSizeCard(
-                        context,
-                        ImageConstant.JOURNAL_IMAGE,
-                        'Journal',
-                        Color.fromARGB(255, 200, 230, 201),
-                        () {}),
+                    customHalfSizeCard(context, ImageConstant.JOURNAL_IMAGE,
+                        'Journal', Color.fromARGB(255, 200, 230, 201), () {}),
                   ],
                 ),
               ),
@@ -253,6 +207,34 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                 ),
               )
             ],
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                'Home',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 100,
+            left: 25,
+            child: Text('Welcome, User',
+                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
+          ),
+          Positioned(
+            top: 135,
+            left: 60,
+            child: Text('Start your today\'s progress',
+                style: TextStyle(fontSize: 17.0)),
           ),
         ],
       ),

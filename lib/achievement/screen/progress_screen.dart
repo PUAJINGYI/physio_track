@@ -233,70 +233,6 @@ class ProgressScreenState extends State<ProgressScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 25,
-            left: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35.0,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Progress',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 45,
-            right: 5,
-            child: Image.asset(
-              ImageConstant.PROGRESS,
-              width: 220.0,
-              height: 220.0,
-            ),
-          ),
-          Positioned(
-            top: 125,
-            left: 25,
-            child: Text('Keep Going',
-                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
-          ),
-          Positioned(
-            top: 160,
-            left: 50,
-            child: Text('Start today’s progress',
-                style: TextStyle(fontSize: 15.0)),
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -345,7 +281,8 @@ class ProgressScreenState extends State<ProgressScreen> {
                                           child: Container(
                                             alignment: Alignment.center,
                                             child: Image.asset(
-                                              ImageConstant.LEVEL, // Replace with your image path
+                                              ImageConstant
+                                                  .LEVEL, // Replace with your image path
                                               width: 60.0,
                                               height: 60.0,
                                             ),
@@ -817,6 +754,56 @@ class ProgressScreenState extends State<ProgressScreen> {
                 ),
               ],
             ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                'Progress',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 45,
+            right: 5,
+            child: Image.asset(
+              ImageConstant.PROGRESS,
+              width: 220.0,
+              height: 220.0,
+            ),
+          ),
+          Positioned(
+            top: 125,
+            left: 25,
+            child: Text('Keep Going',
+                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
+          ),
+          Positioned(
+            top: 160,
+            left: 50,
+            child: Text('Start today’s progress',
+                style: TextStyle(fontSize: 15.0)),
           ),
         ],
       ),

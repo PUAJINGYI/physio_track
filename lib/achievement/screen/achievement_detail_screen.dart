@@ -29,19 +29,6 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
         child: Center(
           child: Stack(
             children: [
-              Positioned(
-                top: 25,
-                left: 0,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    size: 35.0,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -122,6 +109,19 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                     ),
                   ),
                 ],
+              ),
+              Positioned(
+                top: 25,
+                left: 0,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 35.0,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ),
             ],
           ),

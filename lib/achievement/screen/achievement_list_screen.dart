@@ -11,7 +11,7 @@ import '../service/achievement_service.dart';
 import 'achievement_detail_screen.dart';
 
 class AchievementListScreen extends StatefulWidget {
-  final String uid; 
+  final String uid;
   const AchievementListScreen({super.key, required this.uid});
 
   @override
@@ -19,7 +19,7 @@ class AchievementListScreen extends StatefulWidget {
 }
 
 class _AchievementListScreenState extends State<AchievementListScreen> {
- // String uId = FirebaseAuth.instance.currentUser!.uid;
+  // String uId = FirebaseAuth.instance.currentUser!.uid;
   final AchievementService _achievementService = AchievementService();
   late Map<UserAchievement, Achievement> achievementMap = {};
 
@@ -55,6 +55,31 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
         if (snapshot.connectionState == ConnectionState.done) {
           return Stack(
             children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
+                  children: [
+                    SizedBox(height: 240),
+                    Expanded(
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Two columns
+                        ),
+                        padding: EdgeInsets.zero,
+                        itemCount: achievementMap.length,
+                        itemBuilder: (context, index) {
+                          final UserAchievement achievement =
+                              achievementMap.keys.elementAt(index);
+                          final Achievement ach =
+                              achievementMap.values.elementAt(index);
+                          return AchievementCard(
+                              achievement: achievement, ach: ach);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Positioned(
                 top: 25,
                 left: 0,
@@ -65,20 +90,6 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
                   ),
                   onPressed: () {
                     Navigator.pop(context);
-                  },
-                ),
-              ),
-              Positioned(
-                top: 25,
-                right: 0,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.notifications_outlined,
-                    size: 35.0,
-                  ),
-                  onPressed: () {
-                    // Perform your desired action here
-                    // For example, show notifications
                   },
                 ),
               ),
@@ -120,31 +131,6 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
                 child: Text('Unlock more goals!',
                     style: TextStyle(fontSize: 15.0)),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: Column(
-                  children: [
-                    SizedBox(height: 240),
-                    Expanded(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // Two columns
-                        ),
-                        padding: EdgeInsets.zero,
-                        itemCount: achievementMap.length,
-                        itemBuilder: (context, index) {
-                          final UserAchievement achievement =
-                              achievementMap.keys.elementAt(index);
-                          final Achievement ach =
-                              achievementMap.values.elementAt(index);
-                          return AchievementCard(
-                              achievement: achievement, ach: ach);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              )
             ],
           );
         } else {
@@ -170,7 +156,10 @@ class AchievementCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AchievementDetailScreen(achievement: ach, userAchievement: achievement,), // Pass the achievement details to the new screen
+            builder: (context) => AchievementDetailScreen(
+              achievement: ach,
+              userAchievement: achievement,
+            ), // Pass the achievement details to the new screen
           ),
         );
       },
@@ -201,7 +190,8 @@ class AchievementCard extends StatelessWidget {
                   height: 150.0, // Set the fixed height
                   child: Image.network(
                     ach.imageUrl,
-                    fit: BoxFit.fitHeight, // You can specify the BoxFit as needed
+                    fit: BoxFit
+                        .fitHeight, // You can specify the BoxFit as needed
                   ),
                 ),
               ),
@@ -246,4 +236,3 @@ class AchievementCard extends StatelessWidget {
     );
   }
 }
-

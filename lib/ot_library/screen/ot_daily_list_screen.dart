@@ -128,67 +128,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
             } else {
               return Stack(
                 children: [
-                  Positioned(
-                    top: 25,
-                    left: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 25,
-                    right: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.notifications_outlined,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        // Perform your desired action here
-                        // For example, show notifications
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 25,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: kToolbarHeight,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Today\'s OT Activities',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 90,
-                    left: 0,
-                    right: 0,
-                    child: CircularPercentIndicator(
-                      radius: 90,
-                      lineWidth: 20.0,
-                      percent: progress,
-                      progressColor: Colors.blue,
-                      backgroundColor: Colors.blue.shade100,
-                      circularStrokeCap: CircularStrokeCap.round,
-                      center: Image.asset(
-                        ImageConstant.OT,
-                        width: 211.0,
-                        height: 169.0,
-                      ),
-                    ),
-                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -239,8 +178,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                         ? NetworkImage(otLibrary
                                                                 .thumbnailUrl!)
                                                             as ImageProvider
-                                                        : AssetImage(
-                                                                ImageConstant.DATA_NOT_FOUND)
+                                                        : AssetImage(ImageConstant
+                                                                .DATA_NOT_FOUND)
                                                             as ImageProvider,
                                                   ),
                                                 ),
@@ -355,8 +294,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                         ? NetworkImage(otLibrary
                                                                 .thumbnailUrl!)
                                                             as ImageProvider
-                                                        : AssetImage(
-                                                                ImageConstant.DATA_NOT_FOUND)
+                                                        : AssetImage(ImageConstant
+                                                                .DATA_NOT_FOUND)
                                                             as ImageProvider,
                                                   ),
                                                 ),
@@ -458,6 +397,53 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                         height: 60.0,
                       )
                     ],
+                  ),
+                  Positioned(
+                    top: 25,
+                    left: 0,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 35.0,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    top: 25,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: kToolbarHeight,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Today\'s OT Activities',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 90,
+                    left: 0,
+                    right: 0,
+                    child: CircularPercentIndicator(
+                      radius: 90,
+                      lineWidth: 20.0,
+                      percent: progress,
+                      progressColor: Colors.blue,
+                      backgroundColor: Colors.blue.shade100,
+                      circularStrokeCap: CircularStrokeCap.round,
+                      center: Image.asset(
+                        ImageConstant.OT,
+                        width: 211.0,
+                        height: 169.0,
+                      ),
+                    ),
                   ),
                 ],
               );

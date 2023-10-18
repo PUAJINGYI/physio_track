@@ -63,59 +63,6 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
     return Scaffold(
         body: Stack(
       children: [
-        Positioned(
-          top: 25,
-          left: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: 35.0,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          right: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.notifications_outlined,
-              size: 35.0,
-            ),
-            onPressed: () {
-              // Perform your desired action here
-              // For example, show notifications
-            },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: kToolbarHeight,
-            alignment: Alignment.center,
-            child: Text(
-              'Appointment History',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 60,
-          right: 0,
-          left: 0,
-          child: Image.asset(
-            ImageConstant.APPOINTMENT_HISTORY,
-            width: 271.0,
-            height: 230.0,
-          ),
-        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -143,8 +90,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                           Container(
                             width: 100.0,
                             height: 100.0,
-                            child:
-                                Image.asset(ImageConstant.DATA_NOT_FOUND),
+                            child: Image.asset(ImageConstant.DATA_NOT_FOUND),
                           ),
                           Text('No Record Found',
                               style: TextStyle(
@@ -341,7 +287,46 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
               ),
             )
           ],
-        )
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 35.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              'Appointment History',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 60,
+          right: 0,
+          left: 0,
+          child: Image.asset(
+            ImageConstant.APPOINTMENT_HISTORY,
+            width: 271.0,
+            height: 230.0,
+          ),
+        ),
       ],
     ));
   }

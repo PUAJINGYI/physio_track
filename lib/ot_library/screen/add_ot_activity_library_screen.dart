@@ -54,20 +54,6 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
           ),
           Positioned(
             top: 25,
-            right: 0,
-            child: IconButton(
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35.0,
-              ),
-              onPressed: () {
-                // Perform your desired action here
-                // For example, show notifications
-              },
-            ),
-          ),
-          Positioned(
-            top: 25,
             left: 0,
             right: 0,
             child: Container(

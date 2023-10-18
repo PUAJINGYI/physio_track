@@ -21,32 +21,6 @@ class _AdminActivityManagementScreenState
     return Scaffold(
         body: Stack(
       children: [
-        Positioned(
-          top: 25,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: kToolbarHeight,
-            alignment: Alignment.center,
-            child: Text(
-              'Activity Management',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 60,
-          left: 0,
-          right: 0,
-          child: Image.asset(
-            ImageConstant.PHYSIO_HOME,
-            width: 211.0,
-            height: 169.0,
-          ),
-        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -63,8 +37,7 @@ class _AdminActivityManagementScreenState
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PTLibraryListScreen()
-                      ),
+                          builder: (context) => PTLibraryListScreen()),
                     );
                   },
                   child: Card(
@@ -105,8 +78,7 @@ class _AdminActivityManagementScreenState
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => OTLibraryListScreen()
-                      ),
+                          builder: (context) => OTLibraryListScreen()),
                     );
                   },
                   child: Card(
@@ -135,7 +107,33 @@ class _AdminActivityManagementScreenState
               ),
             ),
           ],
-        )
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              'Activity Management',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 60,
+          left: 0,
+          right: 0,
+          child: Image.asset(
+            ImageConstant.PHYSIO_HOME,
+            width: 211.0,
+            height: 169.0,
+          ),
+        ),
       ],
     ));
   }
