@@ -6,12 +6,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '../../achievement/model/achievement_model.dart';
 import '../../achievement/service/achievement_service.dart';
+import '../../constant/AchievementConstant.dart';
 import '../../constant/ColorConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../model/ot_activity_model.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
+import '../../achievement/widget/achievement_dialog_widget.dart';
 import 'ot_daily_finished_screen.dart';
 import 'ot_daily_list_screen.dart';
 
@@ -107,100 +110,164 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
             bool checkAndHandleMonthlyActivities =
                 await _achievementService.checkAndHandleMonthlyActivities(uId);
             if (checkFirstCompleteDailyOTActivity) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Daily Engagement badge unlocked!")),
-              );
+              Achievement? ach =
+                  await _achievementService.fetchAchievementsByAchId(
+                      AchievementConstant.DAILY_ENGAGEMENT_ID);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
             }
             if (check3DayStreakOTModule) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(
-                        "Occupational Enthusiast (3-Day Streak) badge unlocked!")),
-              );
+              Achievement? ach = await _achievementService
+                  .fetchAchievementsByAchId(AchievementConstant
+                      .OCCUPATIONAL_ENTHUSIAST_3_DAY_STREAK_ID);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
             }
             if (check7DayStreakOTModule) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(
-                        "Occupational Master (7-Day Streak) badge unlocked!")),
-              );
+              Achievement? ach =
+                  await _achievementService.fetchAchievementsByAchId(
+                      AchievementConstant.OCCUPATIONAL_MASTER_7_DAY_STREAK_ID);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
             }
             if (checkAndHandleDailyActivities) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Two-Module Triumph badge unlocked!")),
-              );
+              Achievement? ach =
+                  await _achievementService.fetchAchievementsByAchId(
+                      AchievementConstant.TWO_MODULE_TRIUMPH_ID);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
             }
             if (checkAndHandleMonthlyActivities) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content:
-                        Text("Lifelong Wellness Champion badge unlocked!")),
-              );
+              Achievement? ach =
+                  await _achievementService.fetchAchievementsByAchId(
+                      AchievementConstant.LIFELONG_WELLNESS_CHAMPION);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
             }
           }
-        }
-        final activitiesRef = otActivityDocumentRef.collection('activities');
-        final QuerySnapshot activitySnapshot = await activitiesRef
-            .where('otid', isEqualTo: widget.otLibraryId)
-            .get();
+          final activitiesRef = otActivityDocumentRef.collection('activities');
+          final QuerySnapshot activitySnapshot = await activitiesRef
+              .where('otid', isEqualTo: widget.otLibraryId)
+              .get();
 
-        if (activitySnapshot.docs.isNotEmpty) {
-          DocumentSnapshot activityDocSnapshot = activitySnapshot.docs[0];
-          DocumentReference activityDocRef = activityDocSnapshot.reference;
-          await activityDocRef.update({'isDone': true});
-          await activityDocRef.update({'completeTime': Timestamp.now()});
-          bool checkFirstOTActivity =
-              await _achievementService.checkFirstOTActivity(uId);
-          bool check30OTActivities =
-              await _achievementService.check30OTActivities(uId);
-          bool check50OTActivities =
-              await _achievementService.check50OTActivities(uId);
-          bool check80OTActivities =
-              await _achievementService.check80OTActivities(uId);
-          if (checkFirstOTActivity) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Occupational Onset badge unlocked!")),
-            );
+          if (activitySnapshot.docs.isNotEmpty) {
+            DocumentSnapshot activityDocSnapshot = activitySnapshot.docs[0];
+            DocumentReference activityDocRef = activityDocSnapshot.reference;
+            await activityDocRef.update({'isDone': true});
+            await activityDocRef.update({'completeTime': Timestamp.now()});
+            bool checkFirstOTActivity =
+                await _achievementService.checkFirstOTActivity(uId);
+            bool check30OTActivities =
+                await _achievementService.check30OTActivities(uId);
+            bool check50OTActivities =
+                await _achievementService.check50OTActivities(uId);
+            bool check80OTActivities =
+                await _achievementService.check80OTActivities(uId);
+            if (checkFirstOTActivity) {
+              Achievement? ach =
+                  await _achievementService.fetchAchievementsByAchId(
+                      AchievementConstant.OCCUPATIONAL_ONSET_ID);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
+            }
+            if (check30OTActivities) {
+              Achievement? ach =
+                  await _achievementService.fetchAchievementsByAchId(
+                      AchievementConstant.ADAPTIVE_ADEPT_ID);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
+            }
+            if (check50OTActivities) {
+              Achievement? ach =
+                  await _achievementService.fetchAchievementsByAchId(
+                      AchievementConstant.LIFE_IMPROVEMENT_TRAILBLAZER_ID);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
+            }
+            if (check80OTActivities) {
+              Achievement? ach =
+                  await _achievementService.fetchAchievementsByAchId(
+                      AchievementConstant.OCCUPATIONAL_ODYSSEY_ID);
+              if (ach != null) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AchievementDialogWidget(ach: ach);
+                  },
+                );
+              }
+            }
           }
-          if (check30OTActivities) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Adaptive Adept badge unlocked!")),
-            );
-          }
-          if (check50OTActivities) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content:
-                      Text("Life Improvement Trailblazer badge unlocked!")),
-            );
-          }
-          if (check80OTActivities) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Occupational Odyssey badge unlocked!")),
-            );
-          }
-        }
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Activity marked as completed'),
-            backgroundColor: Colors.green[500],
-          ),
-        );
-        await _updateLevelAndProgress();
-        if (progress + 0.20 == 1.0) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OTDailyFinishedScreen(),
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Activity marked as completed'),
+              backgroundColor: Colors.green[500],
             ),
           );
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OTDailyListScreen(),
-            ),
-          );
+          await _updateLevelAndProgress();
+          if (progress + 0.20 == 1.0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OTDailyFinishedScreen(),
+              ),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OTDailyListScreen(),
+              ),
+            );
+          }
         }
       }
     } catch (e) {

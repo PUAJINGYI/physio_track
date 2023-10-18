@@ -75,7 +75,7 @@ class AchievementService {
   }
 
   Future<List<Achievement>> fetchCompletedAchievements(String uid) async {
-    List<Achievement> ach =[];
+    List<Achievement> ach = [];
     final CollectionReference userAchievementCollection =
         userCollection.doc(uid).collection('achievements');
 
@@ -85,17 +85,17 @@ class AchievementService {
         .docs
         .map((doc) => UserAchievement.fromSnapshot(doc))
         .toList();
-    for(var uAch in userAchievementList){
+    for (var uAch in userAchievementList) {
       final QuerySnapshot achievementSnapshot = await achievementCollection
           .where('id', isEqualTo: uAch.achId)
           .limit(1)
           .get();
       if (achievementSnapshot.docs.isNotEmpty) {
         final Achievement achievement =
-        Achievement.fromSnapshot(achievementSnapshot.docs[0]);
+            Achievement.fromSnapshot(achievementSnapshot.docs[0]);
         ach.add(achievement);
       }
-    }  
+    }
     return ach;
   }
 

@@ -8,7 +8,10 @@ import 'package:physio_track/achievement/service/achievement_service.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_finished_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import '../../achievement/model/achievement_model.dart';
+import '../../constant/AchievementConstant.dart';
 import '../../constant/ColorConstant.dart';
+import '../../achievement/widget/achievement_dialog_widget.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../model/pt_activity_model.dart';
 import '../model/pt_library_model.dart';
@@ -199,34 +202,69 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
           bool checkAndHandleMonthlyActivities =
               await _achievementService.checkAndHandleMonthlyActivities(uId);
           if (checkFirstCompleteDailyPTActivity) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Daily Dedication badge unlocked!")),
-            );
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.DAILY_DEDICATION_ID);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
+            }
           }
           if (check3DayStreakPTModule) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content:
-                      Text("Physio Dynamo (3-Day Streak) badge unlocked!")),
-            );
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.PHYSIO_DYNAMO_3_DAY_STREAK_ID);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
+            }
           }
           if (check7DayStreakPTModule) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content:
-                      Text("Physio Virtuoso (7-Day Streak) badge unlocked!")),
-            );
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.PHYSIO_VIRTUOSO_7_DAY_STREAK_ID);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
+            }
           }
           if (checkAndHandleDailyActivities) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Two-Module Triumph badge unlocked!")),
-            );
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.TWO_MODULE_TRIUMPH_ID);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
+            }
           }
           if (checkAndHandleMonthlyActivities) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content: Text("Lifelong Wellness Champion badge unlocked!")),
-            );
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.LIFELONG_WELLNESS_CHAMPION);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
+            }
           }
         }
       }
@@ -249,24 +287,52 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
         bool check80OPTActivities =
             await _achievementService.check80PTActivities(uId);
         if (checkFirstPTActivity) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Good Start badge unlocked!")),
-          );
+          Achievement? ach = await _achievementService
+              .fetchAchievementsByAchId(AchievementConstant.GOOD_START_ID);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
+            );
+          }
         }
         if (check30PTActivities) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Flexibility Achiever badge unlocked!")),
-          );
+          Achievement? ach = await _achievementService.fetchAchievementsByAchId(
+              AchievementConstant.FLEXIBILITY_ACHIEVER_ID);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
+            );
+          }
         }
         if (check50PTActivities) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Range of Motion Maestro badge unlocked!")),
-          );
+          Achievement? ach = await _achievementService.fetchAchievementsByAchId(
+              AchievementConstant.RANGE_OF_MOTION_MAESTRO_ID);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
+            );
+          }
         }
         if (check80OPTActivities) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Physiotherapy Prodigy badge unlocked!")),
-          );
+          Achievement? ach = await _achievementService.fetchAchievementsByAchId(
+              AchievementConstant.PHYSIOTHERAPY_PRODIGY);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
+            );
+          }
         }
       }
       ScaffoldMessenger.of(context).showSnackBar(
