@@ -26,9 +26,25 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
   AppointmentInPendingService appointmentInPendingService =
       AppointmentInPendingService();
   String uid = FirebaseAuth.instance.currentUser!.uid;
-  late AppointmentInPending latestPendingAppointment;
+  AppointmentInPending latestPendingAppointment = AppointmentInPending(
+      id: -1,
+      title: '',
+      date: DateTime(2000, 1, 1),
+      startTime: DateTime(2000, 1, 1),
+      endTime: DateTime(
+        2000,
+        1,
+        1,
+      ),
+      durationInSecond: 0,
+      status: '',
+      isApproved: false,
+      patientId: 0,
+      physioId: 0,
+      eventId: '');
   bool hasRecord = false;
   bool hasUnreadNotifications = false;
+  final DateTime defaultDate = DateTime(2000, 1, 1);
 
   @override
   void initState() {
@@ -230,10 +246,21 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
         body: FutureBuilder<void>(
       future: _loadLatestRecord(),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done && hasRecord) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            hasRecord &&
+            !DateTime(
+                    latestPendingAppointment.startTime.year,
+                    latestPendingAppointment.startTime.month,
+                    latestPendingAppointment.startTime.day)
+                .isAtSameMomentAs(defaultDate)) {
           return buildAppointmentWidget();
-        } else if (snapshot.connectionState == ConnectionState.done &&
-            hasRecord == false) {
+        } else if ((snapshot.connectionState == ConnectionState.done &&
+                hasRecord == false) ||
+            DateTime(
+                    latestPendingAppointment.startTime.year,
+                    latestPendingAppointment.startTime.month,
+                    latestPendingAppointment.startTime.day)
+                .isAtSameMomentAs(defaultDate)) {
           return Stack(
             children: [
               Padding(
