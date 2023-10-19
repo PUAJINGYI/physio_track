@@ -5,6 +5,7 @@ import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/pt_library_model.dart';
 import 'add_pt_activity_library_screen.dart';
 
@@ -169,7 +170,7 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
               child: Text(
                 'PT Activity Library',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

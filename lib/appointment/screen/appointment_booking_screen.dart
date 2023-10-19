@@ -13,6 +13,7 @@ import 'package:physio_track/user_management/service/user_management_service.dar
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../service/appointment_service.dart';
 
@@ -399,7 +400,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
               child: Text(
                 'Appointment Booking',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

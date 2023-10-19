@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 
 import '../constant/ImageConstant.dart';
+import '../constant/TextConstant.dart';
 import '../ot_library/screen/ot_library_list_screen.dart';
 
 class AdminActivityManagementScreen extends StatefulWidget {
@@ -118,7 +119,7 @@ class _AdminActivityManagementScreenState
             child: Text(
               'Activity Management',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

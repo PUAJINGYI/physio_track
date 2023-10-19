@@ -11,6 +11,7 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/appointment_in_pending_model.dart';
 import 'appointment_patient_screeen.dart';
 
@@ -420,7 +421,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
               child: Text(
                 'Appointment Update',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

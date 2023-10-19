@@ -10,6 +10,7 @@ import '../../appointment/screen/physio/appointment_history_physio_screen.dart';
 import '../../appointment/service/appointment_service.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../model/treatment_model.dart';
 import '../service/treatment_service.dart';
@@ -936,7 +937,7 @@ class _CreateTreatmentReportScreenState
             child: Text(
               'Treatment Report',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

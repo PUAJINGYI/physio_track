@@ -5,6 +5,7 @@ import 'package:physio_track/notification/screen/notification_details_screen.dar
 import 'package:physio_track/notification/service/notification_service.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/notification_model.dart';
 
 class NotificationListScreen extends StatefulWidget {
@@ -174,7 +175,7 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
               child: Text(
                 'Notification',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

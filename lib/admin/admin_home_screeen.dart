@@ -8,6 +8,7 @@ import 'package:physio_track/user_management/screen/navigation_page.dart';
 
 import '../authentication/signin_screen.dart';
 import '../constant/ImageConstant.dart';
+import '../constant/TextConstant.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
@@ -68,7 +69,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             child: Text(
               'Home',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

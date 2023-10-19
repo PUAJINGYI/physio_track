@@ -6,6 +6,7 @@ import 'package:physio_track/achievement/screen/physio/patient_details_screen.da
 import 'package:physio_track/user_management/service/user_management_service.dart';
 
 import '../../../constant/ImageConstant.dart';
+import '../../../constant/TextConstant.dart';
 import '../../../profile/model/user_model.dart';
 
 class PatientListByPhysioScreen extends StatefulWidget {
@@ -131,7 +132,7 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
               child: Text(
                 'Patient List',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

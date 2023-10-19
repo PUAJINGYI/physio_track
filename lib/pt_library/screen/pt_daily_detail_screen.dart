@@ -12,6 +12,7 @@ import '../../achievement/model/achievement_model.dart';
 import '../../constant/AchievementConstant.dart';
 import '../../constant/ColorConstant.dart';
 import '../../achievement/widget/achievement_dialog_widget.dart';
+import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../model/pt_activity_model.dart';
 import '../model/pt_library_model.dart';
@@ -749,7 +750,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                         child: Text(
                           'Today\'s PT Activity',
                           style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),

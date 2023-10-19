@@ -9,6 +9,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 
 class AddOTActivityScreen extends StatefulWidget {
   const AddOTActivityScreen({super.key});
@@ -62,7 +63,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
               child: Text(
                 'OT Activity Library',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

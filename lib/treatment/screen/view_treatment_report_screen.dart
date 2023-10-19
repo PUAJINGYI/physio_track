@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../appointment/service/appointment_service.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/treatment_model.dart';
@@ -635,7 +636,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
             child: Text(
               'Treatment Report',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

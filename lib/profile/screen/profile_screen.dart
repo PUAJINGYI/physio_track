@@ -11,6 +11,7 @@ import '../../authentication/service/auth_manager.dart';
 import '../../authentication/signin_screen.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../notification/screen/notification_list_screen.dart';
 import '../../notification/service/notification_service.dart';
 import 'edit_profile_screen.dart';
@@ -149,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Text(
                   'Profile',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -303,7 +304,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Text(
                   'Profile',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

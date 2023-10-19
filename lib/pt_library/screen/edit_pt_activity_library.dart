@@ -6,6 +6,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../model/pt_library_model.dart';
 import '../service/pt_library_service.dart';
@@ -169,7 +170,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
               child: Text(
                 'PT Activity Library',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

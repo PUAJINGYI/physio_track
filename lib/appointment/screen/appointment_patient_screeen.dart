@@ -8,6 +8,7 @@ import 'package:physio_track/appointment/screen/appointment_booking_screen.dart'
 import 'package:physio_track/notification/screen/notification_list_screen.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../notification/service/notification_service.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../service/appointment_in_pending_service.dart';
@@ -98,13 +99,13 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
     }
 
     switch (status) {
-      case 'New':
+      case TextConstant.NEW:
         statusText = '(N)';
         break;
-      case 'Updated':
+      case TextConstant.UPDATED:
         statusText = '(U)';
         break;
-      case 'Cancelled':
+      case TextConstant.CANCELLED:
         statusText = '(C)';
         break;
       default:
@@ -209,7 +210,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             .cancelPendingAppointmentRecord(latestPendingAppointment.id);
         setState(() {});
       };
-    } else if (status == 'New') {
+    } else if (status == TextConstant.NEW) {
       title = 'Cancel Appointment';
       message = 'Are you sure to cancel this appointment？';
       onConfirm = () async {
@@ -217,7 +218,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             .removeNewPendingAppointment(latestPendingAppointment.id);
         setState(() {});
       };
-    } else if (status == 'Updated') {
+    } else if (status == TextConstant.UPDATED) {
       title = 'Cancel Appointment Update';
       message = 'Are you sure to cancel this appointment update？';
       onConfirm = () async {
@@ -226,7 +227,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                 latestPendingAppointment.id);
         setState(() {});
       };
-    } else if (status == 'Cancelled') {
+    } else if (status == TextConstant.CANCELLED) {
       title = 'Undo Cancel Appointment';
       message = 'Are you sure to undo this appointment cancellation？';
       onConfirm = () async {
@@ -460,7 +461,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                   child: Text(
                     'Appointment',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: TextConstant.TITLE_FONT_SIZE,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -882,7 +883,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             child: Text(
               'Appointment',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

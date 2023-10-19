@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../pt_library/model/pt_activity_detail_model.dart';
 import '../../pt_library/model/pt_activity_model.dart';
 import '../../pt_library/model/pt_library_model.dart';
@@ -780,7 +781,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                       child: Text(
                         'PT Activities',
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: TextConstant.TITLE_FONT_SIZE,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

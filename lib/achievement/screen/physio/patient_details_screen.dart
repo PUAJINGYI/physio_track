@@ -13,6 +13,7 @@ import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../appointment/screen/appointment_history_screen.dart';
+import '../../../constant/TextConstant.dart';
 import '../../../ot_library/model/ot_activity_model.dart';
 import '../../../ot_library/screen/file2.dart';
 import '../../../profile/model/user_model.dart';
@@ -898,7 +899,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
             child: Text(
               'Patient Details',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:physio_track/user_management/screen/physio_list_screen.dart';
 import 'package:physio_track/user_management/service/user_management_service.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../profile/model/user_model.dart';
 
 class UserManagementPage extends StatefulWidget {
@@ -88,7 +89,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
               child: Text(
                 'User Management',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

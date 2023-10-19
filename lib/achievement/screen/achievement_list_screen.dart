@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/achievement_model.dart';
 import '../model/user_achievement_model.dart';
 import '../service/achievement_service.dart';
@@ -103,7 +104,7 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
                   child: Text(
                     'Achievements',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: TextConstant.TITLE_FONT_SIZE,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

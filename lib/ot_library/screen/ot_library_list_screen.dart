@@ -6,6 +6,7 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import 'ot_library_detail_screen.dart';
 import 'ot_library_list_screen.dart';
 
@@ -170,7 +171,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
               child: Text(
                 'OT Activity Library',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

@@ -8,6 +8,7 @@ import 'package:physio_track/ot_library/screen/ot_daily_list_screen.dart';
 import 'package:physio_track/pt_library/model/pt_activity_model.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../ot_library/model/ot_activity_model.dart';
 import '../../pt_library/screen/pt_daily_list_screen.dart';
 
@@ -199,7 +200,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
               child: Text(
                 '${DateFormat('MMM dd').format(widget.ot.date.toDate())}\'s progress',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

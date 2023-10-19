@@ -8,6 +8,7 @@ import 'package:physio_track/user_management/service/user_management_service.dar
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../constant/ImageConstant.dart';
+import '../../../constant/TextConstant.dart';
 import '../../model/appointment_model.dart';
 import '../../service/appointment_in_pending_service.dart';
 import '../../service/appointment_service.dart';
@@ -260,7 +261,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
               child: Text(
                 'Appointment Schedule',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

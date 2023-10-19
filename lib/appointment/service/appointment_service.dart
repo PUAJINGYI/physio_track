@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis/calendar/v3.dart';
 import 'package:physio_track/appointment/service/google_calander_service.dart';
 
+import '../../constant/TextConstant.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../model/appointment_model.dart';
@@ -229,7 +230,7 @@ class AppointmentService {
                   startTime: startTime,
                   endTime: endTime,
                   durationInSecond: durationInSecond,
-                  status: 'New',
+                  status: TextConstant.NEW,
                   isApproved: true,
                   patientId: patientId,
                   physioId: physioId,

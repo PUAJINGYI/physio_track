@@ -12,6 +12,7 @@ import 'package:physio_track/profile/screen/profile_screen.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -117,7 +118,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Text(
                   'Profile',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -283,7 +284,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Text(
                   'Profile',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

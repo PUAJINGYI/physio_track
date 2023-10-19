@@ -6,6 +6,7 @@ import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../service/journal_service.dart';
 import 'edit_journal_screen.dart';
@@ -533,7 +534,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                 child: Text(
                   'Journal',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

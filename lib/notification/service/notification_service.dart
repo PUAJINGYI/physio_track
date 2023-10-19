@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:physio_track/notification/model/notification_model.dart';
 
+import '../../constant/TextConstant.dart';
 import '../../user_management/service/user_management_service.dart';
 
 class NotificationService {
@@ -84,13 +85,13 @@ class NotificationService {
         querySnapshot.docs.isEmpty ? 0 : querySnapshot.docs.first['id'];
     int newId = currentMaxId + 1;
 
-    if (requestType == 'New') {
+    if (requestType == TextConstant.NEW) {
       title = 'New Appointment Request';
       msg = '$patientName has requested a new appointment';
-    }else if (requestType == 'Updated'){
+    }else if (requestType == TextConstant.UPDATED){
       title = 'Appointment Update Request';
       msg = '$patientName has requested to update an appointment';
-    }else if (requestType == 'Cancelled'){
+    }else if (requestType == TextConstant.CANCELLED){
       title = 'Appointment Cancellation Request';
       msg = '$patientName has requested to cancel an appointment';
     }

@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
+import '../constant/TextConstant.dart';
 import '../profile/screen/profile_screen.dart';
 import '../reusable_widget/reusable_widget.dart';
 
@@ -164,7 +165,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             child: Text(
               'Reset Password',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

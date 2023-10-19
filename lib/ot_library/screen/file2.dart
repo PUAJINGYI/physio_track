@@ -8,6 +8,7 @@ import 'package:physio_track/ot_library/model/ot_library_model.dart';
 import 'package:physio_track/ot_library/screen/ot_library_detail_screen.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import 'ot_daily_detail_screen.dart';
 
 class OTDailyListScreen extends StatefulWidget {
@@ -406,7 +407,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                       child: Text(
                         'Today\'s OT Activities',
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: TextConstant.TITLE_FONT_SIZE,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

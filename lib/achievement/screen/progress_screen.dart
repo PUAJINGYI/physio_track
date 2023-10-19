@@ -10,6 +10,7 @@ import 'package:physio_track/achievement/screen/weekly_analysis_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../ot_library/model/ot_activity_model.dart';
 import '../../ot_library/screen/file2.dart';
 import '../../pt_library/model/pt_activity_model.dart';
@@ -765,7 +766,7 @@ class ProgressScreenState extends State<ProgressScreen> {
               child: Text(
                 'Progress',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

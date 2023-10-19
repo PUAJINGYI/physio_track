@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:physio_track/appointment/service/appointment_service.dart';
 
 import '../../../constant/ImageConstant.dart';
+import '../../../constant/TextConstant.dart';
 import '../../../treatment/model/treatment_model.dart';
 import '../../../treatment/screen/create_treatment_report_screen.dart';
 import '../../../treatment/screen/view_treatment_report_screen.dart';
@@ -354,7 +355,7 @@ class _AppointmentHistoryPhysioScreenState
             child: Text(
               'Appointment History',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

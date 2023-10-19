@@ -5,6 +5,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_detail_screen.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/pt_activity_detail_model.dart';
 import '../model/pt_activity_model.dart';
 import '../model/pt_library_model.dart';
@@ -421,7 +422,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                       child: Text(
                         'Today\'s PT Activities',
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: TextConstant.TITLE_FONT_SIZE,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

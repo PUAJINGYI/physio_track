@@ -7,6 +7,7 @@ import 'package:physio_track/appointment/model/user_appointment_model.dart';
 import 'package:physio_track/appointment/service/appointment_service.dart';
 import 'package:sendgrid_mailer/sendgrid_mailer.dart';
 
+import '../../constant/TextConstant.dart';
 import '../../notification/service/notification_service.dart';
 import '../../user_management/service/user_management_service.dart';
 
@@ -69,7 +70,7 @@ class AppointmentInPendingService {
         patientId: patientId,
         physioId: physioId,
         eventId: '0',
-        status: 'New',
+        status: TextConstant.NEW,
         isApproved: false);
 
     await appointmentInPendingCollection
@@ -78,7 +79,7 @@ class AppointmentInPendingService {
       String patientName =
           await userManagementService.getUsernameById(newAppointment.patientId);
       await notificationService.addAppointmentRequestNotiToAdmin(
-          'New', patientName);
+          TextConstant.NEW, patientName);
       print("Pending Appointment Added");
     }).catchError((error) {
       print("Failed to add pending appointment: $error");
@@ -124,14 +125,14 @@ class AppointmentInPendingService {
         'startTime': startTime,
         'endTime': endTime,
         'durationInSecond': durationInSecond,
-        'status': 'Updated',
+        'status': TextConstant.UPDATED,
         'isApproved': false,
       });
       int patientId = querySnapshot.docs.first['patientId'];
       String patientName =
           await userManagementService.getUsernameById(patientId);
       await notificationService.addAppointmentRequestNotiToAdmin(
-          'Updated', patientName);
+          TextConstant.UPDATED, patientName);
     }
   }
 
@@ -142,12 +143,12 @@ class AppointmentInPendingService {
         .get()
         .then((snapshot) async {
       snapshot.docs.first.reference
-          .update({'status': 'Cancelled', 'isApproved': false});
+          .update({'status': TextConstant.CANCELLED, 'isApproved': false});
       int patientId = snapshot.docs.first['patientId'];
       String patientName =
           await userManagementService.getUsernameById(patientId);
       await notificationService.addAppointmentRequestNotiToAdmin(
-          'Cancelled', patientName);
+          TextConstant.CANCELLED, patientName);
     });
   }
 
@@ -159,13 +160,13 @@ class AppointmentInPendingService {
         .get()
         .then((snapshot) {
       snapshot.docs.first.reference
-          .update({'status': 'New', 'isApproved': true});
+          .update({'status': TextConstant.NEW, 'isApproved': true});
     });
     AppointmentInPending? appointment =
         await fetchPendingAppointmentById(appointmentId);
     if (appointment != null) {
       appointmentService.addAppointmentRecord(appointment);
-      sendEmailToNotifyApprove(appointment, 'New');
+      sendEmailToNotifyApprove(appointment, TextConstant.NEW);
       String patientUid =
           await userManagementService.fetchUidByUserId(appointment.patientId);
       String physioUid =
@@ -247,7 +248,7 @@ class AppointmentInPendingService {
         .get()
         .then((snapshot) {
       snapshot.docs.first.reference
-          .update({'status': 'Updated', 'isApproved': true});
+          .update({'status': TextConstant.UPDATED, 'isApproved': true});
     });
     AppointmentInPending? appointment =
         await fetchPendingAppointmentById(appointmentId);
@@ -255,7 +256,7 @@ class AppointmentInPendingService {
       Appointment? oriAppointment =
           await appointmentService.fetchAppointmentById(appointmentId);
       await appointmentService.updateAppointmentRecord(appointment);
-      sendEmailToNotifyApprove(appointment, 'Updated');
+      sendEmailToNotifyApprove(appointment, TextConstant.UPDATED);
 
       if (oriAppointment != null) {
         String patientUid =
@@ -326,7 +327,7 @@ class AppointmentInPendingService {
           .get()
           .then((snapshot) {
         snapshot.docs.first.reference.update({
-          'status': 'New',
+          'status': TextConstant.NEW,
           'isApproved': true,
           'date': appointment.date,
           'startTime': appointment.startTime,
@@ -364,7 +365,7 @@ class AppointmentInPendingService {
           .get()
           .then((snapshot) {
         snapshot.docs.first.reference.update({
-          'status': 'New',
+          'status': TextConstant.NEW,
           'isApproved': true,
           'date': appointment.date,
           'startTime': appointment.startTime,
@@ -392,7 +393,7 @@ class AppointmentInPendingService {
         .get()
         .then((snapshot) {
       snapshot.docs.first.reference
-          .update({'status': 'New', 'isApproved': true});
+          .update({'status': TextConstant.NEW, 'isApproved': true});
     });
 
     if (appointmentInPending != null) {
@@ -512,11 +513,11 @@ class AppointmentInPendingService {
     Content content = Content('text/plain', '');
     String subject = '';
 
-    if (approveType == 'New') {
+    if (approveType == TextConstant.NEW) {
       content = Content('text/plain',
           'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment booking request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack');
       subject = 'Appointment Booking Approved';
-    } else if (approveType == 'Updated') {
+    } else if (approveType == TextConstant.UPDATED) {
       content = Content('text/plain',
           'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment update request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack');
       subject = 'Appointment Update Approved';
@@ -637,7 +638,7 @@ class AppointmentInPendingService {
       fetchAllNewAddedPendingAppointmentRecord() async {
     List<AppointmentInPending> appointmentList = [];
     QuerySnapshot querySnapshot = await appointmentInPendingCollection
-        .where('status', isEqualTo: 'New')
+        .where('status', isEqualTo: TextConstant.NEW)
         .where('isApproved', isEqualTo: false)
         .get();
     querySnapshot.docs.forEach((snapshot) {
@@ -651,7 +652,7 @@ class AppointmentInPendingService {
       fetchAllUpdatedPendingAppointmentRecord() async {
     List<AppointmentInPending> appointmentList = [];
     QuerySnapshot querySnapshot = await appointmentInPendingCollection
-        .where('status', isEqualTo: 'Updated')
+        .where('status', isEqualTo: TextConstant.UPDATED)
         .where('isApproved', isEqualTo: false)
         .get();
     querySnapshot.docs.forEach((snapshot) {
@@ -665,7 +666,7 @@ class AppointmentInPendingService {
       fetchAllCancelledPendingAppointmentRecord() async {
     List<AppointmentInPending> appointmentList = [];
     QuerySnapshot querySnapshot = await appointmentInPendingCollection
-        .where('status', isEqualTo: 'Cancelled')
+        .where('status', isEqualTo: TextConstant.CANCELLED)
         .where('isApproved', isEqualTo: false)
         .get();
     querySnapshot.docs.forEach((snapshot) {

@@ -5,6 +5,7 @@ import 'package:physio_track/achievement/screen/weekly_analysis_detail_screen.da
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../ot_library/model/ot_activity_model.dart';
 import '../../ot_library/service/user_ot_list_service.dart';
 import '../../pt_library/model/pt_activity_model.dart';
@@ -211,7 +212,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                     child: Text(
                       'Weekly Analysis',
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: TextConstant.TITLE_FONT_SIZE,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

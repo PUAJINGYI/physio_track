@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '../../constant/TextConstant.dart';
 import '../model/pt_library_model.dart';
 import '../service/pt_library_service.dart';
 import 'edit_pt_activity_library.dart';
@@ -396,7 +397,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                         child: Text(
                           'PT Activity Library',
                           style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),

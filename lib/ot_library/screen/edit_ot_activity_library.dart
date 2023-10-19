@@ -8,6 +8,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/ot_library_model.dart';
 
 class EditOTActivityScreen extends StatefulWidget {
@@ -91,7 +92,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
               child: Text(
                 'OT Activity Library',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

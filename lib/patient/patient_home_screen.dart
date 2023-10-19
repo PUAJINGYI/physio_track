@@ -10,6 +10,7 @@ import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
 import '../admin/admin_home_screeen.dart';
 import '../authentication/signin_screen.dart';
 import '../constant/ImageConstant.dart';
+import '../constant/TextConstant.dart';
 import '../ot_library/model/ot_activity_model.dart';
 import '../ot_library/screen/ot_daily_list_screen.dart';
 import '../pt_library/model/pt_activity_model.dart';
@@ -218,7 +219,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
               child: Text(
                 'Home',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

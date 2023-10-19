@@ -7,6 +7,7 @@ import 'package:physio_track/appointment/service/appointment_service.dart';
 import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:physio_track/treatment/screen/view_treatment_report_screen.dart';
 
+import '../../constant/TextConstant.dart';
 import '../../treatment/model/treatment_model.dart';
 import '../../treatment/service/treatment_service.dart';
 import '../../user_management/service/user_management_service.dart';
@@ -311,7 +312,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
             child: Text(
               'Appointment History',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

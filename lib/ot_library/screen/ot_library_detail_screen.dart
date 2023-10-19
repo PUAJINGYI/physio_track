@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '../../constant/TextConstant.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
 import 'edit_ot_activity_library.dart';
@@ -337,7 +338,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                         child: Text(
                           'OT Activity Library',
                           style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),

@@ -7,6 +7,7 @@ import 'package:physio_track/constant/ColorConstant.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/notification_model.dart';
 import '../service/notification_service.dart';
 
@@ -154,7 +155,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
             child: Text(
               'Notification',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),

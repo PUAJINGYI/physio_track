@@ -16,6 +16,7 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import '../../achievement/service/achievement_service.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../model/journal_model.dart';
 import '../widget/custom_feeling_icon.dart';
 import '../widget/custom_weather_icon.dart';
@@ -442,7 +443,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                   child: Text(
                     'Journal',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: TextConstant.TITLE_FONT_SIZE,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

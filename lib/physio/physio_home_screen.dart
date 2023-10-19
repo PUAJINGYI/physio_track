@@ -13,6 +13,7 @@ import '../appointment/service/appointment_in_pending_service.dart';
 import '../appointment/service/appointment_service.dart';
 import '../authentication/signin_screen.dart';
 import '../constant/ImageConstant.dart';
+import '../constant/TextConstant.dart';
 import '../reusable_widget/reusable_widget.dart';
 import '../user_management/service/user_management_service.dart';
 
@@ -81,7 +82,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
               child: Text(
                 'Home',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

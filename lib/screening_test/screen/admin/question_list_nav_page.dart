@@ -6,6 +6,7 @@ import 'package:physio_track/screening_test/screen/admin/lower_question_list_scr
 import 'package:physio_track/screening_test/screen/admin/upper_question_list_screen.dart';
 
 import '../../../constant/ImageConstant.dart';
+import '../../../constant/TextConstant.dart';
 import 'general_question_list_screen.dart';
 
 class QuestionListNavPage extends StatefulWidget {
@@ -111,7 +112,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
               child: Text(
                 'Screening Test',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),

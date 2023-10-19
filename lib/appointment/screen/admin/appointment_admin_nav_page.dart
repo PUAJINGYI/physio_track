@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constant/ImageConstant.dart';
+import '../../../constant/TextConstant.dart';
 import '../../service/appointment_service.dart';
 import 'appointment_cancel_approve_screen.dart';
 import 'appointment_new_approve_screen.dart';
@@ -106,7 +107,7 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
               child: Text(
                 'Appointment Management',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
               ),
