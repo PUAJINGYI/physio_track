@@ -172,6 +172,17 @@ class UserManagementService {
     return id;
   }
 
+  Future<String> getUidByEmail(String email) async{
+    String uid = '';
+    QuerySnapshot querySnapshot =
+    await usersCollection.where('email', isEqualTo: email).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentSnapshot doc = querySnapshot.docs.first;
+      uid = doc.id;
+    }
+    return uid;
+  }
+
   Future<String> getEmailById(int id) async {
     String email = '';
     QuerySnapshot querySnapshot =

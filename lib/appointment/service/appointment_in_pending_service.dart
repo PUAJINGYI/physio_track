@@ -75,6 +75,10 @@ class AppointmentInPendingService {
     await appointmentInPendingCollection
         .add(newAppointment.toMap())
         .then((value) async {
+      String patientName =
+          await userManagementService.getUsernameById(newAppointment.patientId);
+      await notificationService.addAppointmentRequestNotiToAdmin(
+          'New', patientName);
       print("Pending Appointment Added");
     }).catchError((error) {
       print("Failed to add pending appointment: $error");
@@ -123,6 +127,11 @@ class AppointmentInPendingService {
         'status': 'Updated',
         'isApproved': false,
       });
+      int patientId = querySnapshot.docs.first['patientId'];
+      String patientName =
+          await userManagementService.getUsernameById(patientId);
+      await notificationService.addAppointmentRequestNotiToAdmin(
+          'Updated', patientName);
     }
   }
 
@@ -131,9 +140,14 @@ class AppointmentInPendingService {
     await appointmentInPendingCollection
         .where('id', isEqualTo: appointmentId)
         .get()
-        .then((snapshot) {
+        .then((snapshot) async {
       snapshot.docs.first.reference
           .update({'status': 'Cancelled', 'isApproved': false});
+      int patientId = snapshot.docs.first['patientId'];
+      String patientName =
+          await userManagementService.getUsernameById(patientId);
+      await notificationService.addAppointmentRequestNotiToAdmin(
+          'Cancelled', patientName);
     });
   }
 
@@ -245,19 +259,18 @@ class AppointmentInPendingService {
 
       if (oriAppointment != null) {
         String patientUid =
-          await userManagementService.fetchUidByUserId(appointment.patientId);
-      String physioUid =
-          await userManagementService.fetchUidByUserId(appointment.physioId);
+            await userManagementService.fetchUidByUserId(appointment.patientId);
+        String physioUid =
+            await userManagementService.fetchUidByUserId(appointment.physioId);
 
-      notificationService.addNotificationFromAdmin(
-          patientUid,
-          'Appointment Update Approved',
-          'Dear patient, your recent appointment update request from ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}.');
-      notificationService.addNotificationFromAdmin(
-          physioUid,
-          'Appointment Update Approved',
-          'Dear physio, there is an appointment originally on ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}');
-    
+        notificationService.addNotificationFromAdmin(
+            patientUid,
+            'Appointment Update Approved',
+            'Dear patient, your recent appointment update request from ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}.');
+        notificationService.addNotificationFromAdmin(
+            physioUid,
+            'Appointment Update Approved',
+            'Dear physio, there is an appointment originally on ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}');
       }
     }
   }
