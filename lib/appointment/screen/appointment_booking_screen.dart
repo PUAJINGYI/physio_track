@@ -365,12 +365,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                               Duration(hours: 1).inSeconds,
                               patientData['id'],
                               physioData['id']);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AppointmentPatientScreen(),
-                        ),
-                      );
+                      Navigator.pop(context, true);
                     },
                   ),
                 )

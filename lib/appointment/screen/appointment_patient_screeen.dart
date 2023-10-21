@@ -363,14 +363,20 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                               ),
                             )
                           : GestureDetector(
-                              onTap: () {
-                                Navigator.push(
+                              onTap: () async {
+                                final needUpdate = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         AppointmentBookingScreen(),
                                   ),
                                 );
+
+                                if (needUpdate == true) {
+                                  setState(() {
+                                    // Perform any updates needed
+                                  });
+                                }
                               },
                               child: Card(
                                 color: Colors.blue.shade100,
@@ -784,14 +790,20 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                             ),
                           )
                         : GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                            onTap: () async {
+                              final needUpdate = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       AppointmentBookingScreen(),
                                 ),
                               );
+
+                              if (needUpdate == true) {
+                                setState(() {
+                                  // Perform any updates needed
+                                });
+                              }
                             },
                             child: Card(
                               color: Colors.blue.shade100,
