@@ -53,6 +53,11 @@ class _PatientHomePageState extends State<PatientHomePage>
       body: PageView(
         controller: _pageController,
         children: _page,
+        onPageChanged: (int page) {
+          setState(() {
+            _currentIndex = page;
+          });
+        },
       ),
     );
   }

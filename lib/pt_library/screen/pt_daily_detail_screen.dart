@@ -354,12 +354,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
           ),
         );
       } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PTDailyListScreen(uid: uId),
-          ),
-        );
+       Navigator.pop(context, true);
       }
     }
     // } catch (e) {
@@ -736,7 +731,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                         ),
                         onPressed: () async {
                           await _controller.stopVideo();
-                          Navigator.of(context).pop();
+                          Navigator.pop(context, true);
                         },
                       ),
                     ),

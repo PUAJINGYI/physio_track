@@ -138,12 +138,12 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                       Expanded(
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
-                          itemCount: ptLibraryList.length,
+                          itemCount: dailyPTList.length,
                           itemBuilder: (BuildContext context, int index) {
-                            PTLibrary ptLibrary = ptLibraryList[index];
+                          
                             PTActivityDetail ptActivityDetail =
                                 dailyPTList[index];
-
+                              PTLibrary ptLibrary = ptLibraryList[index];
                             if (ptActivityDetail.isDone) {
                               return Padding(
                                 padding:
@@ -364,8 +364,8 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                 color: Colors.blue,
                                               ),
                                               child: IconButton(
-                                                onPressed: () {
-                                                  Navigator.push(
+                                                onPressed: () async {
+                                                 final needUpdate = await Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
@@ -376,6 +376,12 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                       ), // Replace NextPage with your desired page
                                                     ),
                                                   );
+
+                                                  if (needUpdate != null && needUpdate) {
+                                                    setState(() {
+                                                      _loadPTActivitiesRecord();
+                                                    });
+                                                  }
                                                 },
                                                 icon: Icon(
                                                   Icons.play_arrow_outlined,
@@ -408,7 +414,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                         size: 35.0,
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pop(context, true);
                       },
                     ),
                   ),

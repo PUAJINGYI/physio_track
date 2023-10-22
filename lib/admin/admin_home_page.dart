@@ -55,6 +55,11 @@ class _AdminHomePageState extends State<AdminHomePage>
       body: PageView(
         controller: _pageController,
         children: _page,
+        onPageChanged: (int page) {
+          setState(() {
+            _currentIndex = page;
+          });
+        },
       ),
     );
   }
@@ -81,7 +86,7 @@ class _AdminHomePageState extends State<AdminHomePage>
         icon: Icon(Icons.directions_run_outlined),
         label: 'Settings',
       ),
-       BottomNavigationBarItem(
+      BottomNavigationBarItem(
         icon: Icon(Icons.settings_outlined),
         label: 'Settings',
       ),

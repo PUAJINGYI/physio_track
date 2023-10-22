@@ -386,12 +386,13 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                   selectedHour! + 1),
                               Duration(hours: 1).inSeconds);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AppointmentPatientScreen(),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => AppointmentPatientScreen(),
+                      //   ),
+                      // );
+                      Navigator.pop(context, true);
                     },
                   ),
                 )

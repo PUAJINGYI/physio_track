@@ -50,6 +50,11 @@ class _PhysioHomePageState extends State<PhysioHomePage>
       body: PageView(
         controller: _pageController,
         children: _page,
+        onPageChanged: (int page) {
+          setState(() {
+            _currentIndex = page;
+          });
+        },
       ),
     );
   }

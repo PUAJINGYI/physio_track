@@ -372,10 +372,8 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                   ),
                                 );
 
-                                if (needUpdate == true) {
-                                  setState(() {
-                                    // Perform any updates needed
-                                  });
+                                if (needUpdate != null && needUpdate) {
+                                  setState(() {});
                                 }
                               },
                               child: Card(
@@ -601,8 +599,9 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                         child: TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
+                                          onPressed: () async {
+                                            final needUpdate =
+                                                await Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
@@ -616,6 +615,10 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                                 ),
                                               ),
                                             );
+
+                                            if (needUpdate != null && needUpdate) {
+                                              setState(() {});
+                                            }
                                           },
                                           style: TextButton.styleFrom(
                                             backgroundColor: Color.fromARGB(
@@ -799,10 +802,8 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                 ),
                               );
 
-                              if (needUpdate == true) {
-                                setState(() {
-                                  // Perform any updates needed
-                                });
+                              if (needUpdate != null && needUpdate) {
+                                setState(() {});
                               }
                             },
                             child: Card(

@@ -329,7 +329,11 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                               .fromLTRB(
                                                           10, 5, 0, 0),
                                                       child: Text(
-                                                        '${progressToNextLevel * 100}%',
+                                                        (progressToNextLevel *
+                                                                    100)
+                                                                .toStringAsFixed(
+                                                                    0) +
+                                                            '%',
                                                         style: TextStyle(
                                                           fontSize: 12,
                                                           fontWeight:
@@ -519,13 +523,21 @@ class ProgressScreenState extends State<ProgressScreen> {
                                       borderRadius: BorderRadius.circular(
                                           15.0), // Adjust the radius as needed
                                       child: GestureDetector(
-                                        onTap: () {
+                                        onTap: () async {
                                           // Navigate to the other page when the card is tapped
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(
+                                          final needUpdate =
+                                              await Navigator.of(context)
+                                                  .push(MaterialPageRoute(
                                             builder: (context) =>
                                                 PTDailyListScreen(uid: uid),
                                           ));
+
+                                          if (needUpdate != null &&
+                                              needUpdate == true) {
+                                            setState(() {
+                                              fetchData();
+                                            });
+                                          }
                                         },
                                         child: Card(
                                           elevation: 5.0,
@@ -553,7 +565,10 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                   circularStrokeCap:
                                                       CircularStrokeCap.round,
                                                   center: Text(
-                                                    '${todayPT.progress * 100}%',
+                                                    (todayPT.progress * 100)
+                                                            .toStringAsFixed(
+                                                                0) +
+                                                        '%',
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -607,7 +622,10 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                   circularStrokeCap:
                                                       CircularStrokeCap.round,
                                                   center: Text(
-                                                    '${todayOT.progress * 100}%',
+                                                    (todayOT.progress * 100)
+                                                            .toStringAsFixed(
+                                                                0) +
+                                                        '%',
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:

@@ -338,10 +338,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             .update({
           'profileImageUrl': imageUrl,
         });
-        Navigator.pop(context, imageUrl);
+        
       }
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+     Navigator.pop(context, true);
     }
   }
 }

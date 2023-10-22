@@ -86,15 +86,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _navigateToEditProfileScreen(BuildContext context) async {
-    final updatedProfileImageUrl = await Navigator.push<String>(
+    final needUpdate = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => EditProfileScreen()),
+      MaterialPageRoute(
+        builder: (context) => EditProfileScreen(),
+      ),
     );
 
-    if (updatedProfileImageUrl != null) {
+    if (needUpdate != null && needUpdate) {
       setState(() {
-        profileImageUrl =
-            updatedProfileImageUrl; // Update the profile image URL
+        getUserData();
       });
     }
   }
