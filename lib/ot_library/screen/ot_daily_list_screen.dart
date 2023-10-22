@@ -417,7 +417,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                         size: 35.0,
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pop(context, true);
                       },
                     ),
                   ),

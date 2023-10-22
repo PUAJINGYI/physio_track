@@ -163,25 +163,37 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       child: Row(
                         children: [
                           exerciseCard(context, ptProgress, ImageConstant.PT,
-                              'PT', '8.00 AM - 1.30 PM', () {
-                            Navigator.push(
+                              'PT', '8.00 AM - 1.30 PM', () async{
+                           final needUpdate = await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
                                     PTDailyListScreen(uid: uId),
                               ),
                             );
+
+                            if(needUpdate !=null && needUpdate){
+                              setState(() {
+                                _fetchPTProgress();
+                              });
+                            }
                           }),
                           SizedBox(width: 10.0), // Add spacing between cards
                           exerciseCard(context, otProgress, ImageConstant.OT,
-                              'OT', '8.00 AM - 1.30 PM', () {
-                            Navigator.push(
+                              'OT', '8.00 AM - 1.30 PM', () async{
+                             final needUpdate = await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
                                     OTDailyListScreen(uid: uId),
                               ),
                             );
+
+                            if(needUpdate !=null && needUpdate){
+                              setState(() {
+                                _fetchOTProgress();
+                              });
+                            }
                           }),
                         ],
                       ),
