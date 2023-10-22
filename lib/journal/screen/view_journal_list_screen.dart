@@ -122,8 +122,8 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                           .arrow_forward), // Replace with desired icon
                                       color: Colors
                                           .blue, // Replace with desired icon color
-                                      onPressed: () {
-                                        Navigator.push(
+                                      onPressed: () async {
+                                        final needUpdate = await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
@@ -132,6 +132,10 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                             ), // Replace NextPage with your desired page
                                           ),
                                         );
+
+                                        if (needUpdate != null && needUpdate) {
+                                          setState(() {});
+                                        }
                                       },
                                     ),
                                   ),

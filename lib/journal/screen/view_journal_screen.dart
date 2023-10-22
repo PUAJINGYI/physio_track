@@ -32,24 +32,16 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
     fetchJournal();
   }
 
-  void fetchJournal() async {
+  Future<void> fetchJournal() async {
     try {
       journal = await journalService.fetchJournal(userId, widget.journalId);
-      setState(
-          () {}); // Refresh the state to update the UI with the fetched journal
     } catch (error) {
       print('Error fetching journal: $error');
-      // Handle the error as per your requirement
     }
   }
 
-  void back() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ViewJournalListScreen(),
-      ),
-    );
+  void back() async {
+    Navigator.pop(context, true);
   }
 
   IconData _getWeatherIcon() {
@@ -129,9 +121,8 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
-          titlePadding:
-              EdgeInsets.fromLTRB(24, 0, 24, 0), // Adjust title padding
+          contentPadding: EdgeInsets.zero,
+          titlePadding: EdgeInsets.fromLTRB(24, 0, 24, 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -142,7 +133,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
               IconButton(
                 icon: Icon(Icons.close, color: Colors.red),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.pop(context, true);
                 },
               ),
             ],
@@ -153,7 +144,6 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
           ),
           actions: [
             Center(
-              // Wrap actions in Center widget
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -168,14 +158,9 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                         style:
                             TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
                     onPressed: () {
-                      performDeleteLogic(); // Perform the delete logic
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => ViewJournalListScreen(),
-                      //   ),
-                      // ); // Close the dialog
-                      Navigator.pop(context);
+                      performDeleteLogic();
+
+                      Navigator.pop(context, true);
                     },
                   ),
                   SizedBox(width: 10),
@@ -190,7 +175,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                         style:
                             TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.pop(context, true);
                     },
                   ),
                 ],
@@ -208,247 +193,269 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Journal deleted")),
       );
-      Navigator.of(context).pop();
     } catch (error) {
       print('Error deleting journal: $error');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Journal could not be deleted")),
       );
     }
-    Navigator.of(context).pop();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ViewJournalListScreen(),
-      ),
-    );
+    Navigator.pop(context, true);
   }
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate =
-        journal != null ? DateFormat('dd/MM/yyyy').format(journal!.date) : '';
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: kToolbarHeight),
-                // SizedBox(height: 20.0),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: Text(
-                        journal != null ? journal!.title : '',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromRGBO(12, 57, 125, 1),
-                            fontSize: 20.0),
-                      )),
-                ),
-                SizedBox(height: 100.0),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Stack(
-                    children: [
-                      Card(
-                        color: Color.fromRGBO(131, 183, 200, 0.8),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 60.0),
-                              Center(
-                                child: Text(
-                                  formattedDate, // Add the formatted date here
-                                  style: TextStyle(
+      body: FutureBuilder(
+        future: fetchJournal(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            String formattedDate = journal != null
+                ? DateFormat('dd/MM/yyyy').format(journal!.date)
+                : '';
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: kToolbarHeight),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Text(
+                                journal != null ? journal!.title : '',
+                                style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromRGBO(5, 117, 155, 1),
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                              ),
+                                    color: Color.fromRGBO(12, 57, 125, 1),
+                                    fontSize: 20.0),
+                              )),
+                        ),
+                        SizedBox(height: 100.0),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Stack(
+                            children: [
                               Card(
+                                color: Color.fromRGBO(131, 183, 200, 0.8),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
-                                color: Color.fromRGBO(241, 243, 250, 1),
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                      const EdgeInsets.fromLTRB(10, 10, 10, 10),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Today\'s Weather',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromRGBO(1, 101, 134, 1),
-                                          fontSize: 18.0,
-                                        ),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Icon(
-                                                _getWeatherIcon(),
-                                                color: Colors.blue,
-                                                size: 40.0,
-                                              ),
-                                              Text(journal != null
-                                                  ? journal!.weather
-                                                  : ''),
-                                            ],
+                                      SizedBox(height: 60.0),
+                                      Center(
+                                        child: Text(
+                                          formattedDate,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Color.fromRGBO(5, 117, 155, 1),
+                                            fontSize: 16.0,
                                           ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                color: Color.fromRGBO(241, 243, 250, 1),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Today\'s Feeling',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromRGBO(1, 101, 134, 1),
-                                          fontSize: 18.0,
                                         ),
                                       ),
-                                      SizedBox(height: 10.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Icon(
-                                                _getFeelingIcon(),
-                                                color: Colors.blue,
-                                                size: 40.0,
-                                              ),
-                                              Text(journal != null
-                                                  ? journal!.feeling
-                                                  : ''),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                color: Color.fromRGBO(241, 243, 250, 1),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Health Condition',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromRGBO(1, 101, 134, 1),
-                                          fontSize: 18.0,
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                         ),
-                                      ),
-                                      SizedBox(height: 20.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Column(
+                                        color: Color.fromRGBO(241, 243, 250, 1),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20, 10, 20, 10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                _getHealthCondition(),
+                                                'Today\'s Weather',
+                                                textAlign: TextAlign.left,
                                                 style: TextStyle(
-                                                    fontSize: 20.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      1, 101, 134, 1),
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10.0),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Icon(
+                                                        _getWeatherIcon(),
+                                                        color: Colors.blue,
+                                                        size: 40.0,
+                                                      ),
+                                                      Text(journal != null
+                                                          ? journal!.weather
+                                                          : ''),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 10.0),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                color: Color.fromRGBO(241, 243, 250, 1),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Comment of Day',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromRGBO(1, 101, 134, 1),
-                                          fontSize: 18.0,
                                         ),
                                       ),
-                                      SizedBox(height: 10.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Column(
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        color: Color.fromRGBO(241, 243, 250, 1),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20, 10, 20, 10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                journal != null
-                                                    ? journal!.comment
-                                                    : '',
+                                                'Today\'s Feeling',
+                                                textAlign: TextAlign.left,
                                                 style: TextStyle(
-                                                    fontSize: 20.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      1, 101, 134, 1),
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10.0),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Icon(
+                                                        _getFeelingIcon(),
+                                                        color: Colors.blue,
+                                                        size: 40.0,
+                                                      ),
+                                                      Text(journal != null
+                                                          ? journal!.feeling
+                                                          : ''),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                      SizedBox(height: 10.0),
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        color: Color.fromRGBO(241, 243, 250, 1),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20, 10, 20, 10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Health Condition',
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      1, 101, 134, 1),
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                              SizedBox(height: 20.0),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                        _getHealthCondition(),
+                                                        style: TextStyle(
+                                                            fontSize: 20.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 10.0),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        color: Color.fromRGBO(241, 243, 250, 1),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20, 10, 20, 10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Comment of Day',
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      1, 101, 134, 1),
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10.0),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                        journal != null
+                                                            ? journal!.comment
+                                                            : '',
+                                                        style: TextStyle(
+                                                            fontSize: 20.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 10.0),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -456,111 +463,112 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                             ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 16.0),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: customButton(
-                      context,
-                      'Back',
-                      ColorConstant.BLUE_BUTTON_TEXT,
-                      ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ColorConstant.BLUE_BUTTON_PRESSED, () {
-                    back();
-                  }),
-                )
-              ],
-            ),
-            Positioned(
-              top: 25,
-              left: 0,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  // Perform your desired action here
-                  // For example, navigate to the previous screen
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
-              right: 60,
-              child: IconButton(
-                icon: Icon(
-                  Icons.edit_outlined,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  // Perform your desired action here
-                  // For example, navigate to the edit journal screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditJournalScreen(
-                        journalId: widget.journalId,
+                        SizedBox(height: 16.0),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                          child: customButton(
+                              context,
+                              'Back',
+                              ColorConstant.BLUE_BUTTON_TEXT,
+                              ColorConstant.BLUE_BUTTON_UNPRESSED,
+                              ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                            back();
+                          }),
+                        )
+                      ],
+                    ),
+                    Positioned(
+                      top: 25,
+                      left: 0,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          size: 35.0,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context, true);
+                        },
                       ),
                     ),
-                  );
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
-              right: 30,
-              child: IconButton(
-                icon: Icon(
-                  Icons.delete_outline,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  showDeleteConfirmationDialog(context);
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: kToolbarHeight,
-                alignment: Alignment.center,
-                child: Text(
-                  'Journal',
-                  style: TextStyle(
-                    fontSize: TextConstant.TITLE_FONT_SIZE,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 110,
-              left: 0,
-              right: 0,
-              child: SizedBox(
-                height: 160.0,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Container(
-                      color: Colors
-                          .grey, // Replace with your desired container color
-                      child: _getImage(),
+                    Positioned(
+                      top: 25,
+                      right: 30,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.edit_outlined,
+                          size: 35.0,
+                        ),
+                        onPressed: () async {
+                          final needUpdate = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditJournalScreen(
+                                journalId: widget.journalId,
+                              ),
+                            ),
+                          );
+
+                          if (needUpdate != null && needUpdate) {
+                            setState(() {
+                              fetchJournal();
+                            });
+                          }
+                        },
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      top: 25,
+                      right: 0,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.delete_outline,
+                          size: 35.0,
+                        ),
+                        onPressed: () {
+                          showDeleteConfirmationDialog(context);
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      top: 25,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: kToolbarHeight,
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Journal',
+                          style: TextStyle(
+                            fontSize: TextConstant.TITLE_FONT_SIZE,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 110,
+                      left: 0,
+                      right: 0,
+                      child: SizedBox(
+                        height: 160.0,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                              color: Colors.grey,
+                              child: _getImage(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
-        ),
+            );
+          }
+        },
       ),
     );
   }

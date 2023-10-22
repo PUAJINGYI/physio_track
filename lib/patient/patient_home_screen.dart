@@ -163,8 +163,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       child: Row(
                         children: [
                           exerciseCard(context, ptProgress, ImageConstant.PT,
-                              'PT', '8.00 AM - 1.30 PM', () async{
-                           final needUpdate = await Navigator.push(
+                              'PT', '8.00 AM - 1.30 PM', () async {
+                            final needUpdate = await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
@@ -172,7 +172,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                               ),
                             );
 
-                            if(needUpdate !=null && needUpdate){
+                            if (needUpdate != null && needUpdate) {
                               setState(() {
                                 _fetchPTProgress();
                               });
@@ -180,8 +180,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                           }),
                           SizedBox(width: 10.0), // Add spacing between cards
                           exerciseCard(context, otProgress, ImageConstant.OT,
-                              'OT', '8.00 AM - 1.30 PM', () async{
-                             final needUpdate = await Navigator.push(
+                              'OT', '8.00 AM - 1.30 PM', () async {
+                            final needUpdate = await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
@@ -189,7 +189,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                               ),
                             );
 
-                            if(needUpdate !=null && needUpdate){
+                            if (needUpdate != null && needUpdate) {
                               setState(() {
                                 _fetchOTProgress();
                               });
