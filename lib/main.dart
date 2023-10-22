@@ -57,7 +57,6 @@ import 'appointment/screen/physio/appointment_schedule_screen.dart';
 import 'authentication/change_password_screen.dart';
 import 'authentication/service/auth_manager.dart';
 import 'authentication/splash_screen.dart';
-import 'journal/screen/add_journal_ori_screen.dart';
 import 'notification/noti.dart';
 import 'notification/screen/notification_list_screen.dart';
 import 'ot_library/screen/edit_ot_activity_library.dart';
@@ -135,19 +134,21 @@ class MyApp extends StatelessWidget {
           //AddPTActivityScreen(),
           //OTLibraryDetailScreen2(),
           //AddQuestionScreen(),
-              SplashScreen(
-            onFinish: () {
-              if (authManager.isLoggedIn) {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => RedirectScreen()),
-                );
-              } else {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => SignInScreen()),
-                );
-              }
-            },
-          ),
+          //     SplashScreen(
+          //   onFinish: () {
+          //     if (authManager.isLoggedIn) {
+          //       Navigator.of(context).pushReplacement(
+          //         MaterialPageRoute(builder: (_) => RedirectScreen()),
+          //       );
+          //     } else {
+          //       Navigator.of(context).pushReplacement(
+          //         MaterialPageRoute(builder: (_) => SignInScreen()),
+          //       );
+          //     }
+          //   },
+          // ),
+          //AdminHomePage(),
+          PhysioHomePage(),
           //AdminActivityManagementScreen(),
           //NotificationListScreen(),
           //TestPart1Screen(),

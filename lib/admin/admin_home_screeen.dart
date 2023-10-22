@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:physio_track/appointment/screen/admin/appointment_admin_nav_page.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
+import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.dart';
 import 'package:physio_track/user_management/screen/navigation_page.dart';
 
 import '../authentication/signin_screen.dart';
@@ -23,42 +25,154 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return Scaffold(
         body: Stack(
       children: [
-        Column(
-          children: [
-            SizedBox(
-              height: 250,
-            ),
-            customClickableCard(
-                'Appointment Management',
-                AssetImage(ImageConstant.APPOINTMENT),
-                () => {
-                      print('press'),
-                      //action
-                    }),
-            SizedBox(
-              height: 10,
-            ),
-            customClickableCard(
-                'Screening Test',
-                AssetImage(ImageConstant.SCREENING_TEST),
-                () => {
-                      print('press'),
-                      //action
-                    }),
-            SizedBox(
-              height: 10,
-            ),
-            customClickableCard(
-                'User Management',
-                AssetImage(ImageConstant.ACCOUNT_MANAGE),
-                () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserManagementPage())),
-                    }),
-          ],
-        ),
+        Expanded(
+            child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: 1,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 210,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Appointment Managment',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentAdminNavPage(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            color: Colors.blue.shade100,
+                            elevation: 5.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Container(
+                                height: 150.0, // Adjust the height as needed
+                                width: double.infinity,
+                                child: Image.asset(
+                                  ImageConstant.APPOINTMENT,
+                                  // fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Screening Test',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QuestionListNavPage(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            color: Colors.blue.shade100,
+                            elevation: 5.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Container(
+                                height: 150.0, // Adjust the height as needed
+                                width: double.infinity,
+                                child: Image.asset(
+                                  ImageConstant.SCREENING_TEST_ADMIN,
+                                  // fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'User Management',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UserManagementPage(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            color: Colors.blue.shade100,
+                            elevation: 5.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Container(
+                                height: 150.0, // Adjust the height as needed
+                                width: double.infinity,
+                                child: Image.asset(
+                                  ImageConstant.ACCOUNT_MANAGE,
+                                  // fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                })),
         Positioned(
           top: 25,
           left: 0,

@@ -34,6 +34,7 @@ class _PhysioHomePageState extends State<PhysioHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.black,
         currentIndex: _currentIndex,
