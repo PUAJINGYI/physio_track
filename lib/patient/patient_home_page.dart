@@ -38,15 +38,11 @@ class _PatientHomePageState extends State<PatientHomePage>
   @override
   void initState() {
     super.initState();
-    //updateUserOTPTList();
+    // updateUserOTPTList();
     _pageController = PageController(initialPage: 0, keepPage: true);
   }
 
-  Future<void> updateUserOTPTList() async {
-    DocumentReference userRef = usersCollection.doc(userId);
-    await userPTListService.suggestPTActivityList(userRef, userId);
-    await userOTListService.suggestOTActivityList(userRef, userId);
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,36 +62,14 @@ class _PatientHomePageState extends State<PatientHomePage>
           });
         },
       ),
-      body: FutureBuilder(
-        future: updateUserOTPTList(), // Call your method here.
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // You can return a loading indicator or a placeholder widget here.
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 16), // Adjust the spacing as needed
-                  Text('Fetching Data...'),
-                ],
-              ),
-            );
-          } else if (snapshot.hasError) {
-            // Handle errors if any.
-            return Text('Error: ${snapshot.error}');
-          } else {
-            // Once the future is completed, you can build your PageView.
-            return PageView(
-              controller: _pageController,
-              children: _page,
-              onPageChanged: (int page) {
-                setState(() {
-                  _currentIndex = page;
-                });
-              },
-            );
-          }
+      body: 
+      PageView(
+        controller: _pageController,
+        children: _page,
+        onPageChanged: (int page) {
+          setState(() {
+            _currentIndex = page;
+          });
         },
       ),
     );
