@@ -195,7 +195,7 @@ void initBackgroundFetch() {
     ),
     (taskId) async {
       // Perform your background task here
-      await _performBackgroundTask();
+      //await _performBackgroundTask();
       BackgroundFetch.finish(taskId);
       print('Task completed');
     },
@@ -203,73 +203,73 @@ void initBackgroundFetch() {
   BackgroundFetch.start();
 }
 
-Future<void> _performBackgroundTask() async {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  final NotificationServices notificationServices = NotificationServices();
-  print('_performBackgroundTask');
+// Future<void> _performBackgroundTask() async {
+//   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//       FlutterLocalNotificationsPlugin();
+//   final NotificationServices notificationServices = NotificationServices();
+//   print('_performBackgroundTask');
 
-  // empty list be get!!!
-  QuestionService questionService = QuestionService();
-  QuerySnapshot usersSnapshot = await FirebaseFirestore.instance
-      .collection('users')
-      .where('role', isEqualTo: 'patient')
-      .where('isTakenTest', isEqualTo: true)
-      .get();
+//   // empty list be get!!!
+//   QuestionService questionService = QuestionService();
+//   QuerySnapshot usersSnapshot = await FirebaseFirestore.instance
+//       .collection('users')
+//       .where('role', isEqualTo: 'patient')
+//       .where('isTakenTest', isEqualTo: true)
+//       .get();
 
-  for (QueryDocumentSnapshot userDoc in usersSnapshot.docs) {
-    String userId = userDoc.id;
-    print("useerid: ${userId}");
-    DocumentReference userRef =
-        FirebaseFirestore.instance.collection('users').doc(userId);
+//   for (QueryDocumentSnapshot userDoc in usersSnapshot.docs) {
+//     String userId = userDoc.id;
+//     print("useerid: ${userId}");
+//     DocumentReference userRef =
+//         FirebaseFirestore.instance.collection('users').doc(userId);
  
-    QuerySnapshot otLibrariesSnapshot = await userRef
-        .collection('ot_activities')
-        .orderBy('date', descending: true)
-        .limit(1)
-        .get();
-    print("below is otLibrariesSnapshot");
-    print(otLibrariesSnapshot);
-    if (otLibrariesSnapshot.docs.isNotEmpty) {
-      // today date + 1 day
-      DateTime currentDate = DateTime.now();
-      DateTime currentDateWithoutTime =
-          DateTime(currentDate.year, currentDate.month, currentDate.day);
-      DateTime todayPlusOneDay = currentDateWithoutTime.add(Duration(days: 1));
-      print(todayPlusOneDay.toString());
-      // latest library date
-      DocumentSnapshot latestLibrarySnapshot = otLibrariesSnapshot.docs[0];
-      Timestamp latestLibraryTimestamp = latestLibrarySnapshot.get('date');
-      DateTime latestLibraryDate = DateTime(
-        latestLibraryTimestamp.toDate().year,
-        latestLibraryTimestamp.toDate().month,
-        latestLibraryTimestamp.toDate().day,
-      );
-      print(latestLibraryDate.toString());
-      if (todayPlusOneDay.isAfter(latestLibraryDate)) {
-        print('same day');
-        questionService.updateTestStatus(userId);
-        print('finish update test status');
-        notificationServices.showTaskNotification(
-            title: "bgtask 2",
-            body: 'New Weekly activity list be refreshed !',
-            fln: flutterLocalNotificationsPlugin);
-      }
-      print('not same day');
-    } else {
-      questionService.updateTestStatus(userId);
-      notificationServices.showTaskNotification(
-          title: "bgtask 2",
-          body: 'New Weekly activity list be refreshed !',
-          fln: flutterLocalNotificationsPlugin);
-    }
-    print("otLibrariesSnapshot is empty");
-  }
-  notificationServices.showTaskNotification(
-      title: "bgtask 2",
-      body: 'Testing 1234',
-      fln: flutterLocalNotificationsPlugin);
-}
+//     QuerySnapshot otLibrariesSnapshot = await userRef
+//         .collection('ot_activities')
+//         .orderBy('date', descending: true)
+//         .limit(1)
+//         .get();
+//     print("below is otLibrariesSnapshot");
+//     print(otLibrariesSnapshot);
+//     if (otLibrariesSnapshot.docs.isNotEmpty) {
+//       // today date + 1 day
+//       DateTime currentDate = DateTime.now();
+//       DateTime currentDateWithoutTime =
+//           DateTime(currentDate.year, currentDate.month, currentDate.day);
+//       DateTime todayPlusOneDay = currentDateWithoutTime.add(Duration(days: 1));
+//       print(todayPlusOneDay.toString());
+//       // latest library date
+//       DocumentSnapshot latestLibrarySnapshot = otLibrariesSnapshot.docs[0];
+//       Timestamp latestLibraryTimestamp = latestLibrarySnapshot.get('date');
+//       DateTime latestLibraryDate = DateTime(
+//         latestLibraryTimestamp.toDate().year,
+//         latestLibraryTimestamp.toDate().month,
+//         latestLibraryTimestamp.toDate().day,
+//       );
+//       print(latestLibraryDate.toString());
+//       if (todayPlusOneDay.isAfter(latestLibraryDate)) {
+//         print('same day');
+//         questionService.updateTestStatus(userId);
+//         print('finish update test status');
+//         notificationServices.showTaskNotification(
+//             title: "bgtask 2",
+//             body: 'New Weekly activity list be refreshed !',
+//             fln: flutterLocalNotificationsPlugin);
+//       }
+//       print('not same day');
+//     } else {
+//       questionService.updateTestStatus(userId);
+//       notificationServices.showTaskNotification(
+//           title: "bgtask 2",
+//           body: 'New Weekly activity list be refreshed !',
+//           fln: flutterLocalNotificationsPlugin);
+//     }
+//     print("otLibrariesSnapshot is empty");
+//   }
+//   notificationServices.showTaskNotification(
+//       title: "bgtask 2",
+//       body: 'Testing 1234',
+//       fln: flutterLocalNotificationsPlugin);
+// }
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

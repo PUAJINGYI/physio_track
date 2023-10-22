@@ -86,7 +86,6 @@ class UserOTListService {
 
       final CollectionReference otCollection =
           usersCollection.doc(userId).collection('ot_activities');
-
       DateTime newRecordDate;
       int id = 0;
       QuerySnapshot otLibrariesSnapshot = await userRef
@@ -104,10 +103,56 @@ class UserOTListService {
           latestLibraryTimestamp.toDate().year,
           latestLibraryTimestamp.toDate().month,
           latestLibraryTimestamp.toDate().day,
-        ).add(Duration(days: 1));
-        newRecordDate = latestLibraryDate;
-        int recordId = latestLibrarySnapshot.get('id');
-        id = recordId + 1;
+        );
+        DateTime currentDate = DateTime.now();
+        DateTime currentDateWithoutTime =
+            DateTime(currentDate.year, currentDate.month, currentDate.day);
+        Duration difference =
+            currentDateWithoutTime.difference(latestLibraryDate);
+        int daysDifference = difference.inDays;
+        print("${daysDifference} days from today");
+        int id = latestLibrarySnapshot.get('id');
+        // add until today date and 1 week after
+        if (daysDifference > 0) {
+          daysDifference = daysDifference + 7;
+          for (int i = 1; i <= daysDifference; i++) {
+            DateTime activityDate = latestLibraryDate.add(Duration(days: i));
+            OTActivity newActivity = OTActivity(
+                id: id + i, // Incremental ID starting from 1
+                isDone: false,
+                date: Timestamp.fromDate(activityDate),
+                progress: 0.0);
+
+            DocumentReference otActivityDocument =
+                await otCollection.add(newActivity.toMap());
+
+            DocumentSnapshot otActivitySnapshot =
+                await otActivityDocument.get();
+            if (otActivitySnapshot.exists) {
+              await addOTActivitiesToUser(
+                  otActivityDocument, selectedActivities, totalSelected);
+            }
+          }
+        } else if (daysDifference == -1) {
+          for (int i = 1; i <= 6; i++) {
+            DateTime activityDate = latestLibraryDate.add(Duration(days: i));
+            OTActivity newActivity = OTActivity(
+                id: id + i, // Incremental ID starting from 1
+                isDone: false,
+                date: Timestamp.fromDate(activityDate),
+                progress: 0.0);
+
+            DocumentReference otActivityDocument =
+                await otCollection.add(newActivity.toMap());
+
+            DocumentSnapshot otActivitySnapshot =
+                await otActivityDocument.get();
+            if (otActivitySnapshot.exists) {
+              await addOTActivitiesToUser(
+                  otActivityDocument, selectedActivities, totalSelected);
+            }
+          }
+        }
       } else {
         // Calculate the current date and time
         DateTime currentDate = DateTime.now();
@@ -115,23 +160,23 @@ class UserOTListService {
             DateTime(currentDate.year, currentDate.month, currentDate.day);
         newRecordDate = currentDateWithoutTime;
         id = 1;
-      }
 
-      for (int i = 0; i < 14; i++) {
-        DateTime activityDate = newRecordDate.add(Duration(days: i));
-        OTActivity newActivity = OTActivity(
-            id: id + i, // Incremental ID starting from 1
-            isDone: false,
-            date: Timestamp.fromDate(activityDate),
-            progress: 0.0);
+         for (int i = 0; i < 8; i++) {
+          DateTime activityDate = newRecordDate.add(Duration(days: i));
+          OTActivity newActivity = OTActivity(
+              id: id + i, // Incremental ID starting from 1
+              isDone: false,
+              date: Timestamp.fromDate(activityDate),
+              progress: 0.0);
 
-        DocumentReference otActivityDocument =
-            await otCollection.add(newActivity.toMap());
+          DocumentReference otActivityDocument =
+              await otCollection.add(newActivity.toMap());
 
-        DocumentSnapshot otActivitySnapshot = await otActivityDocument.get();
-        if (otActivitySnapshot.exists) {
-          await addOTActivitiesToUser(
-              otActivityDocument, selectedActivities, totalSelected);
+          DocumentSnapshot otActivitySnapshot = await otActivityDocument.get();
+          if (otActivitySnapshot.exists) {
+            await addOTActivitiesToUser(
+                otActivityDocument, selectedActivities, totalSelected);
+          }
         }
       }
     } catch (e) {

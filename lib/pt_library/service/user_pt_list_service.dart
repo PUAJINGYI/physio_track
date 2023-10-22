@@ -128,7 +128,6 @@ class UserPTListService {
 
       final CollectionReference ptCollection =
           usersCollection.doc(userId).collection('pt_activities');
-
       DateTime newRecordDate;
       int id = 0;
       QuerySnapshot ptLibrariesSnapshot = await userRef
@@ -146,10 +145,63 @@ class UserPTListService {
           latestLibraryTimestamp.toDate().year,
           latestLibraryTimestamp.toDate().month,
           latestLibraryTimestamp.toDate().day,
-        ).add(Duration(days: 1));
-        newRecordDate = latestLibraryDate;
-        int recordId = latestLibrarySnapshot.get('id');
-        id = recordId + 1;
+        );
+        DateTime currentDate = DateTime.now();
+        DateTime currentDateWithoutTime =
+            DateTime(currentDate.year, currentDate.month, currentDate.day);
+        Duration difference =
+            currentDateWithoutTime.difference(latestLibraryDate);
+        int daysDifference = difference.inDays;
+        int id = latestLibrarySnapshot.get('id');
+        // add until today date and 1 week after
+        if (daysDifference > 0) {
+          daysDifference = daysDifference + 7;
+          for (int i = 1; i <= daysDifference; i++) {
+            DateTime activityDate = latestLibraryDate.add(Duration(days: i));
+            PTActivity newActivity = PTActivity(
+                id: id + i, // Incremental ID starting from 1
+                isDone: false,
+                date: Timestamp.fromDate(activityDate),
+                progress: 0.0);
+
+            DocumentReference ptActivityDocument =
+                await ptCollection.add(newActivity.toMap());
+
+            DocumentSnapshot ptActivitySnapshot =
+                await ptActivityDocument.get();
+            if (ptActivitySnapshot.exists) {
+              await addPTActivitiesToUser(
+                  ptActivityDocument,
+                  selectedUpperActivities,
+                  selectedLowerActivities,
+                  selectedOtherACtivities,
+                  totalSelected);
+            }
+          }
+        } else if (daysDifference == -1) {
+          for (int i = 1; i <= 6; i++) {
+            DateTime activityDate = latestLibraryDate.add(Duration(days: i));
+            PTActivity newActivity = PTActivity(
+                id: id + i, // Incremental ID starting from 1
+                isDone: false,
+                date: Timestamp.fromDate(activityDate),
+                progress: 0.0);
+
+            DocumentReference ptActivityDocument =
+                await ptCollection.add(newActivity.toMap());
+
+            DocumentSnapshot ptActivitySnapshot =
+                await ptActivityDocument.get();
+            if (ptActivitySnapshot.exists) {
+              await addPTActivitiesToUser(
+                  ptActivityDocument,
+                  selectedUpperActivities,
+                  selectedLowerActivities,
+                  selectedOtherACtivities,
+                  totalSelected);
+            }
+          }
+        }
       } else {
         // Calculate the current date and time
         DateTime currentDate = DateTime.now();
@@ -157,28 +209,27 @@ class UserPTListService {
             DateTime(currentDate.year, currentDate.month, currentDate.day);
         newRecordDate = currentDateWithoutTime;
         id = 1;
-      }
 
-      for (int i = 0; i < 14; i++) {
-        DateTime activityDate = newRecordDate.add(Duration(days: i));
-        PTActivity newActivity = PTActivity(
-          id: id + i, // Incremental ID starting from 1
-          isDone: false,
-          date: Timestamp.fromDate(activityDate),
-          progress: 0.0,
-        );
+        for (int i = 0; i < 8; i++) {
+          DateTime activityDate = newRecordDate.add(Duration(days: i));
+          PTActivity newActivity = PTActivity(
+              id: id + i, // Incremental ID starting from 1
+              isDone: false,
+              date: Timestamp.fromDate(activityDate),
+              progress: 0.0);
 
-        DocumentReference ptActivityDocument =
-            await ptCollection.add(newActivity.toMap());
+          DocumentReference ptActivityDocument =
+              await ptCollection.add(newActivity.toMap());
 
-        DocumentSnapshot ptActivitySnapshot = await ptActivityDocument.get();
-        if (ptActivitySnapshot.exists) {
-          await addPTActivitiesToUser(
-              ptActivityDocument,
-              selectedUpperActivities,
-              selectedLowerActivities,
-              selectedOtherACtivities,
-              totalSelected);
+          DocumentSnapshot ptActivitySnapshot = await ptActivityDocument.get();
+          if (ptActivitySnapshot.exists) {
+            await addPTActivitiesToUser(
+                ptActivityDocument,
+                selectedUpperActivities,
+                selectedLowerActivities,
+                selectedOtherACtivities,
+                totalSelected);
+          }
         }
       }
     } catch (e) {
