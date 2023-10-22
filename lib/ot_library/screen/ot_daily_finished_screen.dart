@@ -108,12 +108,8 @@ class _OTDailyFinishedScreenState extends State<OTDailyFinishedScreen> {
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ColorConstant.BLUE_BUTTON_PRESSED, () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PatientHomePage(),
-                        ),
-                      );
+                      Navigator.pop(context, true);
+                      Navigator.pop(context, true);
                     })
                   ],
                 ),

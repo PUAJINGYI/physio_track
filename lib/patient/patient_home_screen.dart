@@ -141,7 +141,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OTDailyListScreen(),
+                          builder: (context) => OTDailyListScreen(uid: uId),
                         ),
                       );
                     }),

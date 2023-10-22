@@ -11,14 +11,15 @@ import '../../constant/ImageConstant.dart';
 import 'ot_daily_detail_screen.dart';
 
 class OTDailyListScreen extends StatefulWidget {
-  const OTDailyListScreen({Key? key}) : super(key: key);
+  final String uid;
+  const OTDailyListScreen({Key? key, required this.uid}) : super(key: key);
 
   @override
   State<OTDailyListScreen> createState() => _OTDailyListScreenState();
 }
 
 class _OTDailyListScreenState extends State<OTDailyListScreen> {
-  String uId = FirebaseAuth.instance.currentUser!.uid;
+  //String uId = FirebaseAuth.instance.currentUser!.uid;
   late List<OTActivityDetail> dailyOTList = [];
   late List<OTLibrary> otLibraryList = [];
   late int activityId = 0;
@@ -36,7 +37,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
 
     final CollectionReference otCollection = FirebaseFirestore.instance
         .collection('users')
-        .doc(uId)
+        .doc(widget.uid)
         .collection('ot_activities');
 
     QuerySnapshot otSnapshot = await otCollection.get();
@@ -128,67 +129,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
             } else {
               return Stack(
                 children: [
-                  Positioned(
-                    top: 25,
-                    left: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 25,
-                    right: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.notifications_outlined,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        // Perform your desired action here
-                        // For example, show notifications
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 25,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: kToolbarHeight,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Today\'s OT Activities',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 90,
-                    left: 0,
-                    right: 0,
-                    child: CircularPercentIndicator(
-                      radius: 90,
-                      lineWidth: 20.0,
-                      percent: progress,
-                      progressColor: Colors.blue,
-                      backgroundColor: Colors.blue.shade100,
-                      circularStrokeCap: CircularStrokeCap.round,
-                      center: Image.asset(
-                        ImageConstant.OT,
-                        width: 211.0,
-                        height: 169.0,
-                      ),
-                    ),
-                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -198,11 +138,12 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                       Expanded(
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
-                          itemCount: otLibraryList.length,
+                          itemCount: dailyOTList.length,
                           itemBuilder: (BuildContext context, int index) {
-                            OTLibrary otLibrary = otLibraryList[index];
                             OTActivityDetail otActivityDetail =
                                 dailyOTList[index];
+
+                            OTLibrary otLibrary = otLibraryList[index];
 
                             if (otActivityDetail.isDone) {
                               return Padding(
@@ -239,8 +180,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                         ? NetworkImage(otLibrary
                                                                 .thumbnailUrl!)
                                                             as ImageProvider
-                                                        : AssetImage(
-                                                                ImageConstant.DATA_NOT_FOUND)
+                                                        : AssetImage(ImageConstant
+                                                                .DATA_NOT_FOUND)
                                                             as ImageProvider,
                                                   ),
                                                 ),
@@ -355,8 +296,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                         ? NetworkImage(otLibrary
                                                                 .thumbnailUrl!)
                                                             as ImageProvider
-                                                        : AssetImage(
-                                                                ImageConstant.DATA_NOT_FOUND)
+                                                        : AssetImage(ImageConstant
+                                                                .DATA_NOT_FOUND)
                                                             as ImageProvider,
                                                   ),
                                                 ),
@@ -424,8 +365,9 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                 color: Colors.blue,
                                               ),
                                               child: IconButton(
-                                                onPressed: () {
-                                                  Navigator.push(
+                                                onPressed: () async {
+                                                  final needUpdate =
+                                                      await Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
@@ -436,6 +378,13 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                       ), // Replace NextPage with your desired page
                                                     ),
                                                   );
+
+                                                  if (needUpdate != null &&
+                                                      needUpdate) {
+                                                    setState(() {
+                                                      _loadOTActivitiesRecord();
+                                                    });
+                                                  }
                                                 },
                                                 icon: Icon(
                                                   Icons.play_arrow_outlined,
@@ -458,6 +407,67 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                         height: 60.0,
                       )
                     ],
+                  ),
+                  Positioned(
+                    top: 25,
+                    left: 0,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 35.0,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    top: 25,
+                    right: 0,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.notifications_outlined,
+                        size: 35.0,
+                      ),
+                      onPressed: () {
+                        // Perform your desired action here
+                        // For example, show notifications
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    top: 25,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: kToolbarHeight,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Today\'s OT Activities',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 90,
+                    left: 0,
+                    right: 0,
+                    child: CircularPercentIndicator(
+                      radius: 90,
+                      lineWidth: 20.0,
+                      percent: progress,
+                      progressColor: Colors.blue,
+                      backgroundColor: Colors.blue.shade100,
+                      circularStrokeCap: CircularStrokeCap.round,
+                      center: Image.asset(
+                        ImageConstant.OT,
+                        width: 211.0,
+                        height: 169.0,
+                      ),
+                    ),
                   ),
                 ],
               );

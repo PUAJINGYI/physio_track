@@ -12,7 +12,7 @@ import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../ot_library/model/ot_activity_model.dart';
-import '../../ot_library/screen/file2.dart';
+import '../../ot_library/screen/ot_daily_list_screen.dart';
 import '../../pt_library/model/pt_activity_model.dart';
 import '../model/achievement_model.dart';
 import '../service/achievement_service.dart';

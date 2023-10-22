@@ -78,207 +78,187 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
   }
 
   Future<void> _markAsCompleted() async {
-    try {
-      _controller.pauseVideo();
-      final CollectionReference otCollection = FirebaseFirestore.instance
-          .collection('users')
-          .doc(uId)
-          .collection('ot_activities');
-      QuerySnapshot otActivitiesSnapshot =
-          await otCollection.where('id', isEqualTo: widget.activityId).get();
-      OTActivity otActivity = otActivitiesSnapshot.docs
-          .map((doc) => OTActivity.fromSnapshot(doc))
-          .toList()[0];
-      if (otActivitiesSnapshot.docs.isNotEmpty && otActivity != null) {
-        double progress = otActivity.progress;
-        DocumentSnapshot otActivitySnapshot = otActivitiesSnapshot.docs[0];
-        DocumentReference otActivityDocumentRef = otActivitySnapshot.reference;
+    _controller.pauseVideo();
+    final CollectionReference otCollection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .collection('ot_activities');
+    QuerySnapshot otActivitiesSnapshot =
+        await otCollection.where('id', isEqualTo: widget.activityId).get();
+    OTActivity otActivity = otActivitiesSnapshot.docs
+        .map((doc) => OTActivity.fromSnapshot(doc))
+        .toList()[0];
+    if (otActivitiesSnapshot.docs.isNotEmpty && otActivity != null) {
+      double progress = otActivity.progress;
+      DocumentSnapshot otActivitySnapshot = otActivitiesSnapshot.docs[0];
+      DocumentReference otActivityDocumentRef = otActivitySnapshot.reference;
 
-        if (progress < 1.0) {
-          await otActivityDocumentRef.update({'progress': progress + 0.20});
-          if (progress + 0.20 == 1.0) {
-            await otActivityDocumentRef.update({'isDone': true});
-            await otActivityDocumentRef
-                .update({'completeTime': Timestamp.now()});
-            bool checkFirstCompleteDailyOTActivity = await _achievementService
-                .checkFirstCompleteDailyOTActivity(uId);
-            bool check3DayStreakOTModule =
-                await _achievementService.check3DayStreakOTModule(uId);
-            bool check7DayStreakOTModule =
-                await _achievementService.check7DayStreakOTModule(uId);
-            bool checkAndHandleDailyActivities =
-                await _achievementService.checkAndHandleDailyActivities(uId);
-            bool checkAndHandleMonthlyActivities =
-                await _achievementService.checkAndHandleMonthlyActivities(uId);
-            if (checkFirstCompleteDailyOTActivity) {
-              Achievement? ach =
-                  await _achievementService.fetchAchievementsByAchId(
-                      AchievementConstant.DAILY_ENGAGEMENT_ID);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
-            }
-            if (check3DayStreakOTModule) {
-              Achievement? ach = await _achievementService
-                  .fetchAchievementsByAchId(AchievementConstant
-                      .OCCUPATIONAL_ENTHUSIAST_3_DAY_STREAK_ID);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
-            }
-            if (check7DayStreakOTModule) {
-              Achievement? ach =
-                  await _achievementService.fetchAchievementsByAchId(
-                      AchievementConstant.OCCUPATIONAL_MASTER_7_DAY_STREAK_ID);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
-            }
-            if (checkAndHandleDailyActivities) {
-              Achievement? ach =
-                  await _achievementService.fetchAchievementsByAchId(
-                      AchievementConstant.TWO_MODULE_TRIUMPH_ID);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
-            }
-            if (checkAndHandleMonthlyActivities) {
-              Achievement? ach =
-                  await _achievementService.fetchAchievementsByAchId(
-                      AchievementConstant.LIFELONG_WELLNESS_CHAMPION);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
+      if (progress < 1.0) {
+        await otActivityDocumentRef.update({'progress': progress + 0.20});
+        if (progress + 0.20 == 1.0) {
+          await otActivityDocumentRef.update({'isDone': true});
+          await otActivityDocumentRef.update({'completeTime': Timestamp.now()});
+          bool checkFirstCompleteDailyOTActivity =
+              await _achievementService.checkFirstCompleteDailyOTActivity(uId);
+          bool check3DayStreakOTModule =
+              await _achievementService.check3DayStreakOTModule(uId);
+          bool check7DayStreakOTModule =
+              await _achievementService.check7DayStreakOTModule(uId);
+          bool checkAndHandleDailyActivities =
+              await _achievementService.checkAndHandleDailyActivities(uId);
+          bool checkAndHandleMonthlyActivities =
+              await _achievementService.checkAndHandleMonthlyActivities(uId);
+          if (checkFirstCompleteDailyOTActivity) {
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.DAILY_ENGAGEMENT_ID);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
             }
           }
-          final activitiesRef = otActivityDocumentRef.collection('activities');
-          final QuerySnapshot activitySnapshot = await activitiesRef
-              .where('otid', isEqualTo: widget.otLibraryId)
-              .get();
-
-          if (activitySnapshot.docs.isNotEmpty) {
-            DocumentSnapshot activityDocSnapshot = activitySnapshot.docs[0];
-            DocumentReference activityDocRef = activityDocSnapshot.reference;
-            await activityDocRef.update({'isDone': true});
-            await activityDocRef.update({'completeTime': Timestamp.now()});
-            bool checkFirstOTActivity =
-                await _achievementService.checkFirstOTActivity(uId);
-            bool check30OTActivities =
-                await _achievementService.check30OTActivities(uId);
-            bool check50OTActivities =
-                await _achievementService.check50OTActivities(uId);
-            bool check80OTActivities =
-                await _achievementService.check80OTActivities(uId);
-            if (checkFirstOTActivity) {
-              Achievement? ach =
-                  await _achievementService.fetchAchievementsByAchId(
-                      AchievementConstant.OCCUPATIONAL_ONSET_ID);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
-            }
-            if (check30OTActivities) {
-              Achievement? ach =
-                  await _achievementService.fetchAchievementsByAchId(
-                      AchievementConstant.ADAPTIVE_ADEPT_ID);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
-            }
-            if (check50OTActivities) {
-              Achievement? ach =
-                  await _achievementService.fetchAchievementsByAchId(
-                      AchievementConstant.LIFE_IMPROVEMENT_TRAILBLAZER_ID);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
-            }
-            if (check80OTActivities) {
-              Achievement? ach =
-                  await _achievementService.fetchAchievementsByAchId(
-                      AchievementConstant.OCCUPATIONAL_ODYSSEY_ID);
-              if (ach != null) {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AchievementDialogWidget(ach: ach);
-                  },
-                );
-              }
+          if (check3DayStreakOTModule) {
+            Achievement? ach = await _achievementService
+                .fetchAchievementsByAchId(AchievementConstant
+                    .OCCUPATIONAL_ENTHUSIAST_3_DAY_STREAK_ID);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
             }
           }
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Activity marked as completed'),
-              backgroundColor: Colors.green[500],
-            ),
-          );
-          await _updateLevelAndProgress();
-          if (progress + 0.20 == 1.0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OTDailyFinishedScreen(),
-              ),
+          if (check7DayStreakOTModule) {
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.OCCUPATIONAL_MASTER_7_DAY_STREAK_ID);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
+            }
+          }
+          if (checkAndHandleDailyActivities) {
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.TWO_MODULE_TRIUMPH_ID);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
+            }
+          }
+          if (checkAndHandleMonthlyActivities) {
+            Achievement? ach =
+                await _achievementService.fetchAchievementsByAchId(
+                    AchievementConstant.LIFELONG_WELLNESS_CHAMPION);
+            if (ach != null) {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AchievementDialogWidget(ach: ach);
+                },
+              );
+            }
+          }
+        }
+      }
+      final activitiesRef = otActivityDocumentRef.collection('activities');
+      final QuerySnapshot activitySnapshot = await activitiesRef
+          .where('otid', isEqualTo: widget.otLibraryId)
+          .get();
+
+      if (activitySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot activityDocSnapshot = activitySnapshot.docs[0];
+        DocumentReference activityDocRef = activityDocSnapshot.reference;
+        await activityDocRef.update({'isDone': true});
+        await activityDocRef.update({'completeTime': Timestamp.now()});
+        bool checkFirstOTActivity =
+            await _achievementService.checkFirstOTActivity(uId);
+        bool check30OTActivities =
+            await _achievementService.check30OTActivities(uId);
+        bool check50OTActivities =
+            await _achievementService.check50OTActivities(uId);
+        bool check80OTActivities =
+            await _achievementService.check80OTActivities(uId);
+        if (checkFirstOTActivity) {
+          Achievement? ach = await _achievementService.fetchAchievementsByAchId(
+              AchievementConstant.OCCUPATIONAL_ONSET_ID);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
             );
-          } else {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OTDailyListScreen(),
-              ),
+          }
+        }
+        if (check30OTActivities) {
+          Achievement? ach = await _achievementService
+              .fetchAchievementsByAchId(AchievementConstant.ADAPTIVE_ADEPT_ID);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
+            );
+          }
+        }
+        if (check50OTActivities) {
+          Achievement? ach = await _achievementService.fetchAchievementsByAchId(
+              AchievementConstant.LIFE_IMPROVEMENT_TRAILBLAZER_ID);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
+            );
+          }
+        }
+        if (check80OTActivities) {
+          Achievement? ach = await _achievementService.fetchAchievementsByAchId(
+              AchievementConstant.OCCUPATIONAL_ODYSSEY_ID);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
             );
           }
         }
       }
-    } catch (e) {
-      print('Error marking activity as completed: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error marking activity as completed'),
-          backgroundColor: Colors.red[500],
+          content: Text('Activity marked as completed'),
+          backgroundColor: Colors.green[500],
         ),
       );
+      await _updateLevelAndProgress();
+      if (progress + 0.20 == 1.0) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OTDailyFinishedScreen(),
+          ),
+        );
+      } else {
+       Navigator.pop(context, true);
+      }
     }
   }
 
@@ -300,7 +280,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
     return '';
   }
 
-  Future<void> _updateLevelAndProgress() async {
+   Future<void> _updateLevelAndProgress() async {
     DocumentReference userRef = usersCollection.doc(uId);
 
     try {
@@ -336,22 +316,20 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
 
   Map<int, double> calculateLevelAndProgress(int experience) {
     Map<int, double> levelInfo = {};
-    // Initial level requires 50 experience
-    int baseExperience = 50;
 
-    // Calculate the level based on the given experience
     int level = 1;
-    int requiredExperience = baseExperience;
+    int requiredExperience = 50;
+    double progressToNextLevel = 0;
 
     while (experience >= requiredExperience) {
       level++;
-      requiredExperience +=
-          50; // Increase the required experience for the next level
+      requiredExperience = requiredExperience + (level - 1) * 50 + 50;
+      progressToNextLevel = experience / requiredExperience;
     }
 
-    // Calculate progress towards the next level
-    double progressToNextLevel =
-        (experience - (requiredExperience - 50)) / 50.0;
+    if (level == 1) {
+      progressToNextLevel = experience / 50.0;
+    }
 
     levelInfo[level] = progressToNextLevel;
     return levelInfo;
@@ -588,7 +566,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                         ),
                         onPressed: () async {
                           await _controller.stopVideo();
-                          Navigator.of(context).pop();
+                          Navigator.pop(context, true);
                         },
                       ),
                     ),

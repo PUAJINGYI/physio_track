@@ -118,7 +118,8 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                         today = DateTime(today.year, today.month, today.day);
                         if (widget.ot.date == Timestamp.fromDate(today)) {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => OTDailyListScreen(),
+                            builder: (context) =>
+                                OTDailyListScreen(uid: widget.uid),
                           ));
                         } else {
                           Navigator.of(context).push(MaterialPageRoute(
