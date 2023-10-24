@@ -134,21 +134,21 @@ class _SignInScreenState extends State<SignInScreen> {
             // Redirect to patient home page
             print(role);
             if (isTakenTest == true) {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => PatientHomePage()));
             } else {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => TestStartScreen()));
             }
           } else if (role == 'admin') {
             // Redirect to admin home page
             print(role);
-            Navigator.push(context,
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => AdminHomePage()));
           } else if (role == 'physio') {
             // Redirect to admin home page
             print(role);
-            Navigator.push(context,
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => PhysioHomePage()));
           } else {
             // Handle null role value

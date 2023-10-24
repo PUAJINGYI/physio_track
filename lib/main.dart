@@ -123,6 +123,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/details': (context) => Details(),
+        '/patient_home': (context) => PatientHomePage(),
+        '/admin_home': (context) => AdminHomePage(),
+        '/physio_home': (context) => PhysioHomePage(),
+        '/test_start': (context) => TestStartScreen(),
         // Add more routes as needed.
       },
       home:
@@ -134,21 +138,21 @@ class MyApp extends StatelessWidget {
           //AddPTActivityScreen(),
           //OTLibraryDetailScreen2(),
           //AddQuestionScreen(),
-          //     SplashScreen(
-          //   onFinish: () {
-          //     if (authManager.isLoggedIn) {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (_) => RedirectScreen()),
-          //       );
-          //     } else {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (_) => SignInScreen()),
-          //       );
-          //     }
-          //   },
-          // ),
+              SplashScreen(
+            onFinish: () {
+              if (authManager.isLoggedIn) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => RedirectScreen()),
+                );
+              } else {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => SignInScreen()),
+                );
+              }
+            },
+          ),
           //AdminHomePage(),
-          PhysioHomePage(),
+          //PhysioHomePage(),
           //AdminActivityManagementScreen(),
           //NotificationListScreen(),
           //TestPart1Screen(),
