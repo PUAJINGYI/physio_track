@@ -134,6 +134,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
         if (snapshot.hasData) {
           List<UserModel> patients = snapshot.data!;
           return ListView(
+            padding: EdgeInsets.zero,
             children: patients.map((UserModel user) {
               return Card(
                 color: Color.fromRGBO(241, 243, 250, 1),

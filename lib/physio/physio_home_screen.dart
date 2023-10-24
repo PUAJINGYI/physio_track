@@ -157,119 +157,129 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(
                                           15.0), // Adjust the radius as needed
-                                      child: Card(
-                                        color:
-                                            Color.fromARGB(255, 188, 250, 190),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Icon(
-                                                  Icons.schedule,
-                                                  color: Colors.black,
-                                                  size: 50.0,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                  child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.stretch,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      // date and time column
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            DateFormat(
-                                                                    'dd MMM yyyy')
-                                                                .format(nextAppointment
-                                                                    .startTime),
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize: 20,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            DateFormat(
-                                                                    'hh:mm a')
-                                                                .format(nextAppointment
-                                                                    .startTime),
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 30,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                      // patient and physio column
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons.person,
-                                                                color: Colors
-                                                                    .black,
-                                                                size: 20.0,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 5,
-                                                              ),
-                                                              FutureBuilder<
-                                                                  String>(
-                                                                future: getUsernameById(
-                                                                    nextAppointment
-                                                                        .patientId),
-                                                                builder: (context,
-                                                                    snapshot) {
-                                                                  if (snapshot
-                                                                          .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
-                                                                    return CircularProgressIndicator();
-                                                                  }
-                                                                  if (snapshot
-                                                                      .hasError) {
-                                                                    return Text(
-                                                                        'Error: ${snapshot.error}');
-                                                                  }
-                                                                  if (snapshot
-                                                                      .hasData) {
-                                                                    String
-                                                                        username =
-                                                                        snapshot
-                                                                            .data!;
-                                                                    return Text(
-                                                                        shortenUsername(
-                                                                            username));
-                                                                  }
-                                                                  return Container();
-                                                                },
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
+                                      child: Container(
+                                        height: 120,
+                                        child: Card(
+                                          color: Color.fromARGB(
+                                              255, 188, 250, 190),
+                                          elevation: 5.0,
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.all(16.0),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          8.0),
+                                                  child: Icon(
+                                                    Icons.schedule,
+                                                    color: Colors.black,
+                                                    size: 50.0,
                                                   ),
-                                                ],
-                                              )),
-                                            ],
+                                                ),
+                                                Expanded(
+                                                    child: Column(
+                                              
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .center,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        // date and time column
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              DateFormat(
+                                                                      'dd MMM yyyy')
+                                                                  .format(nextAppointment
+                                                                      .startTime),
+                                                              style:
+                                                                  TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              DateFormat(
+                                                                      'hh:mm a')
+                                                                  .format(nextAppointment
+                                                                      .startTime),
+                                                              style:
+                                                                  TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 30,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        // patient and physio column
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .person,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  size: 20.0,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                FutureBuilder<
+                                                                    String>(
+                                                                  future: getUsernameById(
+                                                                      nextAppointment
+                                                                          .patientId),
+                                                                  builder:
+                                                                      (context,
+                                                                          snapshot) {
+                                                                    if (snapshot
+                                                                            .connectionState ==
+                                                                        ConnectionState
+                                                                            .waiting) {
+                                                                      return CircularProgressIndicator();
+                                                                    }
+                                                                    if (snapshot
+                                                                        .hasError) {
+                                                                      return Text(
+                                                                          'Error: ${snapshot.error}');
+                                                                    }
+                                                                    if (snapshot
+                                                                        .hasData) {
+                                                                      String
+                                                                          username =
+                                                                          snapshot.data!;
+                                                                      return Text(
+                                                                          shortenUsername(username));
+                                                                    }
+                                                                    return Container();
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),

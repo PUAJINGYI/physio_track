@@ -383,12 +383,9 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                 itemCount: 1,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 10.0,
-                        ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                           child: Align(
