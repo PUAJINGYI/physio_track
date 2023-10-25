@@ -39,7 +39,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         SnackBar(content: Text("Email Sent Successfully")),
       );
       print("Email Sent Successfully");
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => SignInScreen()));
     } on FirebaseAuthException catch (e) {
       String message;

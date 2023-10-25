@@ -104,13 +104,6 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Journal added successfully!")),
       );
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) =>
-      //         ViewJournalListScreen(), // Replace NextPage with your desired page
-      //   ),
-      // );
       Navigator.pop(context, true);
       print('Journal: $journal');
     } else {

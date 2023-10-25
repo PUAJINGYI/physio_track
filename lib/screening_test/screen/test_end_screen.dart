@@ -22,7 +22,7 @@ class _TestFinishScreenState extends State<TestFinishScreen> {
 
   Future<void> finishTest() async {
     await questionService.updateTestStatus(uid);
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => PatientHomePage(),

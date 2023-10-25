@@ -127,7 +127,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                   ColorConstant.BLUE_BUTTON_TEXT,
                   ColorConstant.BLUE_BUTTON_UNPRESSED,
                   ColorConstant.BLUE_BUTTON_PRESSED, () {
-                Navigator.pop(context);
+                Navigator.pop(context, true);
               }),
             )
           ],
@@ -141,7 +141,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
               size: 35.0,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context, true);
             },
           ),
         ),

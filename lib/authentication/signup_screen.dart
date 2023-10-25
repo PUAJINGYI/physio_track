@@ -68,8 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SnackBar(content: Text("New account created successfully")),
                 ),
                 print("New account created successfully"),
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignInScreen())),
+                Navigator.pop(context),
               });
     } on FirebaseAuthException catch (e) {
       String message;

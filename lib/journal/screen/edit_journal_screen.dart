@@ -124,12 +124,6 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Journal updated successfully!")),
       );
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => ViewJournalListScreen(),
-      //   ),
-      // );
       Navigator.pop(context, true);
       print('Journal: $journal');
     }

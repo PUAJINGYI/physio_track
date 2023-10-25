@@ -120,7 +120,8 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                           icon: Icon(Icons.arrow_forward),
                                           color: Colors.blue,
                                           onPressed: () async {
-                                            Navigator.push(
+                                            final needUpdate =
+                                                await Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
@@ -129,6 +130,12 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                                             notification.id),
                                               ),
                                             );
+                                            if (needUpdate != null &&
+                                                needUpdate) {
+                                              _refreshIndicatorKey.currentState
+                                                  ?.show();
+                                              loadUserNotification();
+                                            }
                                             await notificationService
                                                 .updateNotificationStatus(
                                                     uid, notification.id);
