@@ -196,10 +196,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Password updated successfully')),
         );
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProfileScreen()),
-        );
+        Navigator.pop(context);
       } else {
         // Show error message to the user
         ScaffoldMessenger.of(context).showSnackBar(
