@@ -97,7 +97,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
     }
   }
 
-  void updateJournal() async {
+  Future<void> updateJournal() async {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
@@ -120,7 +120,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
       );
 
       // TODO: Handle saving the journal object
-      journalService.updateJournal(userId, widget.journalId, journal);
+      await journalService.updateJournal(userId, widget.journalId, journal);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Journal updated successfully!")),
       );
@@ -453,8 +453,8 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                         'Save',
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED, () {
-                      updateJournal();
+                        ColorConstant.BLUE_BUTTON_PRESSED, () async{
+                      await updateJournal();
                     }),
                   )
                 ],

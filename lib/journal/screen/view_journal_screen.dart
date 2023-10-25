@@ -39,8 +39,8 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
       print('Error fetching journal: $error');
     }
   }
-
-  void back() async {
+  
+  Future<void> back() async {
     Navigator.pop(context, true);
   }
 
@@ -472,7 +472,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                               ColorConstant.BLUE_BUTTON_TEXT,
                               ColorConstant.BLUE_BUTTON_UNPRESSED,
                               ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                            back();
+                            await back();
                           }),
                         )
                       ],
@@ -510,7 +510,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
 
                           if (needUpdate != null && needUpdate) {
                             setState(() {
-                              fetchJournal();
+                               fetchJournal();
                             });
                           }
                         },
