@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
+import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
@@ -56,7 +57,7 @@ class _AppointmentNewApproveScreenState
             children: [
               Text('Reject Appointment'),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.red),
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
@@ -81,11 +82,11 @@ class _AppointmentNewApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromRGBO(220, 241, 254, 1),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text('Yes',
                         style:
-                            TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
                       await appointmentInPendingService
                           .rejectNewPendingAppointmentRecord(appointmentId);
@@ -101,11 +102,11 @@ class _AppointmentNewApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromARGB(255, 237, 159, 153),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
                         style:
-                            TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
+                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -135,7 +136,7 @@ class _AppointmentNewApproveScreenState
             children: [
               Text('Approve Appointment'),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.red),
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
@@ -160,11 +161,11 @@ class _AppointmentNewApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromRGBO(220, 241, 254, 1),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text('Yes',
                         style:
-                            TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
                       bool isApproved = await appointmentInPendingService
                           .checkIfNewAppointmentSlotExist(appointmentId);
@@ -196,11 +197,11 @@ class _AppointmentNewApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromARGB(255, 237, 159, 153),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
                         style:
-                            TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
+                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -410,8 +411,7 @@ class _AppointmentNewApproveScreenState
                                                 Icon(
                                                   Icons
                                                       .check_circle_outlined, // Your icon here
-                                                  color: Colors
-                                                      .green, // Icon color
+                                                  color: ColorConstant.GREEN_BUTTON_TEXT, // Icon color
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
@@ -419,7 +419,7 @@ class _AppointmentNewApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: Colors.green,
+                                                    color: ColorConstant.GREEN_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],
@@ -456,7 +456,7 @@ class _AppointmentNewApproveScreenState
                                                   Icons
                                                       .cancel_outlined, // Your icon here
                                                   color:
-                                                      Colors.red, // Icon colorF
+                                                      ColorConstant.RED_BUTTON_TEXT, // Icon colorF
                                                 ),
                                                 SizedBox(
                                                     width:
@@ -466,7 +466,7 @@ class _AppointmentNewApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: Colors.red,
+                                                    color: ColorConstant.RED_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],

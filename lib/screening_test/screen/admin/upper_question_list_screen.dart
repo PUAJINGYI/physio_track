@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
 
+import '../../../constant/ColorConstant.dart';
 import '../../model/question_model.dart';
 
 class UpperQuestionListScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
             children: [
               Text('Delete Question'),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.red),
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
@@ -67,11 +68,11 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromRGBO(220, 241, 254, 1),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text(
                       'Yes',
-                      style: TextStyle(color: Color.fromRGBO(18, 190, 246, 1)),
+                      style: TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT),
                     ),
                     onPressed: () async {
                       await performDeleteLogic(
@@ -89,11 +90,11 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromARGB(255, 237, 159, 153),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text(
                       'No',
-                      style: TextStyle(color: Color.fromARGB(255, 217, 24, 10)),
+                      style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
@@ -188,7 +189,7 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
                         },
                         child: Icon(
                           Icons.clear,
-                          color: Colors.red,
+                          color: ColorConstant.RED_BUTTON_TEXT,
                         ),
                       ),
                     ),
@@ -329,7 +330,7 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
                         },
                         child: Icon(
                           Icons.clear,
-                          color: Colors.red,
+                          color: ColorConstant.RED_BUTTON_TEXT,
                         ),
                       ),
                     ),

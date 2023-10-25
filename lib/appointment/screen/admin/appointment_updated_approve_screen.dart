@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
+import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
@@ -20,7 +21,7 @@ class _AppointmentUpdatedApproveScreenState
     extends State<AppointmentUpdatedApproveScreen> {
   AppointmentInPendingService appointmentInPendingService =
       AppointmentInPendingService();
-      UserManagementService userManagementService = UserManagementService();
+  UserManagementService userManagementService = UserManagementService();
   late Future<List<AppointmentInPending>> _newAppointmentList;
   late String patientName;
   late String physioName;
@@ -56,7 +57,7 @@ class _AppointmentUpdatedApproveScreenState
             children: [
               Text('Reject Appointment'),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.red),
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
@@ -81,11 +82,11 @@ class _AppointmentUpdatedApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromRGBO(220, 241, 254, 1),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text('Yes',
                         style:
-                            TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
                       await appointmentInPendingService
                           .rejectUpdatePendingAppointmentRecord(appointmentId);
@@ -101,11 +102,10 @@ class _AppointmentUpdatedApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromARGB(255, 237, 159, 153),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
+                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -135,7 +135,7 @@ class _AppointmentUpdatedApproveScreenState
             children: [
               Text('Approve Appointment'),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.red),
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
@@ -160,11 +160,11 @@ class _AppointmentUpdatedApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromRGBO(220, 241, 254, 1),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text('Yes',
                         style:
-                            TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
                       bool isApproved = await appointmentInPendingService
                           .checkIfUpdateAppointmentSlotExist(appointmentId);
@@ -177,10 +177,10 @@ class _AppointmentUpdatedApproveScreenState
                           ),
                         );
                       } else {
-                         ScaffoldMessenger.of(context).showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(
-                                'Appointment update has been approved'),
+                            content:
+                                Text('Appointment update has been approved'),
                             duration: Duration(seconds: 3),
                           ),
                         );
@@ -197,11 +197,11 @@ class _AppointmentUpdatedApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromARGB(255, 237, 159, 153),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
                         style:
-                            TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
+                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -241,10 +241,11 @@ class _AppointmentUpdatedApproveScreenState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 100.0,
-                    height: 100.0,
-                    child: Image.asset(ImageConstant.DATA_NOT_FOUND,)
-                  ),
+                      width: 100.0,
+                      height: 100.0,
+                      child: Image.asset(
+                        ImageConstant.DATA_NOT_FOUND,
+                      )),
                   Text('No Record Found',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
@@ -396,11 +397,7 @@ class _AppointmentUpdatedApproveScreenState
                                                   context, appointment.id);
                                             },
                                             style: TextButton.styleFrom(
-                                              backgroundColor: Color.fromARGB(
-                                                  255,
-                                                  197,
-                                                  245,
-                                                  199), // Background color of the button
+                                              backgroundColor: ColorConstant.GREEN_BUTTON_UNPRESSED, // Background color of the button
                                               primary:
                                                   Colors.white, // Text color
                                             ),
@@ -411,8 +408,7 @@ class _AppointmentUpdatedApproveScreenState
                                                 Icon(
                                                   Icons
                                                       .check_circle_outlined, // Your icon here
-                                                  color: Colors
-                                                      .green, // Icon color
+                                                  color: ColorConstant.GREEN_BUTTON_TEXT, // Icon color
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
@@ -420,7 +416,7 @@ class _AppointmentUpdatedApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: Colors.green,
+                                                    color: ColorConstant.GREEN_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],
@@ -441,11 +437,7 @@ class _AppointmentUpdatedApproveScreenState
                                                   context, appointment.id);
                                             },
                                             style: TextButton.styleFrom(
-                                              backgroundColor: Color.fromARGB(
-                                                  255,
-                                                  241,
-                                                  163,
-                                                  157), // Background color of the button
+                                              backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED, // Background color of the button
                                               primary:
                                                   Colors.white, // Text color
                                             ),
@@ -457,7 +449,7 @@ class _AppointmentUpdatedApproveScreenState
                                                   Icons
                                                       .cancel_outlined, // Your icon here
                                                   color:
-                                                      Colors.red, // Icon colorF
+                                                      ColorConstant.RED_BUTTON_TEXT, // Icon colorF
                                                 ),
                                                 SizedBox(
                                                     width:
@@ -467,7 +459,7 @@ class _AppointmentUpdatedApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: Colors.red,
+                                                    color: ColorConstant.RED_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],

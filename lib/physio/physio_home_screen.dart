@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:physio_track/achievement/screen/physio/patient_list_by_phiso_screen.dart';
+import 'package:physio_track/appointment/screen/physio/appointment_history_physio_screen.dart';
 import 'package:physio_track/appointment/screen/physio/appointment_schedule_screen.dart';
 import 'package:physio_track/user_management/screen/patient_list_screen.dart';
 
@@ -164,14 +165,12 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                               255, 188, 250, 190),
                                           elevation: 5.0,
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.all(16.0),
+                                            padding: const EdgeInsets.all(16.0),
                                             child: Row(
                                               children: [
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.all(
-                                                          8.0),
+                                                      const EdgeInsets.all(8.0),
                                                   child: Icon(
                                                     Icons.schedule,
                                                     color: Colors.black,
@@ -180,10 +179,8 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                 ),
                                                 Expanded(
                                                     child: Column(
-                                              
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Row(
                                                       children: [
@@ -198,8 +195,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                                       'dd MMM yyyy')
                                                                   .format(nextAppointment
                                                                       .startTime),
-                                                              style:
-                                                                  TextStyle(
+                                                              style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -211,8 +207,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                                       'hh:mm a')
                                                                   .format(nextAppointment
                                                                       .startTime),
-                                                              style:
-                                                                  TextStyle(
+                                                              style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -231,8 +226,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                             Row(
                                                               children: [
                                                                 Icon(
-                                                                  Icons
-                                                                      .person,
+                                                                  Icons.person,
                                                                   color: Colors
                                                                       .black,
                                                                   size: 20.0,
@@ -245,9 +239,8 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                                   future: getUsernameById(
                                                                       nextAppointment
                                                                           .patientId),
-                                                                  builder:
-                                                                      (context,
-                                                                          snapshot) {
+                                                                  builder: (context,
+                                                                      snapshot) {
                                                                     if (snapshot
                                                                             .connectionState ==
                                                                         ConnectionState
@@ -263,9 +256,11 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                                         .hasData) {
                                                                       String
                                                                           username =
-                                                                          snapshot.data!;
+                                                                          snapshot
+                                                                              .data!;
                                                                       return Text(
-                                                                          shortenUsername(username));
+                                                                          shortenUsername(
+                                                                              username));
                                                                     }
                                                                     return Container();
                                                                   },
@@ -330,7 +325,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                           150.0, // Adjust the height as needed
                                       width: double.infinity,
                                       child: Image.asset(
-                                        ImageConstant.APPOINTMENT_HISTORY,
+                                        ImageConstant.APPOINTMENT,
                                         // fit: BoxFit.cover,
                                       ),
                                     ),
@@ -378,6 +373,53 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       width: double.infinity,
                                       child: Image.asset(
                                         ImageConstant.PATIENT_LIST,
+                                        // fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Appointment History',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AppointmentHistoryPhysioScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Card(
+                                  color: Colors.blue.shade100,
+                                  elevation: 5.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    child: Container(
+                                      height:
+                                          150.0, // Adjust the height as needed
+                                      width: double.infinity,
+                                      child: Image.asset(
+                                        ImageConstant.APPOINTMENT_HISTORY,
                                         // fit: BoxFit.cover,
                                       ),
                                     ),

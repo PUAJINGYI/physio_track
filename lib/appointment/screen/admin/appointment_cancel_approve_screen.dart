@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
+import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
@@ -40,85 +41,6 @@ class _AppointmentCancelApproveScreenState
     return userManagementService.getUsernameById(id);
   }
 
-  // void showRejectConfirmationDialog(BuildContext context, int appointmentId) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         contentPadding: EdgeInsets.zero, // Remove content padding
-  //         titlePadding:
-  //             EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(10),
-  //         ),
-  //         title: Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Text('Reject Appointment'),
-  //             IconButton(
-  //               icon: Icon(Icons.close, color: Colors.red),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop(); // Close the dialog
-  //               },
-  //             ),
-  //           ],
-  //         ),
-  //         content: Padding(
-  //           padding: const EdgeInsets.all(8.0),
-  //           child: Text(
-  //             'Are you sure to reject this appointment？',
-  //             textAlign: TextAlign.center,
-  //           ),
-  //         ),
-  //         actions: [
-  //           Center(
-  //             // Wrap actions in Center widget
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 ElevatedButton(
-  //                   style: ElevatedButton.styleFrom(
-  //                     shape: RoundedRectangleBorder(
-  //                       borderRadius: BorderRadius.circular(5),
-  //                     ),
-  //                     backgroundColor: Color.fromRGBO(220, 241, 254, 1),
-  //                   ),
-  //                   child: Text('Yes',
-  //                       style:
-  //                           TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
-  //                   onPressed: () async {
-  //                     await appointmentInPendingService
-  //                         .rejectPendingAppointmentRecord(appointmentId);
-  //                     Navigator.pop(context);
-  //                     setState(() {
-  //                       _newAppointmentList = _fetchAppointmentList();
-  //                     });
-  //                   },
-  //                 ),
-  //                 SizedBox(width: 10),
-  //                 ElevatedButton(
-  //                   style: ElevatedButton.styleFrom(
-  //                     shape: RoundedRectangleBorder(
-  //                       borderRadius: BorderRadius.circular(5),
-  //                     ),
-  //                     backgroundColor: Color.fromARGB(255, 237, 159, 153),
-  //                   ),
-  //                   child: Text('No',
-  //                       style:
-  //                           TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
-  //                   onPressed: () {
-  //                     Navigator.of(context).pop(); // Close the dialog
-  //                   },
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
   void showAppproveConfirmationDialog(BuildContext context, int appointmentId) {
     showDialog(
       context: context,
@@ -135,7 +57,7 @@ class _AppointmentCancelApproveScreenState
             children: [
               Text('Approve Appointment'),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.red),
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
@@ -160,11 +82,11 @@ class _AppointmentCancelApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromRGBO(220, 241, 254, 1),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text('Yes',
                         style:
-                            TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
                       await appointmentInPendingService
                           .approveCancelledAppointmentRecord(appointmentId);
@@ -180,11 +102,11 @@ class _AppointmentCancelApproveScreenState
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromARGB(255, 237, 159, 153),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
                         style:
-                            TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
+                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -379,11 +301,7 @@ class _AppointmentCancelApproveScreenState
                                                   context, appointment.id);
                                             },
                                             style: TextButton.styleFrom(
-                                              backgroundColor: Color.fromARGB(
-                                                  255,
-                                                  197,
-                                                  245,
-                                                  199), // Background color of the button
+                                              backgroundColor: ColorConstant.GREEN_BUTTON_UNPRESSED, // Background color of the button
                                               primary:
                                                   Colors.white, // Text color
                                             ),
@@ -394,8 +312,8 @@ class _AppointmentCancelApproveScreenState
                                                 Icon(
                                                   Icons
                                                       .check_circle_outlined, // Your icon here
-                                                  color: Colors
-                                                      .green, // Icon color
+                                                  color: ColorConstant.GREEN_BUTTON_TEXT
+                                                      , // Icon color
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
@@ -403,7 +321,7 @@ class _AppointmentCancelApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: Colors.green,
+                                                    color: ColorConstant.GREEN_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],

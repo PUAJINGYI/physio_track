@@ -182,12 +182,7 @@ class _CreateTreatmentReportScreenState
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Treatment report added successfully!")),
         );
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AppointmentHistoryPhysioScreen(),
-          ),
-        );
+        Navigator.pop(context, true);
       });
     }
   }
@@ -197,14 +192,52 @@ class _CreateTreatmentReportScreenState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Alert'),
-          content: Text(message),
+          contentPadding: EdgeInsets.zero,
+          titlePadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Incomplete Info", style: TextStyle(fontSize: 18)),
+              IconButton(
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+            ),
+          ),
           actions: [
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+   
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
+                    ),
+                    child: Text('OK',
+                        style:
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         );
@@ -911,7 +944,6 @@ class _CreateTreatmentReportScreenState
                 },
               ),
             ),
-            SizedBox(height: 50.0),
           ],
         ),
         Positioned(

@@ -115,8 +115,8 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                         color: Colors.blue,
                                       ),
                                       child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
+                                        onPressed: () async{
+                                          final needUpdate = await Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
@@ -125,6 +125,10 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                               ), // Replace NextPage with your desired page
                                             ),
                                           );
+
+                                          if (needUpdate != null && needUpdate) {
+                                            setState(() {});
+                                          }
                                         },
                                         icon: Icon(
                                           Icons.play_arrow_outlined,
@@ -192,14 +196,19 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
             left: 0,
             right: 0,
             child: GestureDetector(
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                final needUpdate = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
                         AddOTActivityScreen(), // Replace NextPage with your desired page
                   ),
                 );
+
+                if (needUpdate != null && needUpdate) {
+                  setState(() {});
+                }
+                ;
               },
               child: Container(
                 alignment: Alignment.center,

@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:physio_track/appointment/screen/appointment_booking_screen.dart';
 import 'package:physio_track/notification/screen/notification_list_screen.dart';
 
+import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../notification/service/notification_service.dart';
@@ -65,7 +66,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
       case false:
         return Color.fromARGB(255, 255, 231, 196);
       case true:
-        return Color.fromARGB(255, 188, 250, 190);
+        return ColorConstant.GREEN_BUTTON_UNPRESSED;
       default:
         return Colors
             .white; // Default color if the status doesn't match any of the cases
@@ -77,7 +78,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
       case false:
         return Color.fromRGBO(255, 165, 0, 1);
       case true:
-        return Color.fromARGB(255, 13, 167, 18);
+        return ColorConstant.GREEN_BUTTON_TEXT;
       default:
         return Colors
             .white; // Default color if the status doesn't match any of the cases
@@ -135,7 +136,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             children: [
               Text(title, style: TextStyle(fontSize: 18)),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.red),
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -159,11 +160,11 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromRGBO(220, 241, 254, 1),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text('Yes',
                         style:
-                            TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
                       onConfirm();
                       Navigator.pop(context);
@@ -175,11 +176,11 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromARGB(255, 237, 159, 153),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
                         style:
-                            TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
+                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -301,12 +302,12 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                               child: Column(
                                 children: [
                                   Icon(Icons.error,
-                                      color: Colors.red, size: 50.0),
+                                      color: ColorConstant.RED_BUTTON_TEXT, size: 50.0),
                                   Center(
                                     child: Text(
                                       'No Record',
                                       style: TextStyle(
-                                        color: Colors.red,
+                                        color: ColorConstant.RED_BUTTON_TEXT,
                                         fontSize: 20.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -621,8 +622,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                             }
                                           },
                                           style: TextButton.styleFrom(
-                                            backgroundColor: Color.fromARGB(
-                                                255, 179, 209, 235),
+                                            backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                                             primary: Colors.white,
                                           ),
                                           child: Row(
@@ -631,14 +631,14 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                             children: [
                                               Icon(
                                                 Icons.update,
-                                                color: Colors.blue,
+                                                color: ColorConstant.BLUE_BUTTON_TEXT,
                                               ),
                                               SizedBox(width: 10.0),
                                               Text(
                                                 "Update",
                                                 style: TextStyle(
                                                   fontSize: 15.0,
-                                                  color: Colors.blue,
+                                                  color: ColorConstant.BLUE_BUTTON_TEXT,
                                                 ),
                                               ),
                                             ],
@@ -673,14 +673,14 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                             children: [
                                               Icon(
                                                 Icons.cancel,
-                                                color: Colors.red,
+                                                color: ColorConstant.RED_BUTTON_TEXT,
                                               ),
                                               SizedBox(width: 10.0),
                                               Text(
                                                 "Cancel",
                                                 style: TextStyle(
                                                   fontSize: 15.0,
-                                                  color: Colors.red,
+                                                  color: ColorConstant.RED_BUTTON_TEXT,
                                                 ),
                                               ),
                                             ],
@@ -726,14 +726,14 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                             children: [
                                               Icon(
                                                 Icons.cancel,
-                                                color: Colors.red,
+                                                color: ColorConstant.RED_BUTTON_TEXT,
                                               ),
                                               SizedBox(width: 10.0),
                                               Text(
                                                 "Cancel",
                                                 style: TextStyle(
                                                   fontSize: 15.0,
-                                                  color: Colors.red,
+                                                  color: ColorConstant.RED_BUTTON_TEXT,
                                                 ),
                                               ),
                                             ],

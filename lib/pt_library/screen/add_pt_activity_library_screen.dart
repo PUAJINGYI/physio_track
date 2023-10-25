@@ -557,28 +557,59 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("new PT Activity added")),
         );
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) =>
-        //         PTLibraryListScreen(), // Replace NextPage with your desired page
-        //   ),
-        // );
-        Navigator.pop(context);
+        Navigator.pop(context, true);
       } else {
         // Show an error message for invalid video URL
-        showDialog(
+       showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Error'),
-              content: Text('Please enter a valid video URL.'),
+              contentPadding: EdgeInsets.zero,
+              titlePadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Error", style: TextStyle(fontSize: 18)),
+                  IconButton(
+                    icon:
+                        Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Please enter a valid video URL.',
+                  textAlign: TextAlign.center,
+                ),
+              ),
               actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ),
+                        child: Text('OK',
+                            style: TextStyle(
+                                color: ColorConstant.BLUE_BUTTON_TEXT)),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             );

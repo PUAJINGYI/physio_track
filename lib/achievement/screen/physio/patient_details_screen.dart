@@ -58,7 +58,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   int touchedGroupIndex = -1;
   String mondayThisWeek = '';
   String sundayThisWeek = '';
-  int level = 0;
+  int level = 1;
   double progressToNextLevel = 0.0;
   late PTActivity todayPT = PTActivity(
       id: -1,
@@ -343,6 +343,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String formattedProgress = (progressToNextLevel * 100).toStringAsFixed(2);
     return Scaffold(
         body: Stack(
       children: [
@@ -461,7 +462,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                       const EdgeInsets.fromLTRB(
                                                           10, 5, 0, 0),
                                                   child: Text(
-                                                    '${progressToNextLevel * 100}%',
+                                                    '${formattedProgress}%',
                                                     style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:

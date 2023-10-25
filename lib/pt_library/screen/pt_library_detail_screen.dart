@@ -343,10 +343,10 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                           Icons.edit,
                           size: 35.0,
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           //deactivate();
                           _controller.pauseVideo();
-                          Navigator.push(
+                          final needUpdate = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditPTActivityScreen(
@@ -354,6 +354,12 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                               ), // Replace NextPage with your desired page
                             ),
                           );
+
+                          if (needUpdate != null && needUpdate) {
+                            setState(() {
+                              _loadPTLibraryRecord();
+                            });
+                          }
                         },
                       ),
                     ),
@@ -383,7 +389,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                         onPressed: () async {
                           await _controller.stopVideo();
                           //await _controller.close();
-                          Navigator.of(context).pop();
+                          Navigator.pop(context, true);
                         },
                       ),
                     ),
@@ -505,15 +511,8 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                 Text("Occupational therapy activity could not be deleted")),
       );
     }
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
-
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => PTLibraryListScreen(),
-    //   ),
-    // );
+    Navigator.pop(context, true);
+    Navigator.pop(context, true);
   }
 
   Color _getLevelColor(String level) {

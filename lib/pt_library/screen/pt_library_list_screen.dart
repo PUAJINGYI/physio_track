@@ -114,8 +114,9 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                                         color: Colors.blue,
                                       ),
                                       child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
+                                        onPressed: () async {
+                                          final needUpdate =
+                                              await Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
@@ -124,6 +125,11 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                                               ), // Replace NextPage with your desired page
                                             ),
                                           );
+
+                                          if (needUpdate != null &&
+                                              needUpdate) {
+                                            setState(() {});
+                                          }
                                         },
                                         icon: Icon(
                                           Icons.play_arrow_outlined,
@@ -191,14 +197,18 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
             left: 0,
             right: 0,
             child: GestureDetector(
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                final needUpdate = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
                         AddPTActivityScreen(), // Replace NextPage with your desired page
                   ),
                 );
+
+                if (needUpdate != null && needUpdate) {
+                  setState(() {});
+                }
               },
               child: Container(
                 alignment: Alignment.center,

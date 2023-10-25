@@ -591,14 +591,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("PT Activity updated")),
           );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PTLibraryDetailScreen(
-                  recordId:
-                      recordId), // Replace NextPage with your desired page
-            ),
-          );
+          Navigator.pop(context, true);
         }
       } else {
         showDialog(

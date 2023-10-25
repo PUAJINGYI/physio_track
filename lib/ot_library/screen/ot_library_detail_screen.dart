@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '../../constant/ColorConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
@@ -284,10 +285,10 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                           Icons.edit,
                           size: 35.0,
                         ),
-                        onPressed: () {
+                        onPressed: () async{
                           //deactivate();
                           _controller.pauseVideo();
-                          Navigator.push(
+                         final  needUpdate = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditOTActivityScreen(
@@ -295,6 +296,12 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                               ), // Replace NextPage with your desired page
                             ),
                           );
+
+                         if(needUpdate!=null && needUpdate){
+                            setState(() {
+                              _loadOTLibraryRecord();
+                            });
+                         } 
                         },
                       ),
                     ),
@@ -374,7 +381,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
             children: [
               Text('Delete OT Activity'),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.red),
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
@@ -396,11 +403,11 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromRGBO(220, 241, 254, 1),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text('Yes',
                         style:
-                            TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () {
                       _controller.close();
                       performDeleteLogic();
@@ -413,11 +420,11 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      backgroundColor: Color.fromARGB(255, 237, 159, 153),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
                         style:
-                            TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
+                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -446,15 +453,8 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                 Text("Occupational therapy activity could not be deleted")),
       );
     }
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
-
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => OTLibraryListScreen(),
-    //   ),
-    // );
+    Navigator.pop(context, true); 
+    Navigator.pop(context, true); 
   }
 
   Color _getLevelColor(String level) {

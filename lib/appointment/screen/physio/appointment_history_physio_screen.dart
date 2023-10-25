@@ -88,6 +88,7 @@ class _AppointmentHistoryPhysioScreenState
                     return Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: ListView(
+                        padding: EdgeInsets.zero,
                         children: appointments.map((Appointment appointment) {
                           return Card(
                             color: Color.fromRGBO(241, 243, 250, 1),
@@ -213,8 +214,8 @@ class _AppointmentHistoryPhysioScreenState
                                                           BorderRadius.circular(
                                                               25.0),
                                                       child: TextButton(
-                                                        onPressed: () {
-                                                          Navigator.push(
+                                                        onPressed: () async {
+                                                         final needUpdate =  await Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                               builder: (context) =>
@@ -225,6 +226,11 @@ class _AppointmentHistoryPhysioScreenState
                                                               ),
                                                             ),
                                                           );
+                                                          if(needUpdate != null && needUpdate){
+                                                            setState(() {
+                                                              _appointmentList = _fetchAppointmentList(uid);
+                                                            });
+                                                        }
                                                         },
                                                         style: TextButton
                                                             .styleFrom(
@@ -268,8 +274,8 @@ class _AppointmentHistoryPhysioScreenState
                                                           BorderRadius.circular(
                                                               25.0),
                                                       child: TextButton(
-                                                        onPressed: () {
-                                                          Navigator.push(
+                                                        onPressed: () async{
+                                                         final needUpdate = await Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                               builder: (context) =>
@@ -280,6 +286,12 @@ class _AppointmentHistoryPhysioScreenState
                                                               ), // Replace NextPage with your desired page
                                                             ),
                                                           );
+
+                                                          if(needUpdate != null && needUpdate){
+                                                            setState(() {
+                                                              _appointmentList = _fetchAppointmentList(uid);
+                                                            });
+                                                          }
                                                         },
                                                         style: TextButton
                                                             .styleFrom(
@@ -368,7 +380,7 @@ class _AppointmentHistoryPhysioScreenState
           child: Image.asset(
             ImageConstant.PHYSIO_HOME,
             width: 271.0,
-            height: 220.0,
+            height: 200.0,
           ),
         ),
       ],

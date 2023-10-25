@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:googleapis/calendar/v3.dart';
 
+import '../../constant/ColorConstant.dart';
+
 class AppointmentListScreen extends StatefulWidget {
   @override
   _AppointmentListScreenState createState() => _AppointmentListScreenState();
@@ -119,16 +121,59 @@ class _AppointmentListScreenState extends State<AppointmentListScreen> {
           // Show an error message or handle the conflict
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              title: Text('Conflict'),
-              content: Text('The selected time conflicts with an event.'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text('OK'),
+            builder: (BuildContext context) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.zero,
+                titlePadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ],
-            ),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Conflict", style: TextStyle(fontSize: 18)),
+                    IconButton(
+                      icon: Icon(Icons.close,
+                          color: ColorConstant.RED_BUTTON_TEXT),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'The selected time conflicts with an event.',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                actions: [
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            backgroundColor:
+                                ColorConstant.BLUE_BUTTON_UNPRESSED,
+                          ),
+                          child: Text('OK',
+                              style: TextStyle(
+                                  color: ColorConstant.BLUE_BUTTON_TEXT)),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
           );
         }
       }
