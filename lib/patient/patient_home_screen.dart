@@ -41,8 +41,14 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   void initState() {
     super.initState();
     updateUserOTPTList();
-    _fetchPTProgress();
-    _fetchOTProgress();
+    // _fetchPTProgress();
+    // _fetchOTProgress();
+    updateProgress();
+  }
+
+  Future<void> updateProgress() async{
+    await _fetchPTProgress();
+    await _fetchOTProgress();
   }
 
   Future<void> updateUserOTPTList() async {
@@ -173,8 +179,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                             );
 
                             if (needUpdate != null && needUpdate) {
-                              setState(() {
-                                _fetchPTProgress();
+                              setState (() {
+                                 updateProgress();
                               });
                             }
                           }),
@@ -190,8 +196,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                             );
 
                             if (needUpdate != null && needUpdate) {
-                              setState(() {
-                                _fetchOTProgress();
+                              setState(()  {
+                                 updateProgress();
                               });
                             }
                           }),

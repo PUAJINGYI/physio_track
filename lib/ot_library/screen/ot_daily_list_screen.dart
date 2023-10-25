@@ -118,361 +118,367 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder<void>(
-          future: _loadOTActivitiesRecord(),
-          builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              return Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(
-                        height: 290.0,
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: dailyOTList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            OTActivityDetail otActivityDetail =
-                                dailyOTList[index];
-
-                            OTLibrary otLibrary = otLibraryList[index];
-
-                            if (otActivityDetail.isDone) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Card(
-                                  color: Color.fromRGBO(198, 243, 205, 1),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: ListTile(
-                                            leading: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      0, 5, 0, 5),
-                                              child: Container(
-                                                width: 90,
-                                                height: 56,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.cover,
-                                                    image: otLibrary
-                                                                .thumbnailUrl !=
-                                                            null
-                                                        ? NetworkImage(otLibrary
-                                                                .thumbnailUrl!)
-                                                            as ImageProvider
-                                                        : AssetImage(ImageConstant
-                                                                .DATA_NOT_FOUND)
-                                                            as ImageProvider,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            title: Column(
-                                              // Use a Column for title and the new Container
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  otLibrary.title,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Container(
-                                                  // This is your new Container
-                                                  width: 90, // Customize width
-                                                  padding: EdgeInsets.all(8.0),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
+      child: Scaffold(
+        body: FutureBuilder<void>(
+            future: _loadOTActivitiesRecord(),
+            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                return Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(
+                          height: 290.0,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: dailyOTList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              OTActivityDetail otActivityDetail =
+                                  dailyOTList[index];
+    
+                              OTLibrary otLibrary = otLibraryList[index];
+    
+                              if (otActivityDetail.isDone) {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: Card(
+                                    color: Color.fromRGBO(198, 243, 205, 1),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: ListTile(
+                                              leading: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 5, 0, 5),
+                                                child: Container(
+                                                  width: 90,
+                                                  height: 56,
                                                   decoration: BoxDecoration(
-                                                    color:
-                                                        _getLevelBackgroundColor(
-                                                            otLibrary.level),
+                                                    shape: BoxShape.rectangle,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8.0),
-                                                    border: Border.all(
-                                                      color: _getLevelColor(
-                                                          otLibrary
-                                                              .level), // Set the border color to black
-                                                      width:
-                                                          1.0, // Set the border width
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: otLibrary
+                                                                  .thumbnailUrl !=
+                                                              null
+                                                          ? NetworkImage(otLibrary
+                                                                  .thumbnailUrl!)
+                                                              as ImageProvider
+                                                          : AssetImage(ImageConstant
+                                                                  .DATA_NOT_FOUND)
+                                                              as ImageProvider,
                                                     ),
                                                   ),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center, // Center the text horizontally
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center, // Center the text vertically
-                                                    children: [
-                                                      Text(
-                                                        otLibrary.level,
-                                                        style: TextStyle(
-                                                          fontSize: 12.0,
-                                                          color: _getLevelColor(
-                                                              otLibrary.level),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
                                                 ),
-                                              ],
-                                            ),
-                                            trailing: Container(
-                                              width: 40,
-                                              child: Center(
-                                                child: Text(
-                                                  'Done',
-                                                  style: TextStyle(
-                                                    fontSize: 15.0,
-                                                    color: Color.fromRGBO(
-                                                        57, 228, 83, 1),
+                                              ),
+                                              title: Column(
+                                                // Use a Column for title and the new Container
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    otLibrary.title,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 14.0),
+                                                  ),
+                                                  Container(
+                                                    // This is your new Container
+                                                    width: 90, // Customize width
+                                                    padding: EdgeInsets.all(8.0),
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          _getLevelBackgroundColor(
+                                                              otLibrary.level),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      border: Border.all(
+                                                        color: _getLevelColor(
+                                                            otLibrary
+                                                                .level), // Set the border color to black
+                                                        width:
+                                                            1.0, // Set the border width
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center, // Center the text horizontally
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center, // Center the text vertically
+                                                      children: [
+                                                        Text(
+                                                          otLibrary.level,
+                                                          style: TextStyle(
+                                                            fontSize: 12.0,
+                                                            color: _getLevelColor(
+                                                                otLibrary.level),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              trailing: Container(
+                                                width: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    'Done',
+                                                    style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      color: Color.fromRGBO(
+                                                          57, 228, 83, 1),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            } else {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Card(
-                                  color: Color.fromRGBO(241, 243, 250, 1),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: ListTile(
-                                            leading: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      0, 5, 0, 5),
-                                              child: Container(
-                                                width: 90,
-                                                height: 56,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.cover,
-                                                    image: otLibrary
-                                                                .thumbnailUrl !=
-                                                            null
-                                                        ? NetworkImage(otLibrary
-                                                                .thumbnailUrl!)
-                                                            as ImageProvider
-                                                        : AssetImage(ImageConstant
-                                                                .DATA_NOT_FOUND)
-                                                            as ImageProvider,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            title: Column(
-                                              // Use a Column for title and the new Container
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  otLibrary.title,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Container(
-                                                  // This is your new Container
-                                                  width: 90, // Customize width
-                                                  padding: EdgeInsets.all(8.0),
+                                );
+                              } else {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: Card(
+                                    color: Color.fromRGBO(241, 243, 250, 1),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: ListTile(
+                                              leading: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 5, 0, 5),
+                                                child: Container(
+                                                  width: 90,
+                                                  height: 56,
                                                   decoration: BoxDecoration(
-                                                    color:
-                                                        _getLevelBackgroundColor(
-                                                            otLibrary.level),
+                                                    shape: BoxShape.rectangle,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8.0),
-                                                    border: Border.all(
-                                                      color: _getLevelColor(
-                                                          otLibrary
-                                                              .level), // Set the border color to black
-                                                      width:
-                                                          1.0, // Set the border width
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: otLibrary
+                                                                  .thumbnailUrl !=
+                                                              null
+                                                          ? NetworkImage(otLibrary
+                                                                  .thumbnailUrl!)
+                                                              as ImageProvider
+                                                          : AssetImage(ImageConstant
+                                                                  .DATA_NOT_FOUND)
+                                                              as ImageProvider,
                                                     ),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center, // Center the text horizontally
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center, // Center the text vertically
-                                                    children: [
-                                                      Text(
-                                                        otLibrary.level,
-                                                        style: TextStyle(
-                                                          fontSize: 12.0,
-                                                          color: _getLevelColor(
-                                                              otLibrary.level),
-                                                        ),
-                                                      ),
-                                                    ],
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                            trailing: Container(
-                                              width: 40,
-                                              // height: 40,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.blue,
                                               ),
-                                              child: IconButton(
-                                                onPressed: () async {
-                                                  final needUpdate =
-                                                      await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          OTDailyDetailScreen(
-                                                        otLibraryId:
-                                                            otLibrary.id,
-                                                        activityId: activityId,
-                                                      ), // Replace NextPage with your desired page
+                                              title: Column(
+                                                // Use a Column for title and the new Container
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    otLibrary.title,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 14.0),
+                                                  ),
+                                                  Container(
+                                                    // This is your new Container
+                                                    width: 90, // Customize width
+                                                    padding: EdgeInsets.all(8.0),
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          _getLevelBackgroundColor(
+                                                              otLibrary.level),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      border: Border.all(
+                                                        color: _getLevelColor(
+                                                            otLibrary
+                                                                .level), // Set the border color to black
+                                                        width:
+                                                            1.0, // Set the border width
+                                                      ),
                                                     ),
-                                                  );
-
-                                                  if (needUpdate != null &&
-                                                      needUpdate) {
-                                                    setState(() {
-                                                      _loadOTActivitiesRecord();
-                                                    });
-                                                  }
-                                                },
-                                                icon: Icon(
-                                                  Icons.play_arrow_outlined,
-                                                  color: Colors.white,
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center, // Center the text horizontally
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center, // Center the text vertically
+                                                      children: [
+                                                        Text(
+                                                          otLibrary.level,
+                                                          style: TextStyle(
+                                                            fontSize: 12.0,
+                                                            color: _getLevelColor(
+                                                                otLibrary.level),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              trailing: Container(
+                                                width: 40,
+                                                // height: 40,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.blue,
+                                                ),
+                                                child: IconButton(
+                                                  onPressed: () async {
+                                                    final needUpdate =
+                                                        await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            OTDailyDetailScreen(
+                                                          otLibraryId:
+                                                              otLibrary.id,
+                                                          activityId: activityId,
+                                                        ), // Replace NextPage with your desired page
+                                                      ),
+                                                    );
+    
+                                                    if (needUpdate != null &&
+                                                        needUpdate) {
+                                                      setState(() {
+                                                        _loadOTActivitiesRecord();
+                                                      });
+                                                    }
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.play_arrow_outlined,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }
-                          },
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 60.0,
+                        )
+                      ],
+                    ),
+                    Positioned(
+                      top: 25,
+                      left: 0,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          size: 35.0,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context, true);
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      top: 25,
+                      right: 0,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.notifications_outlined,
+                          size: 35.0,
+                        ),
+                        onPressed: () {
+                          // Perform your desired action here
+                          // For example, show notifications
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      top: 25,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: kToolbarHeight,
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Today\'s OT Activities',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: 60.0,
-                      )
-                    ],
-                  ),
-                  Positioned(
-                    top: 25,
-                    left: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context, true);
-                      },
                     ),
-                  ),
-                  Positioned(
-                    top: 25,
-                    right: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.notifications_outlined,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        // Perform your desired action here
-                        // For example, show notifications
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 25,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: kToolbarHeight,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Today\'s OT Activities',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
+                    Positioned(
+                      top: 90,
+                      left: 0,
+                      right: 0,
+                      child: CircularPercentIndicator(
+                        radius: 90,
+                        lineWidth: 20.0,
+                        percent: progress,
+                        progressColor: Colors.blue,
+                        backgroundColor: Colors.blue.shade100,
+                        circularStrokeCap: CircularStrokeCap.round,
+                        center: Image.asset(
+                          ImageConstant.OT,
+                          width: 211.0,
+                          height: 169.0,
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 90,
-                    left: 0,
-                    right: 0,
-                    child: CircularPercentIndicator(
-                      radius: 90,
-                      lineWidth: 20.0,
-                      percent: progress,
-                      progressColor: Colors.blue,
-                      backgroundColor: Colors.blue.shade100,
-                      circularStrokeCap: CircularStrokeCap.round,
-                      center: Image.asset(
-                        ImageConstant.OT,
-                        width: 211.0,
-                        height: 169.0,
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }
-          }),
+                  ],
+                );
+              }
+            }),
+      ),
     );
   }
 }
