@@ -8,6 +8,7 @@ import '../../../constant/ImageConstant.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
 import '../../service/appointment_in_pending_service.dart';
+import 'edit_appointment_detail_screen.dart';
 
 class AppointmentNewApproveScreen extends StatefulWidget {
   const AppointmentNewApproveScreen({super.key});
@@ -21,7 +22,7 @@ class _AppointmentNewApproveScreenState
     extends State<AppointmentNewApproveScreen> {
   AppointmentInPendingService appointmentInPendingService =
       AppointmentInPendingService();
-      UserManagementService userManagementService = UserManagementService();
+  UserManagementService userManagementService = UserManagementService();
   late Future<List<AppointmentInPending>> _newAppointmentList;
   late String patientName;
   late String physioName;
@@ -105,8 +106,7 @@ class _AppointmentNewApproveScreenState
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
-                        style:
-                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
+                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -200,8 +200,7 @@ class _AppointmentNewApproveScreenState
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text('No',
-                        style:
-                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
+                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -259,6 +258,7 @@ class _AppointmentNewApproveScreenState
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                   child: ListView(
+                    padding: EdgeInsets.zero,
                     children:
                         appointments.map((AppointmentInPending appointment) {
                       return Card(
@@ -304,7 +304,7 @@ class _AppointmentNewApproveScreenState
                                           ),
                                         ],
                                       ),
-                                      SizedBox(width: 10),
+                                      SizedBox(width: 7),
                                       // patient and physio column
                                       Column(
                                         crossAxisAlignment:
@@ -380,6 +380,40 @@ class _AppointmentNewApproveScreenState
                                           )
                                         ],
                                       ),
+                                      SizedBox(width: 10),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          final needUpdate =
+                                              await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditAppointmentDetailScreen(
+                                                appointmentInPendingId:
+                                                    appointment.id,
+                                              ),
+                                            ),
+                                          );
+
+                                          if (needUpdate != null &&
+                                              needUpdate) {
+                                            setState(() {
+                                              _newAppointmentList =
+                                                  _fetchAppointmentList();
+                                            });
+                                          }
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.edit_outlined),
+                                            SizedBox(width: 2),
+                                            Text(
+                                              'Edit',
+                                              style: TextStyle(),
+                                            ),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                   Row(
@@ -411,7 +445,8 @@ class _AppointmentNewApproveScreenState
                                                 Icon(
                                                   Icons
                                                       .check_circle_outlined, // Your icon here
-                                                  color: ColorConstant.GREEN_BUTTON_TEXT, // Icon color
+                                                  color: ColorConstant
+                                                      .GREEN_BUTTON_TEXT, // Icon color
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
@@ -419,7 +454,8 @@ class _AppointmentNewApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: ColorConstant.GREEN_BUTTON_TEXT,
+                                                    color: ColorConstant
+                                                        .GREEN_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],
@@ -455,8 +491,8 @@ class _AppointmentNewApproveScreenState
                                                 Icon(
                                                   Icons
                                                       .cancel_outlined, // Your icon here
-                                                  color:
-                                                      ColorConstant.RED_BUTTON_TEXT, // Icon colorF
+                                                  color: ColorConstant
+                                                      .RED_BUTTON_TEXT, // Icon colorF
                                                 ),
                                                 SizedBox(
                                                     width:
@@ -466,7 +502,8 @@ class _AppointmentNewApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: ColorConstant.RED_BUTTON_TEXT,
+                                                    color: ColorConstant
+                                                        .RED_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],

@@ -4,6 +4,7 @@ import 'package:googleapis/calendar/v3.dart';
 import 'package:physio_track/appointment/service/google_calander_service.dart';
 
 import '../../constant/TextConstant.dart';
+import '../../profile/model/user_model.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../model/appointment_model.dart';
@@ -136,8 +137,10 @@ class AppointmentService {
         if (event.attendees != null) {
           List<String> emailList =
               event.attendees!.map((attendee) => attendee.email!).toList();
-          int patientId = await userManagementService.getUserIdByEmail(emailList[0]);
-          int physioId = await userManagementService.getUserIdByEmail(emailList[1]);
+          int patientId =
+              await userManagementService.getUserIdByEmail(emailList[0]);
+          int physioId =
+              await userManagementService.getUserIdByEmail(emailList[1]);
 
           // for (Appointment appointment in appointmentList) {
           //   if (appointment.startTime == event.start!.dateTime!.toLocal() &&
@@ -192,8 +195,10 @@ class AppointmentService {
           if (event.attendees != null) {
             emailList =
                 event.attendees!.map((attendee) => attendee.email!).toList();
-            patientId = await userManagementService.getUserIdByEmail(emailList[0]);
-            physioId = await userManagementService.getUserIdByEmail(emailList[1]);
+            patientId =
+                await userManagementService.getUserIdByEmail(emailList[0]);
+            physioId =
+                await userManagementService.getUserIdByEmail(emailList[1]);
           }
 
           Appointment newAppointment = new Appointment(
@@ -434,5 +439,40 @@ class AppointmentService {
         print("Failed to delete appointment reference: $error");
       });
     }
+  }
+
+  Future<List<UserModel>> fetchAvailablePhysioListAtTime(
+      DateTime starTime, DateTime endTime) async {
+    List<UserModel> availablePhysioList = [];
+    List<UserModel> physioList = [];
+
+    QuerySnapshot userSnapshot =
+        await userCollection.where('role', isEqualTo: 'physio').get();
+
+    if (userSnapshot.docs.isNotEmpty) {
+      userSnapshot.docs.forEach((doc) {
+        physioList.add(UserModel.fromSnapshot(doc));
+      });
+    }
+
+    for (UserModel physio in physioList) {
+      QuerySnapshot appointmentSnapshot = await appointmentCollection
+          .where('physioId', isEqualTo: physio.id)
+          .get();
+      bool isAvailable = true;
+      if (appointmentSnapshot.docs.isNotEmpty) {
+        appointmentSnapshot.docs.forEach((doc) {
+          Appointment appointment = Appointment.fromSnapshot(doc);
+          if (appointment.startTime.isAtSameMomentAs(starTime) &&
+              appointment.endTime.isAtSameMomentAs(endTime)) {
+            isAvailable = false;
+          }
+        });
+      }
+      if (isAvailable) {
+        availablePhysioList.add(physio);
+      }
+    }
+    return availablePhysioList;
   }
 }

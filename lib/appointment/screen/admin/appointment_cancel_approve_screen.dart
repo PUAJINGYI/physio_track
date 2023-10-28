@@ -164,6 +164,7 @@ class _AppointmentCancelApproveScreenState
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                   child: ListView(
+                    padding: EdgeInsets.zero,
                     children:
                         appointments.map((AppointmentInPending appointment) {
                       return Card(

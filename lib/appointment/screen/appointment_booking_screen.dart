@@ -188,8 +188,9 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                       ),
                     ),
                     DatePicker(
-                      DateTime.now(),
-                      initialSelectedDate: DateTime.now(),
+                      DateTime.now().add(Duration(days: 1)),
+                      initialSelectedDate:
+                          DateTime.now().add(Duration(days: 1)),
                       selectionColor: Colors.blue,
                       selectedTextColor: Colors.white,
                       onDateChange: (date) {
@@ -328,47 +329,47 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                 SizedBox(
                   height: 50,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: customButton(
-                    context,
-                    'Book Now',
-                    ColorConstant.BLUE_BUTTON_TEXT,
-                    ColorConstant.BLUE_BUTTON_UNPRESSED,
-                    ColorConstant.BLUE_BUTTON_PRESSED,
-                    () {
-                      if (selectedHour == null) {
-                        // No hour selected, display a snackbar
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Please select an appointment time.'),
-                          ),
-                        );
-                        return; // Do not proceed further
-                      }
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                //   child: customButton(
+                //     context,
+                //     'Book Now',
+                //     ColorConstant.BLUE_BUTTON_TEXT,
+                //     ColorConstant.BLUE_BUTTON_UNPRESSED,
+                //     ColorConstant.BLUE_BUTTON_PRESSED,
+                //     () {
+                //       if (selectedHour == null) {
+                //         // No hour selected, display a snackbar
+                //         ScaffoldMessenger.of(context).showSnackBar(
+                //           SnackBar(
+                //             content: Text('Please select an appointment time.'),
+                //           ),
+                //         );
+                //         return; // Do not proceed further
+                //       }
 
-                      appointmentInPendingService
-                          .addPendingAppointmentRecordByDetails(
-                              '[Appointment] ${patientData['username']} with ${physioData['username']}',
-                              DateTime(_selectedValue.year,
-                                  _selectedValue.month, _selectedValue.day),
-                              DateTime(
-                                  _selectedValue.year,
-                                  _selectedValue.month,
-                                  _selectedValue.day,
-                                  selectedHour!),
-                              DateTime(
-                                  _selectedValue.year,
-                                  _selectedValue.month,
-                                  _selectedValue.day,
-                                  selectedHour! + 1),
-                              Duration(hours: 1).inSeconds,
-                              patientData['id'],
-                              physioData['id']);
-                      Navigator.pop(context, true);
-                    },
-                  ),
-                )
+                //       appointmentInPendingService
+                //           .addPendingAppointmentRecordByDetails(
+                //               '[Appointment] ${patientData['username']} with ${physioData['username']}',
+                //               DateTime(_selectedValue.year,
+                //                   _selectedValue.month, _selectedValue.day),
+                //               DateTime(
+                //                   _selectedValue.year,
+                //                   _selectedValue.month,
+                //                   _selectedValue.day,
+                //                   selectedHour!),
+                //               DateTime(
+                //                   _selectedValue.year,
+                //                   _selectedValue.month,
+                //                   _selectedValue.day,
+                //                   selectedHour! + 1),
+                //               Duration(hours: 1).inSeconds,
+                //               patientData['id'],
+                //               physioData['id']);
+                //       Navigator.pop(context, true);
+                //     },
+                //   ),
+                // )
               ],
             ),
           ),
@@ -422,6 +423,45 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             child: Text(patientData['physio'] ?? '',
                 style: TextStyle(fontSize: 15.0)),
           ),
+          Positioned(
+              bottom: 20,
+              right: 0,
+              left: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: customButton(
+                  context,
+                  'Book Now',
+                  ColorConstant.BLUE_BUTTON_TEXT,
+                  ColorConstant.BLUE_BUTTON_UNPRESSED,
+                  ColorConstant.BLUE_BUTTON_PRESSED,
+                  () {
+                    if (selectedHour == null) {
+                      // No hour selected, display a snackbar
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please select an appointment time.'),
+                        ),
+                      );
+                      return; // Do not proceed further
+                    }
+
+                    appointmentInPendingService
+                        .addPendingAppointmentRecordByDetails(
+                            '[Appointment] ${patientData['username']} with ${physioData['username']}',
+                            DateTime(_selectedValue.year, _selectedValue.month,
+                                _selectedValue.day),
+                            DateTime(_selectedValue.year, _selectedValue.month,
+                                _selectedValue.day, selectedHour!),
+                            DateTime(_selectedValue.year, _selectedValue.month,
+                                _selectedValue.day, selectedHour! + 1),
+                            Duration(hours: 1).inSeconds,
+                            patientData['id'],
+                            physioData['id']);
+                    Navigator.pop(context, true);
+                  },
+                ),
+              )),
         ],
       ),
     );

@@ -63,7 +63,8 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                 ),
                 await _userService.addNewUserToFirestore(user, value.user!.uid),
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("New phsyio account created successfully")),
+                  SnackBar(
+                      content: Text("New phsyio account created successfully")),
                 ),
                 print("New physio account created successfully"),
                 Navigator.pop(context, true),
@@ -96,45 +97,6 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
     return Scaffold(
         body: Stack(
       children: [
-        Positioned(
-          top: 25,
-          left: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: 35.0,
-            ),
-            onPressed: () {
-              Navigator.pop(context, true);
-            },
-          ),
-        ),
-        Positioned(
-          top: 25,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: kToolbarHeight,
-            alignment: Alignment.center,
-            child: Text(
-              'New Physiotherapist',
-              style: TextStyle(
-                fontSize: TextConstant.TITLE_FONT_SIZE,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 70,
-          right: 0,
-          left: 0,
-          child: Image.asset(
-            ImageConstant.PHYSIO,
-            width: 200.0,
-            height: 200.0,
-          ),
-        ),
         Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -185,8 +147,8 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                         'Add',
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED, () async{
-                      setState((){
+                        ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                      setState(() {
                         _usernameController.text.isEmpty
                             ? _validateUsernameInput = true
                             : _validateUsernameInput = false;
@@ -208,6 +170,45 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                 ),
               ),
             )),
+        Positioned(
+          top: 25,
+          left: 0,
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 35.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+          ),
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              'New Physiotherapist',
+              style: TextStyle(
+                fontSize: TextConstant.TITLE_FONT_SIZE,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 70,
+          right: 0,
+          left: 0,
+          child: Image.asset(
+            ImageConstant.PHYSIO,
+            width: 200.0,
+            height: 200.0,
+          ),
+        ),
       ],
     ));
   }
