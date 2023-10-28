@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
@@ -190,24 +191,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             backgroundColor: Colors.grey,
                           ),
                           SizedBox(width: 10),
+                          // Expanded(
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          //     child: AutoSizeText(
+                          //       userData['username'] != ''
+                          //           ? userData['username']
+                          //           : 'N/A',
+                          //       style: TextStyle(
+                          //         fontSize: 20,
+                          //         fontWeight: FontWeight.bold,
+                          //       ),
+                          //       minFontSize: 12,
+                          //       maxFontSize: 20,
+                          //       maxLines: 1,
+                          //       overflow: TextOverflow.ellipsis,
+                          //     ),
+                          //   ),
+                          // ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: AutoSizeText(
-                                userData['username'] != ''
-                                    ? userData['username']
-                                    : 'N/A',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                minFontSize: 12,
-                                maxFontSize: 20,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    userData['username'],
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    minFontSize: 12,
+                                    maxFontSize: 20,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  if (userData['role'] == 'patient')
+                                    // AutoSizeText(
+                                    //   'Level: ${userData['level']}',
+                                    //   style: TextStyle(
+                                    //     fontSize:
+                                    //         16, // Adjust the font size as needed
+                                    //   ),
+                                    //   maxLines: 1,
+                                    //   overflow: TextOverflow.ellipsis,
+                                    // ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Level ${userData['level']}',
+                                          style: TextStyle(
+                                            fontSize: 13.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 2.0),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                          child: LinearPercentIndicator(
+                                            animation: true,
+                                            lineHeight: 10.0,
+                                            animationDuration: 2000,
+                                            percent:
+                                                userData['progressToNextLevel'],
+                                            barRadius: Radius.circular(10.0),
+                                            progressColor: Colors.yellow,
+                                            padding: EdgeInsets.zero,
+                                          ),
+                                        ),
+                                       
+                                      ],
+                                    ),
+                                ],
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),

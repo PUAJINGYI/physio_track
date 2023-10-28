@@ -679,18 +679,61 @@ class ProgressScreenState extends State<ProgressScreen> {
                                             10, 15, 10, 10),
                                         child: Column(
                                           children: [
-                                            Align(
-                                              alignment: Alignment
-                                                  .centerLeft, // Align left
-                                              child: Text(
-                                                mondayThisWeek +
-                                                    " - " +
-                                                    sundayThisWeek,
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment
+                                                      .centerLeft, // Align left
+                                                  child: Text(
+                                                    mondayThisWeek +
+                                                        " - " +
+                                                        sundayThisWeek,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Container(
+                                                          width: 10,
+                                                          height: 10,
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              129,
+                                                              238,
+                                                              143), // PT color
+                                                        ),
+                                                        SizedBox(width: 5),
+                                                        Text("PT",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black)),
+                                                        SizedBox(width: 10),
+                                                        Container(
+                                                          width: 10,
+                                                          height: 10,
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              243,
+                                                              124,
+                                                              116), // OT color
+                                                        ),
+                                                        SizedBox(width: 5),
+                                                        Text("OT",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black))
+                                                      ],
+                                                    )),
+                                              ],
                                             ),
                                             SizedBox(
                                               height: 20,
@@ -699,29 +742,6 @@ class ProgressScreenState extends State<ProgressScreen> {
                                               child: BarChart(
                                                 BarChartData(
                                                   maxY: 100,
-                                                  // barTouchData: BarTouchData(
-                                                  //   touchTooltipData: BarTouchTooltipData(
-                                                  //     tooltipBgColor: Colors.grey,
-                                                  //     getTooltipItem: (a, b, c, d) => null,
-                                                  //   ),
-                                                  //   touchCallback: (FlTouchEvent event, response) {
-                                                  //     if (response == null || response.spot == null) {
-                                                  //       setState(() {
-                                                  //         touchedGroupIndex = -1;
-                                                  //       });
-                                                  //       return;
-                                                  //     }
-
-                                                  //     touchedGroupIndex =
-                                                  //         response.spot!.touchedBarGroupIndex;
-
-                                                  //     setState(() {
-                                                  //       if (!event.isInterestedForInteractions) {
-                                                  //         touchedGroupIndex = -1;
-                                                  //       }
-                                                  //     });
-                                                  //   },
-                                                  // ),
                                                   titlesData: FlTitlesData(
                                                     show: true,
                                                     rightTitles: AxisTitles(
