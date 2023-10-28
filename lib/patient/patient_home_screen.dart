@@ -20,6 +20,7 @@ import '../ot_library/service/user_ot_list_service.dart';
 import '../pt_library/model/pt_activity_model.dart';
 import '../pt_library/service/user_pt_list_service.dart';
 import '../reusable_widget/reusable_widget.dart';
+import '../user_management/service/user_management_service.dart';
 
 class PatientHomeScreen extends StatefulWidget {
   const PatientHomeScreen({super.key});
@@ -34,8 +35,10 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   String uId = FirebaseAuth.instance.currentUser!.uid;
   CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('users');
+  UserManagementService userManagementService = UserManagementService(); 
   UserPTListService userPTListService = UserPTListService();
   UserOTListService userOTListService = UserOTListService();
+  String username = '';
 
   @override
   void initState() {
@@ -52,6 +55,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   }
 
   Future<void> updateUserOTPTList() async {
+        username = await userManagementService.getUsernameByUid(uId, true);
     DocumentReference userRef = usersCollection.doc(uId);
     await userPTListService.suggestPTActivityList(userRef, uId);
     await userOTListService.suggestOTActivityList(userRef, uId);
@@ -312,7 +316,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                 Positioned(
                   top: 100,
                   left: 25,
-                  child: Text('Welcome, User',
+                  child: Text('Welcome, ${username}',
                       style: TextStyle(
                           fontSize: 25.0, fontWeight: FontWeight.bold)),
                 ),

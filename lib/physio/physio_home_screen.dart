@@ -31,6 +31,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
   AppointmentInPendingService appointmentInPendingService =
       AppointmentInPendingService();
   UserManagementService userManagementService = UserManagementService();
+  String username = "";
 
   void initState() {
     super.initState();
@@ -68,409 +69,445 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
     }
   }
 
+  Future<void> getPhysioUsername() async {
+    username = await userManagementService.getUsernameByUid(uid, true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              SizedBox(
-                height: 230,
-              ),
-              Expanded(
-                  child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Next Appointment',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            FutureBuilder<Appointment?>(
-                              future: fetchNextAppointment(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  // While the future is still running, show a loading indicator or text
-                                  return CircularProgressIndicator(); // You can replace this with your preferred loading widget
-                                } else if (snapshot.hasError) {
-                                  // If there was an error, display an error message
-                                  return Center(
-                                      child: Text('Error: ${snapshot.error}'));
-                                } else if (!snapshot.hasData ||
-                                    snapshot.data == null) {
-                                  // If there is no next appointment found, return the "No Record" widget
-                                  return Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        20, 10, 20, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      child: Container(
-                                        height: 120,
-                                        child: Card(
-                                          color: Color.fromARGB(
-                                              255, 255, 196, 196),
-                                          elevation: 5.0,
-                                          child: Padding(
-                                            padding: EdgeInsets.all(16.0),
-                                            child: Column(
-                                              children: [
-                                                Icon(Icons.error,
-                                                    color: Colors.red,
-                                                    size: 50.0),
-                                                Center(
-                                                  child: Text(
-                                                    'No Record',
-                                                    style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+        body: Container(
+      child: FutureBuilder<void>(
+          future: getPhysioUsername(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              // Return a loading indicator or placeholder while data is loading.
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              // Handle the error.
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return Stack(
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 230,
+                      ),
+                      Expanded(
+                          child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 0, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Next Appointment',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  );
-                                } else {
-                                  // If data is available, build the appointment widget
-                                  Appointment nextAppointment = snapshot.data!;
-                                  return Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        20, 10, 20, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                          15.0), // Adjust the radius as needed
-                                      child: Container(
-                                        height: 120,
-                                        child: Card(
-                                          color: Color.fromARGB(
-                                              255, 188, 250, 190),
-                                          elevation: 5.0,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(16.0),
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Icon(
-                                                    Icons.schedule,
-                                                    color: Colors.black,
-                                                    size: 50.0,
+                                    FutureBuilder<Appointment?>(
+                                      future: fetchNextAppointment(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          // While the future is still running, show a loading indicator or text
+                                          return CircularProgressIndicator(); // You can replace this with your preferred loading widget
+                                        } else if (snapshot.hasError) {
+                                          // If there was an error, display an error message
+                                          return Center(
+                                              child: Text(
+                                                  'Error: ${snapshot.error}'));
+                                        } else if (!snapshot.hasData ||
+                                            snapshot.data == null) {
+                                          // If there is no next appointment found, return the "No Record" widget
+                                          return Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 10, 20, 0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                              child: Container(
+                                                height: 120,
+                                                child: Card(
+                                                  color: Color.fromARGB(
+                                                      255, 255, 196, 196),
+                                                  elevation: 5.0,
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(16.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Icon(Icons.error,
+                                                            color: Colors.red,
+                                                            size: 50.0),
+                                                        Center(
+                                                          child: Text(
+                                                            'No Record',
+                                                            style: TextStyle(
+                                                              color: Colors.red,
+                                                              fontSize: 20.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                                Expanded(
-                                                    child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Row(
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          // If data is available, build the appointment widget
+                                          Appointment nextAppointment =
+                                              snapshot.data!;
+                                          return Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 10, 20, 0),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(
+                                                  15.0), // Adjust the radius as needed
+                                              child: Container(
+                                                height: 120,
+                                                child: Card(
+                                                  color: Color.fromARGB(
+                                                      255, 188, 250, 190),
+                                                  elevation: 5.0,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16.0),
+                                                    child: Row(
                                                       children: [
-                                                        // date and time column
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              DateFormat(
-                                                                      'dd MMM yyyy')
-                                                                  .format(nextAppointment
-                                                                      .startTime),
-                                                              style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 20,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              DateFormat(
-                                                                      'hh:mm a')
-                                                                  .format(nextAppointment
-                                                                      .startTime),
-                                                              style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 30,
-                                                              ),
-                                                            ),
-                                                          ],
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Icon(
+                                                            Icons.schedule,
+                                                            color: Colors.black,
+                                                            size: 50.0,
+                                                          ),
                                                         ),
-                                                        SizedBox(width: 10),
-                                                        // patient and physio column
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                        Expanded(
+                                                            child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
                                                           children: [
                                                             Row(
                                                               children: [
-                                                                Icon(
-                                                                  Icons.person,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  size: 20.0,
+                                                                // date and time column
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      DateFormat(
+                                                                              'dd MMM yyyy')
+                                                                          .format(
+                                                                              nextAppointment.startTime),
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontSize:
+                                                                            20,
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      DateFormat(
+                                                                              'hh:mm a')
+                                                                          .format(
+                                                                              nextAppointment.startTime),
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        fontSize:
+                                                                            30,
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                                 SizedBox(
-                                                                  width: 5,
-                                                                ),
-                                                                FutureBuilder<
-                                                                    String>(
-                                                                  future: getUsernameById(
-                                                                      nextAppointment
-                                                                          .patientId),
-                                                                  builder: (context,
-                                                                      snapshot) {
-                                                                    if (snapshot
-                                                                            .connectionState ==
-                                                                        ConnectionState
-                                                                            .waiting) {
-                                                                      return CircularProgressIndicator();
-                                                                    }
-                                                                    if (snapshot
-                                                                        .hasError) {
-                                                                      return Text(
-                                                                          'Error: ${snapshot.error}');
-                                                                    }
-                                                                    if (snapshot
-                                                                        .hasData) {
-                                                                      String
-                                                                          username =
-                                                                          snapshot
-                                                                              .data!;
-                                                                      return Text(
-                                                                          shortenUsername(
-                                                                              username));
-                                                                    }
-                                                                    return Container();
-                                                                  },
+                                                                    width: 10),
+                                                                // patient and physio column
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .person,
+                                                                          color:
+                                                                              Colors.black,
+                                                                          size:
+                                                                              20.0,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              5,
+                                                                        ),
+                                                                        FutureBuilder<
+                                                                            String>(
+                                                                          future:
+                                                                              getUsernameById(nextAppointment.patientId),
+                                                                          builder:
+                                                                              (context, snapshot) {
+                                                                            if (snapshot.connectionState ==
+                                                                                ConnectionState.waiting) {
+                                                                              return CircularProgressIndicator();
+                                                                            }
+                                                                            if (snapshot.hasError) {
+                                                                              return Text('Error: ${snapshot.error}');
+                                                                            }
+                                                                            if (snapshot.hasData) {
+                                                                              String username = snapshot.data!;
+                                                                              return Text(shortenUsername(username));
+                                                                            }
+                                                                            return Container();
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),
                                                           ],
-                                                        ),
+                                                        )),
                                                       ],
                                                     ),
-                                                  ],
-                                                )),
-                                              ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 8, 20, 8),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Appointment Schedule',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 20, 0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AppointmentScheduleScreen(),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          color: Colors.blue.shade100,
+                                          elevation: 5.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            child: Container(
+                                              height:
+                                                  150.0, // Adjust the height as needed
+                                              width: double.infinity,
+                                              child: Image.asset(
+                                                ImageConstant.APPOINTMENT,
+                                                // fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  );
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Appointment Schedule',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AppointmentScheduleScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  color: Colors.blue.shade100,
-                                  elevation: 5.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    child: Container(
-                                      height:
-                                          150.0, // Adjust the height as needed
-                                      width: double.infinity,
-                                      child: Image.asset(
-                                        ImageConstant.APPOINTMENT,
-                                        // fit: BoxFit.cover,
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 8, 20, 8),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Patient List',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Patient List',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          PatientListByPhysioScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  color: Colors.blue.shade100,
-                                  elevation: 5.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    child: Container(
-                                      height:
-                                          150.0, // Adjust the height as needed
-                                      width: double.infinity,
-                                      child: Image.asset(
-                                        ImageConstant.PATIENT_LIST,
-                                        // fit: BoxFit.cover,
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 20, 0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PatientListByPhysioScreen(),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          color: Colors.blue.shade100,
+                                          elevation: 5.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            child: Container(
+                                              height:
+                                                  150.0, // Adjust the height as needed
+                                              width: double.infinity,
+                                              child: Image.asset(
+                                                ImageConstant.PATIENT_LIST,
+                                                // fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Appointment History',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AppointmentHistoryPhysioScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  color: Colors.blue.shade100,
-                                  elevation: 5.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    child: Container(
-                                      height:
-                                          150.0, // Adjust the height as needed
-                                      width: double.infinity,
-                                      child: Image.asset(
-                                        ImageConstant.APPOINTMENT_HISTORY,
-                                        // fit: BoxFit.cover,
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 8, 20, 8),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Appointment History',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }))
-            ],
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                'Home',
-                style: TextStyle(
-                  fontSize: TextConstant.TITLE_FONT_SIZE,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 70,
-            right: 0,
-            child: Image.asset(
-              ImageConstant.PHYSIO_HOME,
-              width: 211.0,
-              height: 169.0,
-            ),
-          ),
-          Positioned(
-            top: 125,
-            left: 25,
-            child: Text('Welcome, Physio',
-                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
-          ),
-          Positioned(
-            top: 160,
-            left: 40,
-            child: Text('Start tracking your patients',
-                style: TextStyle(fontSize: 13.0)),
-          ),
-        ],
-      ),
-    );
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 20, 0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AppointmentHistoryPhysioScreen(),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          color: Colors.blue.shade100,
+                                          elevation: 5.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            child: Container(
+                                              height:
+                                                  150.0, // Adjust the height as needed
+                                              width: double.infinity,
+                                              child: Image.asset(
+                                                ImageConstant
+                                                    .APPOINTMENT_HISTORY,
+                                                // fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }))
+                    ],
+                  ),
+                  Positioned(
+                    top: 25,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: kToolbarHeight,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Home',
+                        style: TextStyle(
+                          fontSize: TextConstant.TITLE_FONT_SIZE,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 70,
+                    right: 0,
+                    child: Image.asset(
+                      ImageConstant.PHYSIO_HOME,
+                      width: 211.0,
+                      height: 169.0,
+                    ),
+                  ),
+                  Positioned(
+                    top: 125,
+                    left: 25,
+                    child: Text('Welcome, $username',
+                        style: TextStyle(
+                            fontSize: 25.0, fontWeight: FontWeight.bold)),
+                  ),
+                  Positioned(
+                    top: 160,
+                    left: 40,
+                    child: Text('Start tracking your patients',
+                        style: TextStyle(fontSize: 13.0)),
+                  ),
+                ],
+              );
+            }
+          }),
+    ));
   }
 }

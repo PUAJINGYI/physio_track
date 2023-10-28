@@ -161,6 +161,29 @@ class UserManagementService {
     return name;
   }
 
+  Future<String> getUsernameByUid(String uid, bool shorten) async {
+    String name = '';
+    DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
+    if (documentSnapshot.exists) {
+      name = documentSnapshot['username'];
+
+      if (shorten) {
+        name = shortenUsername(name);
+      }
+    }
+    return name;
+  }
+
+    String shortenUsername(String fullName) {
+    List<String> parts = fullName.split(' ');
+    if (parts.length >= 2) {
+      return '${parts.first}';
+    } else {
+      return fullName;
+    }
+  }
+
+
   Future<int> getUserIdByEmail(String email) async {
     int id = -1;
     QuerySnapshot querySnapshot =
