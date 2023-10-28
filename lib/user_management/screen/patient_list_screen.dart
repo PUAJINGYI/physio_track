@@ -50,9 +50,12 @@ class _PatientListScreenState extends State<PatientListScreen> {
               ),
             ],
           ),
-          content: Text(
-            'Are you sure to delete this patient?',
-            textAlign: TextAlign.center,
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Are you sure to delete this patient?',
+              textAlign: TextAlign.center,
+            ),
           ),
           actions: [
             Center(

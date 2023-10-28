@@ -53,9 +53,12 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
               ),
             ],
           ),
-          content: Text(
-            'Are you sure to delete this question?',
-            textAlign: TextAlign.center,
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Are you sure to delete this question?',
+              textAlign: TextAlign.center,
+            ),
           ),
           actions: [
             Center(
@@ -395,6 +398,7 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: ListView(
+                  padding: EdgeInsets.zero,
                   children: questions.map((Question question) {
                     return Card(
                       color: Color.fromRGBO(241, 243, 250, 1),

@@ -69,7 +69,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
                 ), // Adds spacing between text and underline
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                     padding: EdgeInsets.zero,
                     child: IndexedStack(
                       index: _selectedIndex,
                       children: _pages,

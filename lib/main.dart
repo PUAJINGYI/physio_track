@@ -40,6 +40,7 @@ import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 import 'package:physio_track/screening_test/screen/test_physiotherapist_request_screen.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
 import 'package:physio_track/treatment/screen/create_treatment_report_screen.dart';
+import 'package:physio_track/user_management/screen/add_physio_screen.dart';
 import 'package:workmanager/workmanager.dart';
 import 'achievement/screen/add_achievement_screen.dart';
 import 'achievement/screen/bar_chart_sample1.dart';
@@ -151,6 +152,7 @@ class MyApp extends StatelessWidget {
               }
             },
           ),
+          //AddPhysioScreen(),
           //AdminHomePage(),
           //PhysioHomePage(),
           //AdminActivityManagementScreen(),
