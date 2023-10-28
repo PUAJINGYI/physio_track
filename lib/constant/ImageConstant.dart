@@ -13,6 +13,7 @@ class ImageConstant {
   static const String FRIDAY = "assets/images/friday.png";
   static const String GOOGLE_ICON = "assets/images/google-icon.png";
   static const String JOURNAL_IMAGE = "assets/images/journal-image.png";
+  static const String LANGUAGE = "assets/images/language.png";
   static const String LEVEL = "assets/images/level.png";
   static const String LOGIN_PIC = "assets/images/login-pic.png";
   static const String LOGO = "assets/images/logo.png";
@@ -47,4 +48,9 @@ class ImageConstant {
   static const String USER = "assets/images/user.png";
   static const String WEDNESDAY = "assets/images/wednesday.png";
   static const String WEEKLY_ANALYSIS = "assets/images/weekly-analysis.png";
+
+  // country
+  static const String CHINA = "assets/images/china.png";
+  static const String MALAYSIA = "assets/images/malaysia.png";
+  static const String GB = "assets/images/great_britain.png";
 }

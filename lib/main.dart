@@ -22,6 +22,7 @@ import 'package:physio_track/patient/patient_home_page.dart';
 import 'package:physio_track/patient/patient_home_screen.dart';
 import 'package:physio_track/physio/physio_home_page.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
+import 'package:physio_track/profile/screen/change_language_screen.dart';
 import 'package:physio_track/profile/screen/edit_profile_screen.dart';
 import 'package:physio_track/pt_library/screen/add_pt_activity_library_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_finished_screen.dart';
@@ -139,19 +140,20 @@ class MyApp extends StatelessWidget {
           //AddPTActivityScreen(),
           //OTLibraryDetailScreen2(),
           //AddQuestionScreen(),
-              SplashScreen(
-            onFinish: () {
-              if (authManager.isLoggedIn) {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => RedirectScreen()),
-                );
-              } else {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => SignInScreen()),
-                );
-              }
-            },
-          ),
+          //     SplashScreen(
+          //   onFinish: () {
+          //     if (authManager.isLoggedIn) {
+          //       Navigator.of(context).pushReplacement(
+          //         MaterialPageRoute(builder: (_) => RedirectScreen()),
+          //       );
+          //     } else {
+          //       Navigator.of(context).pushReplacement(
+          //         MaterialPageRoute(builder: (_) => SignInScreen()),
+          //       );
+          //     }
+          //   },
+          // ),
+          ChangeLanguageScreen(),
           //AddPhysioScreen(),
           //AdminHomePage(),
           //PhysioHomePage(),
