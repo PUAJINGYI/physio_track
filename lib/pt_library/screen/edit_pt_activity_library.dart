@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
@@ -8,6 +9,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/pt_library_model.dart';
 import '../service/pt_library_service.dart';
 
@@ -58,7 +60,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
           _levelController.text = ptActivity.level;
           _catController.text = ptActivity.cat;
           _videoUrlController.text = ptActivity.videoUrl;
-          _durationController.text = '${ptActivity.duration} minutes';
+          _durationController.text = '${ptActivity.duration} ${LocaleKeys.minutes.tr()}';
         });
       }
     } catch (e) {
@@ -83,14 +85,14 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                     TextField(
                       controller: _titleController,
                       decoration: InputDecoration(
-                        labelText: 'Title',
+                        labelText: LocaleKeys.Title.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
                     TextField(
                       controller: _descriptionController,
                       decoration: InputDecoration(
-                        labelText: 'Description',
+                        labelText: LocaleKeys.Description.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
@@ -102,7 +104,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                         child: TextField(
                           controller: _durationController,
                           decoration: InputDecoration(
-                            labelText: 'Duration (minutes)',
+                            labelText: LocaleKeys.Duration.tr(),
                           ),
                         ),
                       ),
@@ -116,7 +118,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                         child: TextField(
                           controller: _levelController,
                           decoration: InputDecoration(
-                            labelText: 'Level',
+                            labelText: LocaleKeys.Level.tr(),
                           ),
                         ),
                       ),
@@ -130,7 +132,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                         child: TextField(
                           controller: _catController,
                           decoration: InputDecoration(
-                            labelText: 'Category',
+                            labelText: LocaleKeys.Category.tr(),
                           ),
                         ),
                       ),
@@ -139,7 +141,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                     TextField(
                       controller: _videoUrlController,
                       decoration: InputDecoration(
-                        labelText: 'Video URL',
+                        labelText: LocaleKeys.Video_URL.tr(),
                       ),
                     ),
                   ],
@@ -168,7 +170,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'PT Activity Library',
+                LocaleKeys.PT_Activity_Library.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -194,7 +196,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
               padding: const EdgeInsets.all(16.0),
               child: customButton(
                 context,
-                'Save',
+                LocaleKeys.Save.tr(),
                 ColorConstant.GREEN_BUTTON_TEXT,
                 ColorConstant.GREEN_BUTTON_UNPRESSED,
                 ColorConstant.GREEN_BUTTON_PRESSED,
@@ -230,7 +232,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Duration (mins)',
+                          LocaleKeys.Duration.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -297,7 +299,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Select Level',
+                          LocaleKeys.Select_Level,
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -318,7 +320,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                     children: [
                       ListTile(
                         title: Text(
-                          'Beginner',
+                          LocaleKeys.Beginner.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -330,7 +332,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'Intermediate',
+                          LocaleKeys.Intermediate.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -342,7 +344,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'Advanced',
+                          LocaleKeys.Advanced.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -386,7 +388,7 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Select Category',
+                          LocaleKeys.Select_Category.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -403,117 +405,119 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
                   ),
                 ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          'Upper',
-                          textAlign: TextAlign.center,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Upper.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Upper';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Upper';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Lower',
-                          textAlign: TextAlign.center,
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Lower.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Lower';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Lower';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Transfer',
-                          textAlign: TextAlign.center,
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Transfer.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Transfer';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Transfer';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Breathing',
-                          textAlign: TextAlign.center,
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Breathing.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Breathing';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Breathing';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Bed Mobility',
-                          textAlign: TextAlign.center,
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Bed_Mobility.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Bed Mobility';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Bed Mobility';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Passive Movement',
-                          textAlign: TextAlign.center,
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Passive_Movement.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Passive Movement';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Passive Movement';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Active Assisted Movement',
-                          textAlign: TextAlign.center,
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Active_Assisted_Movement.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Active Assisted Movement';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Active Assisted Movement';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Sitting',
-                          textAlign: TextAlign.center,
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Sitting.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Sitting';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Sitting';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Core Movement',
-                          textAlign: TextAlign.center,
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.Core_Movement.tr(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedCat = 'Core Movement';
+                            });
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedCat = 'Core Movement';
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -586,10 +590,10 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
             _levelController.text = updatedPTActivity.level;
             _catController.text = updatedPTActivity.cat;
             _videoUrlController.text = updatedPTActivity.videoUrl;
-            _durationController.text = '${updatedPTActivity.duration} minutes';
+            _durationController.text = '${updatedPTActivity.duration} ${LocaleKeys.minutes.tr()}';
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("PT Activity updated")),
+            SnackBar(content: Text(LocaleKeys.PT_Activity_Updated.tr())),
           );
           Navigator.pop(context, true);
         }
@@ -598,14 +602,14 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Error'),
-              content: Text('Please enter a valid video URL.'),
+              title: Text(LocaleKeys.Error.tr()),
+              content: Text(LocaleKeys.Please_enter_a_valid_video_URL.tr()),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('OK'),
+                  child: Text(LocaleKeys.OK.tr()),
                 ),
               ],
             );
@@ -617,14 +621,14 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error'),
-            content: Text('Please fill in all the fields.'),
+            title: Text(LocaleKeys.Error.tr()),
+            content: Text(LocaleKeys.Please_fill_in_all_the_fields.tr()),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: Text(LocaleKeys.OK.tr()),
               ),
             ],
           );

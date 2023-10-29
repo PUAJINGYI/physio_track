@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:physio_track/profile/screen/change_language_screen.dart';
 
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
@@ -15,6 +17,7 @@ import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../notification/screen/notification_list_screen.dart';
 import '../../notification/service/notification_service.dart';
+import '../../translations/locale_keys.g.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -150,7 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: kToolbarHeight,
                 alignment: Alignment.center,
                 child: Text(
-                  'Profile',
+                  LocaleKeys.Profile.tr(),
                   style: TextStyle(
                     fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
@@ -249,7 +252,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         SizedBox(height: 2.0),
                                         Padding(
-                                          padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 0, 20, 0),
                                           child: LinearPercentIndicator(
                                             animation: true,
                                             lineHeight: 10.0,
@@ -261,7 +265,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             padding: EdgeInsets.zero,
                                           ),
                                         ),
-                                       
                                       ],
                                     ),
                                 ],
@@ -289,7 +292,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: customButton(
                       context,
-                      'Edit Profile',
+                      LocaleKeys.Edit_Profile.tr(),
                       ColorConstant.YELLOW_BUTTON_TEXT,
                       ColorConstant.YELLOW_BUTTON_UNPRESSED,
                       ColorConstant.YELLOW_BUTTON_PRESSED, () {
@@ -300,18 +303,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: customButton(
                       context,
-                      'Change Language',
+                      LocaleKeys.Change_Language.tr(),
                       ColorConstant.BLUE_BUTTON_TEXT,
                       ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ColorConstant.BLUE_BUTTON_PRESSED, () {
-                    // navigate to change language page
+                      ColorConstant.BLUE_BUTTON_PRESSED, () async{
+                    final needUpdate = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeLanguageScreen(),
+                      ),
+                    );
+                    if (needUpdate != null && needUpdate) {
+                      setState(() {
+                        getUserData();
+                      });
+                    }
                   }),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: customButton(
                       context,
-                      'Log Out',
+                      LocaleKeys.Log_Out.tr(),
                       ColorConstant.RED_BUTTON_TEXT,
                       ColorConstant.RED_BUTTON_UNPRESSED,
                       ColorConstant.RED_BUTTON_PRESSED, () {
@@ -363,7 +376,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: kToolbarHeight,
                 alignment: Alignment.center,
                 child: Text(
-                  'Profile',
+                  LocaleKeys.Profile.tr(),
                   style: TextStyle(
                     fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
@@ -384,14 +397,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.push(
+            onTap: () async{
+              final needUpdate = await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => ChangePasswordScreen()));
+              if (needUpdate != null && needUpdate) {
+                setState(() {
+                  getUserData();
+                });
+              }
             },
-            child: const Text(
-              "Change Password",
+            child: Text(
+              LocaleKeys.Change_Password.tr(),
               style: TextStyle(
                 color: Colors.black,
               ),

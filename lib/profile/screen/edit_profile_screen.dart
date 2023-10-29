@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -116,7 +118,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 height: kToolbarHeight,
                 alignment: Alignment.center,
                 child: Text(
-                  'Profile',
+                  LocaleKeys.Profile.tr(),
                   style: TextStyle(
                     fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
@@ -206,20 +208,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
                 SizedBox(height: 50),
-                editProfileInputField('Username:', 'Please insert username !',
+                editProfileInputField('${LocaleKeys.Username.tr()}:', 'Please insert username !',
                     _validateUsernameInput, _usernameController),
                 SizedBox(height: 20),
                 editProfileInputField(
-                    'Telephone Number:',
+                    '${LocaleKeys.TelNo.tr()}:',
                     'Please insert phone number !',
                     _validatePhoneInput,
                     _phoneController),
                 SizedBox(height: 20),
-                editProfileInputField('Email Address:', 'Please insert email !',
+                editProfileInputField('${LocaleKeys.Email.tr()}:', 'Please insert email !',
                     _validateEmailInput, _emailController),
                 SizedBox(height: 20),
                 editProfileInputField(
-                    'Home Address:',
+                    '${LocaleKeys.Home_Address.tr()}:',
                     'Please insert address !',
                     _validateAddressInput,
                     _addressController),
@@ -228,7 +230,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: customButton(
                       context,
-                      'Update Profile',
+                      LocaleKeys.Update_Profile.tr(),
                       ColorConstant.GREEN_BUTTON_TEXT,
                       ColorConstant.GREEN_BUTTON_UNPRESSED,
                       ColorConstant.GREEN_BUTTON_PRESSED, () {
@@ -282,7 +284,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 height: kToolbarHeight,
                 alignment: Alignment.center,
                 child: Text(
-                  'Profile',
+                  LocaleKeys.Edit_Profile.tr(),
                   style: TextStyle(
                     fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,
@@ -338,9 +340,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             .update({
           'profileImageUrl': imageUrl,
         });
-        
       }
-     Navigator.pop(context, true);
+      Navigator.pop(context, true);
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/user_management/screen/patient_list_screen.dart';
 import 'package:physio_track/user_management/screen/physio_list_screen.dart';
@@ -7,6 +8,7 @@ import 'package:physio_track/user_management/service/user_management_service.dar
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../profile/model/user_model.dart';
+import '../../translations/locale_keys.g.dart';
 
 class UserManagementPage extends StatefulWidget {
   @override
@@ -50,7 +52,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
                       Expanded(
                         flex: 1,
                         child: NavigationBarItem(
-                          label: 'Patients',
+                          label: LocaleKeys.Patients.tr(),
                           isSelected: _selectedIndex == 0,
                           onTap: () => _onItemTapped(0),
                         ),
@@ -59,7 +61,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
                       Expanded(
                         flex: 1,
                         child: NavigationBarItem(
-                          label: 'Physiotherapists',
+                          label: LocaleKeys.Physiotherapists.tr(),
                           isSelected: _selectedIndex == 1,
                           onTap: () => _onItemTapped(1),
                         ),
@@ -87,7 +89,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'User Management',
+                LocaleKeys.User_Management.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

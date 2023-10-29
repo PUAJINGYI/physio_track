@@ -1,7 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
+import 'package:physio_track/translations/locale_keys.g.dart';
 
 import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
@@ -56,7 +59,7 @@ class _AppointmentNewApproveScreenState
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Reject Appointment'),
+              Text(LocaleKeys.Reject_Appointment.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -68,7 +71,7 @@ class _AppointmentNewApproveScreenState
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Are you sure to reject this appointment？',
+              LocaleKeys.are_you_sure_reject_appointment.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -85,7 +88,7 @@ class _AppointmentNewApproveScreenState
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
@@ -105,7 +108,7 @@ class _AppointmentNewApproveScreenState
                       ),
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
-                    child: Text('No',
+                    child: Text(LocaleKeys.No.tr(),
                         style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
@@ -134,7 +137,7 @@ class _AppointmentNewApproveScreenState
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Approve Appointment'),
+              Text(LocaleKeys.Approve_Appointment.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -146,7 +149,7 @@ class _AppointmentNewApproveScreenState
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Are you sure to approve this appointment？',
+              LocaleKeys.are_you_sure_approve_appointment.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -163,7 +166,7 @@ class _AppointmentNewApproveScreenState
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
@@ -173,14 +176,14 @@ class _AppointmentNewApproveScreenState
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                                'Appointment slot is not available. Please contact user to rebook appointment again.'),
+                                LocaleKeys.Appointment_slot_not_available.tr()),
                             duration: Duration(seconds: 3),
                           ),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Appointment has been approved'),
+                            content: Text(LocaleKeys.Appointment_has_been_approved.tr()),
                             duration: Duration(seconds: 3),
                           ),
                         );
@@ -199,7 +202,7 @@ class _AppointmentNewApproveScreenState
                       ),
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
-                    child: Text('No',
+                    child: Text(LocaleKeys.No.tr(),
                         style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
@@ -232,7 +235,7 @@ class _AppointmentNewApproveScreenState
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           }
           if (snapshot.hasData && snapshot.data!.isEmpty) {
             return Center(
@@ -244,7 +247,7 @@ class _AppointmentNewApproveScreenState
                     height: 100.0,
                     child: Image.asset(ImageConstant.DATA_NOT_FOUND),
                   ),
-                  Text('No Record Found',
+                  Text(LocaleKeys.No_Record_Found.tr(),
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
                 ],
@@ -331,7 +334,7 @@ class _AppointmentNewApproveScreenState
                                                   }
                                                   if (snapshot.hasError) {
                                                     return Text(
-                                                        'Error: ${snapshot.error}');
+                                                        '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                   }
                                                   if (snapshot.hasData) {
                                                     String username =
@@ -365,7 +368,7 @@ class _AppointmentNewApproveScreenState
                                                   }
                                                   if (snapshot.hasError) {
                                                     return Text(
-                                                        'Error: ${snapshot.error}');
+                                                        '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                   }
                                                   if (snapshot.hasData) {
                                                     String username =
@@ -407,9 +410,14 @@ class _AppointmentNewApproveScreenState
                                           children: [
                                             Icon(Icons.edit_outlined),
                                             SizedBox(width: 2),
-                                            Text(
-                                              'Edit',
-                                              style: TextStyle(),
+                                            Container(
+                                              width: 20,
+                                              child: AutoSizeText(
+                                                LocaleKeys.Edit.tr(),
+                                                maxLines: 1,
+                                                minFontSize: 7,
+                                                style: TextStyle(),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -450,7 +458,7 @@ class _AppointmentNewApproveScreenState
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
-                                                  "Approve",
+                                                  LocaleKeys.Approve.tr(),
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
@@ -498,7 +506,7 @@ class _AppointmentNewApproveScreenState
                                                     width:
                                                         10.0), // Adjust the spacing between the icon and text
                                                 Text(
-                                                  "Reject",
+                                                  LocaleKeys.Reject.tr(),
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size

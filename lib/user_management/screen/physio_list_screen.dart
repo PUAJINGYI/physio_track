@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/constant/ColorConstant.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
+import '../../translations/locale_keys.g.dart';
 import '../service/user_management_service.dart';
 import 'add_physio_screen.dart';
 import 'navigation_page.dart';
@@ -42,7 +44,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Delete Physiotherapist'),
+              Text(LocaleKeys.Delete_Physiotherapist.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -54,7 +56,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Are you sure to delete this physiotherapist?',
+              LocaleKeys.are_you_sure_delete_physio.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -72,7 +74,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text(
-                      'Yes',
+                      LocaleKeys.Yes.tr(),
                       style: TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT),
                     ),
                     onPressed: () async {
@@ -94,7 +96,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text(
-                      'No',
+                      LocaleKeys.No.tr(),
                       style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
@@ -115,12 +117,12 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
       await userManagementService
           .deleteUser(id); // Wait for the deletion to complete
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Physiotherapist deleted")),
+        SnackBar(content: Text(LocaleKeys.Physio_deleted.tr())),
       );
     } catch (error) {
       print('Error deleting physiotherapist: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Physiotherapist could not be deleted")),
+        SnackBar(content: Text(LocaleKeys.Physio_could_not_be_deleted.tr())),
       );
     }
   }
@@ -134,7 +136,8 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(
+              child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
         }
         if (snapshot.hasData) {
           List<UserModel> physios = snapshot.data!;
@@ -203,14 +206,14 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
               left: 0,
               right: 0,
               child: GestureDetector(
-                onTap: () async{
+                onTap: () async {
                   final needUpdate = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => AddPhysioScreen(),
                     ),
                   );
-                  if (needUpdate!=null && needUpdate) {
+                  if (needUpdate != null && needUpdate) {
                     setState(() {
                       _physioListFuture =
                           _fetchPhysioList(); // Refresh the physio list

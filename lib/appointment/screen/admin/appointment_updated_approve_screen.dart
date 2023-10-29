@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
 import '../../service/appointment_in_pending_service.dart';
@@ -55,7 +57,7 @@ class _AppointmentUpdatedApproveScreenState
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Reject Appointment'),
+              Text(LocaleKeys.Reject_Appointment.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -67,7 +69,7 @@ class _AppointmentUpdatedApproveScreenState
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Are you sure to reject this appointment？',
+              LocaleKeys.are_you_sure_reject_appointment.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -84,7 +86,7 @@ class _AppointmentUpdatedApproveScreenState
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
@@ -104,7 +106,7 @@ class _AppointmentUpdatedApproveScreenState
                       ),
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
-                    child: Text('No',
+                    child: Text(LocaleKeys.No.tr(),
                         style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
@@ -133,7 +135,7 @@ class _AppointmentUpdatedApproveScreenState
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Approve Appointment'),
+              Text(LocaleKeys.Approve_Appointment.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -145,7 +147,7 @@ class _AppointmentUpdatedApproveScreenState
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Are you sure to approve this appointment？',
+              LocaleKeys.are_you_sure_approve_appointment.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -162,7 +164,7 @@ class _AppointmentUpdatedApproveScreenState
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
@@ -172,7 +174,7 @@ class _AppointmentUpdatedApproveScreenState
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                                'Appointment slot has been taken by other user'),
+                                LocaleKeys.Appointment_slot_not_available.tr()),
                             duration: Duration(seconds: 3),
                           ),
                         );
@@ -180,7 +182,7 @@ class _AppointmentUpdatedApproveScreenState
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content:
-                                Text('Appointment update has been approved'),
+                                Text(LocaleKeys.Appointment_has_been_approved.tr()),
                             duration: Duration(seconds: 3),
                           ),
                         );
@@ -199,7 +201,7 @@ class _AppointmentUpdatedApproveScreenState
                       ),
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
-                    child: Text('No',
+                    child: Text(LocaleKeys.No.tr(),
                         style:
                             TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
@@ -233,7 +235,7 @@ class _AppointmentUpdatedApproveScreenState
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           }
           if (snapshot.hasData && snapshot.data!.isEmpty) {
             return Center(
@@ -246,7 +248,7 @@ class _AppointmentUpdatedApproveScreenState
                       child: Image.asset(
                         ImageConstant.DATA_NOT_FOUND,
                       )),
-                  Text('No Record Found',
+                  Text(LocaleKeys.No_Record_Found.tr(),
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
                 ],
@@ -333,7 +335,7 @@ class _AppointmentUpdatedApproveScreenState
                                                   }
                                                   if (snapshot.hasError) {
                                                     return Text(
-                                                        'Error: ${snapshot.error}');
+                                                        '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                   }
                                                   if (snapshot.hasData) {
                                                     String username =
@@ -367,7 +369,7 @@ class _AppointmentUpdatedApproveScreenState
                                                   }
                                                   if (snapshot.hasError) {
                                                     return Text(
-                                                        'Error: ${snapshot.error}');
+                                                        '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                   }
                                                   if (snapshot.hasData) {
                                                     String username =
@@ -413,7 +415,7 @@ class _AppointmentUpdatedApproveScreenState
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
-                                                  "Approve",
+                                                 LocaleKeys.Approve.tr(),
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
@@ -456,7 +458,7 @@ class _AppointmentUpdatedApproveScreenState
                                                     width:
                                                         10.0), // Adjust the spacing between the icon and text
                                                 Text(
-                                                  "Reject",
+                                                  LocaleKeys.Reject.tr(),
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size

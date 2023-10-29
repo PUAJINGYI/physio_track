@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,6 +13,7 @@ import 'package:physio_track/user_management/screen/navigation_page.dart';
 import '../authentication/signin_screen.dart';
 import '../constant/ImageConstant.dart';
 import '../constant/TextConstant.dart';
+import '../translations/locale_keys.g.dart';
 import '../user_management/service/user_management_service.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -70,7 +72,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                             child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                'Appointment Managment',
+                                                LocaleKeys.Appointment_Management.tr(),
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
@@ -123,7 +125,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                             child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                'Screening Test',
+                                                LocaleKeys.Screening_Test.tr(),
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
@@ -177,7 +179,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                             child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                'User Management',
+                                                LocaleKeys.User_Management.tr(),
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
@@ -238,7 +240,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             height: kToolbarHeight,
                             alignment: Alignment.center,
                             child: Text(
-                              'Home',
+                              LocaleKeys.Home.tr(),
                               style: TextStyle(
                                 fontSize: TextConstant.TITLE_FONT_SIZE,
                                 fontWeight: FontWeight.bold,
@@ -261,7 +263,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           child: Container(
                             width: 200,
                             child: AutoSizeText(
-                              'Welcome, ${username}',
+                              '${LocaleKeys.welcome.tr()} ${username}',
                               style: TextStyle(
                                   fontSize: 25.0, fontWeight: FontWeight.bold),
                               maxLines: 1,
@@ -271,7 +273,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         Positioned(
                           top: 160,
                           left: 40,
-                          child: Text('Start your administration task',
+                          child: Text(LocaleKeys.Start_your_admin_task.tr(),
                               style: TextStyle(fontSize: 13.0)),
                         ),
                       ],

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -7,6 +8,7 @@ import 'package:physio_track/screening_test/screen/admin/upper_question_list_scr
 
 import '../../../constant/ImageConstant.dart';
 import '../../../constant/TextConstant.dart';
+import '../../../translations/locale_keys.g.dart';
 import 'general_question_list_screen.dart';
 
 class QuestionListNavPage extends StatefulWidget {
@@ -55,7 +57,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
                       Expanded(
                         flex: 1,
                         child: TestNavigationBarItem(
-                          label: 'General',
+                          label: LocaleKeys.General.tr(),
                           isSelected: _selectedIndex == 0,
                           onTap: () => _onItemTapped(0),
                         ),
@@ -64,7 +66,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
                       Expanded(
                         flex: 1,
                         child: TestNavigationBarItem(
-                          label: 'Upper',
+                          label: LocaleKeys.Upper.tr(),
                           isSelected: _selectedIndex == 1,
                           onTap: () => _onItemTapped(1),
                         ),
@@ -73,7 +75,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
                       Expanded(
                         flex: 1,
                         child: TestNavigationBarItem(
-                          label: 'Lower',
+                          label: LocaleKeys.Lower.tr(),
                           isSelected: _selectedIndex == 2,
                           onTap: () => _onItemTapped(2),
                         ),
@@ -82,7 +84,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
                       Expanded(
                         flex: 1,
                         child: TestNavigationBarItem(
-                          label: 'Daily',
+                          label: LocaleKeys.Daily.tr(),
                           isSelected: _selectedIndex == 3,
                           onTap: () => _onItemTapped(3),
                         ),
@@ -110,7 +112,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Screening Test',
+                LocaleKeys.Screening_Test.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

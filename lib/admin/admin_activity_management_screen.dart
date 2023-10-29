@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -6,6 +7,7 @@ import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 import '../constant/ImageConstant.dart';
 import '../constant/TextConstant.dart';
 import '../ot_library/screen/ot_library_list_screen.dart';
+import '../translations/locale_keys.g.dart';
 
 class AdminActivityManagementScreen extends StatefulWidget {
   const AdminActivityManagementScreen({super.key});
@@ -48,7 +50,7 @@ class _AdminActivityManagementScreenState
                       child: Column(
                         children: <Widget>[
                           Text(
-                            'PT',
+                            LocaleKeys.PT.tr(),
                             style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -89,7 +91,7 @@ class _AdminActivityManagementScreenState
                       child: Column(
                         children: <Widget>[
                           Text(
-                            'OT',
+                            LocaleKeys.OT.tr(),
                             style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -117,7 +119,7 @@ class _AdminActivityManagementScreenState
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Activity Management',
+              LocaleKeys.Activity_Management.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,

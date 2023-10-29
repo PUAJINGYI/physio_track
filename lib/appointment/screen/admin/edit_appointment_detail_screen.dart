@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,6 +10,7 @@ import '../../../constant/ImageConstant.dart';
 import '../../../constant/TextConstant.dart';
 import '../../../notification/service/notification_service.dart';
 import '../../../profile/model/user_model.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
 import '../../service/appointment_in_pending_service.dart';
@@ -85,21 +87,23 @@ class _EditAppointmentDetailScreenState
       AppointmentInPending appointmentInPending, oriPhysioId) async {
     await _appointmentInPendingService
         .updatePendingAppointmentRecord(appointmentInPending);
-      String patientUid =
-          await _userManagementService.fetchUidByUserId(appointmentInPending.patientId);
-      String oriPhysioUid =
-          await _userManagementService.fetchUidByUserId(oriPhysioId);
-      String newPhysioName = await _userManagementService.getUsernameById(appointmentInPending.physioId);    
+    String patientUid = await _userManagementService
+        .fetchUidByUserId(appointmentInPending.patientId);
+    String oriPhysioUid =
+        await _userManagementService.fetchUidByUserId(oriPhysioId);
+    String newPhysioName = await _userManagementService
+        .getUsernameById(appointmentInPending.physioId);
 
-      notificationService.addNotificationFromAdmin(
-          patientUid,
-          'Physiotherapist Incharged Changed',
-          'Dear patient, your recent appointment booking request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been change the physiotherapist to ${newPhysioName}. Please remember to attend the appointment on that selected time slot. Thank you.');
-      notificationService.addNotificationFromAdmin(
-          oriPhysioUid,
-          'Physiotherapist Incharged Changed',
-          'Dear physio, there is a new appointment on ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been change to ${newPhysioName} due to you are not available on that time.');    
-    await _appointmentInPendingService.checkIfNewAppointmentSlotExist(appointmentInPending.id);  
+    notificationService.addNotificationFromAdmin(
+        patientUid,
+        LocaleKeys.Physiotherapist_Incharged_Changed.tr(),
+        'Dear patient, your recent appointment booking request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been change the physiotherapist to ${newPhysioName}. Please remember to attend the appointment on that selected time slot. Thank you.');
+    notificationService.addNotificationFromAdmin(
+        oriPhysioUid,
+        LocaleKeys.Physiotherapist_Incharged_Changed.tr(),
+        'Dear physio, there is a new appointment on ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been change to ${newPhysioName} due to you are not available on that time.');
+    await _appointmentInPendingService
+        .checkIfNewAppointmentSlotExist(appointmentInPending.id);
     Navigator.pop(context, true);
   }
 
@@ -188,7 +192,8 @@ class _EditAppointmentDetailScreenState
                               },
                               validator: (value) {
                                 if (value == null) {
-                                  return 'Please select a physiotherapist';
+                                  return LocaleKeys
+                                      .Please_select_a_physiotherapist.tr();
                                 }
                                 return null;
                               },
@@ -228,7 +233,8 @@ class _EditAppointmentDetailScreenState
                                 return CircularProgressIndicator();
                               } else if (snapshot.hasError) {
                                 // If an error occurred, you can handle it here.
-                                return Text('Error: ${snapshot.error}');
+                                return Text(
+                                    '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                               } else {
                                 // When the Future is complete, display the patient's name.
                                 return Text(
@@ -268,7 +274,7 @@ class _EditAppointmentDetailScreenState
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Edit Appointment',
+                LocaleKeys.Edit_Appointment.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -294,11 +300,11 @@ class _EditAppointmentDetailScreenState
                 padding: const EdgeInsets.all(16.0),
                 child: customButton(
                     context,
-                    "Update & Approve",
+                    LocaleKeys.Update_Approve.tr(),
                     ColorConstant.BLUE_BUTTON_TEXT,
                     ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                  int oriPhysioId = appointmentInPending.physioId;   
+                  int oriPhysioId = appointmentInPending.physioId;
                   AppointmentInPending appointment = new AppointmentInPending(
                       id: appointmentInPending.id,
                       title: appointmentInPending.title,
@@ -316,7 +322,7 @@ class _EditAppointmentDetailScreenState
                       isSelectionEmpty = true;
                     });
                   } else {
-                    await performAppointmentUpdate(appointment,oriPhysioId);
+                    await performAppointmentUpdate(appointment, oriPhysioId);
                   }
                 }),
               )),

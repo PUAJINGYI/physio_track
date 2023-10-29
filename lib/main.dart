@@ -40,6 +40,7 @@ import 'package:physio_track/screening_test/screen/test_part_2_screen.dart';
 import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 import 'package:physio_track/screening_test/screen/test_physiotherapist_request_screen.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
+import 'package:physio_track/translations/codegen_loader.g.dart';
 import 'package:physio_track/treatment/screen/create_treatment_report_screen.dart';
 import 'package:physio_track/user_management/screen/add_physio_screen.dart';
 import 'package:workmanager/workmanager.dart';
@@ -67,10 +68,12 @@ import 'ot_library/screen/ot_library_detail_screen.dart';
 import 'ot_library/screen/ot_library_list_screen.dart';
 import 'ot_library/screen/ot_library_list_screen.dart';
 import 'ot_library/screen/add_ot_activity_library_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   final AuthManager authManager = AuthManager();
@@ -80,7 +83,18 @@ void main() async {
   Workmanager().cancelByUniqueName("secondTask");
   Workmanager().cancelByUniqueName("thirdTask");
   Workmanager().cancelByUniqueName("updateActivityList");
-  runApp(MyApp());
+  //runApp(MyApp());
+
+  runApp(EasyLocalization(
+      child: MyApp(),
+      supportedLocales: [
+        Locale('en'),
+        Locale('my'),
+        Locale('zh')
+      ],
+      fallbackLocale: Locale('en'),
+      assetLoader: CodegenLoader(),
+      path: 'assets/translations'));
   initBackgroundFetch();
   // runApp(MaterialApp(
   //   title: 'Calendar App',
@@ -118,6 +132,9 @@ class MyApp extends StatelessWidget {
     //   DeviceOrientation.portraitDown,
     // ]);
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       title: 'PhysioTrack',
       theme: ThemeData(
@@ -140,40 +157,40 @@ class MyApp extends StatelessWidget {
           //AddPTActivityScreen(),
           //OTLibraryDetailScreen2(),
           //AddQuestionScreen(),
-          //     SplashScreen(
-          //   onFinish: () {
-          //     if (authManager.isLoggedIn) {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (_) => RedirectScreen()),
-          //       );
-          //     } else {
-          //       Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (_) => SignInScreen()),
-          //       );
-          //     }
-          //   },
-          // ),
-          ChangeLanguageScreen(),
-          //AddPhysioScreen(),
-          //AdminHomePage(),
-          //PhysioHomePage(),
-          //AdminActivityManagementScreen(),
-          //NotificationListScreen(),
-          //TestPart1Screen(),
-          //HomePage(noti: noti,),
-          //OTDailyListScreen(),
-          //PTDailyFinishedScreen(),
-          //PTLibraryListScreen(),
-          //YoutubeAppDemo(),
-          //AchievementListScreen(),
-          //ProgressScreen(),
-          //AppointmentPatientScreen(),
-          //AppointmentHistoryScreen(),
-          //AppointmentAdminNavPage(),
-          //AppointmentListScreen(),
-          //AppointmentBookingScreen(),
-          //AppointmentHistoryPhysioScreen(),
-          //CreateTreatmentReportScreen(),
+              SplashScreen(
+            onFinish: () {
+              if (authManager.isLoggedIn) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => RedirectScreen()),
+                );
+              } else {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => SignInScreen()),
+                );
+              }
+            },
+          ),
+          //ChangeLanguageScreen(),
+      //AddPhysioScreen(),
+      //AdminHomePage(),
+      //PhysioHomePage(),
+      //AdminActivityManagementScreen(),
+      //NotificationListScreen(),
+      //TestPart1Screen(),
+      //HomePage(noti: noti,),
+      //OTDailyListScreen(),
+      //PTDailyFinishedScreen(),
+      //PTLibraryListScreen(),
+      //YoutubeAppDemo(),
+      //AchievementListScreen(),
+      //ProgressScreen(),
+      //AppointmentPatientScreen(),
+      //AppointmentHistoryScreen(),
+      //AppointmentAdminNavPage(),
+      //AppointmentListScreen(),
+      //AppointmentBookingScreen(),
+      //AppointmentHistoryPhysioScreen(),
+      //CreateTreatmentReportScreen(),
       //WeeklyAnalysisScreen(),
       // AchievementAnalysisScreen(),
       // BarChartSample2(),
@@ -231,7 +248,7 @@ void initBackgroundFetch() {
 //     print("useerid: ${userId}");
 //     DocumentReference userRef =
 //         FirebaseFirestore.instance.collection('users').doc(userId);
- 
+
 //     QuerySnapshot otLibrariesSnapshot = await userRef
 //         .collection('ot_activities')
 //         .orderBy('date', descending: true)

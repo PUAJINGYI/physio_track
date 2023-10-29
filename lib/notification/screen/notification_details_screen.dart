@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,6 +9,7 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/notification_model.dart';
 import '../service/notification_service.dart';
 
@@ -56,7 +58,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                         return Center(child: CircularProgressIndicator());
                       }
                       if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
+                        return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                       }
                       if (snapshot.hasData && snapshot.data == null) {
                         return Center(
@@ -69,7 +71,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                 child:
                                     Image.asset(ImageConstant.DATA_NOT_FOUND),
                               ),
-                              Text('No Record Found',
+                              Text(LocaleKeys.No_Record_Found.tr(),
                                   style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold)),
@@ -123,7 +125,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: customButton(
                   context,
-                  'Back',
+                  LocaleKeys.Back.tr(),
                   ColorConstant.BLUE_BUTTON_TEXT,
                   ColorConstant.BLUE_BUTTON_UNPRESSED,
                   ColorConstant.BLUE_BUTTON_PRESSED, () {
@@ -153,7 +155,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Notification',
+              LocaleKeys.Notifications.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,

@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:physio_track/notification/screen/notification_details_screen.dart';
 import 'package:physio_track/notification/service/notification_service.dart';
+import 'package:physio_track/translations/locale_keys.g.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
@@ -180,7 +182,7 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Notification',
+                LocaleKeys.Notifications.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

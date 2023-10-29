@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/pt_library_model.dart';
 import '../service/pt_library_service.dart';
 import 'edit_pt_activity_library.dart';
@@ -253,7 +255,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                                 color: Colors.blue[500]),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              '${_ptLibraryRecord.duration} mins',
+                                              '${_ptLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: Colors.blue[500],
@@ -279,7 +281,8 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                                     _ptLibraryRecord.level)),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              _ptLibraryRecord.level,
+                                              _getLevelText(
+                                                  _ptLibraryRecord.level),
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: _getLevelColor(
@@ -401,7 +404,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                         height: kToolbarHeight,
                         alignment: Alignment.center,
                         child: Text(
-                          'PT Activity Library',
+                          LocaleKeys.PT_Activity_Library.tr(),
                           style: TextStyle(
                             fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
@@ -437,7 +440,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Delete PT Activity'),
+              Text(LocaleKeys.Delete_PT_Activity.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: Colors.red),
                 onPressed: () {
@@ -447,7 +450,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
             ],
           ),
           content: Text(
-            'Are you sure to delete this occupational therapy activity?',
+            LocaleKeys.are_you_sure_delete_pt_activity.tr(),
             textAlign: TextAlign.center,
           ),
           actions: [
@@ -463,7 +466,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                       ),
                       backgroundColor: Color.fromRGBO(220, 241, 254, 1),
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
                     onPressed: () {
@@ -480,7 +483,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                       ),
                       backgroundColor: Color.fromARGB(255, 237, 159, 153),
                     ),
-                    child: Text('No',
+                    child: Text(LocaleKeys.No.tr(),
                         style:
                             TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
                     onPressed: () {
@@ -500,7 +503,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
     try {
       _ptLibraryService.deletePTLibrary(widget.recordId);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Occupational therapy activity be deleted")),
+        SnackBar(content: Text(LocaleKeys.Delete_PT_Activity.tr())),
       );
       //Navigator.of(context).pop();
     } catch (error) {
@@ -508,7 +511,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             content:
-                Text("Occupational therapy activity could not be deleted")),
+                Text(LocaleKeys.Physiotherapy_activity_could_not_be_deleted)),
       );
     }
     Navigator.pop(context, true);
@@ -613,23 +616,34 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
 
   String _getCatText(String cat) {
     if (cat == 'Lower') {
-      return 'Lower';
+      return LocaleKeys.Lower.tr();
     } else if (cat == 'Upper') {
-      return 'Upper';
+      return LocaleKeys.Upper.tr();
     } else if (cat == 'Transfer') {
-      return 'Transfer';
+      return LocaleKeys.Transfer.tr();
     } else if (cat == 'Bed Mobility') {
-      return 'Bed';
+      return LocaleKeys.Bed_Mobility.tr();
     } else if (cat == 'Breathing') {
-      return 'Breathing';
+      return LocaleKeys.Breathing.tr();
     } else if (cat == 'Core Movement') {
-      return 'Core';
+      return LocaleKeys.Core.tr();
     } else if (cat == 'Passive Movement') {
-      return 'Passive';
+      return LocaleKeys.Passive.tr();
     } else if (cat == 'Sitting') {
-      return 'Sitting';
+      return LocaleKeys.Sitting.tr();
     } else if (cat == 'Active Assisted Movement') {
-      return 'Active';
+      return LocaleKeys.Active.tr();
+    }
+    return '';
+  }
+
+  String _getLevelText(String level) {
+    if (level == 'Advanced') {
+      return LocaleKeys.Advanced.tr();
+    } else if (level == 'Intermediate') {
+      return LocaleKeys.Intermediate.tr();
+    } else if (level == 'Beginner') {
+      return LocaleKeys.Beginner.tr();
     }
     return '';
   }

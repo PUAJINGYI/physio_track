@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/ImageConstant.dart';
 import '../../../constant/TextConstant.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../service/appointment_service.dart';
 import 'appointment_cancel_approve_screen.dart';
 import 'appointment_new_approve_screen.dart';
@@ -59,7 +61,7 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
                       Expanded(
                         flex: 1,
                         child: TestNavigationBarItem(
-                          label: 'New',
+                          label: LocaleKeys.New.tr(),
                           isSelected: _selectedIndex == 0,
                           onTap: () => _onItemTapped(0),
                         ),
@@ -68,7 +70,7 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
                       Expanded(
                         flex: 1,
                         child: TestNavigationBarItem(
-                          label: 'Update',
+                          label: LocaleKeys.Update.tr(),
                           isSelected: _selectedIndex == 1,
                           onTap: () => _onItemTapped(1),
                         ),
@@ -77,7 +79,7 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
                       Expanded(
                         flex: 1,
                         child: TestNavigationBarItem(
-                          label: 'Cancel',
+                          label: LocaleKeys.Cancel.tr(),
                           isSelected: _selectedIndex == 2,
                           onTap: () => _onItemTapped(2),
                         ),
@@ -105,7 +107,7 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Appointment Management',
+                LocaleKeys.Appointment_Management.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

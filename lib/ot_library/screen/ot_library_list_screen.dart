@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/ot_library/model/ot_library_model.dart';
 import 'package:physio_track/ot_library/screen/add_ot_activity_library_screen.dart';
@@ -7,6 +8,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import 'ot_library_detail_screen.dart';
 import 'ot_library_list_screen.dart';
 
@@ -58,7 +60,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                           children: [
                             Image.asset(ImageConstant
                                 .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
-                            Text('No OT Activity Found',
+                            Text(LocaleKeys.No_OT_Activity_Found.tr(),
                                 style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold)),
@@ -173,7 +175,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'OT Activity Library',
+                LocaleKeys.OT_Activity_Library.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

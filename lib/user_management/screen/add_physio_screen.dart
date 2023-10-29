@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,6 +11,7 @@ import '../../constant/TextConstant.dart';
 import '../../profile/model/user_model.dart';
 import '../../profile/service/user_service.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 
 class AddPhysioScreen extends StatefulWidget {
   const AddPhysioScreen({super.key});
@@ -73,13 +75,13 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
       String message;
 
       if (e.code == 'email-already-in-use') {
-        message = 'Email is already in use.';
+        message = LocaleKeys.Email_Ady_Use.tr();
       } else if (e.code == 'weak-password') {
-        message = 'Password is too weak.';
+        message = LocaleKeys.Password_Too_Weak.tr();
       } else if (e.code == 'invalid-email') {
-        message = 'Invalid email address.';
+        message = LocaleKeys.Invalid_Email_Address.tr();
       } else {
-        message = 'An error occurred. Please try again later.';
+        message = LocaleKeys.An_Error_Occurred.tr();
       }
 
       // Show Snackbar with error message
@@ -107,8 +109,8 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                 child: Column(
                   children: [
                     reusableTextField(
-                        "Enter Username",
-                        "Please insert username",
+                        LocaleKeys.Enter_username.tr(),
+                        LocaleKeys.Please_Insert_Username.tr(),
                         Icons.person_outline,
                         false,
                         _usernameController,
@@ -119,8 +121,8 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                       height: 10,
                     ),
                     reusableTextField(
-                        "Enter Email",
-                        "Please insert valid email",
+                        LocaleKeys.Enter_Email.tr(),
+                        LocaleKeys.Please_Insert_Valid_Email.tr(),
                         Icons.mail_outline,
                         false,
                         _emailTextController,
@@ -131,8 +133,8 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                       height: 10,
                     ),
                     reusableTextField(
-                        "Enter Password",
-                        "Please insert password",
+                        LocaleKeys.Enter_Password.tr(),
+                        LocaleKeys.Please_Insert_Password.tr(),
                         Icons.lock_outline,
                         true,
                         _passwordTextController,
@@ -144,7 +146,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                     ),
                     customButton(
                         context,
-                        'Add',
+                        LocaleKeys.Add.tr(),
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ColorConstant.BLUE_BUTTON_PRESSED, () async {
@@ -191,7 +193,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'New Physiotherapist',
+              LocaleKeys.New_Physio.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,

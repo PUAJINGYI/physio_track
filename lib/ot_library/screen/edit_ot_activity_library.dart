@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/ot_library/screen/ot_library_detail_screen.dart';
@@ -9,6 +10,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/ot_library_model.dart';
 
 class EditOTActivityScreen extends StatefulWidget {
@@ -90,7 +92,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'OT Activity Library',
+                LocaleKeys.OT_Activity_Library.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -120,14 +122,14 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                     TextField(
                       controller: _titleController,
                       decoration: InputDecoration(
-                        labelText: 'Title',
+                        labelText: LocaleKeys.Title.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
                     TextField(
                       controller: _descriptionController,
                       decoration: InputDecoration(
-                        labelText: 'Description',
+                        labelText: LocaleKeys.Description.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
@@ -139,7 +141,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                         child: TextField(
                           controller: _durationController,
                           decoration: InputDecoration(
-                            labelText: 'Duration (minutes)',
+                            labelText: LocaleKeys.Duration.tr(),
                           ),
                         ),
                       ),
@@ -153,7 +155,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                         child: TextField(
                           controller: _levelController,
                           decoration: InputDecoration(
-                            labelText: 'Level',
+                            labelText: LocaleKeys.Level.tr(),
                           ),
                         ),
                       ),
@@ -162,7 +164,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                     TextField(
                       controller: _videoUrlController,
                       decoration: InputDecoration(
-                        labelText: 'Video URL',
+                        labelText: LocaleKeys.Video_URL.tr(),
                       ),
                     ),
                   ],
@@ -178,7 +180,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
               padding: const EdgeInsets.all(16.0),
               child: customButton(
                 context,
-                'Save',
+                LocaleKeys.Save.tr(),
                 ColorConstant.GREEN_BUTTON_TEXT,
                 ColorConstant.GREEN_BUTTON_UNPRESSED,
                 ColorConstant.GREEN_BUTTON_PRESSED,
@@ -214,7 +216,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Duration (mins)',
+                          LocaleKeys.Duration.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,

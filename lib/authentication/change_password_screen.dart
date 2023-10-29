@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,6 +10,7 @@ import '../constant/ImageConstant.dart';
 import '../constant/TextConstant.dart';
 import '../profile/screen/profile_screen.dart';
 import '../reusable_widget/reusable_widget.dart';
+import '../translations/locale_keys.g.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -77,8 +79,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       height: 80,
                     ),
                     reusableTextField(
-                        "Enter Existing Password",
-                        "Please insert your existing password",
+                        LocaleKeys.Enter_Existing_Password.tr(),
+                        LocaleKeys.Please_insert_existing_password.tr(),
                         Icons.lock_outline,
                         true,
                         _passwordTextController,
@@ -89,8 +91,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       height: 10,
                     ),
                     reusableTextField(
-                        "Enter Confirmed Password",
-                        "Please insert your confirmed password",
+                        LocaleKeys.Enter_Confirmed_Password.tr(),
+                        LocaleKeys.Please_insert_confirmed_password.tr(),
                         Icons.lock_outline,
                         true,
                         _confirmPasswordTextController,
@@ -101,8 +103,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       height: 10,
                     ),
                     reusableTextField(
-                        "Enter New Password",
-                        "Please insert your new password",
+                        LocaleKeys.Enter_New_Password.tr(),
+                        LocaleKeys.Please_insert_new_password.tr(),
                         Icons.lock_outline,
                         true,
                         _newPasswordTextController,
@@ -114,7 +116,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ),
                     customButton(
                         context,
-                        'Reset Password',
+                        LocaleKeys.Reset_Password.tr(),
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ColorConstant.BLUE_BUTTON_PRESSED, () {
@@ -163,7 +165,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Reset Password',
+              LocaleKeys.Change_Password.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
@@ -194,7 +196,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
         // Show success message to the user
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Password updated successfully')),
+          SnackBar(content: Text(LocaleKeys.Password_updated_successfully.tr())),
         );
         Navigator.pop(context);
       } else {
@@ -202,14 +204,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text(
-                  'Both existing password and confirmation password must be the same!')),
+                  LocaleKeys.Both_Password_Must_Same.tr())), // Replace with the actual user name
         );
       }
     } catch (e) {
       // Show error message to the user
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content: Text('Wrong password provided for the current user.')),
+            content: Text(LocaleKeys.Wrong_password.tr())),
       );
     }
   }

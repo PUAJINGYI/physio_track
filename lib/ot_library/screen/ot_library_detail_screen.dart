@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
 import 'edit_ot_activity_library.dart';
@@ -136,7 +138,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                                   color: Colors.blue[500]),
                                               SizedBox(width: 4.0),
                                               Text(
-                                                '${_otLibraryRecord.duration} mins',
+                                                '${_otLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: Colors.blue[500],
@@ -224,7 +226,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                                 color: Colors.blue[500]),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              '${_otLibraryRecord.duration} mins',
+                                              '${_otLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: Colors.blue[500],
@@ -250,7 +252,8 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                                     _otLibraryRecord.level)),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              _otLibraryRecord.level,
+                                              _getLevelText(
+                                                  _otLibraryRecord.level),
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: _getLevelColor(
@@ -285,10 +288,10 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                           Icons.edit,
                           size: 35.0,
                         ),
-                        onPressed: () async{
+                        onPressed: () async {
                           //deactivate();
                           _controller.pauseVideo();
-                         final  needUpdate = await Navigator.push(
+                          final needUpdate = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditOTActivityScreen(
@@ -297,11 +300,11 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                             ),
                           );
 
-                         if(needUpdate!=null && needUpdate){
+                          if (needUpdate != null && needUpdate) {
                             setState(() {
                               _loadOTLibraryRecord();
                             });
-                         } 
+                          }
                         },
                       ),
                     ),
@@ -343,7 +346,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                         height: kToolbarHeight,
                         alignment: Alignment.center,
                         child: Text(
-                          'OT Activity Library',
+                          LocaleKeys.OT_Activity_Library.tr(),
                           style: TextStyle(
                             fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
@@ -379,7 +382,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Delete OT Activity'),
+              Text(LocaleKeys.Delete_OT_Activity.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -389,7 +392,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
             ],
           ),
           content: Text(
-            'Are you sure to delete this occupational therapy activity?',
+            LocaleKeys.are_you_sure_delete_ot_activity.tr(),
             textAlign: TextAlign.center,
           ),
           actions: [
@@ -405,7 +408,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () {
@@ -422,9 +425,8 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                       ),
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
-                    child: Text('No',
-                        style:
-                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
+                    child: Text(LocaleKeys.No.tr(),
+                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -442,19 +444,19 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
     try {
       _otLibraryService.deleteOTLibrary(widget.recordId);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Occupational therapy activity be deleted")),
+        SnackBar(content: Text(LocaleKeys.Delete_OT_Activity.tr())),
       );
       //Navigator.of(context).pop();
     } catch (error) {
       print('Error deleting occupational therapy activity: $error');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content:
-                Text("Occupational therapy activity could not be deleted")),
+            content: Text(
+                LocaleKeys.Occupational_therapy_activity_could_not_be_deleted)),
       );
     }
-    Navigator.pop(context, true); 
-    Navigator.pop(context, true); 
+    Navigator.pop(context, true);
+    Navigator.pop(context, true);
   }
 
   Color _getLevelColor(String level) {
@@ -481,97 +483,13 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
     return Colors.grey[300]!;
   }
 
-  Color _getCatColor(String cat) {
-    if (cat == 'Lower') {
-      return Colors.blue[500]!;
-    } else if (cat == 'Upper') {
-      return Colors.red[500]!;
-    } else if (cat == 'Transfer') {
-      return Colors.green[500]!;
-    } else if (cat == 'Bed Mobility') {
-      return Colors.purple[500]!;
-    } else if (cat == 'Breathing') {
-      return Colors.teal[500]!;
-    } else if (cat == 'Core Movement') {
-      return Colors.orange[500]!;
-    } else if (cat == 'Passive Movement') {
-      return Colors.grey[500]!;
-    } else if (cat == 'Sitting') {
-      return Colors.brown[500]!;
-    } else if (cat == 'Active Assisted Movement') {
-      return Colors.yellow[500]!;
-    }
-    // Default color if the level doesn't match the conditions
-    return Colors.black;
-  }
-
-  Color _getCatBackgroundColor(String cat) {
-    if (cat == 'Lower') {
-      return Colors.blue[100]!;
-    } else if (cat == 'Upper') {
-      return Colors.red[100]!;
-    } else if (cat == 'Transfer') {
-      return Colors.green[100]!;
-    } else if (cat == 'Bed Mobility') {
-      return Colors.purple[100]!;
-    } else if (cat == 'Breathing') {
-      return Colors.teal[100]!;
-    } else if (cat == 'Core Movement') {
-      return Colors.orange[100]!;
-    } else if (cat == 'Passive Movement') {
-      return Colors.grey[300]!;
-    } else if (cat == 'Sitting') {
-      return Colors.brown[100]!;
-    } else if (cat == 'Active Assisted Movement') {
-      return Colors.yellow[100]!;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Colors.grey[300]!;
-  }
-
-  IconData _getCatIcon(String cat) {
-    if (cat == 'Lower') {
-      return Icons.airline_seat_legroom_extra_outlined;
-    } else if (cat == 'Upper') {
-      return Icons.back_hand_outlined;
-    } else if (cat == 'Transfer') {
-      return Icons.transfer_within_a_station_outlined;
-    } else if (cat == 'Bed Mobility') {
-      return Icons.hotel;
-    } else if (cat == 'Breathing') {
-      return Icons.air_outlined;
-    } else if (cat == 'Core Movement') {
-      return Icons.accessibility_new_outlined;
-    } else if (cat == 'Passive Movement') {
-      return Icons.blind_outlined;
-    } else if (cat == 'Sitting') {
-      return Icons.event_seat_outlined;
-    } else if (cat == 'Active Assisted Movement') {
-      return Icons.directions_walk_outlined;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Icons.question_mark_outlined;
-  }
-
-  String _getCatText(String cat) {
-    if (cat == 'Lower') {
-      return 'Lower';
-    } else if (cat == 'Upper') {
-      return 'Upper';
-    } else if (cat == 'Transfer') {
-      return 'Transfer';
-    } else if (cat == 'Bed Mobility') {
-      return 'Bed';
-    } else if (cat == 'Breathing') {
-      return 'Breathing';
-    } else if (cat == 'Core Movement') {
-      return 'Core';
-    } else if (cat == 'Passive Movement') {
-      return 'Passive';
-    } else if (cat == 'Sitting') {
-      return 'Sitting';
-    } else if (cat == 'Active Assisted Movement') {
-      return 'Active';
+  String _getLevelText(String level) {
+    if (level == 'Advanced') {
+      return LocaleKeys.Advanced.tr();
+    } else if (level == 'Intermediate') {
+      return LocaleKeys.Intermediate.tr();
+    } else if (level == 'Beginner') {
+      return LocaleKeys.Beginner.tr();
     }
     return '';
   }

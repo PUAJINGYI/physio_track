@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
 import '../../service/appointment_in_pending_service.dart';
@@ -55,7 +57,7 @@ class _AppointmentCancelApproveScreenState
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Approve Appointment'),
+              Text(LocaleKeys.Approve_Appointment.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -67,7 +69,7 @@ class _AppointmentCancelApproveScreenState
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Are you sure to approve this appointment？',
+              LocaleKeys.are_you_sure_approve_appointment.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -84,7 +86,7 @@ class _AppointmentCancelApproveScreenState
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
@@ -104,7 +106,7 @@ class _AppointmentCancelApproveScreenState
                       ),
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
-                    child: Text('No',
+                    child: Text(LocaleKeys.No.tr(),
                         style:
                             TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
@@ -138,7 +140,7 @@ class _AppointmentCancelApproveScreenState
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           }
           if (snapshot.hasData && snapshot.data!.isEmpty) {
             return Center(
@@ -150,7 +152,7 @@ class _AppointmentCancelApproveScreenState
                     height: 100.0,
                     child: Image.asset(ImageConstant.DATA_NOT_FOUND),
                   ),
-                  Text('No Record Found',
+                  Text(LocaleKeys.No_Record_Found.tr(),
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
                 ],
@@ -237,7 +239,7 @@ class _AppointmentCancelApproveScreenState
                                                   }
                                                   if (snapshot.hasError) {
                                                     return Text(
-                                                        'Error: ${snapshot.error}');
+                                                        '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                   }
                                                   if (snapshot.hasData) {
                                                     String username =
@@ -271,7 +273,7 @@ class _AppointmentCancelApproveScreenState
                                                   }
                                                   if (snapshot.hasError) {
                                                     return Text(
-                                                        'Error: ${snapshot.error}');
+                                                        '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                   }
                                                   if (snapshot.hasData) {
                                                     String username =
@@ -318,7 +320,7 @@ class _AppointmentCancelApproveScreenState
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
-                                                  "Approve",
+                                                  LocaleKeys.Approve.tr(),
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size

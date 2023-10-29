@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
+import '../../translations/locale_keys.g.dart';
 import '../service/user_management_service.dart';
 import 'navigation_page.dart';
 
@@ -41,7 +43,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Delete Patient'),
+              Text(LocaleKeys.Delete_Patient.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -53,7 +55,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Are you sure to delete this patient?',
+              LocaleKeys.are_you_sure_delete_patient.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -71,7 +73,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text(
-                      'Yes',
+                      LocaleKeys.Yes.tr(),
                       style: TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT),
                     ),
                     onPressed: () async {
@@ -93,8 +95,8 @@ class _PatientListScreenState extends State<PatientListScreen> {
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text(
-                      'No',
-                      style: TextStyle(color: ColorConstant.YELLOW_BUTTON_TEXT),
+                      LocaleKeys.No.tr(),
+                      style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
@@ -114,12 +116,12 @@ class _PatientListScreenState extends State<PatientListScreen> {
       await userManagementService
           .deleteUser(id); // Wait for the deletion to complete
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Patient deleted")),
+        SnackBar(content: Text(LocaleKeys.Patient_deleted.tr())),
       );
     } catch (error) {
       print('Error deleting patient: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Patient could not be deleted")),
+        SnackBar(content: Text(LocaleKeys.Patient_could_not_be_deleted.tr())),
       );
     }
   }
@@ -133,7 +135,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
         }
         if (snapshot.hasData) {
           List<UserModel> patients = snapshot.data!;

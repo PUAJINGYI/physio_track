@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
@@ -6,6 +7,7 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/pt_library_model.dart';
 import 'add_pt_activity_library_screen.dart';
 
@@ -57,7 +59,7 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                           children: [
                             Image.asset(ImageConstant
                                 .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
-                            Text('No PT Activity Found',
+                            Text(LocaleKeys.No_PT_Activity_Found.tr(),
                                 style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold)),
@@ -174,7 +176,7 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'PT Activity Library',
+                LocaleKeys.PT_Activity_Library.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

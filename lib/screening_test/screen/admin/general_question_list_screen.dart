@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
 
 import '../../../constant/ColorConstant.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../model/question_model.dart';
 
 class GeneralQuestionListScreen extends StatefulWidget {
@@ -44,7 +46,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Delete Question'),
+              Text(LocaleKeys.Delete_Question.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -56,7 +58,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Are you sure to delete this question?',
+              LocaleKeys.are_you_sure_delete_question.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -74,7 +76,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
                     child: Text(
-                      'Yes',
+                      LocaleKeys.Yes.tr(),
                       style: TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT),
                     ),
                     onPressed: () async {
@@ -96,7 +98,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text(
-                      'No',
+                      LocaleKeys.No.tr(),
                       style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
@@ -117,12 +119,12 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
       await questionService
           .deleteQuestion(id); // Wait for the deletion to complete
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Question deleted")),
+        SnackBar(content: Text(LocaleKeys.Question_Deleted.tr())),
       );
     } catch (error) {
       print('Error deleting question: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Question could not be deleted")),
+        SnackBar(content: Text(LocaleKeys.Question_could_not_be_deleted.tr())),
       );
     }
   }
@@ -137,7 +139,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Question added")),
+        SnackBar(content: Text(LocaleKeys.New_Question_Added.tr())),
       );
 
       setState(() {
@@ -146,7 +148,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
     } catch (error) {
       print('Error adding question: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Question could not be added")),
+        SnackBar(content: Text(LocaleKeys.Question_could_not_be_added.tr())),
       );
     }
   }
@@ -155,7 +157,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
     try {
       await questionService.editQuestion(id, newQuestionText);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Question updated")),
+        SnackBar(content: Text(LocaleKeys.Question_updated.tr())),
       );
       setState(() {
         _generalQuestionListFuture = _fetchQuestionList();
@@ -163,7 +165,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
     } catch (error) {
       print('Error editing question: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Question could not be updated")),
+        SnackBar(content: Text(LocaleKeys.Question_could_not_be_updated.tr())),
       );
     }
   }
@@ -197,7 +199,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                       ),
                     ),
                     Text(
-                      'Add Question',
+                      LocaleKeys.Add_Question.tr(),
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -208,12 +210,12 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                     TextField(
                       controller: _questionController,
                       decoration: InputDecoration(
-                        labelText: 'Question',
+                        labelText: LocaleKeys.Question.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
                     Text(
-                      'Question Type:',
+                      LocaleKeys.Question_Type.tr(),
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
@@ -231,7 +233,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                             });
                           },
                         ),
-                        Text('Option'),
+                        Text(LocaleKeys.Option.tr()),
                       ],
                     ),
                     Row(
@@ -245,7 +247,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                             });
                           },
                         ),
-                        Text('Scale'),
+                        Text(LocaleKeys.Scale.tr()),
                       ],
                     ),
                     Row(
@@ -259,7 +261,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                             });
                           },
                         ),
-                        Text('Date'),
+                        Text(LocaleKeys.Date.tr()),
                       ],
                     ),
                     Row(
@@ -273,7 +275,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                             });
                           },
                         ),
-                        Text('Short Answer'),
+                        Text(LocaleKeys.Short_Answer.tr()),
                       ],
                     ),
                     SizedBox(height: 16.0),
@@ -290,11 +292,11 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                           Navigator.of(context).pop(); // Close the dialog
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Question cannot be empty")),
+                            SnackBar(content: Text(LocaleKeys.Question_cannot_be_empty.tr())),
                           );
                         }
                       },
-                      child: Text('Add Question'),
+                      child: Text(LocaleKeys.Add_Question.tr()),
                     ),
                   ],
                 ),
@@ -338,7 +340,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                       ),
                     ),
                     Text(
-                      'Edit Question',
+                      LocaleKeys.Edit_Question.tr(),
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -349,7 +351,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                     TextField(
                       controller: questionController,
                       decoration: InputDecoration(
-                        labelText: 'Question',
+                        labelText: LocaleKeys.Question.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
@@ -364,11 +366,11 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                           Navigator.of(context).pop();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Question cannot be empty")),
+                            SnackBar(content: Text(LocaleKeys.Question_cannot_be_empty.tr())),
                           );
                         }
                       },
-                      child: Text('Save'),
+                      child: Text(LocaleKeys.Save.tr()),
                     ),
                   ],
                 ),
@@ -389,7 +391,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
         }
         if (snapshot.hasData) {
           List<Question> questions = snapshot.data!;

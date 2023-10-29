@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/ot_library/screen/ot_library_list_screen.dart';
@@ -10,6 +11,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 
 class AddOTActivityScreen extends StatefulWidget {
   const AddOTActivityScreen({super.key});
@@ -61,7 +63,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'OT Activity Library',
+                LocaleKeys.OT_Activity_Library.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -91,14 +93,14 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                     TextField(
                       controller: _titleController,
                       decoration: InputDecoration(
-                        labelText: 'Title',
+                        labelText: LocaleKeys.Title.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
                     TextField(
                       controller: _descriptionController,
                       decoration: InputDecoration(
-                        labelText: 'Description',
+                        labelText: LocaleKeys.Description.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
@@ -111,7 +113,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                         child: TextField(
                           controller: _durationController,
                           decoration: InputDecoration(
-                            labelText: 'Duration (minutes)',
+                            labelText: LocaleKeys.Duration.tr(),
                           ),
                         ),
                       ),
@@ -125,7 +127,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                         child: TextField(
                           controller: _levelController,
                           decoration: InputDecoration(
-                            labelText: 'Level',
+                            labelText: LocaleKeys.Level.tr(),
                           ),
                         ),
                       ),
@@ -134,7 +136,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                     TextField(
                       controller: _videoUrlController,
                       decoration: InputDecoration(
-                        labelText: 'Video URL',
+                        labelText: LocaleKeys.Video_URL.tr(),
                       ),
                     ),
                   ],
@@ -150,7 +152,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: customButton(
                   context,
-                  'Add',
+                  LocaleKeys.Add.tr(),
                   ColorConstant.GREEN_BUTTON_TEXT,
                   ColorConstant.GREEN_BUTTON_UNPRESSED,
                   ColorConstant.GREEN_BUTTON_PRESSED,
@@ -188,7 +190,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Duration (mins)',
+                          LocaleKeys.Duration.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -212,7 +214,8 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                     itemExtent: 32.0,
                     onSelectedItemChanged: (int value) {
                       selectedDuration = value + 1;
-                      _durationController.text = "$selectedDuration minutes";
+                      _durationController.text =
+                          "$selectedDuration ${LocaleKeys.minutes.tr()}";
                     },
                     children: List<Widget>.generate(
                       100,
@@ -259,7 +262,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Select Level',
+                          LocaleKeys.Select_Level.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -281,7 +284,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                     children: [
                       ListTile(
                         title: Text(
-                          'Beginner',
+                          LocaleKeys.Beginner.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -293,7 +296,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'Intermediate',
+                          LocaleKeys.Intermediate.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -305,7 +308,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'Advanced',
+                          LocaleKeys.Advanced.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -375,7 +378,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
         _videoUrlController.clear();
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("new OT Activity added")),
+          SnackBar(content: Text(LocaleKeys.New_OT_Activity_Added)),
         );
         Navigator.pop(context, true);
       } else {
@@ -392,7 +395,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Error", style: TextStyle(fontSize: 18)),
+                  Text(LocaleKeys.Error.tr(), style: TextStyle(fontSize: 18)),
                   IconButton(
                     icon:
                         Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
@@ -405,7 +408,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Please enter a valid video URL.',
+                  LocaleKeys.Please_enter_a_valid_video_URL.tr(),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -421,7 +424,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                           ),
                           backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ),
-                        child: Text('OK',
+                        child: Text(LocaleKeys.OK.tr(),
                             style: TextStyle(
                                 color: ColorConstant.BLUE_BUTTON_TEXT)),
                         onPressed: () {
@@ -450,7 +453,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Error", style: TextStyle(fontSize: 18)),
+                Text(LocaleKeys.Error.tr(), style: TextStyle(fontSize: 18)),
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
@@ -462,7 +465,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
             content: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Please fill in all the fields.',
+                LocaleKeys.Please_fill_in_all_the_fields.tr(),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -478,7 +481,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                         ),
                         backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                       ),
-                      child: Text('OK',
+                      child: Text(LocaleKeys.OK.tr(),
                           style:
                               TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                       onPressed: () {

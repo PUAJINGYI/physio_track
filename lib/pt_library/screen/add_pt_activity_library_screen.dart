@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
@@ -8,6 +9,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../service/pt_library_service.dart';
 
 class AddPTActivityScreen extends StatefulWidget {
@@ -52,14 +54,14 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     TextField(
                       controller: _titleController,
                       decoration: InputDecoration(
-                        labelText: 'Title',
+                        labelText: LocaleKeys.Title.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
                     TextField(
                       controller: _descriptionController,
                       decoration: InputDecoration(
-                        labelText: 'Description',
+                        labelText: LocaleKeys.Description.tr(),
                       ),
                     ),
                     SizedBox(height: 16.0),
@@ -72,7 +74,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         child: TextField(
                           controller: _durationController,
                           decoration: InputDecoration(
-                            labelText: 'Duration (minutes)',
+                            labelText: LocaleKeys.Duration.tr(),
                           ),
                         ),
                       ),
@@ -86,7 +88,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         child: TextField(
                           controller: _levelController,
                           decoration: InputDecoration(
-                            labelText: 'Level',
+                            labelText: LocaleKeys.Level.tr(),
                           ),
                         ),
                       ),
@@ -100,7 +102,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         child: TextField(
                           controller: _catController,
                           decoration: InputDecoration(
-                            labelText: 'Category',
+                            labelText: LocaleKeys.Category.tr(),
                           ),
                         ),
                       ),
@@ -109,7 +111,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     TextField(
                       controller: _videoUrlController,
                       decoration: InputDecoration(
-                        labelText: 'Video URL',
+                        labelText: LocaleKeys.Video_URL.tr(),
                       ),
                     ),
                   ],
@@ -138,7 +140,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'PT Activity Library',
+                LocaleKeys.PT_Activity_Library.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -164,7 +166,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: customButton(
                   context,
-                  'Add',
+                  LocaleKeys.Add.tr(),
                   ColorConstant.GREEN_BUTTON_TEXT,
                   ColorConstant.GREEN_BUTTON_UNPRESSED,
                   ColorConstant.GREEN_BUTTON_PRESSED,
@@ -202,7 +204,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Duration (mins)',
+                          LocaleKeys.Duration.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -226,7 +228,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     itemExtent: 32.0,
                     onSelectedItemChanged: (int value) {
                       selectedDuration = value + 1;
-                      _durationController.text = "$selectedDuration minutes";
+                      _durationController.text = "$selectedDuration ${LocaleKeys.minutes.tr()}}";
                     },
                     children: List<Widget>.generate(
                       100,
@@ -273,7 +275,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Select Level',
+                          LocaleKeys.Select_Level.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -295,7 +297,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     children: [
                       ListTile(
                         title: Text(
-                          'Beginner',
+                          LocaleKeys.Beginner.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -307,7 +309,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'Intermediate',
+                          LocaleKeys.Intermediate.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -319,7 +321,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'Advanced',
+                          LocaleKeys.Advanced.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -364,7 +366,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Select Category',
+                          LocaleKeys.Select_Category.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -386,7 +388,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                       children: [
                         ListTile(
                           title: Text(
-                            'Upper',
+                            LocaleKeys.Upper.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -398,7 +400,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                         ListTile(
                           title: Text(
-                            'Lower',
+                            LocaleKeys.Lower.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -410,7 +412,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                         ListTile(
                           title: Text(
-                            'Transfer',
+                            LocaleKeys.Transfer.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -422,7 +424,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                         ListTile(
                           title: Text(
-                            'Breathing',
+                            LocaleKeys.Breathing.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -434,7 +436,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                         ListTile(
                           title: Text(
-                            'Bed Mobility',
+                            LocaleKeys.Bed_Mobility.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -446,7 +448,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                         ListTile(
                           title: Text(
-                            'Passive Movement',
+                            LocaleKeys.Passive_Movement.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -458,7 +460,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                         ListTile(
                           title: Text(
-                            'Active Assisted Movement',
+                            LocaleKeys.Active_Assisted_Movement.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -470,7 +472,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                         ListTile(
                           title: Text(
-                            'Sitting',
+                            LocaleKeys.Sitting.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -482,7 +484,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                         ListTile(
                           title: Text(
-                            'Core Movement',
+                            LocaleKeys.Core_Movement.tr(),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -555,7 +557,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
         _videoUrlController.clear();
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("new PT Activity added")),
+          SnackBar(content: Text(LocaleKeys.New_PT_Activity_Added.tr())),
         );
         Navigator.pop(context, true);
       } else {
@@ -572,7 +574,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Error", style: TextStyle(fontSize: 18)),
+                  Text(LocaleKeys.Error.tr(), style: TextStyle(fontSize: 18)),
                   IconButton(
                     icon:
                         Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
@@ -585,7 +587,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Please enter a valid video URL.',
+                  LocaleKeys.Please_enter_a_valid_video_URL.tr(),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -601,7 +603,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                           ),
                           backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ),
-                        child: Text('OK',
+                        child: Text(LocaleKeys.OK.tr(),
                             style: TextStyle(
                                 color: ColorConstant.BLUE_BUTTON_TEXT)),
                         onPressed: () {
@@ -622,14 +624,14 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error'),
-            content: Text('Please fill in all the fields.'),
+            title: Text(LocaleKeys.Error.tr()),
+            content: Text(LocaleKeys.Please_fill_in_all_the_fields.tr()),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: Text(LocaleKeys.OK.tr()),
               ),
             ],
           );
