@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,6 +10,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../constant/ImageConstant.dart';
 import '../../../constant/TextConstant.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../model/appointment_model.dart';
 import '../../service/appointment_in_pending_service.dart';
 import '../../service/appointment_service.dart';
@@ -80,7 +82,9 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                       return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       // If there's an error, display an error message
-                      return Center(child: Text('Error: ${snapshot.error}'));
+                      return Center(
+                          child: Text(
+                              '${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                     } else if (snapshot.hasData) {
                       // If data is available, populate the allAppointment list
                       allAppointment = snapshot.data!;
@@ -92,6 +96,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                             child: TableCalendar(
                               calendarFormat: calendarFormat,
                               focusedDay: selectedDate,
+                              locale: context.locale.toString(),
                               selectedDayPredicate: (day) =>
                                   isSameDay(selectedDate, day),
                               firstDay: DateTime(2023),
@@ -208,7 +213,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                                                                   if (snapshot
                                                                       .hasError) {
                                                                     return Text(
-                                                                        'Error: ${snapshot.error}');
+                                                                        '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                                   }
                                                                   if (snapshot
                                                                       .hasData) {
@@ -244,7 +249,22 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                         ],
                       );
                     } else {
-                      return Center(child: Text('No data available.'));
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              child: Image.asset(ImageConstant.DATA_NOT_FOUND),
+                            ),
+                            Text(LocaleKeys.No_Record_Found.tr(),
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      );
                     }
                   },
                 ),
@@ -259,7 +279,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Appointment Schedule',
+                LocaleKeys.Appointment_Schedule.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

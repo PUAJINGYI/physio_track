@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import '../../constant/ColorConstant.dart';
 import '../../achievement/widget/achievement_dialog_widget.dart';
 import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/pt_activity_model.dart';
 import '../model/pt_library_model.dart';
 import '../service/pt_library_service.dart';
@@ -75,6 +77,19 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     return Colors.grey[300]!;
   }
 
+    String _getLevelText(String level) {
+    if (level == 'Advanced') {
+      return LocaleKeys.Advanced.tr();
+    } else if (level == 'Intermediate') {
+      return LocaleKeys.Intermediate.tr();
+    } else if (level == 'Beginner') {
+      return LocaleKeys.Beginner.tr();
+    }
+    // Default background color if the level doesn't match the conditions
+    return '';
+  }
+
+
   Color _getCatBackgroundColor(String cat) {
     if (cat == 'Lower') {
       return Colors.blue[100]!;
@@ -125,23 +140,23 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
 
   String _getCatText(String cat) {
     if (cat == 'Lower') {
-      return 'Lower';
+      return LocaleKeys.Lower.tr();
     } else if (cat == 'Upper') {
-      return 'Upper';
+      return LocaleKeys.Upper.tr();
     } else if (cat == 'Transfer') {
-      return 'Transfer';
+      return LocaleKeys.Transfer.tr();
     } else if (cat == 'Bed Mobility') {
-      return 'Bed';
+      return LocaleKeys.Bed_Mobility.tr();
     } else if (cat == 'Breathing') {
-      return 'Breathing';
+      return LocaleKeys.Breathing.tr();
     } else if (cat == 'Core Movement') {
-      return 'Core';
+      return LocaleKeys.Core.tr();
     } else if (cat == 'Passive Movement') {
-      return 'Passive';
+      return LocaleKeys.Passive.tr();
     } else if (cat == 'Sitting') {
-      return 'Sitting';
+      return LocaleKeys.Sitting.tr();
     } else if (cat == 'Active Assisted Movement') {
-      return 'Active';
+      return LocaleKeys.Active.tr();
     }
     return '';
   }
@@ -338,7 +353,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Activity marked as completed'),
+          content: Text(LocaleKeys.Activity_marked_as_completed.tr()),
           backgroundColor: Colors.green[500],
         ),
       );
@@ -521,7 +536,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                                   color: Colors.blue[500]),
                                               SizedBox(width: 4.0),
                                               Text(
-                                                '${_ptLibraryRecord.duration} mins',
+                                                '${_ptLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: Colors.blue[500],
@@ -547,7 +562,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                                       _ptLibraryRecord.level)),
                                               SizedBox(width: 4.0),
                                               Text(
-                                                _ptLibraryRecord.level,
+                                                _getLevelText(_ptLibraryRecord.level),
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: _getLevelColor(
@@ -639,7 +654,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                                 color: Colors.blue[500]),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              '${_ptLibraryRecord.duration} mins',
+                                              '${_ptLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: Colors.blue[500],
@@ -665,7 +680,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                                     _ptLibraryRecord.level)),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              _ptLibraryRecord.level,
+                                              _getLevelText(_ptLibraryRecord.level),
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: _getLevelColor(
@@ -743,7 +758,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                         height: kToolbarHeight,
                         alignment: Alignment.center,
                         child: Text(
-                          'Today\'s PT Activity',
+                          LocaleKeys.Today_PT_Act1.tr(),
                           style: TextStyle(
                             fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
@@ -763,7 +778,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                           alignment: Alignment.center,
                           child: customButton(
                             context,
-                            'Mark as Completed',
+                            LocaleKeys.Mark_as_Completed.tr(),
                             ColorConstant.GREEN_BUTTON_TEXT,
                             ColorConstant.GREEN_BUTTON_UNPRESSED,
                             ColorConstant.GREEN_BUTTON_PRESSED,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -6,6 +7,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/achievement_model.dart';
 import '../model/user_achievement_model.dart';
 import '../service/achievement_service.dart';
@@ -102,7 +104,7 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
                   height: kToolbarHeight,
                   alignment: Alignment.center,
                   child: Text(
-                    'Achievements',
+                    LocaleKeys.Achievements.tr(),
                     style: TextStyle(
                       fontSize: TextConstant.TITLE_FONT_SIZE,
                       fontWeight: FontWeight.bold,
@@ -121,15 +123,15 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
               ),
               Positioned(
                 top: 125,
-                left: 25,
-                child: Text('Keep it up',
+                    left: 25,
+                    child: Text(LocaleKeys.Keep_it_up.tr(),
                     style:
                         TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
               ),
               Positioned(
                 top: 160,
                 left: 40,
-                child: Text('Unlock more goals!',
+                child: Text(LocaleKeys.Unlock_more_goals.tr(),
                     style: TextStyle(fontSize: 15.0)),
               ),
             ],
@@ -203,7 +205,7 @@ class AchievementCard extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
                   child: achievement.isTaken
                       ? Text(
-                          'Completed',
+                          LocaleKeys.Completed.tr(),
                           style: TextStyle(
                               fontSize: 14.0, fontWeight: FontWeight.bold),
                         )

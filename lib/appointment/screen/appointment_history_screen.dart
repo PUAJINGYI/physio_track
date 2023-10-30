@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,6 +9,7 @@ import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:physio_track/treatment/screen/view_treatment_report_screen.dart';
 
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../../treatment/model/treatment_model.dart';
 import '../../treatment/service/treatment_service.dart';
 import '../../user_management/service/user_management_service.dart';
@@ -78,7 +80,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                     return Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
+                    return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                   }
                   if (snapshot.hasData) {
                     List<Appointment> appointments = snapshot.data!;
@@ -93,7 +95,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                             height: 100.0,
                             child: Image.asset(ImageConstant.DATA_NOT_FOUND),
                           ),
-                          Text('No Record Found',
+                          Text(LocaleKeys.No_Record_Found.tr(),
                               style: TextStyle(
                                   fontSize: 20.0, fontWeight: FontWeight.bold)),
                         ],
@@ -177,7 +179,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                                                       }
                                                       if (snapshot.hasError) {
                                                         return Text(
-                                                            'Error: ${snapshot.error}');
+                                                            '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                       }
                                                       if (snapshot.hasData) {
                                                         String username =
@@ -207,7 +209,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                                                     CircularProgressIndicator());
                                           } else if (snapshot.hasError) {
                                             return Text(
-                                                'Error: ${snapshot.error}');
+                                                '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                           } else {
                                             final treatmentReport =
                                                 snapshot.data;
@@ -252,7 +254,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              "View Report",
+                                                              LocaleKeys.View_Report.tr(),
                                                               style: TextStyle(
                                                                 fontSize: 15.0,
                                                                 color: Colors
@@ -310,7 +312,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Appointment History',
+              LocaleKeys.Appointment_History.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +12,7 @@ import '../../ot_library/service/user_ot_list_service.dart';
 import '../../pt_library/model/pt_activity_model.dart';
 import '../../pt_library/service/user_pt_list_service.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 
 // Import other necessary packages and classes
 
@@ -102,7 +104,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           } else {
             return Stack(
               children: [
@@ -124,7 +126,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                                 child:
                                     Image.asset(ImageConstant.DATA_NOT_FOUND),
                               ),
-                              Text('No Record Found',
+                              Text(LocaleKeys.No_Record_Found.tr(),
                                   style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold)),
@@ -210,7 +212,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                     height: kToolbarHeight,
                     alignment: Alignment.center,
                     child: Text(
-                      'Weekly Analysis',
+                      LocaleKeys.Weekly_Analysis.tr(),
                       style: TextStyle(
                         fontSize: TextConstant.TITLE_FONT_SIZE,
                         fontWeight: FontWeight.bold,
@@ -230,14 +232,14 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                 Positioned(
                   top: 125,
                   left: 25,
-                  child: Text('Check it out!',
+                  child: Text(LocaleKeys.Weekly_Analysis.tr(),
                       style: TextStyle(
                           fontSize: 30.0, fontWeight: FontWeight.bold)),
                 ),
                 Positioned(
                   top: 160,
                   left: 60,
-                  child: Text('Here is your records',
+                  child: Text(LocaleKeys.Here_is_your_records.tr(),
                       style: TextStyle(fontSize: 15.0)),
                 ),
                 Positioned(
@@ -248,11 +250,11 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'From: ${DateFormat('dd/MM/yyyy').format(fromDate)}',
+                        '${LocaleKeys.From.tr()}: ${DateFormat('dd/MM/yyyy').format(fromDate)}',
                         style: TextStyle(fontSize: 16),
                       ),
                       Text(
-                        'To: ${DateFormat('dd/MM/yyyy').format(toDate)}',
+                        '${LocaleKeys.To.tr()}: ${DateFormat('dd/MM/yyyy').format(toDate)}',
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
@@ -266,7 +268,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                       padding: const EdgeInsets.all(16.0),
                       child: customButton(
                           context,
-                          'Select Dates',
+                          LocaleKeys.Select_Dates.tr(),
                           ColorConstant.BLUE_BUTTON_TEXT,
                           ColorConstant.BLUE_BUTTON_UNPRESSED,
                           ColorConstant.BLUE_BUTTON_PRESSED, () {

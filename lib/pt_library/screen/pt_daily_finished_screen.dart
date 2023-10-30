@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 
@@ -5,6 +6,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../patient/patient_home_page.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 
 class PTDailyFinishedScreen extends StatefulWidget {
   @override
@@ -64,7 +66,7 @@ class _PTDailyFinishedScreenState extends State<PTDailyFinishedScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 220, 0, 0),
                 child: Text(
-                  'Congratulations !',
+                  LocaleKeys.Congratulations.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 25,
@@ -76,7 +78,7 @@ class _PTDailyFinishedScreenState extends State<PTDailyFinishedScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(90, 10, 90, 10),
                 child: Text(
-                  'You had completed physiotherapy actiivities for today.',
+                  LocaleKeys.You_completed_physiotherapy_actiivities_today.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -104,7 +106,7 @@ class _PTDailyFinishedScreenState extends State<PTDailyFinishedScreen> {
                     ),
                     customButton(
                         context,
-                        'Done',
+                        LocaleKeys.Done.tr(),
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ColorConstant.BLUE_BUTTON_PRESSED, () {

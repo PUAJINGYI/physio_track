@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -11,6 +12,7 @@ import '../../constant/TextConstant.dart';
 import '../../pt_library/model/pt_activity_detail_model.dart';
 import '../../pt_library/model/pt_activity_model.dart';
 import '../../pt_library/model/pt_library_model.dart';
+import '../../translations/locale_keys.g.dart';
 
 class WeeklyAnalysisPTActivityDetailScreen extends StatefulWidget {
   final int id;
@@ -123,6 +125,18 @@ class _WeeklyAnalysisPTActivityDetailScreenState
     return Colors.grey[300]!;
   }
 
+  String _getLevelText(String level) {
+    if (level == 'Advanced') {
+      return LocaleKeys.Advanced.tr();
+    } else if (level == 'Intermediate') {
+      return LocaleKeys.Intermediate.tr();
+    } else if (level == 'Beginner') {
+      return LocaleKeys.Beginner.tr();
+    }
+    // Default text if the level doesn't match the conditions
+    return LocaleKeys.Beginner.tr();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +146,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              return Center(
+                  child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
             } else {
               return Stack(
                 children: [
@@ -240,7 +255,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                 .center, // Center the text vertically
                                                         children: [
                                                           Text(
-                                                            ptLibrary.level,
+                                                            _getLevelText(
+                                                                ptLibrary
+                                                                    .level),
                                                             style: TextStyle(
                                                               fontSize: 12.0,
                                                               color:
@@ -258,7 +275,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   width: 40,
                                                   child: Center(
                                                     child: Text(
-                                                      'Done',
+                                                      LocaleKeys.Done.tr(),
                                                       style: TextStyle(
                                                         fontSize: 15.0,
                                                         color: Color.fromRGBO(
@@ -362,7 +379,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                 .center, // Center the text vertically
                                                         children: [
                                                           Text(
-                                                            ptLibrary.level,
+                                                            _getLevelText(
+                                                                ptLibrary
+                                                                    .level),
                                                             style: TextStyle(
                                                               fontSize: 12.0,
                                                               color:
@@ -380,7 +399,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   width: 40,
                                                   child: Center(
                                                     child: Text(
-                                                      'Miss',
+                                                      LocaleKeys.Miss.tr(),
                                                       style: TextStyle(
                                                         fontSize: 15.0,
                                                         color: Color.fromRGBO(
@@ -483,7 +502,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          ptLibrary.level,
+                                                          _getLevelText(
+                                                              ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
                                                             color:
@@ -610,7 +630,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 width: 40,
                                                 child: Center(
                                                   child: Text(
-                                                    'Done',
+                                                    LocaleKeys.Done.tr(),
                                                     style: TextStyle(
                                                       fontSize: 15.0,
                                                       color: Color.fromRGBO(
@@ -712,7 +732,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          ptLibrary.level,
+                                                          _getLevelText(ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
                                                             color:
@@ -730,7 +750,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 width: 40,
                                                 child: Center(
                                                   child: AutoSizeText(
-                                                    'Undone',
+                                                    LocaleKeys.Undone.tr(),
                                                     style: TextStyle(
                                                       fontSize: 15.0,
                                                       color: Color.fromRGBO(
@@ -779,7 +799,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                       height: kToolbarHeight,
                       alignment: Alignment.center,
                       child: Text(
-                        'PT Activities',
+                        LocaleKeys.PT_Activities.tr(),
                         style: TextStyle(
                           fontSize: TextConstant.TITLE_FONT_SIZE,
                           fontWeight: FontWeight.bold,

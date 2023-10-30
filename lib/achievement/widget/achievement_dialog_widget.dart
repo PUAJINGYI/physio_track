@@ -1,6 +1,8 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../translations/locale_keys.g.dart';
 import '../model/achievement_model.dart';
 import '../../constant/ColorConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
@@ -40,7 +42,7 @@ class AchievementDialogWidget extends StatelessWidget {
                   )),
             ),
             Text(
-              "Achievement Unlocked !",
+              LocaleKeys.Achievement_Unlocked.tr(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -48,7 +50,7 @@ class AchievementDialogWidget extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Text(
-              "You've unlocked an achievement:",
+              LocaleKeys.You_unlock_ach.tr(),
               style: TextStyle(fontSize: 15),
             ),
             SizedBox(height: 5),
@@ -66,7 +68,7 @@ class AchievementDialogWidget extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: customButton(
               context,
-              "Done",
+              LocaleKeys.Done.tr(),
               ColorConstant.BLUE_BUTTON_TEXT,
               ColorConstant.BLUE_BUTTON_UNPRESSED,
               ColorConstant.BLUE_BUTTON_PRESSED,

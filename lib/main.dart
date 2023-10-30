@@ -89,7 +89,7 @@ void main() async {
       child: MyApp(),
       supportedLocales: [
         Locale('en'),
-        Locale('my'),
+        Locale('ms'),
         Locale('zh')
       ],
       fallbackLocale: Locale('en'),

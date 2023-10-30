@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,6 +6,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:physio_track/constant/ColorConstant.dart';
 
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/achievement_model.dart';
 import '../model/user_achievement_model.dart';
 
@@ -64,7 +66,7 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                         padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
                         child: widget.userAchievement.isTaken
                             ? Text(
-                                'Completed',
+                                LocaleKeys.Completed.tr(),
                                 style: TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
@@ -99,7 +101,7 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: customButton(
                       context,
-                      "Back",
+                      LocaleKeys.Back.tr(),
                       ColorConstant.BLUE_BUTTON_TEXT,
                       ColorConstant.BLUE_BUTTON_UNPRESSED,
                       ColorConstant.BLUE_BUTTON_PRESSED,

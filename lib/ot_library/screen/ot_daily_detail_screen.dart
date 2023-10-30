@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import '../../constant/AchievementConstant.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/ot_activity_model.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
@@ -75,6 +77,18 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
     }
     // Default background color if the level doesn't match the conditions
     return Colors.grey[300]!;
+  }
+
+  String _getLevelText(String level) {
+    if (level == 'Advanced') {
+      return LocaleKeys.Advanced.tr();
+    } else if (level == 'Intermediate') {
+      return LocaleKeys.Intermediate.tr();
+    } else if (level == 'Beginner') {
+      return LocaleKeys.Beginner.tr();
+    }
+
+    return '';
   }
 
   Future<void> _markAsCompleted() async {
@@ -244,7 +258,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Activity marked as completed'),
+          content: Text(LocaleKeys.Activity_marked_as_completed.tr()),
           backgroundColor: Colors.green[500],
         ),
       );
@@ -257,7 +271,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
           ),
         );
       } else {
-       Navigator.pop(context, true);
+        Navigator.pop(context, true);
       }
     }
   }
@@ -280,7 +294,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
     return '';
   }
 
-   Future<void> _updateLevelAndProgress() async {
+  Future<void> _updateLevelAndProgress() async {
     DocumentReference userRef = usersCollection.doc(uId);
 
     try {
@@ -415,7 +429,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                                   color: Colors.blue[500]),
                                               SizedBox(width: 4.0),
                                               Text(
-                                                '${_otLibraryRecord.duration} mins',
+                                                '${_otLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: Colors.blue[500],
@@ -441,7 +455,8 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                                       _otLibraryRecord.level)),
                                               SizedBox(width: 4.0),
                                               Text(
-                                                _otLibraryRecord.level,
+                                                _getLevelText(
+                                                    _otLibraryRecord.level),
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: _getLevelColor(
@@ -503,7 +518,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                                 color: Colors.blue[500]),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              '${_otLibraryRecord.duration} mins',
+                                              '${_otLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: Colors.blue[500],
@@ -529,7 +544,8 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                                     _otLibraryRecord.level)),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              _otLibraryRecord.level,
+                                              _getLevelText(
+                                                  _otLibraryRecord.level),
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: _getLevelColor(
@@ -578,7 +594,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                         height: kToolbarHeight,
                         alignment: Alignment.center,
                         child: Text(
-                          'Today\'s OT Activity',
+                          LocaleKeys.Today_OT_Act1.tr(),
                           style: TextStyle(
                             fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
@@ -598,7 +614,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                           alignment: Alignment.center,
                           child: customButton(
                             context,
-                            'Mark as Completed',
+                            LocaleKeys.Mark_as_Completed.tr(),
                             ColorConstant.GREEN_BUTTON_TEXT,
                             ColorConstant.GREEN_BUTTON_UNPRESSED,
                             ColorConstant.GREEN_BUTTON_PRESSED,

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -11,6 +12,7 @@ import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../ot_library/model/ot_activity_model.dart';
 import '../../pt_library/screen/pt_daily_list_screen.dart';
+import '../../translations/locale_keys.g.dart';
 
 class WeeklyAnalsisDetailScreen extends StatefulWidget {
   final String uid;
@@ -73,7 +75,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  'PT',
+                                  LocaleKeys.PT.tr(),
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
@@ -141,7 +143,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  'OT',
+                                  LocaleKeys.OT.tr(),
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
@@ -199,7 +201,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                '${DateFormat('MMM dd').format(widget.ot.date.toDate())}\'s progress',
+                '${DateFormat('MMM dd').format(widget.ot.date.toDate())}${LocaleKeys.Progress.tr()}',
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -219,13 +221,13 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
           Positioned(
             top: 125,
             left: 25,
-            child: Text('Keep Going',
+            child: Text(LocaleKeys.Keep_Going.tr(),
                 style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
           ),
           Positioned(
             top: 160,
             left: 50,
-            child: Text('Start today’s progress',
+            child: Text(LocaleKeys.Start_today_progress.tr(),
                 style: TextStyle(fontSize: 15.0)),
           ),
         ],

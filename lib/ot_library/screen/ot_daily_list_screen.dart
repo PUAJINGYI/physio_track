@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -8,6 +9,7 @@ import 'package:physio_track/ot_library/model/ot_library_model.dart';
 import 'package:physio_track/ot_library/screen/ot_library_detail_screen.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import 'ot_daily_detail_screen.dart';
 
 class OTDailyListScreen extends StatefulWidget {
@@ -116,6 +118,18 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
     return Colors.grey[300]!;
   }
 
+  String _getLevelText(String level) {
+    if (level == 'Advanced') {
+      return LocaleKeys.Advanced.tr();
+    } else if (level == 'Intermediate') {
+      return LocaleKeys.Intermediate.tr();
+    } else if (level == 'Beginner') {
+      return LocaleKeys.Beginner.tr();
+    }
+
+    return '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -130,7 +144,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
+                return Center(
+                    child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
               } else {
                 return Stack(
                   children: [
@@ -147,9 +162,9 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               OTActivityDetail otActivityDetail =
                                   dailyOTList[index];
-    
+
                               OTLibrary otLibrary = otLibraryList[index];
-    
+
                               if (otActivityDetail.isDone) {
                                 return Padding(
                                   padding:
@@ -206,8 +221,10 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                   ),
                                                   Container(
                                                     // This is your new Container
-                                                    width: 90, // Customize width
-                                                    padding: EdgeInsets.all(8.0),
+                                                    width:
+                                                        90, // Customize width
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
                                                       color:
                                                           _getLevelBackgroundColor(
@@ -234,11 +251,14 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          otLibrary.level,
+                                                          _getLevelText(
+                                                              otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
-                                                            color: _getLevelColor(
-                                                                otLibrary.level),
+                                                            color:
+                                                                _getLevelColor(
+                                                                    otLibrary
+                                                                        .level),
                                                           ),
                                                         ),
                                                       ],
@@ -250,7 +270,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                 width: 40,
                                                 child: Center(
                                                   child: Text(
-                                                    'Done',
+                                                    LocaleKeys.Done.tr(),
                                                     style: TextStyle(
                                                       fontSize: 15.0,
                                                       color: Color.fromRGBO(
@@ -322,8 +342,10 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                   ),
                                                   Container(
                                                     // This is your new Container
-                                                    width: 90, // Customize width
-                                                    padding: EdgeInsets.all(8.0),
+                                                    width:
+                                                        90, // Customize width
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
                                                       color:
                                                           _getLevelBackgroundColor(
@@ -350,11 +372,14 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          otLibrary.level,
+                                                          _getLevelText(
+                                                              otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
-                                                            color: _getLevelColor(
-                                                                otLibrary.level),
+                                                            color:
+                                                                _getLevelColor(
+                                                                    otLibrary
+                                                                        .level),
                                                           ),
                                                         ),
                                                       ],
@@ -379,11 +404,12 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                             OTDailyDetailScreen(
                                                           otLibraryId:
                                                               otLibrary.id,
-                                                          activityId: activityId,
+                                                          activityId:
+                                                              activityId,
                                                         ), // Replace NextPage with your desired page
                                                       ),
                                                     );
-    
+
                                                     if (needUpdate != null &&
                                                         needUpdate) {
                                                       setState(() {
@@ -434,7 +460,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                         height: kToolbarHeight,
                         alignment: Alignment.center,
                         child: Text(
-                          'Today\'s OT Activities',
+                          LocaleKeys.Today_OT.tr(),
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -6,6 +7,7 @@ import 'package:physio_track/pt_library/screen/pt_daily_detail_screen.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/pt_activity_detail_model.dart';
 import '../model/pt_activity_model.dart';
 import '../model/pt_library_model.dart';
@@ -116,6 +118,18 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
     return Colors.grey[300]!;
   }
 
+  String _getLevelText(String level) {
+    if (level == 'Advanced') {
+      return LocaleKeys.Advanced.tr();
+    } else if (level == 'Intermediate') {
+      return LocaleKeys.Intermediate.tr();
+    } else if (level == 'Beginner') {
+      return LocaleKeys.Beginner.tr();
+    }
+    // Default text if the level doesn't match the conditions
+    return LocaleKeys.Beginner.tr();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -130,7 +144,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
+                return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
               } else {
                 return Stack(
                   children: [
@@ -145,10 +159,9 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                             padding: EdgeInsets.zero,
                             itemCount: dailyPTList.length,
                             itemBuilder: (BuildContext context, int index) {
-                            
                               PTActivityDetail ptActivityDetail =
                                   dailyPTList[index];
-                                PTLibrary ptLibrary = ptLibraryList[index];
+                              PTLibrary ptLibrary = ptLibraryList[index];
                               if (ptActivityDetail.isDone) {
                                 return Padding(
                                   padding:
@@ -205,8 +218,10 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                   ),
                                                   Container(
                                                     // This is your new Container
-                                                    width: 90, // Customize width
-                                                    padding: EdgeInsets.all(8.0),
+                                                    width:
+                                                        90, // Customize width
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
                                                       color:
                                                           _getLevelBackgroundColor(
@@ -233,11 +248,13 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          ptLibrary.level,
+                                                          _getLevelText(ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
-                                                            color: _getLevelColor(
-                                                                ptLibrary.level),
+                                                            color:
+                                                                _getLevelColor(
+                                                                    ptLibrary
+                                                                        .level),
                                                           ),
                                                         ),
                                                       ],
@@ -249,7 +266,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                 width: 40,
                                                 child: Center(
                                                   child: Text(
-                                                    'Done',
+                                                    LocaleKeys.Done.tr(),
                                                     style: TextStyle(
                                                       fontSize: 15.0,
                                                       color: Color.fromRGBO(
@@ -321,8 +338,10 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                   ),
                                                   Container(
                                                     // This is your new Container
-                                                    width: 90, // Customize width
-                                                    padding: EdgeInsets.all(8.0),
+                                                    width:
+                                                        90, // Customize width
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
                                                       color:
                                                           _getLevelBackgroundColor(
@@ -349,11 +368,13 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          ptLibrary.level,
+                                                          _getLevelText(ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
-                                                            color: _getLevelColor(
-                                                                ptLibrary.level),
+                                                            color:
+                                                                _getLevelColor(
+                                                                    ptLibrary
+                                                                        .level),
                                                           ),
                                                         ),
                                                       ],
@@ -370,19 +391,22 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                 ),
                                                 child: IconButton(
                                                   onPressed: () async {
-                                                   final needUpdate = await Navigator.push(
+                                                    final needUpdate =
+                                                        await Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
                                                             PTDailyDetailScreen(
                                                           ptLibraryId:
                                                               ptLibrary.id,
-                                                          activityId: activityId,
+                                                          activityId:
+                                                              activityId,
                                                         ), // Replace NextPage with your desired page
                                                       ),
                                                     );
-    
-                                                    if (needUpdate != null && needUpdate) {
+
+                                                    if (needUpdate != null &&
+                                                        needUpdate) {
                                                       setState(() {
                                                         _loadPTActivitiesRecord();
                                                       });
@@ -431,7 +455,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                         height: kToolbarHeight,
                         alignment: Alignment.center,
                         child: Text(
-                          'Today\'s PT Activities',
+                          LocaleKeys.Today_PT.tr(),
                           style: TextStyle(
                             fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,

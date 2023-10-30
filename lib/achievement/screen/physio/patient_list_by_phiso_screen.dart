@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,6 +9,7 @@ import 'package:physio_track/user_management/service/user_management_service.dar
 import '../../../constant/ImageConstant.dart';
 import '../../../constant/TextConstant.dart';
 import '../../../profile/model/user_model.dart';
+import '../../../translations/locale_keys.g.dart';
 
 class PatientListByPhysioScreen extends StatefulWidget {
   const PatientListByPhysioScreen({super.key});
@@ -49,7 +51,7 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
                       return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       // If there's an error, display an error message
-                      return Center(child: Text('Error: ${snapshot.error}'));
+                      return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                     } else if (snapshot.hasData) {
                       // If data is available, build the grid of patients
                       List<UserModel> patients = snapshot.data!;
@@ -115,7 +117,22 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
                       );
                     } else {
                       // If there's no data, display a message
-                      return Center(child: Text('No patients available.'));
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              child: Image.asset(ImageConstant.DATA_NOT_FOUND),
+                            ),
+                            Text(LocaleKeys.No_Patient_Available.tr(),
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      );
                     }
                   },
                 ),
@@ -130,7 +147,7 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Patient List',
+                LocaleKeys.Patient_List.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

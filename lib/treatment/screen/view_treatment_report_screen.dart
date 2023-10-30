@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,6 +10,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/treatment_model.dart';
 import '../service/treatment_service.dart';
@@ -55,15 +57,15 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
 
   String getPerformanceText(int performance) {
     if (performance == 1) {
-      return 'Poor';
+      return LocaleKeys.Poor.tr();
     } else if (performance == 2) {
-      return 'Fair';
+      return LocaleKeys.Fair.tr();
     } else if (performance == 3) {
-      return 'Good';
+      return LocaleKeys.Good.tr();
     } else if (performance == 4) {
-      return 'Excellent';
+      return LocaleKeys.Excellent.tr();
     } else if (performance == 5) {
-      return 'Outstanding';
+      return LocaleKeys.Outstanding.tr();
     } else {
       return 'N/A';
     }
@@ -149,7 +151,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Date :',
+                                                    '${LocaleKeys.Date.tr()} :',
                                                     style: TextStyle(
                                                       fontSize: 18.0,
                                                       fontWeight:
@@ -190,7 +192,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Time :',
+                                                    '${LocaleKeys.Time.tr()} :',
                                                     style: TextStyle(
                                                       fontSize: 18.0,
                                                       fontWeight:
@@ -254,7 +256,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       }
                                                       if (snapshot.hasError) {
                                                         return Text(
-                                                            'Error: ${snapshot.error}');
+                                                            '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                       }
                                                       if (snapshot.hasData) {
                                                         String username =
@@ -307,7 +309,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       }
                                                       if (snapshot.hasError) {
                                                         return Text(
-                                                            'Error: ${snapshot.error}');
+                                                            '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                       }
                                                       if (snapshot.hasData) {
                                                         String username =
@@ -362,7 +364,8 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Leg Lifting',
+                                                      LocaleKeys.Leg_Lifting
+                                                          .tr(),
                                                       style: TextStyle(
                                                         fontSize: 14.0,
                                                         fontWeight:
@@ -370,7 +373,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${treatmentReport.legLiftingSet} Sets * ${treatmentReport.legLiftingRep} Reps',
+                                                      '${treatmentReport.legLiftingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.legLiftingRep} ${LocaleKeys.Reps.tr()}',
                                                       style: TextStyle(
                                                         fontSize: 14.0,
                                                       ),
@@ -412,7 +415,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Standing',
+                                                      LocaleKeys.Standing.tr(),
                                                       style: TextStyle(
                                                         fontSize: 14.0,
                                                         fontWeight:
@@ -420,7 +423,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${treatmentReport.standingSet} Sets * ${treatmentReport.standingRep} Reps',
+                                                      '${treatmentReport.standingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.standingRep} ${LocaleKeys.Reps.tr()}',
                                                       style: TextStyle(
                                                         fontSize: 14.0,
                                                       ),
@@ -462,7 +465,8 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Arm Lifting',
+                                                      LocaleKeys.Arm_Lifting
+                                                          .tr(),
                                                       style: TextStyle(
                                                         fontSize: 14.0,
                                                         fontWeight:
@@ -470,7 +474,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${treatmentReport.armLiftingSet} Sets * ${treatmentReport.armLiftingRep} Reps',
+                                                      '${treatmentReport.armLiftingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.armLiftingRep} ${LocaleKeys.Reps.tr()}',
                                                       style: TextStyle(
                                                         fontSize: 14.0,
                                                       ),
@@ -512,7 +516,8 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Foot Stepping',
+                                                      LocaleKeys.Foot_Stepping
+                                                          .tr(),
                                                       style: TextStyle(
                                                         fontSize: 14.0,
                                                         fontWeight:
@@ -520,7 +525,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${treatmentReport.footStepSet} Sets * ${treatmentReport.footStepRep} Reps',
+                                                      '${treatmentReport.footStepSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.footStepRep} ${LocaleKeys.Reps.tr()}',
                                                       style: TextStyle(
                                                         fontSize: 14.0,
                                                       ),
@@ -537,7 +542,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                       height: 10.0,
                                     ),
                                     Text(
-                                      'Performance:',
+                                      '${LocaleKeys.Performance.tr()}:',
                                       style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
@@ -566,7 +571,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                       height: 10.0,
                                     ),
                                     Text(
-                                      'Remarks:',
+                                      '${LocaleKeys.Remarks.tr()}:',
                                       style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
@@ -602,7 +607,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
               padding: const EdgeInsets.all(8.0),
               child: customButton(
                 context,
-                "Back",
+                LocaleKeys.Back.tr(),
                 ColorConstant.BLUE_BUTTON_TEXT,
                 ColorConstant.BLUE_BUTTON_UNPRESSED,
                 ColorConstant.BLUE_BUTTON_PRESSED,
@@ -634,7 +639,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Treatment Report',
+              LocaleKeys.Treatment_Report.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,

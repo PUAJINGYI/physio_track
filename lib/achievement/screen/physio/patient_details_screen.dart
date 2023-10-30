@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -18,6 +19,7 @@ import '../../../ot_library/model/ot_activity_model.dart';
 import '../../../profile/model/user_model.dart';
 import '../../../pt_library/model/pt_activity_model.dart';
 import '../../../pt_library/screen/pt_daily_list_screen.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/achievement_model.dart';
 import '../../service/achievement_service.dart';
@@ -279,7 +281,15 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    final titles = <String>[
+      LocaleKeys.Mon.tr(),
+      LocaleKeys.Tue.tr(),
+      LocaleKeys.Wed.tr(),
+      LocaleKeys.Thu.tr(),
+      LocaleKeys.Fri.tr(),
+      LocaleKeys.Sat.tr(),
+      LocaleKeys.Sun.tr()
+    ];
 
     final Widget text = Text(
       titles[value.toInt()],
@@ -301,7 +311,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     if (phoneNumber.length > 0 && phoneNumber != '') {
       String number = formatPhoneNumber(phoneNumber);
 
-      final message = 'Hello, this is my message!'; // Replace with your message
+      final message = LocaleKeys.Hello_this_is_my_message.tr(); // Replace with your message
 
       // Construct the WhatsApp URL
       //final url = 'https://wa.me/$number/?text=${Uri.parse(message)}';
@@ -318,7 +328,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('The user has not updated their phone number.'),
+          content: Text(LocaleKeys.User_No_HP.tr()),
           duration: Duration(seconds: 3),
         ),
       );
@@ -392,7 +402,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Current Level',
+                              LocaleKeys.Current_Level.tr(),
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -436,7 +446,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                             padding: const EdgeInsets.fromLTRB(
                                                 10, 0, 0, 0),
                                             child: Text(
-                                              'Level ${level}',
+                                              '${LocaleKeys.Level.tr()} ${level}',
                                               style: TextStyle(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold,
@@ -488,7 +498,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Achievement Gained',
+                              LocaleKeys.Achivement_Gained.tr(),
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -515,7 +525,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                'More Details >',
+                                '${LocaleKeys.More_Details.tr()} >',
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Colors
@@ -544,7 +554,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                             color: Colors.red, size: 50.0),
                                         Center(
                                           child: Text(
-                                            'No Record',
+                                            LocaleKeys.No_Record.tr(),
                                             style: TextStyle(
                                               color: Colors.red,
                                               fontSize: 20.0,
@@ -593,7 +603,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Today’s Progress',
+                              LocaleKeys.Today_Progress.tr(),
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -629,7 +639,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                         child: Column(
                                           children: <Widget>[
                                             Text(
-                                              'PT',
+                                              LocaleKeys.PT.tr(),
                                               style: TextStyle(
                                                 fontSize: 20.0,
                                                 fontWeight: FontWeight.bold,
@@ -683,7 +693,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                         child: Column(
                                           children: <Widget>[
                                             Text(
-                                              'OT',
+                                              LocaleKeys.OT.tr(),
                                               style: TextStyle(
                                                 fontSize: 20.0,
                                                 fontWeight: FontWeight.bold,
@@ -724,7 +734,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Weekly Statistics',
+                              LocaleKeys.Weekly_Statistics.tr(),
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -822,7 +832,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Appointment History',
+                              LocaleKeys.Appointment_History.tr(),
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -894,7 +904,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Patient Details',
+              LocaleKeys.Patient_Details.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,

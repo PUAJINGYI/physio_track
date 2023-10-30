@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,6 +17,7 @@ import '../authentication/signin_screen.dart';
 import '../constant/ImageConstant.dart';
 import '../constant/TextConstant.dart';
 import '../reusable_widget/reusable_widget.dart';
+import '../translations/locale_keys.g.dart';
 import '../user_management/service/user_management_service.dart';
 
 class PhysioHomeScreen extends StatefulWidget {
@@ -85,7 +87,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               // Handle the error.
-              return Center(child: Text('Error: ${snapshot.error}'));
+              return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
             } else {
               return Stack(
                 children: [
@@ -107,7 +109,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          'Next Appointment',
+                                          LocaleKeys.Next_Appointment.tr(),
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -127,7 +129,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                           // If there was an error, display an error message
                                           return Center(
                                               child: Text(
-                                                  'Error: ${snapshot.error}'));
+                                                  '${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                                         } else if (!snapshot.hasData ||
                                             snapshot.data == null) {
                                           // If there is no next appointment found, return the "No Record" widget
@@ -153,7 +155,8 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                             size: 50.0),
                                                         Center(
                                                           child: Text(
-                                                            'No Record',
+                                                            LocaleKeys.No_Record
+                                                                .tr(),
                                                             style: TextStyle(
                                                               color: Colors.red,
                                                               fontSize: 20.0,
@@ -277,7 +280,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                                               return CircularProgressIndicator();
                                                                             }
                                                                             if (snapshot.hasError) {
-                                                                              return Text('Error: ${snapshot.error}');
+                                                                              return Text('${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                                             }
                                                                             if (snapshot.hasData) {
                                                                               String username = snapshot.data!;
@@ -313,7 +316,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          'Appointment Schedule',
+                                          LocaleKeys.Appointment_Schedule.tr(),
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -364,7 +367,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          'Patient List',
+                                          LocaleKeys.Patient_List.tr(),
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -415,7 +418,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          'Appointment History',
+                                          LocaleKeys.Appointment_History.tr(),
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -474,7 +477,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                       height: kToolbarHeight,
                       alignment: Alignment.center,
                       child: Text(
-                        'Home',
+                        LocaleKeys.Home.tr(),
                         style: TextStyle(
                           fontSize: TextConstant.TITLE_FONT_SIZE,
                           fontWeight: FontWeight.bold,
@@ -494,14 +497,14 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                   Positioned(
                     top: 125,
                     left: 25,
-                    child: Text('Welcome, $username',
+                    child: Text('${LocaleKeys.welcome.tr()} $username',
                         style: TextStyle(
                             fontSize: 25.0, fontWeight: FontWeight.bold)),
                   ),
                   Positioned(
                     top: 160,
                     left: 40,
-                    child: Text('Start tracking your patients',
+                    child: Text(LocaleKeys.Start_tracking_your_patients.tr(),
                         style: TextStyle(fontSize: 13.0)),
                   ),
                 ],

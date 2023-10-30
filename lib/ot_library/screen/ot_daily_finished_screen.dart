@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
+import 'package:physio_track/translations/locale_keys.g.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
@@ -64,7 +66,7 @@ class _OTDailyFinishedScreenState extends State<OTDailyFinishedScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 220, 0, 0),
                 child: Text(
-                  'Congratulations !',
+                  LocaleKeys.Congratulations.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 25,
@@ -76,7 +78,7 @@ class _OTDailyFinishedScreenState extends State<OTDailyFinishedScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(90, 10, 90, 10),
                 child: Text(
-                  'You had completed occupational actiivities for today.',
+                  LocaleKeys.You_completed_occupational_actiivities_today.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -104,7 +106,7 @@ class _OTDailyFinishedScreenState extends State<OTDailyFinishedScreen> {
                     ),
                     customButton(
                         context,
-                        'Done',
+                        LocaleKeys.Done.tr(),
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ColorConstant.BLUE_BUTTON_PRESSED, () {

@@ -25,7 +25,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
     Locale currentLocale = EasyLocalization.of(context)!.locale;
     if (currentLocale == Locale('en')) {
       selectedLanguage = 1;
-    } else if (currentLocale == Locale('my')) {
+    } else if (currentLocale == Locale('ms')) {
       selectedLanguage = 2;
     } else if (currentLocale == Locale('zh')) {
       selectedLanguage = 3;
@@ -249,7 +249,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                     await EasyLocalization.of(context)!.setLocale(Locale('en'));
                   } else if (selectedLanguage == 2) {
                     //await context.setLocale(Locale('my'));
-                    await EasyLocalization.of(context)!.setLocale(Locale('my'));
+                    await EasyLocalization.of(context)!.setLocale(Locale('ms'));
                   } else if (selectedLanguage == 3) {
                     //await context.setLocale(Locale('zh'));
                     await EasyLocalization.of(context)!.setLocale(Locale('zh'));
