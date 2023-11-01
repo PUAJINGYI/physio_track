@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,6 +15,7 @@ import 'package:physio_track/user_management/service/user_management_service.dar
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../service/appointment_service.dart';
 
@@ -178,7 +180,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Clinic Appointment',
+                          LocaleKeys.Clinic_Appointment.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -188,6 +190,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                       ),
                     ),
                     DatePicker(
+                      locale: context.locale.toString(),
+                      height: 100,
                       DateTime.now().add(Duration(days: 1)),
                       initialSelectedDate:
                           DateTime.now().add(Duration(days: 1)),
@@ -394,7 +398,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Appointment Booking',
+                LocaleKeys.Appointment_Booking.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -414,7 +418,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
           Positioned(
             top: 125,
             left: 20,
-            child: Text('Physiotherapist incharge:',
+            child: Text(LocaleKeys.Physiotherapist_incharge.tr(),
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
           ),
           Positioned(
@@ -431,7 +435,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: customButton(
                   context,
-                  'Book Now',
+                  LocaleKeys.Book_Now.tr(),
                   ColorConstant.BLUE_BUTTON_TEXT,
                   ColorConstant.BLUE_BUTTON_UNPRESSED,
                   ColorConstant.BLUE_BUTTON_PRESSED,
@@ -440,7 +444,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                       // No hour selected, display a snackbar
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Please select an appointment time.'),
+                          content: Text(LocaleKeys.Please_select_an_appointment_time.tr()),
                         ),
                       );
                       return; // Do not proceed further

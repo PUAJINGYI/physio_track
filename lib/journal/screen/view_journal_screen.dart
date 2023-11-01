@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +9,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../service/journal_service.dart';
 import 'edit_journal_screen.dart';
 
@@ -88,15 +90,15 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
     if (journal != null) {
       switch (journal!.healthCondition) {
         case '1':
-          return 'Bad';
+          return LocaleKeys.Bad.tr();
         case '2':
-          return 'Poor';
+          return LocaleKeys.Poor.tr();
         case '3':
-          return 'Neutral';
+          return LocaleKeys.Neutral.tr();
         case '4':
-          return 'Good';
+          return LocaleKeys.Good.tr();
         case '5':
-          return 'Great';
+          return LocaleKeys.Great.tr();
       }
     }
 
@@ -129,7 +131,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Delete Journal'),
+              Text(LocaleKeys.Delete_Journal.tr()),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -139,7 +141,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
             ],
           ),
           content: Text(
-            'Are you sure to delete this journal？',
+            LocaleKeys.are_you_sure_delete_journal.tr(),
             textAlign: TextAlign.center,
           ),
           actions: [
@@ -154,7 +156,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () {
@@ -171,9 +173,8 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                       ),
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
-                    child: Text('No',
-                        style:
-                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
+                    child: Text(LocaleKeys.No.tr(),
+                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.pop(context, true);
                     },
@@ -191,12 +192,12 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
     try {
       journalService.deleteJournal(userId, widget.journalId);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Journal deleted")),
+        SnackBar(content: Text(LocaleKeys.Journal_deleted.tr())),
       );
     } catch (error) {
       print('Error deleting journal: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Journal could not be deleted")),
+        SnackBar(content: Text(LocaleKeys.Journal_could_not_be_deleted.tr())),
       );
     }
     Navigator.pop(context, true);
@@ -211,7 +212,8 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(
+                child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           } else {
             String formattedDate = journal != null
                 ? DateFormat('dd/MM/yyyy').format(journal!.date)
@@ -279,7 +281,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Today\'s Weather',
+                                                LocaleKeys.Weather_Today.tr(),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -326,7 +328,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Today\'s Feeling',
+                                                LocaleKeys.Feeling_Today.tr(),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -373,7 +375,8 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Health Condition',
+                                                LocaleKeys.Health_Condition
+                                                    .tr(),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -421,7 +424,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Comment of Day',
+                                                LocaleKeys.Comment_of_Day.tr(),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -468,7 +471,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                           child: customButton(
                               context,
-                              'Back',
+                              LocaleKeys.Back.tr(),
                               ColorConstant.BLUE_BUTTON_TEXT,
                               ColorConstant.BLUE_BUTTON_UNPRESSED,
                               ColorConstant.BLUE_BUTTON_PRESSED, () async {
@@ -510,7 +513,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
 
                           if (needUpdate != null && needUpdate) {
                             setState(() {
-                               fetchJournal();
+                              fetchJournal();
                             });
                           }
                         },
@@ -537,7 +540,7 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                         height: kToolbarHeight,
                         alignment: Alignment.center,
                         child: Text(
-                          'Journal',
+                          LocaleKeys.Journal.tr(),
                           style: TextStyle(
                             fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,

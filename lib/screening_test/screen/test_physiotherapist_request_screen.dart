@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/screening_test/screen/test_part_1_screen.dart';
@@ -11,6 +12,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
 
 class TestPhysiotherapistRequestScreen extends StatefulWidget {
@@ -86,7 +88,7 @@ class _TestPhysiotherapistRequestScreenState
             ),
           ),
           Text(
-            'Physiotherapist Incharged',
+            LocaleKeys.Physiotherapist_incharge.tr(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 24,
@@ -130,7 +132,7 @@ class _TestPhysiotherapistRequestScreenState
                             Padding(
                               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               child: Text(
-                                'Select your physiotherapist',
+                                LocaleKeys.Select_your_physiotherapist.tr(),
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold),
@@ -141,7 +143,7 @@ class _TestPhysiotherapistRequestScreenState
                               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               child: DropdownButtonFormField<UserModel>(
                                 value: selectedUser,
-                                hint: Text(' Pick Here '),
+                                hint: Text(LocaleKeys.Pick_Here.tr()),
                                 onChanged: (UserModel? newValue) {
                                   setState(() {
                                     selectedUser = newValue;
@@ -150,7 +152,7 @@ class _TestPhysiotherapistRequestScreenState
                                 },
                                 validator: (value) {
                                   if (value == null) {
-                                    return 'Please select a physiotherapist';
+                                    return LocaleKeys.Please_select_a_physiotherapist.tr();
                                   }
                                   return null;
                                 },
@@ -164,7 +166,7 @@ class _TestPhysiotherapistRequestScreenState
                             ),
                             if (isSelectionEmpty)
                               Text(
-                                'Please select a physiotherapist',
+                                LocaleKeys.Please_select_a_physiotherapist.tr(),
                                 style: TextStyle(
                                   color: Colors.red,
                                   fontSize: 12.0,
@@ -183,7 +185,7 @@ class _TestPhysiotherapistRequestScreenState
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: customButton(
               context,
-              'Next',
+              LocaleKeys.Next.tr(),
               ColorConstant.BLUE_BUTTON_TEXT,
               ColorConstant.BLUE_BUTTON_UNPRESSED,
               ColorConstant.BLUE_BUTTON_PRESSED,

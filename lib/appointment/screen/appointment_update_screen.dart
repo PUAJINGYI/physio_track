@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,6 +13,7 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/appointment_in_pending_model.dart';
 import 'appointment_patient_screeen.dart';
 
@@ -189,7 +191,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Clinic Appointment',
+                          LocaleKeys.Clinic_Appointment.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -355,7 +357,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: customButton(
                     context,
-                    'Update Now',
+                    LocaleKeys.Update.tr(),
                     ColorConstant.BLUE_BUTTON_TEXT,
                     ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ColorConstant.BLUE_BUTTON_PRESSED,
@@ -364,7 +366,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                         // No hour selected, display a snackbar
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Please select an appointment time.'),
+                            content: Text(LocaleKeys.Please_select_an_appointment_time.tr()),
                           ),
                         );
                         return; // Do not proceed further
@@ -413,7 +415,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Appointment Update',
+                LocaleKeys.Appointment_Update.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -433,7 +435,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
           Positioned(
             top: 125,
             left: 20,
-            child: Text('Physiotherapist incharge:',
+            child: Text(LocaleKeys.Physiotherapist_incharge.tr(),
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
           ),
           Positioned(

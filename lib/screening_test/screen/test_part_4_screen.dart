@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,6 +11,7 @@ import 'package:physio_track/screening_test/screen/test_end_screen.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../service/question_service.dart';
 import '../widget/question_card.dart';
 
@@ -90,7 +92,7 @@ class _TestPart4ScreenState extends State<TestPart4Screen> {
       // Show snackbar alerting the user to answer all questions
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Please answer all questions before proceeding.'),
+          content: Text(LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
         ),
       );
       return; // Stop the submission process
@@ -124,7 +126,7 @@ class _TestPart4ScreenState extends State<TestPart4Screen> {
         children: [
           SizedBox(height: 50),
           Text(
-            'Part 4',
+            LocaleKeys.Part_4.tr(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 15,
@@ -132,7 +134,7 @@ class _TestPart4ScreenState extends State<TestPart4Screen> {
             ),
           ),
           Text(
-            'Daily Activities',
+            LocaleKeys.Daily_Activities.tr(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 24,
@@ -211,7 +213,7 @@ class _TestPart4ScreenState extends State<TestPart4Screen> {
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: customButton(
                 context,
-                'Next',
+                LocaleKeys.Next.tr(),
                 ColorConstant.BLUE_BUTTON_TEXT,
                 ColorConstant.BLUE_BUTTON_UNPRESSED,
                 ColorConstant.BLUE_BUTTON_PRESSED, () {

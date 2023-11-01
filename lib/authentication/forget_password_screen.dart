@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:physio_track/authentication/signin_screen.dart';
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
 import '../reusable_widget/reusable_widget.dart';
+import '../translations/locale_keys.g.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -36,7 +38,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         email: email,
       );
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Email Sent Successfully")),
+        SnackBar(content: Text(LocaleKeys.Email_Sent_Successfully.tr())),
       );
       print("Email Sent Successfully");
       Navigator.pushReplacement(
@@ -45,9 +47,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       String message;
 
       if (e.code == 'user-not-found') {
-        message = 'No user found with this email.';
+        message = LocaleKeys.No_user_found_with_this_email.tr();
       } else {
-        message = 'An error occurred. Please try again later.';
+        message = LocaleKeys.An_Error_Occurred.tr();
       }
 
       // Show Snackbar with error message
@@ -87,8 +89,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       height: 200,
                     ),
                     reusableTextField(
-                        "Enter Registered Email",
-                        "Please insert valid email",
+                        LocaleKeys.Enter_Registered_Email.tr(),
+                        LocaleKeys.Please_Insert_Valid_Email.tr(),
                         Icons.email_outlined,
                         false,
                         _emailTextController,
@@ -100,7 +102,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     ),
                     customButton(
                         context,
-                        'Reset Password',
+                        LocaleKeys.Reset_Password.tr(),
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ColorConstant.BLUE_BUTTON_PRESSED, () {

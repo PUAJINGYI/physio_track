@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -20,6 +21,7 @@ import '../ot_library/service/user_ot_list_service.dart';
 import '../pt_library/model/pt_activity_model.dart';
 import '../pt_library/service/user_pt_list_service.dart';
 import '../reusable_widget/reusable_widget.dart';
+import '../translations/locale_keys.g.dart';
 import '../user_management/service/user_management_service.dart';
 
 class PatientHomeScreen extends StatefulWidget {
@@ -137,13 +139,13 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                 children: [
                   CircularProgressIndicator(),
                   SizedBox(height: 16), // Adjust the spacing as needed
-                  Text('Fetching Data...'),
+                  Text(LocaleKeys.Fetching_Data.tr()),
                 ],
               ),
             );
           } else if (snapshot.hasError) {
             // Handle errors if any.
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           } else {
             // Return your main content when the data is ready.
             return Stack(
@@ -158,7 +160,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Exercises',
+                          LocaleKeys.Exercises.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -173,7 +175,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       child: Row(
                         children: [
                           exerciseCard(context, ptProgress, ImageConstant.PT,
-                              'PT', '8.00 AM - 1.30 PM', () async {
+                              LocaleKeys.PT.tr(), '8.00 AM - 1.30 PM', () async {
                             final needUpdate = await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -190,7 +192,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                           }),
                           SizedBox(width: 10.0), // Add spacing between cards
                           exerciseCard(context, otProgress, ImageConstant.OT,
-                              'OT', '8.00 AM - 1.30 PM', () async {
+                              LocaleKeys.OT.tr(), '8.00 AM - 1.30 PM', () async {
                             final needUpdate = await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -216,7 +218,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Features',
+                          LocaleKeys.Features.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -236,7 +238,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                           customHalfSizeCard(
                               context,
                               ImageConstant.PROGRESS,
-                              'Progress',
+                              LocaleKeys.Progress.tr(),
                               Color.fromARGB(255, 255, 205, 210), () {
                             Navigator.push(
                               context,
@@ -248,7 +250,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                           customHalfSizeCard(
                               context,
                               ImageConstant.JOURNAL_IMAGE,
-                              'Journal',
+                              LocaleKeys.Journal.tr(),
                               Color.fromARGB(255, 200, 230, 201), () {
                             Navigator.push(
                               context,
@@ -269,7 +271,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                           customHalfSizeCard(
                               context,
                               ImageConstant.SCHEDULE,
-                              'Appointment',
+                              LocaleKeys.Appointment.tr(),
                               Color.fromARGB(255, 255, 224, 178), () {
                             Navigator.push(
                               context,
@@ -282,7 +284,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                           customHalfSizeCard(
                               context,
                               ImageConstant.USER,
-                              'User Profile',
+                              LocaleKeys.User_Profile.tr(),
                               Color.fromARGB(255, 225, 190, 231), () {
                             Navigator.push(
                               context,
@@ -305,7 +307,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                     height: kToolbarHeight,
                     alignment: Alignment.center,
                     child: Text(
-                      'Home',
+                      LocaleKeys.Home.tr(),
                       style: TextStyle(
                         fontSize: TextConstant.TITLE_FONT_SIZE,
                         fontWeight: FontWeight.bold,
@@ -316,14 +318,14 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                 Positioned(
                   top: 100,
                   left: 25,
-                  child: Text('Welcome, ${username}',
+                  child: Text('${LocaleKeys.welcome.tr()} ${username}',
                       style: TextStyle(
                           fontSize: 25.0, fontWeight: FontWeight.bold)),
                 ),
                 Positioned(
                   top: 135,
                   left: 60,
-                  child: Text('Start your today\'s progress',
+                  child: Text(LocaleKeys.Start_today_progress.tr(),
                       style: TextStyle(fontSize: 17.0)),
                 ),
               ],

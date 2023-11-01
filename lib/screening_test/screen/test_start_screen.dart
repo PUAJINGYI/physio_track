@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -7,6 +8,7 @@ import 'package:physio_track/screening_test/screen/test_physiotherapist_request_
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 
 class TestStartScreen extends StatefulWidget {
   const TestStartScreen({super.key});
@@ -45,7 +47,7 @@ class _TestStartScreenState extends State<TestStartScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(90, 10, 90, 10),
               child: Text(
-                'The user is needed to complete the screening test to continue action',
+                LocaleKeys.The_user_need_take_test.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 16, height: 1.2, fontWeight: FontWeight.bold),
@@ -67,7 +69,7 @@ class _TestStartScreenState extends State<TestStartScreen> {
                   ),
                   customButton(
                       context,
-                      'Start Quiz',
+                      LocaleKeys.Start_Quiz.tr(),
                       ColorConstant.BLUE_BUTTON_TEXT,
                       ColorConstant.BLUE_BUTTON_UNPRESSED,
                       ColorConstant.BLUE_BUTTON_PRESSED, () {

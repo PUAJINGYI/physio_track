@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../notification/service/notification_service.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../service/appointment_in_pending_service.dart';
 import 'appointment_history_screen.dart';
@@ -90,10 +92,10 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
     String statusText = '';
     switch (isApproved) {
       case true:
-        approveText = 'APPROVED';
+        approveText = LocaleKeys.APPROVED.tr();
         break;
       case false:
-        approveText = 'PENDING';
+        approveText = LocaleKeys.PENDING.tr();
         break;
       default:
         approveText = '';
@@ -101,13 +103,13 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
 
     switch (status) {
       case TextConstant.NEW:
-        statusText = '(N)';
+        statusText = LocaleKeys.N.tr();
         break;
       case TextConstant.UPDATED:
-        statusText = '(U)';
+        statusText = LocaleKeys.U.tr();
         break;
       case TextConstant.CANCELLED:
-        statusText = '(C)';
+        statusText = LocaleKeys.C.tr();
         break;
       default:
         statusText = '';
@@ -162,7 +164,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('Yes',
+                    child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
@@ -178,7 +180,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                       ),
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
-                    child: Text('No',
+                    child: Text(LocaleKeys.No.tr(),
                         style:
                             TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
@@ -204,24 +206,24 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
     void Function() onConfirm = () {};
 
     if (isApproved) {
-      title = 'Cancel Appointment';
-      message = 'Are you sure to cancel this appointment？';
+      title = LocaleKeys.Cancel_Appointment.tr();
+      message = LocaleKeys.are_you_sure_cancel_appointment.tr();
       onConfirm = () async {
         await appointmentInPendingService
             .cancelPendingAppointmentRecord(latestPendingAppointment.id);
         setState(() {});
       };
     } else if (status == TextConstant.NEW) {
-      title = 'Cancel Appointment';
-      message = 'Are you sure to cancel this appointment？';
+      title = LocaleKeys.Cancel_Appointment.tr();
+      message = LocaleKeys.are_you_sure_cancel_appointment.tr();
       onConfirm = () async {
         await appointmentInPendingService
             .removeNewPendingAppointment(latestPendingAppointment.id);
         setState(() {});
       };
     } else if (status == TextConstant.UPDATED) {
-      title = 'Cancel Appointment Update';
-      message = 'Are you sure to cancel this appointment update？';
+      title = LocaleKeys.Cancel_Appointment_Update.tr();
+      message = LocaleKeys.are_you_sure_cancel_appointment_update.tr();
       onConfirm = () async {
         await appointmentInPendingService
             .removeUpdatedPendingAppointmentRecordByUser(
@@ -229,8 +231,8 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
         setState(() {});
       };
     } else if (status == TextConstant.CANCELLED) {
-      title = 'Undo Cancel Appointment';
-      message = 'Are you sure to undo this appointment cancellation？';
+      title = LocaleKeys.Undo_Cancel_Appointment.tr();
+      message = LocaleKeys.are_you_sure_undo_appointment_cancellation.tr();
       onConfirm = () async {
         await appointmentInPendingService
             .removeCancelPendingAppointmentRecordByUser(
@@ -278,7 +280,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Appointment Status',
+                          LocaleKeys.Appointment_Status.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -305,7 +307,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                       color: ColorConstant.RED_BUTTON_TEXT, size: 50.0),
                                   Center(
                                     child: Text(
-                                      'No Record',
+                                      LocaleKeys.No_Record.tr(),
                                       style: TextStyle(
                                         color: ColorConstant.RED_BUTTON_TEXT,
                                         fontSize: 20.0,
@@ -328,7 +330,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Appointment Booking',
+                          LocaleKeys.Appointment_Booking.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -403,7 +405,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Appointment History',
+                          LocaleKeys.Appointment_History.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -464,7 +466,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                   height: kToolbarHeight,
                   alignment: Alignment.center,
                   child: Text(
-                    'Appointment',
+                    LocaleKeys.Appointment.tr(),
                     style: TextStyle(
                       fontSize: TextConstant.TITLE_FONT_SIZE,
                       fontWeight: FontWeight.bold,
@@ -475,14 +477,14 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
               Positioned(
                 top: 125,
                 left: 25,
-                child: Text('Planning',
+                child: Text(LocaleKeys.Planning.tr(),
                     style:
                         TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
               ),
               Positioned(
                 top: 160,
                 left: 50,
-                child: Text('appointment schedule',
+                child: Text(LocaleKeys.appointment_schedule.tr(),
                     style: TextStyle(fontSize: 15.0)),
               ),
             ],
@@ -514,7 +516,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Appointment Status',
+                        LocaleKeys.Appointment_Status.tr(),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -635,7 +637,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                               ),
                                               SizedBox(width: 10.0),
                                               Text(
-                                                "Update",
+                                                LocaleKeys.Update.tr(),
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: ColorConstant.BLUE_BUTTON_TEXT,
@@ -677,7 +679,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                               ),
                                               SizedBox(width: 10.0),
                                               Text(
-                                                "Cancel",
+                                                LocaleKeys.Cancel.tr(),
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: ColorConstant.RED_BUTTON_TEXT,
@@ -730,7 +732,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                               ),
                                               SizedBox(width: 10.0),
                                               Text(
-                                                "Cancel",
+                                                LocaleKeys.Cancel.tr(),
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: ColorConstant.RED_BUTTON_TEXT,
@@ -758,7 +760,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Appointment Booking',
+                        LocaleKeys.Appointment_Booking.tr(),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -831,7 +833,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Appointment History',
+                        LocaleKeys.Appointment_History.tr(),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -894,7 +896,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Appointment',
+              LocaleKeys.Appointment.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,
@@ -905,13 +907,13 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
         Positioned(
           top: 125,
           left: 25,
-          child: Text('Planning',
+          child: Text(LocaleKeys.Planning.tr(),
               style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
         ),
         Positioned(
           top: 160,
           left: 50,
-          child: Text('appointment schedule', style: TextStyle(fontSize: 15.0)),
+          child: Text(LocaleKeys.appointment_schedule.tr(), style: TextStyle(fontSize: 15.0)),
         ),
       ],
     );

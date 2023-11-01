@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +9,7 @@ import 'package:physio_track/journal/screen/view_journal_screen.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../patient/patient_home_screen.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/journal_model.dart';
 
 class ViewJournalListScreen extends StatefulWidget {
@@ -43,7 +45,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
+                      return Text('${LocaleKeys.Error.tr()}: ${snapshot.error}');
                     }
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -57,7 +59,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                           children: [
                             Image.asset(ImageConstant
                                 .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
-                            Text('No Journal Found',
+                            Text(LocaleKeys.No_Journal_Found.tr(),
                                 style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold)),
@@ -162,7 +164,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Journal',
+                LocaleKeys.Journal.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -182,13 +184,13 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
           Positioned(
             top: 125,
             left: 25,
-            child: Text('Express',
+            child: Text(LocaleKeys.Express.tr(),
                 style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
           ),
           Positioned(
             top: 160,
             left: 40,
-            child: Text('your feelings and thought',
+            child: Text(LocaleKeys.your_feelings_and_thought.tr(),
                 style: TextStyle(fontSize: 15.0)),
           ),
           Positioned(

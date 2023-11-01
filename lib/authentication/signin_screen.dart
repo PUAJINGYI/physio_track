@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 import '../admin/admin_home_screeen.dart';
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
+import '../translations/locale_keys.g.dart';
 import 'service/auth_manager.dart';
 import '../patient/patient_home_page.dart';
 import 'forget_password_screen.dart';
@@ -55,13 +57,13 @@ class _SignInScreenState extends State<SignInScreen> {
       _authManager.login();
       checkUserRoleAndRedirect(context);
     } catch (e) {
-      String message = 'An error occurred. Please try again later.';
+      String message = LocaleKeys.An_Error_Occurred.tr();
 
       if (e is FirebaseAuthException) {
         if (e.code == 'user-not-found') {
-          message = 'No user found with this email.';
+          message = LocaleKeys.No_user_found_with_this_email.tr();
         } else if (e.code == 'wrong-password') {
-          message = 'Invalid password.';
+          message = LocaleKeys.Invalid_password.tr();
         }
       }
 
@@ -98,7 +100,7 @@ class _SignInScreenState extends State<SignInScreen> {
       }
     } catch (e) {
       // Handle any other errors that may occur
-      String message = 'An error occurred. Please try again later.';
+      String message = LocaleKeys.An_Error_Occurred.tr();
       print(message);
       print(e.toString());
 
@@ -154,22 +156,21 @@ class _SignInScreenState extends State<SignInScreen> {
             // Handle null role value
             print("Handle null role value");
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Handle null role value")),
+              SnackBar(content: Text(LocaleKeys.Handle_null_role_value.tr())),
             );
           }
         } else {
           // Handle null user data
           print("Handle null user data");
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Handle null user data")),
+            SnackBar(content: Text(LocaleKeys.Handle_null_user_data.tr())),
           );
         }
       } else {
         // User document does not exist, handle as needed
         print("User document does not exist, handle as needed");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text("User document does not exist, handle as needed")),
+          SnackBar(content: Text(LocaleKeys.User_document_not_exist.tr())),
         );
       }
     } else {
@@ -212,8 +213,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       logoWidget(ImageConstant.LOGO),
                       SizedBox(height: 10),
                       reusableTextField(
-                        "Enter Email",
-                        "Please insert valid email",
+                        LocaleKeys.Enter_Email.tr(),
+                        LocaleKeys.Please_Insert_Valid_Email.tr(),
                         Icons.email_outlined,
                         false,
                         _emailTextController,
@@ -223,8 +224,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       SizedBox(height: 20),
                       reusableTextField(
-                        "Enter Password",
-                        "Please insert password",
+                        LocaleKeys.Enter_Password.tr(),
+                        LocaleKeys.Please_Insert_Password.tr(),
                         Icons.lock_outline,
                         true,
                         _passwordTextController,
@@ -237,7 +238,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(height: 10),
                       customButton(
                           context,
-                          'Login',
+                          LocaleKeys.Login.tr(),
                           ColorConstant.BLUE_BUTTON_TEXT,
                           ColorConstant.BLUE_BUTTON_UNPRESSED,
                           ColorConstant.BLUE_BUTTON_PRESSED, () {
@@ -279,15 +280,15 @@ class _SignInScreenState extends State<SignInScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have account?",
+        Text(LocaleKeys.Do_not_have_account.tr(),
             style: TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SignUpScreen()));
           },
-          child: const Text(
-            "Sign Up",
+          child: Text(
+            LocaleKeys.Sign_Up.tr(),
             style: TextStyle(
                 color: Color.fromARGB(255, 66, 157, 173),
                 fontWeight: FontWeight.bold),
@@ -310,8 +311,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   MaterialPageRoute(
                       builder: (context) => ForgetPasswordScreen()));
             },
-            child: const Text(
-              "Forget Password?",
+            child: Text(
+              LocaleKeys.Forget_Password.tr(),
               style: TextStyle(
                 color: Colors.red,
               ),

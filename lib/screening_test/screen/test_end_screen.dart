@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,6 +9,7 @@ import 'package:physio_track/screening_test/service/question_service.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 
 class TestFinishScreen extends StatefulWidget {
   const TestFinishScreen({super.key});
@@ -54,7 +56,7 @@ class _TestFinishScreenState extends State<TestFinishScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 260, 20, 10),
               child: Text(
-                'Thank you for completing the screening test !',
+                LocaleKeys.Thank_you_for_completing_screening_test.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 25, height: 1.2, fontWeight: FontWeight.w900),
@@ -64,7 +66,7 @@ class _TestFinishScreenState extends State<TestFinishScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
               child: Text(
-                'Your response will be sent for evaluation.',
+                LocaleKeys.Your_response_will_sent_evaluation.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, height: 1.2),
               ),
@@ -85,7 +87,7 @@ class _TestFinishScreenState extends State<TestFinishScreen> {
                   ),
                   customButton(
                       context,
-                      'Go Homepage',
+                      LocaleKeys.Go_Homepage.tr(),
                       ColorConstant.BLUE_BUTTON_TEXT,
                       ColorConstant.BLUE_BUTTON_UNPRESSED,
                       ColorConstant.BLUE_BUTTON_PRESSED, () {

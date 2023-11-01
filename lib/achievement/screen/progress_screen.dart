@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import '../../constant/TextConstant.dart';
 import '../../ot_library/model/ot_activity_model.dart';
 import '../../ot_library/screen/ot_daily_list_screen.dart';
 import '../../pt_library/model/pt_activity_model.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/achievement_model.dart';
 import '../service/achievement_service.dart';
 import 'achievement_list_screen.dart';
@@ -254,7 +256,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Current Level',
+                                  LocaleKeys.Current_Level.tr(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -300,7 +302,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                     const EdgeInsets.fromLTRB(
                                                         10, 0, 0, 0),
                                                 child: Text(
-                                                  'Level ${level}',
+                                                  '${LocaleKeys.Level.tr()} ${level}',
                                                   style: TextStyle(
                                                     fontSize: 16.0,
                                                     fontWeight: FontWeight.bold,
@@ -359,7 +361,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Achievement Gained',
+                                  LocaleKeys.Achivement_Gained.tr(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -384,7 +386,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    'More Details >',
+                                    '${LocaleKeys.More_Details.tr()} >',
                                     style: TextStyle(
                                       fontSize: 13,
                                       color: Colors
@@ -453,7 +455,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                 color: Colors.red, size: 50.0),
                                             Center(
                                               child: Text(
-                                                'No Record',
+                                                LocaleKeys.No_Record.tr(),
                                                 style: TextStyle(
                                                   color: Colors.red,
                                                   fontSize: 20.0,
@@ -505,7 +507,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Today’s Progress',
+                                  LocaleKeys.Today_Progress.tr(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -546,7 +548,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                             child: Column(
                                               children: <Widget>[
                                                 Text(
-                                                  'PT',
+                                                  LocaleKeys.PT.tr(),
                                                   style: TextStyle(
                                                     fontSize: 20.0,
                                                     fontWeight: FontWeight.bold,
@@ -603,7 +605,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                             child: Column(
                                               children: <Widget>[
                                                 Text(
-                                                  'OT',
+                                                  LocaleKeys.OT.tr(),
                                                   style: TextStyle(
                                                     fontSize: 20.0,
                                                     fontWeight: FontWeight.bold,
@@ -648,7 +650,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Weekly Statistics',
+                                  LocaleKeys.Weekly_Statistics.tr(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -712,7 +714,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                               143), // PT color
                                                         ),
                                                         SizedBox(width: 5),
-                                                        Text("PT",
+                                                        Text(LocaleKeys.PT.tr(),
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .black)),
@@ -727,7 +729,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                               116), // OT color
                                                         ),
                                                         SizedBox(width: 5),
-                                                        Text("OT",
+                                                        Text(LocaleKeys.OT.tr(),
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .black))
@@ -802,7 +804,7 @@ class ProgressScreenState extends State<ProgressScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                'Progress',
+                LocaleKeys.Progress.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
@@ -822,13 +824,13 @@ class ProgressScreenState extends State<ProgressScreen> {
           Positioned(
             top: 125,
             left: 25,
-            child: Text('Keep Going',
+            child: Text(LocaleKeys.Keep_Going.tr(),
                 style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
           ),
           Positioned(
             top: 160,
             left: 50,
-            child: Text('Start today’s progress',
+            child: Text(LocaleKeys.Start_today_progress.tr(),
                 style: TextStyle(fontSize: 15.0)),
           ),
         ],
@@ -860,7 +862,15 @@ class ProgressScreenState extends State<ProgressScreen> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    final titles = <String>[
+      LocaleKeys.Mon.tr(),
+      LocaleKeys.Tue.tr(),
+      LocaleKeys.Wed.tr(),
+      LocaleKeys.Thu.tr(),
+      LocaleKeys.Fri.tr(),
+      LocaleKeys.Sat.tr(),
+      LocaleKeys.Sun.tr()
+    ];
 
     final Widget text = Text(
       titles[value.toInt()],

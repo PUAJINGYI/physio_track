@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../constant/ImageConstant.dart';
+import '../translations/locale_keys.g.dart';
 
 Image logoWidget(String imageName) {
   return Image.asset(
@@ -118,7 +120,7 @@ Container signInGmailButton(BuildContext context, Function onTap) {
             new Container(
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
                 child: new Text(
-                  "Sign in with Google",
+                  LocaleKeys.Google_Sign_In.tr(),
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 )),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -17,6 +18,7 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/journal_model.dart';
 import '../widget/custom_feeling_icon.dart';
 import '../widget/custom_weather_icon.dart';
@@ -122,10 +124,10 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
       // TODO: Handle saving the journal object
       await journalService.updateJournal(userId, widget.journalId, journal);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Journal updated successfully!")),
+        SnackBar(content: Text(LocaleKeys.Journal_updated_successfully.tr())),
       );
       Navigator.pop(context, true);
-      print('Journal: $journal');
+      print('${LocaleKeys.Journal.tr()}: $journal');
     }
     // ScaffoldMessenger.of(context).showSnackBar(
     //   SnackBar(content: Text("No changes made!")),
@@ -185,7 +187,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                       child: TextFormField(
                         controller: _titleController,
                         decoration: InputDecoration(
-                          hintText: 'Add Title',
+                          hintText: LocaleKeys.Add_Title.tr(),
                           hintStyle: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(31, 121, 255, 0.3),
@@ -193,7 +195,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a title';
+                            return LocaleKeys.Please_enter_a_title.tr();
                           }
                           return null;
                         },
@@ -242,7 +244,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Today\'s Weather',
+                                          LocaleKeys.Weather_Today.tr(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -297,7 +299,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Today\'s Feeling',
+                                          LocaleKeys.Feeling_Today.tr(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -353,7 +355,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Health Condition',
+                                          LocaleKeys.Health_Condition.tr(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -367,9 +369,9 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text('Bad',
+                                            Text(LocaleKeys.Bad.tr(),
                                                 style: TextStyle(fontSize: 12)),
-                                            Text('Great',
+                                            Text(LocaleKeys.Great.tr(),
                                                 style: TextStyle(fontSize: 12)),
                                           ],
                                         ),
@@ -401,7 +403,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Comment of Day',
+                                          LocaleKeys.Comment_of_Day.tr(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -413,14 +415,14 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                         TextFormField(
                                           controller: _commentController,
                                           decoration: InputDecoration(
-                                            hintText: 'Enter Something',
+                                            hintText: LocaleKeys.Enter_Something.tr(),
                                             floatingLabelBehavior:
                                                 FloatingLabelBehavior.never,
                                           ),
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return 'Please enter a comment';
+                                              return LocaleKeys.Please_enter_a_comment.tr();
                                             }
                                             return null;
                                           },
@@ -444,7 +446,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: customButton(
                         context,
-                        'Save',
+                        LocaleKeys.Save.tr(),
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ColorConstant.BLUE_BUTTON_PRESSED, () async{
@@ -476,7 +478,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                   height: kToolbarHeight,
                   alignment: Alignment.center,
                   child: Text(
-                    'Journal',
+                    LocaleKeys.Journal.tr(),
                     style: TextStyle(
                       fontSize: TextConstant.TITLE_FONT_SIZE,
                       fontWeight: FontWeight.bold,

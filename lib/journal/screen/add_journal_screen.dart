@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -13,10 +14,14 @@ import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 import 'package:physio_track/journal/service/journal_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
+import '../../achievement/model/achievement_model.dart';
 import '../../achievement/service/achievement_service.dart';
+import '../../achievement/widget/achievement_dialog_widget.dart';
+import '../../constant/AchievementConstant.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/journal_model.dart';
 import '../widget/custom_feeling_icon.dart';
 import '../widget/custom_weather_icon.dart';
@@ -97,18 +102,25 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
       journalService.addJournal(userId, journal);
       bool newArchievement = await achievementService.checkFirstJournal(userId);
       if (newArchievement) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Emotional Explorer badge unlocked!")),
-        );
+         Achievement? ach = await achievementService
+              .fetchAchievementsByAchId(AchievementConstant.EMOTIONAL_EXPLORER);
+          if (ach != null) {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AchievementDialogWidget(ach: ach);
+              },
+            );
+          }
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Journal added successfully!")),
+        SnackBar(content: Text(LocaleKeys.Journal_added_successfully.tr())),
       );
       Navigator.pop(context, true);
       print('Journal: $journal');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Journal failed be added!")),
+        SnackBar(content: Text(LocaleKeys.Journal_failed_be_added.tr())),
       );
     }
   }
@@ -145,7 +157,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Add Title',
+                          hintText: LocaleKeys.Add_Title.tr(),
                           hintStyle: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(31, 121, 255, 0.3),
@@ -153,7 +165,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a title';
+                            return LocaleKeys.Please_enter_a_title.tr();
                           }
                           return null;
                         },
@@ -202,7 +214,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Today\'s Weather',
+                                          LocaleKeys.Weather_Today.tr(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -257,7 +269,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Today\'s Feeling',
+                                          LocaleKeys.Feeling_Today.tr(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -313,7 +325,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Health Condition',
+                                          LocaleKeys.Health_Condition.tr(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -327,9 +339,9 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text('Bad',
+                                            Text(LocaleKeys.Bad.tr(),
                                                 style: TextStyle(fontSize: 12)),
-                                            Text('Great',
+                                            Text(LocaleKeys.Great.tr(),
                                                 style: TextStyle(fontSize: 12)),
                                           ],
                                         ),
@@ -361,7 +373,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Comment of Day',
+                                          LocaleKeys.Comment_of_Day.tr(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -372,14 +384,14 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                         ),
                                         TextFormField(
                                           decoration: InputDecoration(
-                                            hintText: 'Enter Something',
+                                            hintText: LocaleKeys.Enter_Something.tr(),
                                             floatingLabelBehavior:
                                                 FloatingLabelBehavior.never,
                                           ),
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return 'Please enter a comment';
+                                              return LocaleKeys.Please_enter_a_comment.tr();
                                             }
                                             return null;
                                           },
@@ -403,7 +415,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: customButton(
                         context,
-                        'Complete',
+                        LocaleKeys.Complete.tr(),
                         ColorConstant.BLUE_BUTTON_TEXT,
                         ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ColorConstant.BLUE_BUTTON_PRESSED, () {
@@ -435,7 +447,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                   height: kToolbarHeight,
                   alignment: Alignment.center,
                   child: Text(
-                    'Journal',
+                    LocaleKeys.Journal.tr(),
                     style: TextStyle(
                       fontSize: TextConstant.TITLE_FONT_SIZE,
                       fontWeight: FontWeight.bold,
