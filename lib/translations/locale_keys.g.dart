@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const Appointment = 'Appointment';
   static const Edit_Appointment = 'Edit_Appointment';
   static const Profile = 'Profile';

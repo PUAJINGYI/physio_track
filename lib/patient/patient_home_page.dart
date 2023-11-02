@@ -19,64 +19,29 @@ class PatientHomePage extends StatefulWidget {
 
 class _PatientHomePageState extends State<PatientHomePage>
     with TickerProviderStateMixin {
-  String userId = FirebaseAuth.instance.currentUser!.uid;
-  CollectionReference usersCollection =
-      FirebaseFirestore.instance.collection('users');
-  PageController? _pageController;
   int _currentIndex = 0;
-  UserPTListService userPTListService = UserPTListService();
-  UserOTListService userOTListService = UserOTListService();
+  List<Widget>? _page;
+  List<BottomNavigationBarItem>? _navBarItems;
+  BottomNavigationBar? bottomNavBar;
 
-  List<Widget> _page = [
-    PatientHomeScreen(),
-    ProgressScreen(),
-    ViewJournalListScreen(),
-    AppointmentPatientScreen(),
-    ProfileScreen(),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    // updateUserOTPTList();
-    _pageController = PageController(initialPage: 0, keepPage: true);
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      _updateTabs();
+      print('hello $_currentIndex');
+    });
   }
 
+  _updateTabs() {
+    _page = [
+      PatientHomeScreen(uniqueKey: UniqueKey()),
+      ProgressScreen(uniqueKey: UniqueKey()),
+      const ViewJournalListScreen(),
+      const AppointmentPatientScreen(),
+      const ProfileScreen(),
+    ];
 
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.black,
-        currentIndex: _currentIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: _navBarItems(),
-        onTap: (value) {
-          setState(() {
-            _currentIndex = value;
-            _pageController?.jumpToPage(value);
-          });
-        },
-      ),
-      body: 
-      PageView(
-        controller: _pageController,
-        children: _page,
-        onPageChanged: (int page) {
-          setState(() {
-            _currentIndex = page;
-          });
-        },
-      ),
-    );
-  }
-
-  List<BottomNavigationBarItem> _navBarItems() {
-    return const [
+    _navBarItems = const [
       BottomNavigationBarItem(
         icon: Icon(Icons.home_outlined),
         label: "Home",
@@ -97,6 +62,32 @@ class _PatientHomePageState extends State<PatientHomePage>
         icon: Icon(Icons.settings_outlined),
         label: 'Settings',
       ),
-    ];
+    ];  
+
+    bottomNavBar = BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.black,
+      currentIndex: _currentIndex,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      items: _navBarItems!,
+      onTap: _onItemTapped,
+    );
+
+  }
+
+  @override
+  void initState() {
+    _updateTabs();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: bottomNavBar,
+      body: _page![_currentIndex],
+    );
   }
 }

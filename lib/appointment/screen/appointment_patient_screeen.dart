@@ -273,7 +273,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(
-                      height: 220,
+                      height: 200,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -507,7 +507,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
-                height: 220,
+                height: 200,
               ),
               Column(
                 children: [

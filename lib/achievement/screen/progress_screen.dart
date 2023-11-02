@@ -21,7 +21,7 @@ import '../service/achievement_service.dart';
 import 'achievement_list_screen.dart';
 
 class ProgressScreen extends StatefulWidget {
-  ProgressScreen({super.key});
+  ProgressScreen({super.key, required UniqueKey uniqueKey});
   final Color leftBarColor = Color.fromARGB(255, 129, 238, 143);
   final Color rightBarColor = Color.fromARGB(255, 243, 124, 116);
   final Color avgColor = Colors.orange;
@@ -57,7 +57,7 @@ class ProgressScreenState extends State<ProgressScreen> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    //fetchData();
   }
 
   Future<void> fetchData() async {
@@ -180,14 +180,14 @@ class ProgressScreenState extends State<ProgressScreen> {
         imageUrls.add(ach[i].imageUrl);
       }
     }
-    createBarGroups(); // After fetching data, create bar groups
+    await createBarGroups(); // After fetching data, create bar groups
   }
 
-  void createBarGroups() {
+  Future<void> createBarGroups() async {
     final List<BarChartGroupData> barGroups = [];
 
     for (int i = 0; i < ptList.length; i++) {
-      final BarChartGroupData barGroup = makeGroupData(
+      final BarChartGroupData barGroup = await makeGroupData(
         i,
         ptList[i].progress * 100,
         otList[i].progress * 100,
@@ -195,12 +195,10 @@ class ProgressScreenState extends State<ProgressScreen> {
       barGroups.add(barGroup);
     }
 
-    setState(() {
-      rawBarGroups = barGroups;
-    });
+    rawBarGroups = barGroups;
   }
 
-  BarChartGroupData makeGroupData(int x, double y1, double y2) {
+  Future<BarChartGroupData> makeGroupData(int x, double y1, double y2) async {
     return BarChartGroupData(
       barsSpace: 4,
       x: x,
@@ -234,608 +232,738 @@ class ProgressScreenState extends State<ProgressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: 230,
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  LocaleKeys.Current_Level.tr(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    15.0), // Adjust the radius as needed
-                                child: Card(
-                                  color: Color.fromARGB(255, 255, 231, 196),
-                                  elevation: 5.0,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(16.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              ImageConstant
-                                                  .LEVEL, // Replace with your image path
-                                              width: 60.0,
-                                              height: 60.0,
+        body: FutureBuilder<void>(
+            future: fetchData(),
+            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(
+                            height: 210,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8, 8, 8, 0),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            LocaleKeys.Current_Level.tr(),
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
                                             ),
                                           ),
                                         ),
-                                        Expanded(
-                                          flex: 6,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        10, 0, 0, 0),
-                                                child: Text(
-                                                  '${LocaleKeys.Level.tr()} ${level}',
-                                                  style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(height: 5.0),
-                                              Column(
-                                                children: [
-                                                  LinearPercentIndicator(
-                                                    animation: true,
-                                                    lineHeight: 10.0,
-                                                    animationDuration: 2000,
-                                                    percent:
-                                                        progressToNextLevel,
-                                                    barRadius:
-                                                        Radius.circular(10.0),
-                                                    progressColor:
-                                                        Colors.yellow,
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .fromLTRB(
-                                                          10, 5, 0, 0),
-                                                      child: Text(
-                                                        (progressToNextLevel *
-                                                                    100)
-                                                                .toStringAsFixed(
-                                                                    0) +
-                                                            '%',
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black,
-                                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              15.0), // Adjust the radius as needed
+                                          child: Card(
+                                            color: Color.fromARGB(
+                                                255, 255, 231, 196),
+                                            elevation: 5.0,
+                                            child: Padding(
+                                              padding: EdgeInsets.all(16.0),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Image.asset(
+                                                        ImageConstant
+                                                            .LEVEL, // Replace with your image path
+                                                        width: 60.0,
+                                                        height: 60.0,
                                                       ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 6,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  10, 0, 0, 0),
+                                                          child: Text(
+                                                            '${LocaleKeys.Level.tr()} ${level}',
+                                                            style: TextStyle(
+                                                              fontSize: 16.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 5.0),
+                                                        Column(
+                                                          children: [
+                                                            LinearPercentIndicator(
+                                                              animation: true,
+                                                              lineHeight: 10.0,
+                                                              animationDuration:
+                                                                  2000,
+                                                              percent:
+                                                                  progressToNextLevel,
+                                                              barRadius: Radius
+                                                                  .circular(
+                                                                      10.0),
+                                                              progressColor:
+                                                                  Colors.yellow,
+                                                            ),
+                                                            Align(
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .fromLTRB(
+                                                                        10,
+                                                                        5,
+                                                                        0,
+                                                                        0),
+                                                                child: Text(
+                                                                  (progressToNextLevel *
+                                                                              100)
+                                                                          .toStringAsFixed(
+                                                                              0) +
+                                                                      '%',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  LocaleKeys.Achivement_Gained.tr(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 15, 0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  // Navigate to the new page here
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AchievementListScreen(
-                                            uid:
-                                                uid)), // Replace DetailsPage() with your actual page
-                                  );
-                                },
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    '${LocaleKeys.More_Details.tr()} >',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors
-                                          .black, // You can change the text color to indicate it's clickable
-                                      // Add underline to indicate it's clickable
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            // Padding(
-                            //   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                            //   child: Card(
-                            //     elevation: 2.0,
-                            //     color: Colors.blue[50],
-                            //     child: CarouselSlider(
-                            //       options: CarouselOptions(
-                            //         height: 100.0,
-                            //         autoPlay: true,
-                            //         autoPlayInterval: Duration(
-                            //             seconds:
-                            //                 3), // Set the auto-play interval
-                            //         enlargeCenterPage:
-                            //             true, // Enable center enlargement
-                            //         viewportFraction: 0.3,
-                            //       ),
-                            //       items: imageUrls.map((imageUrl) {
-                            //         return Builder(
-                            //           builder: (BuildContext context) {
-                            //             return Container(
-                            //               width:
-                            //                   MediaQuery.of(context).size.width,
-                            //               margin: EdgeInsets.symmetric(
-                            //                   horizontal: 5.0),
-                            //               decoration: BoxDecoration(
-                            //                 color: Colors.transparent,
-                            //                 borderRadius:
-                            //                     BorderRadius.circular(8.0),
-                            //                 image: DecorationImage(
-                            //                   image: NetworkImage(imageUrl),
-                            //                   fit: BoxFit.fitHeight,
-                            //                 ),
-                            //               ),
-                            //             );
-                            //           },
-                            //         );
-                            //       }).toList(),
-                            //     ),
-                            //   ),
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                              child: Card(
-                                elevation: 2.0,
-                                color: imageUrls.isEmpty
-                                    ? Color.fromARGB(255, 255, 196, 196)
-                                    : Colors.blue[50],
-                                child: imageUrls.isEmpty
-                                    ? Container(
-                                        height: 100.0,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.error,
-                                                color: Colors.red, size: 50.0),
-                                            Center(
-                                              child: Text(
-                                                LocaleKeys.No_Record.tr(),
-                                                style: TextStyle(
-                                                  color: Colors.red,
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8, 8, 8, 0),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            LocaleKeys.Achivement_Gained.tr(),
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8, 0, 15, 0),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            // Navigate to the new page here
+                                            final needUpdate =
+                                                await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AchievementListScreen(
+                                                          uid:
+                                                              uid)), // Replace DetailsPage() with your actual page
+                                            );
+                                            if (needUpdate != null &&
+                                                needUpdate == true) {
+                                              setState(() {
+                                                //fetchData();
+                                              });
+                                            }
+                                          },
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              '${LocaleKeys.More_Details.tr()} >',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: Colors
+                                                    .black, // You can change the text color to indicate it's clickable
+                                                // Add underline to indicate it's clickable
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      )
-                                    : CarouselSlider(
-                                        options: CarouselOptions(
-                                          height: 100.0,
-                                          autoPlay: true,
-                                          autoPlayInterval:
-                                              Duration(seconds: 3),
-                                          enlargeCenterPage: true,
-                                          viewportFraction: 0.3,
-                                        ),
-                                        items: imageUrls.map((imageUrl) {
-                                          return Builder(
-                                            builder: (BuildContext context) {
-                                              return Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 5.0),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.transparent,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  image: DecorationImage(
-                                                    image:
-                                                        NetworkImage(imageUrl),
-                                                    fit: BoxFit.fitHeight,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          );
-                                        }).toList(),
-                                      ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  LocaleKeys.Today_Progress.tr(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                          15.0), // Adjust the radius as needed
-                                      child: GestureDetector(
-                                        onTap: () async {
-                                          // Navigate to the other page when the card is tapped
-                                          final needUpdate =
-                                              await Navigator.of(context)
-                                                  .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                PTDailyListScreen(uid: uid),
-                                          ));
-
-                                          if (needUpdate != null &&
-                                              needUpdate == true) {
-                                            setState(() {
-                                              fetchData();
-                                            });
-                                          }
-                                        },
-                                        child: Card(
-                                          elevation: 5.0,
-                                          child: Padding(
-                                            padding: EdgeInsets.all(16.0),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Text(
-                                                  LocaleKeys.PT.tr(),
-                                                  style: TextStyle(
-                                                    fontSize: 20.0,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                CircularPercentIndicator(
-                                                  radius: 60,
-                                                  lineWidth: 15.0,
-                                                  percent: todayPT.progress,
-                                                  progressColor: Colors.blue,
-                                                  backgroundColor:
-                                                      Colors.blue.shade100,
-                                                  circularStrokeCap:
-                                                      CircularStrokeCap.round,
-                                                  center: Text(
-                                                    (todayPT.progress * 100)
-                                                            .toStringAsFixed(
-                                                                0) +
-                                                        '%',
-                                                    style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                          15.0), // Adjust the radius as needed
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          // Navigate to the other page when the card is tapped
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                OTDailyListScreen(uid: uid),
-                                          ));
-                                        },
-                                        child: Card(
-                                          elevation: 5.0,
-                                          child: Padding(
-                                            padding: EdgeInsets.all(16.0),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Text(
-                                                  LocaleKeys.OT.tr(),
-                                                  style: TextStyle(
-                                                    fontSize: 20.0,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                CircularPercentIndicator(
-                                                  radius: 60,
-                                                  lineWidth: 15.0,
-                                                  percent: todayOT.progress,
-                                                  progressColor: Colors.blue,
-                                                  backgroundColor:
-                                                      Colors.blue.shade100,
-                                                  circularStrokeCap:
-                                                      CircularStrokeCap.round,
-                                                  center: Text(
-                                                    (todayOT.progress * 100)
-                                                            .toStringAsFixed(
-                                                                0) +
-                                                        '%',
-                                                    style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  LocaleKeys.Weekly_Statistics.tr(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  // Navigate to the other page when the card is tapped
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        WeeklyAnalysisScreen(uid: uid),
-                                  ));
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      15.0), // Adjust the radius as needed
-                                  child: Card(
-                                    elevation: 5.0,
-                                    child: Container(
-                                      height: 200,
-                                      child: Padding(
+                                      // Padding(
+                                      //   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                                      //   child: Card(
+                                      //     elevation: 2.0,
+                                      //     color: Colors.blue[50],
+                                      //     child: CarouselSlider(
+                                      //       options: CarouselOptions(
+                                      //         height: 100.0,
+                                      //         autoPlay: true,
+                                      //         autoPlayInterval: Duration(
+                                      //             seconds:
+                                      //                 3), // Set the auto-play interval
+                                      //         enlargeCenterPage:
+                                      //             true, // Enable center enlargement
+                                      //         viewportFraction: 0.3,
+                                      //       ),
+                                      //       items: imageUrls.map((imageUrl) {
+                                      //         return Builder(
+                                      //           builder: (BuildContext context) {
+                                      //             return Container(
+                                      //               width:
+                                      //                   MediaQuery.of(context).size.width,
+                                      //               margin: EdgeInsets.symmetric(
+                                      //                   horizontal: 5.0),
+                                      //               decoration: BoxDecoration(
+                                      //                 color: Colors.transparent,
+                                      //                 borderRadius:
+                                      //                     BorderRadius.circular(8.0),
+                                      //                 image: DecorationImage(
+                                      //                   image: NetworkImage(imageUrl),
+                                      //                   fit: BoxFit.fitHeight,
+                                      //                 ),
+                                      //               ),
+                                      //             );
+                                      //           },
+                                      //         );
+                                      //       }).toList(),
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      Padding(
                                         padding: const EdgeInsets.fromLTRB(
-                                            10, 15, 10, 10),
-                                        child: Column(
+                                            8, 0, 8, 8),
+                                        child: Card(
+                                          elevation: 2.0,
+                                          color: imageUrls.isEmpty
+                                              ? Color.fromARGB(
+                                                  255, 255, 196, 196)
+                                              : Colors.blue[50],
+                                          child: imageUrls.isEmpty
+                                              ? Container(
+                                                  height: 100.0,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(Icons.error,
+                                                          color: Colors.red,
+                                                          size: 50.0),
+                                                      Center(
+                                                        child: Text(
+                                                          LocaleKeys.No_Record
+                                                              .tr(),
+                                                          style: TextStyle(
+                                                            color: Colors.red,
+                                                            fontSize: 20.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              : CarouselSlider(
+                                                  options: CarouselOptions(
+                                                    height: 100.0,
+                                                    autoPlay: true,
+                                                    autoPlayInterval:
+                                                        Duration(seconds: 3),
+                                                    enlargeCenterPage: true,
+                                                    viewportFraction: 0.3,
+                                                  ),
+                                                  items:
+                                                      imageUrls.map((imageUrl) {
+                                                    return Builder(
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return Container(
+                                                          width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width,
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5.0),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .transparent,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            image:
+                                                                DecorationImage(
+                                                              image:
+                                                                  NetworkImage(
+                                                                      imageUrl),
+                                                              fit: BoxFit
+                                                                  .fitHeight,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8, 8, 8, 0),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            LocaleKeys.Today_Progress.tr(),
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
                                           children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Align(
-                                                  alignment: Alignment
-                                                      .centerLeft, // Align left
-                                                  child: Text(
-                                                    mondayThisWeek +
-                                                        " - " +
-                                                        sundayThisWeek,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                            Expanded(
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(
+                                                    15.0), // Adjust the radius as needed
+                                                child: GestureDetector(
+                                                  onTap: () async {
+                                                    // Navigate to the other page when the card is tapped
+                                                    final needUpdate =
+                                                        await Navigator.of(
+                                                                context)
+                                                            .push(
+                                                                MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PTDailyListScreen(
+                                                              uid: uid),
+                                                    ));
+
+                                                    if (needUpdate != null &&
+                                                        needUpdate == true) {
+                                                      setState(() {
+                                                        //fetchData();
+                                                      });
+                                                    }
+                                                  },
+                                                  child: Card(
+                                                    elevation: 5.0,
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.all(16.0),
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Text(
+                                                            LocaleKeys.PT.tr(),
+                                                            style: TextStyle(
+                                                              fontSize: 20.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          CircularPercentIndicator(
+                                                            radius: 60,
+                                                            lineWidth: 15.0,
+                                                            percent: todayPT
+                                                                .progress,
+                                                            progressColor:
+                                                                Colors.blue,
+                                                            backgroundColor:
+                                                                Colors.blue
+                                                                    .shade100,
+                                                            circularStrokeCap:
+                                                                CircularStrokeCap
+                                                                    .round,
+                                                            center: Text(
+                                                              (todayPT.progress *
+                                                                          100)
+                                                                      .toStringAsFixed(
+                                                                          0) +
+                                                                  '%',
+                                                              style: TextStyle(
+                                                                fontSize: 20.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                                Align(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: Row(
-                                                      children: <Widget>[
-                                                        Container(
-                                                          width: 10,
-                                                          height: 10,
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              129,
-                                                              238,
-                                                              143), // PT color
-                                                        ),
-                                                        SizedBox(width: 5),
-                                                        Text(LocaleKeys.PT.tr(),
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black)),
-                                                        SizedBox(width: 10),
-                                                        Container(
-                                                          width: 10,
-                                                          height: 10,
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              243,
-                                                              124,
-                                                              116), // OT color
-                                                        ),
-                                                        SizedBox(width: 5),
-                                                        Text(LocaleKeys.OT.tr(),
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black))
-                                                      ],
-                                                    )),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 20,
+                                              ),
                                             ),
                                             Expanded(
-                                              child: BarChart(
-                                                BarChartData(
-                                                  maxY: 100,
-                                                  titlesData: FlTitlesData(
-                                                    show: true,
-                                                    rightTitles: AxisTitles(
-                                                      sideTitles: SideTitles(
-                                                          showTitles: false),
-                                                    ),
-                                                    topTitles: AxisTitles(
-                                                      sideTitles: SideTitles(
-                                                          showTitles: false),
-                                                    ),
-                                                    bottomTitles: AxisTitles(
-                                                      sideTitles: SideTitles(
-                                                        showTitles: true,
-                                                        getTitlesWidget:
-                                                            bottomTitles,
-                                                        reservedSize: 42,
-                                                      ),
-                                                    ),
-                                                    leftTitles: AxisTitles(
-                                                      sideTitles: SideTitles(
-                                                        showTitles: true,
-                                                        reservedSize: 28,
-                                                        interval: 1,
-                                                        getTitlesWidget:
-                                                            leftTitles,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(
+                                                    15.0), // Adjust the radius as needed
+                                                child: GestureDetector(
+                                                  onTap: () async {
+                                                    // Navigate to the other page when the card is tapped
+                                                    final needUpdate =
+                                                        await Navigator.of(
+                                                                context)
+                                                            .push(
+                                                                MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          OTDailyListScreen(
+                                                              uid: uid),
+                                                    ));
+                                                    if (needUpdate != null &&
+                                                        needUpdate == true) {
+                                                      setState(() {
+                                                        //fetchData();
+                                                      });
+                                                    }
+                                                  },
+                                                  child: Card(
+                                                    elevation: 5.0,
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.all(16.0),
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Text(
+                                                            LocaleKeys.OT.tr(),
+                                                            style: TextStyle(
+                                                              fontSize: 20.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          CircularPercentIndicator(
+                                                            radius: 60,
+                                                            lineWidth: 15.0,
+                                                            percent: todayOT
+                                                                .progress,
+                                                            progressColor:
+                                                                Colors.blue,
+                                                            backgroundColor:
+                                                                Colors.blue
+                                                                    .shade100,
+                                                            circularStrokeCap:
+                                                                CircularStrokeCap
+                                                                    .round,
+                                                            center: Text(
+                                                              (todayOT.progress *
+                                                                          100)
+                                                                      .toStringAsFixed(
+                                                                          0) +
+                                                                  '%',
+                                                              style: TextStyle(
+                                                                fontSize: 20.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                   ),
-                                                  borderData: FlBorderData(
-                                                    show: false,
-                                                  ),
-                                                  barGroups: rawBarGroups,
-                                                  gridData:
-                                                      FlGridData(show: false),
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 25,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Text(
-                LocaleKeys.Progress.tr(),
-                style: TextStyle(
-                  fontSize: TextConstant.TITLE_FONT_SIZE,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 45,
-            right: 5,
-            child: Image.asset(
-              ImageConstant.PROGRESS,
-              width: 220.0,
-              height: 220.0,
-            ),
-          ),
-          Positioned(
-            top: 125,
-            left: 25,
-            child: Text(LocaleKeys.Keep_Going.tr(),
-                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
-          ),
-          Positioned(
-            top: 160,
-            left: 50,
-            child: Text(LocaleKeys.Start_today_progress.tr(),
-                style: TextStyle(fontSize: 15.0)),
-          ),
-        ],
-      ),
-    );
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8, 8, 8, 0),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            LocaleKeys.Weekly_Statistics.tr(),
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            // Navigate to the other page when the card is tapped
+                                            final needUpdate =
+                                                await Navigator.of(context)
+                                                    .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  WeeklyAnalysisScreen(
+                                                      uid: uid),
+                                            ));
+                                            if (needUpdate != null &&
+                                                needUpdate == true) {
+                                              setState(() {
+                                                //fetchData();
+                                              });
+                                            }
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                                15.0), // Adjust the radius as needed
+                                            child: Card(
+                                              elevation: 5.0,
+                                              child: Container(
+                                                height: 200,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          10, 15, 10, 10),
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Align(
+                                                            alignment: Alignment
+                                                                .centerLeft, // Align left
+                                                            child: Text(
+                                                              mondayThisWeek +
+                                                                  " - " +
+                                                                  sundayThisWeek,
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                          Align(
+                                                              alignment: Alignment
+                                                                  .centerRight,
+                                                              child: Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Container(
+                                                                    width: 10,
+                                                                    height: 10,
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            129,
+                                                                            238,
+                                                                            143), // PT color
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width: 5),
+                                                                  Text(
+                                                                      LocaleKeys
+                                                                          .PT
+                                                                          .tr(),
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.black)),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  Container(
+                                                                    width: 10,
+                                                                    height: 10,
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            243,
+                                                                            124,
+                                                                            116), // OT color
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width: 5),
+                                                                  Text(
+                                                                      LocaleKeys
+                                                                          .OT
+                                                                          .tr(),
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.black))
+                                                                ],
+                                                              )),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Expanded(
+                                                        child: BarChart(
+                                                          BarChartData(
+                                                            maxY: 100,
+                                                            titlesData:
+                                                                FlTitlesData(
+                                                              show: true,
+                                                              rightTitles:
+                                                                  AxisTitles(
+                                                                sideTitles:
+                                                                    SideTitles(
+                                                                        showTitles:
+                                                                            false),
+                                                              ),
+                                                              topTitles:
+                                                                  AxisTitles(
+                                                                sideTitles:
+                                                                    SideTitles(
+                                                                        showTitles:
+                                                                            false),
+                                                              ),
+                                                              bottomTitles:
+                                                                  AxisTitles(
+                                                                sideTitles:
+                                                                    SideTitles(
+                                                                  showTitles:
+                                                                      true,
+                                                                  getTitlesWidget:
+                                                                      bottomTitles,
+                                                                  reservedSize:
+                                                                      42,
+                                                                ),
+                                                              ),
+                                                              leftTitles:
+                                                                  AxisTitles(
+                                                                sideTitles:
+                                                                    SideTitles(
+                                                                  showTitles:
+                                                                      true,
+                                                                  reservedSize:
+                                                                      28,
+                                                                  interval: 1,
+                                                                  getTitlesWidget:
+                                                                      leftTitles,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            borderData:
+                                                                FlBorderData(
+                                                              show: false,
+                                                            ),
+                                                            barGroups:
+                                                                rawBarGroups,
+                                                            gridData:
+                                                                FlGridData(
+                                                                    show:
+                                                                        false),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 25,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: kToolbarHeight,
+                        alignment: Alignment.center,
+                        child: Text(
+                          LocaleKeys.Progress.tr(),
+                          style: TextStyle(
+                            fontSize: TextConstant.TITLE_FONT_SIZE,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 45,
+                      right: 5,
+                      child: Image.asset(
+                        ImageConstant.PROGRESS,
+                        width: 220.0,
+                        height: 220.0,
+                      ),
+                    ),
+                    Positioned(
+                      top: 125,
+                      left: 25,
+                      child: Text(LocaleKeys.Keep_Going.tr(),
+                          style: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.bold)),
+                    ),
+                    Positioned(
+                      top: 160,
+                      left: 50,
+                      child: Text(LocaleKeys.Start_today_progress.tr(),
+                          style: TextStyle(fontSize: 15.0)),
+                    ),
+                  ],
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }));
   }
 
   Widget leftTitles(double value, TitleMeta meta) {

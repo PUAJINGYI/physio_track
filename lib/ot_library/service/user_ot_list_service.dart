@@ -161,7 +161,7 @@ class UserOTListService {
         newRecordDate = currentDateWithoutTime;
         id = 1;
 
-         for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
           DateTime activityDate = newRecordDate.add(Duration(days: i));
           OTActivity newActivity = OTActivity(
               id: id + i, // Incremental ID starting from 1

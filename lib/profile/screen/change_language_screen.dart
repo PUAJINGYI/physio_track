@@ -19,7 +19,7 @@ class ChangeLanguageScreen extends StatefulWidget {
 class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   int selectedLanguage = -1;
 
-   @override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     Locale currentLocale = EasyLocalization.of(context)!.locale;
@@ -34,228 +34,261 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      children: [
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(
-                    height: 290,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Card(
-                          elevation: 5,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                ImageConstant.GB,
-                                width: 90.0,
-                                height: 90.0,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                'English',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                child: Transform.scale(
-                                  scale: 1.5,
-                                  child: Radio<int>(
-                                    value: 1,
-                                    groupValue: selectedLanguage,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedLanguage = value!;
-                                      });
-                                    },
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return Future.value(true);
+      },
+      child: Scaffold(
+          body: Stack(
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 290,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedLanguage = 1;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 100,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Card(
+                              elevation: 5,
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    ImageConstant.GB,
+                                    width: 90.0,
+                                    height: 90.0,
                                   ),
-                                ),
-                              )
-                            ],
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    'English',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                    child: Transform.scale(
+                                      scale: 1.5,
+                                      child: Radio<int>(
+                                        value: 1,
+                                        groupValue: selectedLanguage,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedLanguage = value!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Card(
-                          elevation: 5,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                ImageConstant.MALAYSIA,
-                                width: 90.0,
-                                height: 90.0,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                'Bahasa Malaysia',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                child: Transform.scale(
-                                  scale: 1.5,
-                                  child: Radio<int>(
-                                    value: 2,
-                                    groupValue: selectedLanguage,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedLanguage = value!;
-                                      });
-                                    },
+                    SizedBox(
+                      height: 5,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedLanguage = 2;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 100,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Card(
+                              elevation: 5,
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    ImageConstant.MALAYSIA,
+                                    width: 90.0,
+                                    height: 90.0,
                                   ),
-                                ),
-                              )
-                            ],
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    'Bahasa Malaysia',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                    child: Transform.scale(
+                                      scale: 1.5,
+                                      child: Radio<int>(
+                                        value: 2,
+                                        groupValue: selectedLanguage,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedLanguage = value!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Card(
-                          elevation: 5,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                ImageConstant.CHINA,
-                                width: 90.0,
-                                height: 90.0,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                '简体中文',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                child: Transform.scale(
-                                  scale: 1.5,
-                                  child: Radio<int>(
-                                    value: 3,
-                                    groupValue: selectedLanguage,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedLanguage = value!;
-                                      });
-                                    },
+                    SizedBox(
+                      height: 5,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedLanguage = 3;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 100,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Card(
+                              elevation: 5,
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    ImageConstant.CHINA,
+                                    width: 90.0,
+                                    height: 90.0,
                                   ),
-                                ),
-                              )
-                            ],
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    '简体中文',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                    child: Transform.scale(
+                                      scale: 1.5,
+                                      child: Radio<int>(
+                                        value: 3,
+                                        groupValue: selectedLanguage,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedLanguage = value!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ])),
-        Positioned(
-          top: 25,
-          left: 0,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: 35.0,
+                  ])),
+          Positioned(
+            top: 25,
+            left: 0,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
+              ),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
             ),
-            onPressed: () {
-              Navigator.pop(context, true);
-            },
           ),
-        ),
-        Positioned(
-          top: 25,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: kToolbarHeight,
-            alignment: Alignment.center,
-            child: Text(
-              LocaleKeys.Language.tr(),
-              style: TextStyle(
-                fontSize: TextConstant.TITLE_FONT_SIZE,
-                fontWeight: FontWeight.bold,
+          Positioned(
+            top: 25,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Text(
+                LocaleKeys.Language.tr(),
+                style: TextStyle(
+                  fontSize: TextConstant.TITLE_FONT_SIZE,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          top: 70,
-          right: 0,
-          left: 0,
-          child: Image.asset(
-            ImageConstant.LANGUAGE,
-            width: 200.0,
-            height: 200.0,
-          ),
-        ),
-        Positioned(
-            bottom: 20,
+          Positioned(
+            top: 70,
             right: 0,
             left: 0,
-            child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: customButton(
-                    context,
-                    LocaleKeys.Change.tr(),
-                    ColorConstant.BLUE_BUTTON_TEXT,
-                    ColorConstant.BLUE_BUTTON_UNPRESSED,
-                    ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                  if (selectedLanguage == 1) {
-                    //await context.setLocale(Locale('en'));
-                    await EasyLocalization.of(context)!.setLocale(Locale('en'));
-                  } else if (selectedLanguage == 2) {
-                    //await context.setLocale(Locale('my'));
-                    await EasyLocalization.of(context)!.setLocale(Locale('ms'));
-                  } else if (selectedLanguage == 3) {
-                    //await context.setLocale(Locale('zh'));
-                    await EasyLocalization.of(context)!.setLocale(Locale('zh'));
-                  }
-                }))),
-      ],
-    ));
+            child: Image.asset(
+              ImageConstant.LANGUAGE,
+              width: 200.0,
+              height: 200.0,
+            ),
+          ),
+          Positioned(
+              bottom: 20,
+              right: 0,
+              left: 0,
+              child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: customButton(
+                      context,
+                      LocaleKeys.Change.tr(),
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                    if (selectedLanguage == 1) {
+                      //await context.setLocale(Locale('en'));
+                      await EasyLocalization.of(context)!
+                          .setLocale(Locale('en'));
+                    } else if (selectedLanguage == 2) {
+                      //await context.setLocale(Locale('my'));
+                      await EasyLocalization.of(context)!
+                          .setLocale(Locale('ms'));
+                    } else if (selectedLanguage == 3) {
+                      //await context.setLocale(Locale('zh'));
+                      await EasyLocalization.of(context)!
+                          .setLocale(Locale('zh'));
+                    }
+                  }))),
+        ],
+      )),
+    );
   }
 }

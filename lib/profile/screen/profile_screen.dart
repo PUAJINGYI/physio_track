@@ -244,7 +244,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          'Level ${userData['level']}',
+                                          '${LocaleKeys.Level.tr()} ${userData['level']}',
                                           style: TextStyle(
                                             fontSize: 13.0,
                                             fontWeight: FontWeight.bold,

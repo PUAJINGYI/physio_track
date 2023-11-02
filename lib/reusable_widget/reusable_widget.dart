@@ -134,7 +134,7 @@ Container signInGmailButton(BuildContext context, Function onTap) {
               return Colors.black;
             }),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
+                RoundedRectangleBorder(  
                     borderRadius: BorderRadius.circular(30))))),
   );
 }

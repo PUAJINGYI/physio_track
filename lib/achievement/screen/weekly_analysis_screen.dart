@@ -149,7 +149,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                                 // Navigate to the other page when the card is tapped
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      WeeklyAnalsisDetailScreen(
+                                    WeeklyAnalsisDetailScreen(
                                           ot: otList[index],
                                           pt: ptList[index],
                                           uid: widget.uid),
