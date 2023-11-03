@@ -7,6 +7,8 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/pt_library_model.dart';
 import 'add_pt_activity_library_screen.dart';
@@ -18,7 +20,8 @@ class PTLibraryListScreen extends StatefulWidget {
 
 class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
   final YoutubeExplode _ytExplode = YoutubeExplode();
-
+  NotificationService notificationService = NotificationService();
+  
   @override
   void initState() {
     super.initState();
@@ -105,9 +108,32 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                                         ),
                                       ),
                                     ),
-                                    title: Text(ptLibrary.title,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500)),
+                                    title: FutureBuilder(
+                                      future: notificationService.translateText(
+                                          ptLibrary.title, context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              ShimmeringTextListWidget(
+                                                  width: 300, numOfLines: 2),
+                                            ],
+                                          ); // or any loading indicator
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String title = snapshot.data!;
+                                          return Text(title,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w500));
+                                        }
+                                      },
+                                    ),
                                     trailing: Container(
                                       width: 40,
                                       height: 40,

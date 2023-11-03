@@ -9,6 +9,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../pt_library/model/pt_activity_detail_model.dart';
 import '../../pt_library/model/pt_activity_model.dart';
 import '../../pt_library/model/pt_library_model.dart';
@@ -36,6 +38,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
   late List<PTLibrary> ptLibraryList = [];
   late double progress = 0.0;
   late bool afterToday = false;
+  NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
@@ -215,12 +218,49 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      ptLibrary.title,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 14.0),
+                                                     FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  ptLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String title =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            title,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
                                                     ),
                                                     Container(
                                                       // This is your new Container
@@ -339,12 +379,49 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      ptLibrary.title,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 14.0),
+                                                   FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  ptLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String title =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            title,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
                                                     ),
                                                     Container(
                                                       // This is your new Container
@@ -463,13 +540,50 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    ptLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
-                                                  ),
+                                                   FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  ptLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String title =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            title,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -573,13 +687,50 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    ptLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
-                                                  ),
+                                                    FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  ptLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String title =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            title,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -693,13 +844,50 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    ptLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
-                                                  ),
+                                                   FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  ptLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String title =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            title,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
                                                   Container(
                                                     // This is your new Container
                                                     width:

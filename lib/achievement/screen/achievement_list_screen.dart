@@ -7,6 +7,8 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/achievement_model.dart';
 import '../model/user_achievement_model.dart';
@@ -123,8 +125,8 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
               ),
               Positioned(
                 top: 125,
-                    left: 25,
-                    child: Text(LocaleKeys.Keep_it_up.tr(),
+                left: 25,
+                child: Text(LocaleKeys.Keep_it_up.tr(),
                     style:
                         TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
               ),
@@ -151,6 +153,7 @@ class AchievementCard extends StatelessWidget {
   final Achievement ach;
   AchievementCard({required this.achievement, required this.ach});
 
+  NotificationService notificationService = NotificationService();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -176,13 +179,31 @@ class AchievementCard extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(8, 15, 8, 0),
               child: Container(
                 height: 30,
-                child: Text(
-                  ach.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
-                  ),
-                  textAlign: TextAlign.center,
+                child: FutureBuilder(
+                  future: notificationService.translateText(ach.title, context),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ShimmeringTextListWidget(width: 100, numOfLines: 1),
+                        ],
+                      ); // or any loading indicator
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      String title = snapshot.data!;
+                      return Text(
+                        title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.0,
+                        ),
+                        textAlign: TextAlign.center,
+                      );
+                    }
+                  },
                 ),
               ),
             ),

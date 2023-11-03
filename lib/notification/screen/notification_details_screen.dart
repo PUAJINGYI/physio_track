@@ -12,6 +12,8 @@ import '../../constant/TextConstant.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/notification_model.dart';
 import '../service/notification_service.dart';
+import '../widget/shimmering_message_widget.dart';
+import '../widget/shimmering_text_list_widget.dart';
 
 class NotificationDetailsScreen extends StatefulWidget {
   final int notificationId;
@@ -58,7 +60,9 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                         return Center(child: CircularProgressIndicator());
                       }
                       if (snapshot.hasError) {
-                        return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+                        return Center(
+                            child: Text(
+                                '${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                       }
                       if (snapshot.hasData && snapshot.data == null) {
                         return Center(
@@ -91,12 +95,29 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                   padding: const EdgeInsets.all(16.0),
                                   child: Column(
                                     children: [
-                                      Text(
-                                        notification.title,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.0),
-                                        textAlign: TextAlign.center,
+                                      FutureBuilder(
+                                        future:
+                                            notificationService.translateText(
+                                                notification.title, context),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return ShimmeringMessageWidget(); // or any loading indicator
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            String title = snapshot.data!;
+                                            return Text(
+                                              title,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.0),
+                                              textAlign: TextAlign.center,
+                                            );
+                                          }
+                                        },
                                       ),
                                       SizedBox(
                                         height: 10.0,
@@ -106,10 +127,29 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                       SizedBox(
                                         height: 100.0,
                                       ),
-                                      Text(
-                                        notification.message,
-                                        textAlign: TextAlign.justify,
-                                        style: TextStyle(fontSize: 15.0),
+                                      FutureBuilder(
+                                        future:
+                                            notificationService.translateText(
+                                                notification.message, context),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return ShimmeringTextListWidget(width: 300, numOfLines: 4); // or any loading indicator
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            String title = snapshot.data!;
+                                            return Text(
+                                              title,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15.0),
+                                              textAlign: TextAlign.justify,
+                                            );
+                                          }
+                                        },
                                       ),
                                     ],
                                   ),

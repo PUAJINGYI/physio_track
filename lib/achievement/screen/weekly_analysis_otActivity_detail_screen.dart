@@ -9,6 +9,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../ot_library/model/ot_activity_detail_model.dart';
 import '../../ot_library/model/ot_activity_model.dart';
 import '../../ot_library/model/ot_library_model.dart';
@@ -36,6 +38,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
   late List<OTLibrary> otLibraryList = [];
   late double progress = 0.0;
   late bool afterToday = false;
+  NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
@@ -146,7 +149,8 @@ class _WeeklyAnalysisOTActivityDetailScreenState
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+              return Center(
+                  child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
             } else {
               return Stack(
                 children: [
@@ -214,13 +218,58 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      otLibrary.title,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 14.0),
+                                                    // Text(
+                                                    //   otLibrary.title,
+                                                    //   style: TextStyle(
+                                                    //       fontWeight:
+                                                    //           FontWeight.w500,
+                                                    //       fontSize: 14.0),
+                                                    // ),
+                                                    FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  otLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String desc =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            desc,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
                                                     ),
+
                                                     Container(
                                                       // This is your new Container
                                                       width:
@@ -254,7 +303,9 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                                 .center, // Center the text vertically
                                                         children: [
                                                           Text(
-                                                            _getLevelText(otLibrary.level) ,
+                                                            _getLevelText(
+                                                                otLibrary
+                                                                    .level),
                                                             style: TextStyle(
                                                               fontSize: 12.0,
                                                               color:
@@ -336,12 +387,49 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      otLibrary.title,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 14.0),
+                                                      FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  otLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String desc =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            desc,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
                                                     ),
                                                     Container(
                                                       // This is your new Container
@@ -376,7 +464,9 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                                 .center, // Center the text vertically
                                                         children: [
                                                           Text(
-                                                            _getLevelText(otLibrary.level),
+                                                            _getLevelText(
+                                                                otLibrary
+                                                                    .level),
                                                             style: TextStyle(
                                                               fontSize: 12.0,
                                                               color:
@@ -458,13 +548,50 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    otLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
-                                                  ),
+                                                  FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  otLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String desc =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            desc,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -497,7 +624,8 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          _getLevelText(otLibrary.level),
+                                                          _getLevelText(
+                                                              otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
                                                             color:
@@ -567,13 +695,50 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    otLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
-                                                  ),
+                                                   FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  otLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String desc =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            desc,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -606,7 +771,8 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          _getLevelText( otLibrary.level),
+                                                          _getLevelText(
+                                                              otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
                                                             color:
@@ -687,13 +853,50 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    otLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
-                                                  ),
+                                                   FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  otLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              ShimmeringTextListWidget(
+                                                                  width: 300,
+                                                                  numOfLines:
+                                                                      2),
+                                                            ],
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String desc =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            desc,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -726,7 +929,8 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          _getLevelText(otLibrary.level),
+                                                          _getLevelText(
+                                                              otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
                                                             color:

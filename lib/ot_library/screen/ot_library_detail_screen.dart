@@ -7,6 +7,8 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
@@ -25,6 +27,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
   late OTLibrary _otLibraryRecord;
   final OTLibraryService _otLibraryService = OTLibraryService();
   late YoutubePlayerController _controller;
+  NotificationService notificationService = NotificationService();
 
   Future<void> _loadOTLibraryRecord() async {
     try {
@@ -113,12 +116,31 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                   children: [
                                     Align(
                                       alignment: Alignment.topLeft,
-                                      child: Text(
-                                        _otLibraryRecord.title,
-                                        style: TextStyle(
-                                          fontSize: 24.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      child: FutureBuilder(
+                                        future:
+                                            notificationService.translateText(
+                                                _otLibraryRecord.title,
+                                                context),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return ShimmeringTextListWidget(
+                                                width: 300, numOfLines: 2);
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            String title = snapshot.data!;
+                                            return Text(
+                                              title,
+                                              style: TextStyle(
+                                                fontSize: 24.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            );
+                                          }
+                                        },
                                       ),
                                     ),
                                     SizedBox(height: 8.0),
@@ -177,11 +199,35 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                       ],
                                     ),
                                     SizedBox(height: 8.0),
-                                    Text(
-                                      _otLibraryRecord.description,
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.grey[500]),
+                                    FutureBuilder(
+                                      future: notificationService.translateText(
+                                          _otLibraryRecord.description,
+                                          context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              ShimmeringTextListWidget(
+                                                  width: 400, numOfLines: 4),
+                                            ],
+                                          ); // or any loading indicator
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String desc = snapshot.data!;
+                                          return Text(
+                                            desc,
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.grey[500]),
+                                          );
+                                        }
+                                      },
                                     ),
                                     SizedBox(height: 250.0),
                                   ],
@@ -201,12 +247,29 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                 children: [
                                   Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text(
-                                      _otLibraryRecord.title,
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    child: FutureBuilder(
+                                      future: notificationService.translateText(
+                                          _otLibraryRecord.title, context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return ShimmeringTextListWidget(
+                                              width: 300, numOfLines: 2);
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String title = snapshot.data!;
+                                          return Text(
+                                            title,
+                                            style: TextStyle(
+                                              fontSize: 24.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          );
+                                        }
+                                      },
                                     ),
                                   ),
                                   SizedBox(height: 8.0),
@@ -266,11 +329,34 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                     ],
                                   ),
                                   SizedBox(height: 8.0),
-                                  Text(
-                                    _otLibraryRecord.description,
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.grey[500]),
+                                
+                                  FutureBuilder(
+                                    future: notificationService.translateText(
+                                        _otLibraryRecord.description, context),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<String> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            ShimmeringTextListWidget(
+                                                width: 400, numOfLines: 4),
+                                          ],
+                                        ); // or any loading indicator
+                                      } else if (snapshot.hasError) {
+                                        return Text('Error: ${snapshot.error}');
+                                      } else {
+                                        String desc = snapshot.data!;
+                                        return Text(
+                                          desc,
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: Colors.grey[500]),
+                                        );
+                                      }
+                                    },
                                   ),
                                   SizedBox(height: 250.0),
                                 ],

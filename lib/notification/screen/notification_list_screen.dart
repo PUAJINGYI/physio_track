@@ -9,6 +9,7 @@ import 'package:physio_track/translations/locale_keys.g.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../model/notification_model.dart';
+import '../widget/shimmering_message_widget.dart';
 
 class NotificationListScreen extends StatefulWidget {
   const NotificationListScreen({super.key});
@@ -99,10 +100,31 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                   children: [
                                     Expanded(
                                       child: ListTile(
-                                        title: Text(notification.title,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: titleColor)),
+                                        title:
+                                            FutureBuilder(
+                                          future:
+                                              notificationService.translateText(
+                                                  notification.title, context),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<String> snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return ShimmeringMessageWidget(); // or any loading indicator
+                                            } else if (snapshot.hasError) {
+                                              return Text(
+                                                  'Error: ${snapshot.error}');
+                                            } else {
+                                              String title = snapshot.data!;
+                                              return Text(
+                                                title,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: titleColor,
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
                                         subtitle: Text(
                                           dateFormat.format(notification.date),
                                           style: TextStyle(color: titleColor),

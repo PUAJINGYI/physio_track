@@ -14,6 +14,8 @@ import '../../constant/AchievementConstant.dart';
 import '../../constant/ColorConstant.dart';
 import '../../achievement/widget/achievement_dialog_widget.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/pt_activity_model.dart';
@@ -38,6 +40,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
   final PTLibraryService _ptLibraryService = PTLibraryService();
   final AchievementService _achievementService = AchievementService();
   late YoutubePlayerController _controller;
+  NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
@@ -77,7 +80,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     return Colors.grey[300]!;
   }
 
-    String _getLevelText(String level) {
+  String _getLevelText(String level) {
     if (level == 'Advanced') {
       return LocaleKeys.Advanced.tr();
     } else if (level == 'Intermediate') {
@@ -88,7 +91,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     // Default background color if the level doesn't match the conditions
     return '';
   }
-
 
   Color _getCatBackgroundColor(String cat) {
     if (cat == 'Lower') {
@@ -369,7 +371,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
           ),
         );
       } else {
-       Navigator.pop(context, true);
+        Navigator.pop(context, true);
       }
     }
     // } catch (e) {
@@ -511,12 +513,33 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                   children: [
                                     Align(
                                       alignment: Alignment.topLeft,
-                                      child: Text(
-                                        _ptLibraryRecord.title,
-                                        style: TextStyle(
-                                          fontSize: 24.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      child: FutureBuilder(
+                                        future:
+                                            notificationService.translateText(
+                                                _ptLibraryRecord.title,
+                                                context),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return ShimmeringTextListWidget(
+                                              width: 300,
+                                              numOfLines: 2,
+                                            ); // or any loading indicator
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            String title = snapshot.data!;
+                                            return Text(
+                                              title,
+                                              style: TextStyle(
+                                                fontSize: 24.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            );
+                                          }
+                                        },
                                       ),
                                     ),
                                     SizedBox(height: 8.0),
@@ -562,7 +585,8 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                                       _ptLibraryRecord.level)),
                                               SizedBox(width: 4.0),
                                               Text(
-                                                _getLevelText(_ptLibraryRecord.level),
+                                                _getLevelText(
+                                                    _ptLibraryRecord.level),
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: _getLevelColor(
@@ -605,11 +629,31 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                       ],
                                     ),
                                     SizedBox(height: 8.0),
-                                    Text(
-                                      _ptLibraryRecord.description,
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.grey[500]),
+                                    FutureBuilder(
+                                      future: notificationService.translateText(
+                                          _ptLibraryRecord.description,
+                                          context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return ShimmeringTextListWidget(
+                                            width: 400,
+                                            numOfLines: 4,
+                                          ); // or any loading indicator
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String desc = snapshot.data!;
+                                          return Text(
+                                            desc,
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.grey[500]),
+                                          );
+                                        }
+                                      },
                                     ),
                                     SizedBox(height: 250.0),
                                   ],
@@ -629,12 +673,31 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                 children: [
                                   Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text(
-                                      _ptLibraryRecord.title,
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    child: FutureBuilder(
+                                      future: notificationService.translateText(
+                                          _ptLibraryRecord.title, context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return ShimmeringTextListWidget(
+                                            width: 300,
+                                            numOfLines: 2,
+                                          ); // or any loading indicator
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String title = snapshot.data!;
+                                          return Text(
+                                            title,
+                                            style: TextStyle(
+                                              fontSize: 24.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          );
+                                        }
+                                      },
                                     ),
                                   ),
                                   SizedBox(height: 8.0),
@@ -680,7 +743,8 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                                     _ptLibraryRecord.level)),
                                             SizedBox(width: 4.0),
                                             Text(
-                                              _getLevelText(_ptLibraryRecord.level),
+                                              _getLevelText(
+                                                  _ptLibraryRecord.level),
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: _getLevelColor(
@@ -722,11 +786,29 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                     ],
                                   ),
                                   SizedBox(height: 8.0),
-                                  Text(
-                                    _ptLibraryRecord.description,
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.grey[500]),
+                                  FutureBuilder(
+                                    future: notificationService.translateText(
+                                        _ptLibraryRecord.description, context),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<String> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return ShimmeringTextListWidget(
+                                          width: 400,
+                                          numOfLines: 4,
+                                        );
+                                      } else if (snapshot.hasError) {
+                                        return Text('Error: ${snapshot.error}');
+                                      } else {
+                                        String desc = snapshot.data!;
+                                        return Text(
+                                          desc,
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: Colors.grey[500]),
+                                        );
+                                      }
+                                    },
                                   ),
                                   SizedBox(height: 250.0),
                                 ],

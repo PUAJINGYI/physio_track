@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const Appointment = 'Appointment';
   static const Edit_Appointment = 'Edit_Appointment';
   static const Profile = 'Profile';
@@ -291,5 +291,35 @@ abstract class LocaleKeys {
   static const User_document_not_exist = 'User_document_not_exist';
   static const New_account_created_successfully = 'New_account_created_successfully';
   static const Google_Sign_In = 'Google_Sign_In';
+  static const Good_Start = 'Good_Start';
+  static const Daily_Dedication = 'Daily_Dedication';
+  static const Flexibility_Achiever = 'Flexibility_Achiever';
+  static const Range_of_Motion_Maestro = 'Range_of_Motion_Maestro';
+  static const Physiotherapy_Prodigy = 'Physiotherapy_Prodigy';
+  static const Physio_Dynamo = 'Physio_Dynamo';
+  static const Physio_Virtuoso = 'Physio_Virtuoso';
+  static const Occupational_Onset = 'Occupational_Onset';
+  static const Daily_Engagement = 'Daily_Engagement';
+  static const Adaptive_Adept = 'Adaptive_Adept';
+  static const Life_Improvement_Trailblazer = 'Life_Improvement_Trailblazer';
+  static const Occupational_Odyssey = 'Occupational_Odyssey';
+  static const Occupational_Enthusiast = 'Occupational_Enthusiast';
+  static const Occupational_Master = 'Occupational_Master';
+  static const Lifelong_Wellness_Champion = 'Lifelong_Wellness_Champion';
+  static const Emotional_Explorer = 'Emotional_Explorer';
+  static const Two_Module_Triumph = 'Two_Module_Triumph';
+  static const Extreme_Difficulty = 'Extreme_Difficulty';
+  static const No_Difficulty = 'No_Difficulty';
+  static const Male = 'Male';
+  static const Female = 'Female';
+  static const Sunny = 'Sunny';
+  static const Cloudy = 'Cloudy';
+  static const Rainy = 'Rainy';
+  static const Snowing = 'Snowing';
+  static const Thundering = 'Thundering';
+  static const Depressed = 'Depressed';
+  static const Sad = 'Sad';
+  static const Happy = 'Happy';
+  static const Excited = 'Excited';
 
 }

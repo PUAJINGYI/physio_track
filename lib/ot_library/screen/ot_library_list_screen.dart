@@ -8,6 +8,8 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import 'ot_library_detail_screen.dart';
 import 'ot_library_list_screen.dart';
@@ -19,6 +21,7 @@ class OTLibraryListScreen extends StatefulWidget {
 
 class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
   final YoutubeExplode _ytExplode = YoutubeExplode();
+  NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
@@ -106,9 +109,32 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                         ),
                                       ),
                                     ),
-                                    title: Text(otLibrary.title,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500)),
+                                    title: FutureBuilder(
+                                      future: notificationService.translateText(
+                                          otLibrary.title, context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              ShimmeringTextListWidget(
+                                                  width: 300, numOfLines: 2),
+                                            ],
+                                          ); // or any loading indicator
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String title = snapshot.data!;
+                                          return Text(title,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w500));
+                                        }
+                                      },
+                                    ),
                                     trailing: Container(
                                       width: 40,
                                       height: 40,
@@ -117,8 +143,9 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                         color: Colors.blue,
                                       ),
                                       child: IconButton(
-                                        onPressed: () async{
-                                          final needUpdate = await Navigator.push(
+                                        onPressed: () async {
+                                          final needUpdate =
+                                              await Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
@@ -128,7 +155,8 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                             ),
                                           );
 
-                                          if (needUpdate != null && needUpdate) {
+                                          if (needUpdate != null &&
+                                              needUpdate) {
                                             setState(() {});
                                           }
                                         },

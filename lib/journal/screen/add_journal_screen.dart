@@ -48,19 +48,19 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   String _comment = '';
 
   List<String> weatherOptions = [
-    'Sunny',
-    'Cloudy',
-    'Rainy',
-    'Snowing',
-    'Thundering'
+    LocaleKeys.Sunny.tr(),
+    LocaleKeys.Cloudy.tr(),
+    LocaleKeys.Rainy.tr(),
+    LocaleKeys.Snowing.tr(),
+    LocaleKeys.Thundering.tr(),
   ];
 
   List<String> feelingOptions = [
-    'Depressed',
-    'Sad',
-    'Neutral',
-    'Happy',
-    'Excited'
+    LocaleKeys.Depressed.tr(),
+    LocaleKeys.Sad.tr(),
+    LocaleKeys.Neutral.tr(),
+    LocaleKeys.Happy.tr(),
+    LocaleKeys.Excited.tr(),
   ];
 
   Future<void> _pickImage() async {

@@ -7,6 +7,8 @@ import 'package:physio_track/pt_library/screen/pt_daily_detail_screen.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/pt_activity_detail_model.dart';
 import '../model/pt_activity_model.dart';
@@ -26,6 +28,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
   late List<PTLibrary> ptLibraryList = [];
   late int activityId = 0;
   late double progress = 0.0;
+  NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
@@ -144,7 +147,8 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+                return Center(
+                    child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
               } else {
                 return Stack(
                   children: [
@@ -209,12 +213,40 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    ptLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            ptLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return ShimmeringTextListWidget(
+                                                          width: 300,
+                                                          numOfLines: 2,
+                                                        ); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String title =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          title,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
                                                   ),
                                                   Container(
                                                     // This is your new Container
@@ -248,7 +280,8 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          _getLevelText(ptLibrary.level),
+                                                          _getLevelText(
+                                                              ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
                                                             color:
@@ -329,12 +362,40 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    ptLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            ptLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return ShimmeringTextListWidget(
+                                                          width: 300,
+                                                          numOfLines: 2,
+                                                        ); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String title =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          title,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
                                                   ),
                                                   Container(
                                                     // This is your new Container
@@ -368,7 +429,8 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          _getLevelText(ptLibrary.level),
+                                                          _getLevelText(
+                                                              ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
                                                             color:

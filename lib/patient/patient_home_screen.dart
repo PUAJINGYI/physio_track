@@ -37,7 +37,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   String uId = FirebaseAuth.instance.currentUser!.uid;
   CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('users');
-  UserManagementService userManagementService = UserManagementService(); 
+  UserManagementService userManagementService = UserManagementService();
   UserPTListService userPTListService = UserPTListService();
   UserOTListService userOTListService = UserOTListService();
   String username = '';
@@ -51,13 +51,13 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
     updateProgress();
   }
 
-  Future<void> updateProgress() async{
+  Future<void> updateProgress() async {
     await _fetchPTProgress();
     await _fetchOTProgress();
   }
 
   Future<void> updateUserOTPTList() async {
-        username = await userManagementService.getUsernameByUid(uId, true);
+    username = await userManagementService.getUsernameByUid(uId, true);
     DocumentReference userRef = usersCollection.doc(uId);
     await userPTListService.suggestPTActivityList(userRef, uId);
     await userOTListService.suggestOTActivityList(userRef, uId);
@@ -90,7 +90,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
 
     if (ptActivitiesSnapshot.docs.isNotEmpty) {
       ptProgress = ptActivity.progress;
-      setState(() {});
+      //setState(() {});
     }
   }
 
@@ -121,7 +121,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
 
     if (otActivitiesSnapshot.docs.isNotEmpty) {
       otProgress = otActivity.progress;
-      setState(() {});
+      //setState(() {});
     }
   }
 
@@ -145,7 +145,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
             );
           } else if (snapshot.hasError) {
             // Handle errors if any.
-            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+            return Center(
+                child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           } else {
             // Return your main content when the data is ready.
             return Stack(
@@ -175,8 +176,12 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                             horizontal: 14.0), // Adjust the padding as needed
                         child: Row(
                           children: [
-                            exerciseCard(context, ptProgress, ImageConstant.PT,
-                                LocaleKeys.PT.tr(), '8.00 AM - 1.30 PM', () async {
+                            exerciseCard(
+                                context,
+                                ptProgress,
+                                ImageConstant.PT,
+                                LocaleKeys.PT.tr(),
+                                '8.00 AM - 1.30 PM', () async {
                               final needUpdate = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -184,16 +189,20 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                       PTDailyListScreen(uid: uId),
                                 ),
                               );
-                
+
                               if (needUpdate != null && needUpdate) {
-                                setState (() {
-                                   updateProgress();
+                                setState(() {
+                                  updateProgress();
                                 });
                               }
                             }),
                             SizedBox(width: 10.0), // Add spacing between cards
-                            exerciseCard(context, otProgress, ImageConstant.OT,
-                                LocaleKeys.OT.tr(), '8.00 AM - 1.30 PM', () async {
+                            exerciseCard(
+                                context,
+                                otProgress,
+                                ImageConstant.OT,
+                                LocaleKeys.OT.tr(),
+                                '8.00 AM - 1.30 PM', () async {
                               final needUpdate = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -201,10 +210,10 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                       OTDailyListScreen(uid: uId),
                                 ),
                               );
-                
+
                               if (needUpdate != null && needUpdate) {
-                                setState(()  {
-                                   updateProgress();
+                                setState(() {
+                                  updateProgress();
                                 });
                               }
                             }),
@@ -244,7 +253,9 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressScreen(uniqueKey: UniqueKey(),)),
+                                    builder: (context) => ProgressScreen(
+                                          uniqueKey: UniqueKey(),
+                                        )),
                               );
                             }),
                             SizedBox(width: 10.0), // Add spacing between cards

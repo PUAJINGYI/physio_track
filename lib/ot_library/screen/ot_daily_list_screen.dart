@@ -9,6 +9,10 @@ import 'package:physio_track/ot_library/model/ot_library_model.dart';
 import 'package:physio_track/ot_library/screen/ot_library_detail_screen.dart';
 
 import '../../constant/ImageConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_message_widget.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import 'ot_daily_detail_screen.dart';
 
@@ -26,6 +30,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
   late List<OTLibrary> otLibraryList = [];
   late int activityId = 0;
   late double progress = 0.0;
+  NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
@@ -212,12 +217,37 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    otLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            otLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return ShimmeringTextListWidget(width: 300, numOfLines: 2); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String title =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          title,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
                                                   ),
                                                   Container(
                                                     // This is your new Container
@@ -333,12 +363,37 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    otLibrary.title,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 14.0),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            otLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return ShimmeringTextListWidget(width: 300, numOfLines: 2,); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String title =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          title,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
                                                   ),
                                                   Container(
                                                     // This is your new Container

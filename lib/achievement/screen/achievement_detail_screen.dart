@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:physio_track/constant/ColorConstant.dart';
 
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/achievement_model.dart';
@@ -23,6 +25,8 @@ class AchievementDetailScreen extends StatefulWidget {
 }
 
 class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
+  NotificationService notificationService = NotificationService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,21 +47,60 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                     ),
                   ),
                   SizedBox(height: 16.0), // Add some spacing
-                  Text(
-                    widget.achievement.title,
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+                  FutureBuilder(
+                    future: notificationService.translateText(
+                        widget.achievement.title, context),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ShimmeringTextListWidget(width: 400, numOfLines: 1),
+                          ],
+                        ); // or any loading indicator
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        String title = snapshot.data!;
+                        return Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      }
+                    },
                   ),
+
                   SizedBox(height: 8.0), // Add some spacing
-                  Text(
-                    widget.achievement.description,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                    ),
-                    textAlign: TextAlign.center,
+                  FutureBuilder(
+                    future: notificationService.translateText(
+                        widget.achievement.description, context),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ShimmeringTextListWidget(width: 400, numOfLines: 2),
+                          ],
+                        ); // or any loading indicator
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        String desc = snapshot.data!;
+                        return Text(
+                          desc,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      }
+                    },
                   ),
                   SizedBox(height: 8.0), // Add some spacing
                   Stack(

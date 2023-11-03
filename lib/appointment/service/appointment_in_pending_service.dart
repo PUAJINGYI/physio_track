@@ -463,7 +463,6 @@ class AppointmentInPendingService {
             'Dear ${patientName}, \n\nI hope this email finds you well. We regret to inform you that your recent appointment update for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. The appointment time will remain at  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}\n\nPlease cancel the current appointment and plan a new appointment at your earliest convenience in PhysioTrack app if you wish to reschedule your appointment. We apologize for any inconvenience and appreciate your understanding. \n\n\nRegards,\nPhysioTrack');
 
         subject = 'Appointment Update Rejection';
-
         await appointmentInPendingCollection
             .where('id', isEqualTo: appointment.id)
             .get()

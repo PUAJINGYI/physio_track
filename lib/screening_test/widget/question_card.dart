@@ -1,7 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/screening_test/model/question_model.dart';
 import 'package:physio_track/screening_test/model/question_response_model.dart';
 import 'package:intl/intl.dart';
+
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
+import '../../translations/locale_keys.g.dart';
 
 class QuestionCard extends StatelessWidget {
   final Question question;
@@ -22,6 +27,7 @@ class QuestionCard extends StatelessWidget {
     final responseValue = responseIndex != -1
         ? double.tryParse(responses[responseIndex].response) ?? 1.0
         : 1.0;
+    NotificationService notificationService = NotificationService();
 
     return Card(
       child: Container(
@@ -31,11 +37,36 @@ class QuestionCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                question.question,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // Text(
+              //   question.question,
+              //   style:
+              //       const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // ),
+              FutureBuilder(
+                future: notificationService.translateText(
+                    question.question, context),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ShimmeringTextListWidget(width: 300, numOfLines: 2),
+                      ],
+                    ); // or any loading indicator
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    String question = snapshot.data!;
+                    return Text(
+                      question,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    );
+                  }
+                },
               ),
+
               SizedBox(height: 8),
               buildQuestionWidget(
                   question.questionType, responseValue, onChanged),
@@ -62,7 +93,7 @@ class QuestionCard extends StatelessWidget {
       case 'option':
         return buildRadioButton(responseValue, onValueChanged);
       case 'gender':
-        return buildGenderRadioButton(responseValue, onValueChanged);  
+        return buildGenderRadioButton(responseValue, onValueChanged);
       default:
         return SizedBox.shrink();
     }
@@ -77,8 +108,9 @@ class QuestionCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Extreme Difficulty', style: TextStyle(fontSize: 12)),
-            Text('No Difficulty', style: TextStyle(fontSize: 12)),
+            Text(LocaleKeys.Extreme_Difficulty.tr(),
+                style: TextStyle(fontSize: 12)),
+            Text(LocaleKeys.No_Difficulty.tr(), style: TextStyle(fontSize: 12)),
           ],
         ),
         Slider(
@@ -131,6 +163,7 @@ class QuestionCard extends StatelessWidget {
       onTap: () async {
         newDate = await showDatePicker(
           context: context,
+          locale: EasyLocalization.of(context)!.currentLocale!,
           initialDate:
               selectedDate.isBefore(firstDate) ? firstDate : selectedDate,
           firstDate: firstDate,
@@ -148,7 +181,7 @@ class QuestionCard extends StatelessWidget {
     return Column(
       children: [
         RadioListTile<double>(
-          title: Text('Yes'),
+          title: Text(LocaleKeys.Yes.tr()),
           value: 1.0,
           groupValue: value,
           onChanged: (newValue) {
@@ -156,7 +189,7 @@ class QuestionCard extends StatelessWidget {
           },
         ),
         RadioListTile<double>(
-          title: Text('No'),
+          title: Text(LocaleKeys.No.tr()),
           value: 0.0,
           groupValue: value,
           onChanged: (newValue) {
@@ -171,7 +204,7 @@ class QuestionCard extends StatelessWidget {
     return Column(
       children: [
         RadioListTile<double>(
-          title: Text('Male'),
+          title: Text(LocaleKeys.Male.tr()),
           value: 1.0,
           groupValue: value,
           onChanged: (newValue) {
@@ -179,7 +212,7 @@ class QuestionCard extends StatelessWidget {
           },
         ),
         RadioListTile<double>(
-          title: Text('Female'),
+          title: Text(LocaleKeys.Female.tr()),
           value: 0.0,
           groupValue: value,
           onChanged: (newValue) {

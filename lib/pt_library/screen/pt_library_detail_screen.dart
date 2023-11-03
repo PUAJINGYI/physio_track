@@ -7,6 +7,8 @@ import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/pt_library_model.dart';
 import '../service/pt_library_service.dart';
@@ -24,6 +26,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
   late PTLibrary _ptLibraryRecord;
   final PTLibraryService _ptLibraryService = PTLibraryService();
   late YoutubePlayerController _controller;
+  NotificationService notificationService = NotificationService();
 
   Future<void> _loadPTLibraryRecord() async {
     try {
@@ -112,12 +115,31 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                   children: [
                                     Align(
                                       alignment: Alignment.topLeft,
-                                      child: Text(
-                                        _ptLibraryRecord.title,
-                                        style: TextStyle(
-                                          fontSize: 24.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      child: FutureBuilder(
+                                        future:
+                                            notificationService.translateText(
+                                                _ptLibraryRecord.title,
+                                                context),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return ShimmeringTextListWidget(
+                                                width: 300, numOfLines: 2);
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            String title = snapshot.data!;
+                                            return Text(
+                                              title,
+                                              style: TextStyle(
+                                                fontSize: 24.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            );
+                                          }
+                                        },
                                       ),
                                     ),
                                     SizedBox(height: 8.0),
@@ -206,11 +228,35 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                       ],
                                     ),
                                     SizedBox(height: 8.0),
-                                    Text(
-                                      _ptLibraryRecord.description,
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.grey[500]),
+                                    FutureBuilder(
+                                      future: notificationService.translateText(
+                                          _ptLibraryRecord.description,
+                                          context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              ShimmeringTextListWidget(
+                                                  width: 400, numOfLines: 4),
+                                            ],
+                                          ); // or any loading indicator
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String desc = snapshot.data!;
+                                          return Text(
+                                            desc,
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.grey[500]),
+                                          );
+                                        }
+                                      },
                                     ),
                                     SizedBox(height: 250.0),
                                   ],
@@ -230,12 +276,29 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                 children: [
                                   Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text(
-                                      _ptLibraryRecord.title,
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    child: FutureBuilder(
+                                      future: notificationService.translateText(
+                                          _ptLibraryRecord.title, context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return ShimmeringTextListWidget(
+                                              width: 300, numOfLines: 2);
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String title = snapshot.data!;
+                                          return Text(
+                                            title,
+                                            style: TextStyle(
+                                              fontSize: 24.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          );
+                                        }
+                                      },
                                     ),
                                   ),
                                   SizedBox(height: 8.0),
@@ -324,11 +387,33 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                     ],
                                   ),
                                   SizedBox(height: 8.0),
-                                  Text(
-                                    _ptLibraryRecord.description,
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.grey[500]),
+                                  FutureBuilder(
+                                    future: notificationService.translateText(
+                                        _ptLibraryRecord.description, context),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<String> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            ShimmeringTextListWidget(
+                                                width: 400, numOfLines: 4),
+                                          ],
+                                        ); // or any loading indicator
+                                      } else if (snapshot.hasError) {
+                                        return Text('Error: ${snapshot.error}');
+                                      } else {
+                                        String desc = snapshot.data!;
+                                        return Text(
+                                          desc,
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: Colors.grey[500]),
+                                        );
+                                      }
+                                    },
                                   ),
                                   SizedBox(height: 250.0),
                                 ],

@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:physio_track/notification/model/notification_model.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../../constant/TextConstant.dart';
 import '../../user_management/service/user_management_service.dart';
 
@@ -70,8 +73,8 @@ class NotificationService {
 
   Future<void> addAppointmentRequestNotiToAdmin(
       String requestType, String patientName) async {
-        String title='';
-        String msg='';
+    String title = '';
+    String msg = '';
     String adminEmail = dotenv.get('ADMIN_EMAIL2');
     String adminUid = await userManagementService.getUidByEmail(adminEmail);
 
@@ -88,10 +91,10 @@ class NotificationService {
     if (requestType == TextConstant.NEW) {
       title = 'New Appointment Request';
       msg = '$patientName has requested a new appointment';
-    }else if (requestType == TextConstant.UPDATED){
+    } else if (requestType == TextConstant.UPDATED) {
       title = 'Appointment Update Request';
       msg = '$patientName has requested to update an appointment';
-    }else if (requestType == TextConstant.CANCELLED){
+    } else if (requestType == TextConstant.CANCELLED) {
       title = 'Appointment Cancellation Request';
       msg = '$patientName has requested to cancel an appointment';
     }
@@ -195,6 +198,46 @@ class NotificationService {
     } else {
       print('Notification not found');
       return null;
+    }
+  }
+
+  Future<String> translateText(String text, BuildContext context) async {
+    // https://api.mymemory.translated.net/get?q=Hello%20World!&langpair=en|zh
+    String locale = EasyLocalization.of(context)!.currentLocale!.languageCode;
+    if (locale == 'en') {
+      return text;
+    } else {
+      String? translatedText;
+      final emailAddresses = [
+        dotenv.get('EMAIL_ACC1'),
+        dotenv.get('EMAIL_ACC2'),
+        dotenv.get('EMAIL_ACC3'),
+        dotenv.get('EMAIL_ACC4')
+      ];
+      for (final email in emailAddresses) {
+        String urlString = dotenv.get('TRANSLATE_API') +
+            Uri.encodeComponent(text) +
+            dotenv.get('TRANSLATE_API_LANG') +
+            locale +
+            dotenv.get('TRANSLATE_EMAIL') +
+            email;
+        final url = Uri.parse(
+          urlString,
+        );
+        final response = await http.get(url);
+
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> jsonData = json.decode(response.body);
+          translatedText = jsonData['responseData']['translatedText'];
+          break;
+        }
+      }
+
+      if (translatedText != null) {
+        return translatedText;
+      } else {
+        throw Exception('Failed to load translation for all email addresses');
+      }
     }
   }
 }
