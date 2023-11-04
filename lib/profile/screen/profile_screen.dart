@@ -135,13 +135,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                   ],
                 ),
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  final needUpdate = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => NotificationListScreen(),
                     ),
                   );
+                  if (needUpdate != null && needUpdate) {
+                    setState(() {
+                      getUserData();
+                      checkUnreadNotifications();
+                    });
+                  }
                 },
               ),
             ),
@@ -306,7 +312,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       LocaleKeys.Change_Language.tr(),
                       ColorConstant.BLUE_BUTTON_TEXT,
                       ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ColorConstant.BLUE_BUTTON_PRESSED, () async{
+                      ColorConstant.BLUE_BUTTON_PRESSED, () async {
                     final needUpdate = await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -358,13 +364,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                   ],
                 ),
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  final needUpdate = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => NotificationListScreen(),
                     ),
                   );
+
+                  if (needUpdate != null && needUpdate) {
+                    setState(() {
+                      getUserData();
+                      checkUnreadNotifications();
+                    });
+                  }
                 },
               ),
             ),
@@ -397,7 +410,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () async{
+            onTap: () async {
               final needUpdate = await Navigator.push(
                   context,
                   MaterialPageRoute(
