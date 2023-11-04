@@ -62,6 +62,12 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
     }
   }
 
+void _onPageChanged(DateTime focusedDay) {
+  setState(() {
+    selectedDate = DateTime(focusedDay.year, focusedDay.month, selectedDate.day);
+  });
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,6 +112,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                               headerStyle: HeaderStyle(
                                 formatButtonShowsNext: false,
                               ),
+                              onPageChanged: _onPageChanged,
                               onDaySelected: (date, events) {
                                 setState(() {
                                   selectedDate = date;
