@@ -82,34 +82,18 @@ class _TestFinishScreenState extends State<TestFinishScreen> {
                         style: TextStyle(fontSize: 16, height: 1.2),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
+                      child: Text(
+                        LocaleKeys.It_may_take_some_minutes.tr(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16, height: 1.2),
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     Center(child: CircularProgressIndicator()),
                   ],
                 ),
-                // Container(
-                //   width: MediaQuery.of(context).size.width,
-                //   height: MediaQuery.of(context).size.height,
-                //   child: SingleChildScrollView(
-                //     child: Padding(
-                //       padding: EdgeInsets.fromLTRB(
-                //           20, MediaQuery.of(context).size.height * 0.39, 20, 0),
-                //       child: Column(
-                //         children: [
-                //           SizedBox(
-                //             height: 400,
-                //           ),
-                //           // customButton(
-                //           //     context,
-                //           //     LocaleKeys.Go_Homepage.tr(),
-                //           //     ColorConstant.BLUE_BUTTON_TEXT,
-                //           //     ColorConstant.BLUE_BUTTON_UNPRESSED,
-                //           //     ColorConstant.BLUE_BUTTON_PRESSED, () {
-                //           //   finishTest();
-                //           // })
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ]);
             }));
   }
