@@ -83,17 +83,15 @@ void main() async {
   Workmanager().cancelByUniqueName("thirdTask");
   Workmanager().cancelByUniqueName("updateActivityList");
   //runApp(MyApp());
-
-  runApp(EasyLocalization(
-      child: MyApp(),
-      supportedLocales: [
-        Locale('en'),
-        Locale('ms'),
-        Locale('zh')
-      ],
-      fallbackLocale: Locale('en'),
-      assetLoader: CodegenLoader(),
-      path: 'assets/translations'));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(EasyLocalization(
+        child: MyApp(),
+        supportedLocales: [Locale('en'), Locale('ms'), Locale('zh')],
+        fallbackLocale: Locale('en'),
+        assetLoader: CodegenLoader(),
+        path: 'assets/translations'));
+  });
   initBackgroundFetch();
   // runApp(MaterialApp(
   //   title: 'Calendar App',
@@ -156,20 +154,20 @@ class MyApp extends StatelessWidget {
           //AddPTActivityScreen(),
           //OTLibraryDetailScreen2(),
           //AddQuestionScreen(),
-              SplashScreen(
-            onFinish: () {
-              if (authManager.isLoggedIn) {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => RedirectScreen()),
-                );
-              } else {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => SignInScreen()),
-                );
-              }
-            },
-          ),
-          //ChangeLanguageScreen(),
+          SplashScreen(
+        onFinish: () {
+          if (authManager.isLoggedIn) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => RedirectScreen()),
+            );
+          } else {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => SignInScreen()),
+            );
+          }
+        },
+      ),
+      //ChangeLanguageScreen(),
       //AddPhysioScreen(),
       //AdminHomePage(),
       //PhysioHomePage(),
