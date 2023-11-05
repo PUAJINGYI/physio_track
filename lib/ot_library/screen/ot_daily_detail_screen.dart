@@ -316,6 +316,20 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
         int levelUpdated = levelInfo.keys.first;
         double progressToNextLevel = levelInfo.values.first;
 
+        if (levelUpdated == 10 && progressToNextLevel == 1.0) {
+          String dailyStatus = userSnapshot.get('dailyStatus');
+          String upperStatus = userSnapshot.get('upperStatus');
+          String lowerStatus = userSnapshot.get('lowerStatus');
+          dailyStatus = changeAndUpdateStatus(dailyStatus);
+          upperStatus = changeAndUpdateStatus(upperStatus);
+          lowerStatus = changeAndUpdateStatus(lowerStatus);
+
+          await userRef.update({
+            'dailyStatus': dailyStatus,
+            'upperStatus': upperStatus,
+            'lowerStatus': lowerStatus,
+          });
+        }
         await userRef.update({
           'level': levelUpdated,
           'progressToNextLevel': progressToNextLevel,
@@ -328,6 +342,16 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
       }
     } catch (error) {
       print("Error updating level and progress: $error");
+    }
+  }
+
+  String changeAndUpdateStatus(String status) {
+    if (status == 'beginner') {
+      return 'intermediate';
+    } else if (status == 'intermediate') {
+      return 'advanced';
+    } else {
+      return 'advanced';
     }
   }
 
