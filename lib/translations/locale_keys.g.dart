@@ -322,5 +322,7 @@ abstract class  LocaleKeys {
   static const Happy = 'Happy';
   static const Excited = 'Excited';
   static const It_may_take_some_minutes = 'It_may_take_some_minutes';
+  static const Sign_Out = 'Sign_Out';
+  static const Are_you_sure_to_sign_out = 'Are_you_sure_to_sign_out';
 
 }

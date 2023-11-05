@@ -335,7 +335,9 @@ class CodegenLoader extends AssetLoader{
   "Sad": "Sad",
   "Happy": "Happy",
   "Excited": "Excited",
-  "It_may_take_some_minutes": "It may take some minutes..."
+  "It_may_take_some_minutes": "It may take some minutes...",
+  "Sign_Out": "Sign Out",
+  "Are_you_sure_to_sign_out": "Are you sure to sign out?"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -658,7 +660,9 @@ static const Map<String,dynamic> ms = {
   "Sad": "Sedih",
   "Happy": "Gembira",
   "Excited": "Teruja",
-  "It_may_take_some_minutes": "Mungkin akan mengambil beberapa minit..."
+  "It_may_take_some_minutes": "Mungkin akan mengambil beberapa minit...",
+  "Sign_Out": "Log Keluar",
+  "Are_you_sure_to_sign_out": "Adakah anda pasti untuk log keluar?"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -981,7 +985,9 @@ static const Map<String,dynamic> zh = {
   "Sad": "伤心",
   "Happy": "开心",
   "Excited": "兴奋",
-  "It_may_take_some_minutes": "可能需要几分钟..."
+  "It_may_take_some_minutes": "可能需要几分钟...",
+  "Sign_Out": "登出",
+  "Are_you_sure_to_sign_out": "您确定要登出吗？"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

@@ -52,7 +52,6 @@ import 'achievement/screen/weekly_analysis_screen.dart';
 import 'admin/admin_activity_management_screen.dart';
 import 'appointment/screen/admin/appointment_admin_nav_page.dart';
 import 'appointment/screen/appointment_history_screen.dart';
-import 'appointment/screen/appointment_list_screen.dart';
 import 'appointment/screen/appointment_patient_screeen.dart';
 import 'appointment/screen/appointment_booking_screen.dart';
 import 'appointment/screen/physio/appointment_history_physio_screen.dart';

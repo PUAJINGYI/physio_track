@@ -319,5 +319,7 @@
   "Sad": "Sad",
   "Happy": "Happy",
   "Excited": "Excited",
-  "It_may_take_some_minutes": "It may take some minutes..."
+  "It_may_take_some_minutes": "It may take some minutes...",
+  "Sign_Out": "Sign Out",
+  "Are_you_sure_to_sign_out": "Are you sure to sign out?"
 }

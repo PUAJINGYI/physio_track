@@ -89,6 +89,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  void showConfirmationDialog(
+    BuildContext context,
+    String title,
+    String message,
+    Function onConfirm,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          titlePadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title, style: TextStyle(fontSize: 18)),
+              IconButton(
+                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          actions: [
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
+                    ),
+                    child: Text(LocaleKeys.Yes.tr(),
+                        style:
+                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
+                    onPressed: () async {
+                      onConfirm();
+                      //Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
+                    ),
+                    child: Text(LocaleKeys.No.tr(),
+                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _navigateToEditProfileScreen(BuildContext context) async {
     final needUpdate = await Navigator.push(
       context,
@@ -334,7 +411,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ColorConstant.RED_BUTTON_TEXT,
                       ColorConstant.RED_BUTTON_UNPRESSED,
                       ColorConstant.RED_BUTTON_PRESSED, () {
-                    signOut();
+                    showConfirmationDialog(context, LocaleKeys.Log_Out.tr(),
+                        LocaleKeys.Are_you_sure_to_sign_out.tr(), () {
+                      signOut();
+                    });
                   }),
                 ),
               ],

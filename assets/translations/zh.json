@@ -319,5 +319,7 @@
   "Sad": "伤心",
   "Happy": "开心",
   "Excited": "兴奋",
-  "It_may_take_some_minutes": "可能需要几分钟..."
+  "It_may_take_some_minutes": "可能需要几分钟...",
+  "Sign_Out": "登出",
+  "Are_you_sure_to_sign_out": "您确定要登出吗？"
 }
