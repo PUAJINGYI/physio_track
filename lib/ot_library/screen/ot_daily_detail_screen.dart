@@ -316,7 +316,8 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
         int levelUpdated = levelInfo.keys.first;
         double progressToNextLevel = levelInfo.values.first;
 
-        if (levelUpdated == 10 && progressToNextLevel == 0.0) {
+        if ((levelUpdated == 10 || levelUpdated == 20) &&
+            progressToNextLevel == 0.0) {
           String dailyStatus = userSnapshot.get('dailyStatus');
           String upperStatus = userSnapshot.get('upperStatus');
           String lowerStatus = userSnapshot.get('lowerStatus');
