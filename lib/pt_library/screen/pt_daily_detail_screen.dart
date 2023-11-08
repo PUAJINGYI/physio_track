@@ -422,7 +422,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
         int levelUpdated = levelInfo.keys.first;
         double progressToNextLevel = levelInfo.values.first;
 
-        if (levelUpdated == 10 && progressToNextLevel == 1.0) {
+        if (levelUpdated == 10 && progressToNextLevel == 0.0) {
           String dailyStatus = userSnapshot.get('dailyStatus');
           String upperStatus = userSnapshot.get('upperStatus');
           String lowerStatus = userSnapshot.get('lowerStatus');
@@ -470,6 +470,10 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
 
     while (experience >= requiredExperience) {
       level++;
+      if (experience == requiredExperience) {
+        progressToNextLevel = 0.0;
+        break;
+      }
       requiredExperience = requiredExperience + (level - 1) * 50 + 50;
       progressToNextLevel = experience / requiredExperience;
     }

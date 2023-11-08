@@ -316,7 +316,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
         int levelUpdated = levelInfo.keys.first;
         double progressToNextLevel = levelInfo.values.first;
 
-        if (levelUpdated == 10 && progressToNextLevel == 1.0) {
+        if (levelUpdated == 10 && progressToNextLevel == 0.0) {
           String dailyStatus = userSnapshot.get('dailyStatus');
           String upperStatus = userSnapshot.get('upperStatus');
           String lowerStatus = userSnapshot.get('lowerStatus');
@@ -361,12 +361,20 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
     int level = 1;
     int requiredExperience = 50;
     double progressToNextLevel = 0;
-
+    // exp =150 > rexp=150
     while (experience >= requiredExperience) {
       level++;
+      if (experience == requiredExperience) {
+        progressToNextLevel = 0.0;
+        break;
+      }
       requiredExperience = requiredExperience + (level - 1) * 50 + 50;
       progressToNextLevel = experience / requiredExperience;
     }
+    // progressToNextLevel gt issue
+    // if (experience == requiredExperience) {
+    //   level++;
+    // }
 
     if (level == 1) {
       progressToNextLevel = experience / 50.0;

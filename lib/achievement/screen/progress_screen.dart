@@ -78,7 +78,7 @@ class ProgressScreenState extends State<ProgressScreen> {
     if (userSnapshot.exists) {
       // Retrieve the existing experience and level from the document snapshot
       level = userSnapshot.get('level') ?? 0;
-      progressToNextLevel = userSnapshot.get('progressToNextLevel') ?? 0.0;
+      progressToNextLevel = userSnapshot.get('progressToNextLevel').toDouble() ?? 0.0;
     }
     final CollectionReference ptCollection =
         userCollection.doc(uid).collection('pt_activities');

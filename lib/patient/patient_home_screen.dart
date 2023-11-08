@@ -45,7 +45,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   @override
   void initState() {
     super.initState();
-    updateUserOTPTList();
+    // updateUserOTPTList();
     // _fetchPTProgress();
     // _fetchOTProgress();
     updateProgress();
@@ -74,23 +74,30 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
         .collection('pt_activities');
 
     QuerySnapshot ptSnapshot = await ptCollection.get();
-    PTActivity ptActivity = ptSnapshot.docs
-        .map((doc) => PTActivity.fromSnapshot(doc))
-        .firstWhere((ptActivity) {
-      Timestamp ptActivityTimestamp = ptActivity.date;
-      DateTime ptActivityDate = ptActivityTimestamp.toDate();
-      // Compare the dates
-      return ptActivityDate.year == currentDateWithoutTime.year &&
-          ptActivityDate.month == currentDateWithoutTime.month &&
-          ptActivityDate.day == currentDateWithoutTime.day;
-    });
+    PTActivity? ptActivity;
+    try {
+      ptActivity = ptSnapshot.docs
+          .map((doc) => PTActivity.fromSnapshot(doc))
+          .firstWhere((ptActivity) {
+        Timestamp ptActivityTimestamp = ptActivity.date;
+        DateTime ptActivityDate = ptActivityTimestamp.toDate();
+        // Compare the dates
+        return ptActivityDate.year == currentDateWithoutTime.year &&
+            ptActivityDate.month == currentDateWithoutTime.month &&
+            ptActivityDate.day == currentDateWithoutTime.day;
+      });
+    } catch (e) {
+      print(e);
+    }
 
-    QuerySnapshot ptActivitiesSnapshot =
-        await ptCollection.where('id', isEqualTo: ptActivity.id).get();
+    if (ptActivity != null) {
+      QuerySnapshot ptActivitiesSnapshot =
+          await ptCollection.where('id', isEqualTo: ptActivity.id).get();
 
-    if (ptActivitiesSnapshot.docs.isNotEmpty) {
-      ptProgress = ptActivity.progress;
-      //setState(() {});
+      if (ptActivitiesSnapshot.docs.isNotEmpty) {
+        ptProgress = ptActivity.progress;
+        //setState(() {});
+      }
     }
   }
 
@@ -105,23 +112,29 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
         .collection('ot_activities');
 
     QuerySnapshot otSnapshot = await otCollection.get();
-    OTActivity otActivity = otSnapshot.docs
-        .map((doc) => OTActivity.fromSnapshot(doc))
-        .firstWhere((otActivity) {
-      Timestamp otActivityTimestamp = otActivity.date;
-      DateTime otActivityDate = otActivityTimestamp.toDate();
-      // Compare the dates
-      return otActivityDate.year == currentDateWithoutTime.year &&
-          otActivityDate.month == currentDateWithoutTime.month &&
-          otActivityDate.day == currentDateWithoutTime.day;
-    });
+    OTActivity? otActivity;
+    try {
+      otActivity = otSnapshot.docs
+          .map((doc) => OTActivity.fromSnapshot(doc))
+          .firstWhere((otActivity) {
+        Timestamp otActivityTimestamp = otActivity.date;
+        DateTime otActivityDate = otActivityTimestamp.toDate();
+        // Compare the dates
+        return otActivityDate.year == currentDateWithoutTime.year &&
+            otActivityDate.month == currentDateWithoutTime.month &&
+            otActivityDate.day == currentDateWithoutTime.day;
+      });
+    } catch (e) {
+      print(e);
+    }
+    if (otActivity != null) {
+      QuerySnapshot otActivitiesSnapshot =
+          await otCollection.where('id', isEqualTo: otActivity.id).get();
 
-    QuerySnapshot otActivitiesSnapshot =
-        await otCollection.where('id', isEqualTo: otActivity.id).get();
-
-    if (otActivitiesSnapshot.docs.isNotEmpty) {
-      otProgress = otActivity.progress;
-      //setState(() {});
+      if (otActivitiesSnapshot.docs.isNotEmpty) {
+        otProgress = otActivity.progress;
+        //setState(() {});
+      }
     }
   }
 
