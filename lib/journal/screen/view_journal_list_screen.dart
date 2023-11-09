@@ -10,6 +10,7 @@ import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../patient/patient_home_screen.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../user_management/service/user_management_service.dart';
 import '../model/journal_model.dart';
 
 class ViewJournalListScreen extends StatefulWidget {
@@ -22,6 +23,36 @@ class ViewJournalListScreen extends StatefulWidget {
 class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
   String userId = FirebaseAuth.instance.currentUser!.uid;
   final dateFormat = DateFormat('dd/MM/yyyy');
+  bool isSwitched = false;
+  UserManagementService userManagementService = UserManagementService();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchSwitchStatus();
+  }
+
+  Future<void> _fetchSwitchStatus() async {
+    try {
+      final status =
+          await userManagementService.fetchSharedJournalStatus(userId);
+      setState(() {
+        isSwitched = status;
+      });
+    } catch (error) {
+      print('Error fetching status: $error'); // Handle any errors here
+    }
+  }
+
+  Future<void> _updateSharedJournalStatus(bool newValue) async {
+    try {
+      await userManagementService.updateSharedJournalStatus(userId, newValue);
+      print(
+          'Update successful'); // You can add appropriate success handling here
+    } catch (error) {
+      print('Error updating status: $error'); // Handle any errors here
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +76,8 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
-                      return Text('${LocaleKeys.Error.tr()}: ${snapshot.error}');
+                      return Text(
+                          '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                     }
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -169,6 +201,23 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 25,
+            right: 0,
+            child: Container(
+              height: kToolbarHeight,
+              alignment: Alignment.center,
+              child: Switch(
+                value: isSwitched,
+                onChanged: (newValue) {
+                  setState(() {
+                    isSwitched = newValue;
+                    _updateSharedJournalStatus(newValue);
+                  });
+                },
               ),
             ),
           ),

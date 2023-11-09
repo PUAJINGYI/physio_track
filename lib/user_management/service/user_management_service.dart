@@ -174,7 +174,7 @@ class UserManagementService {
     return name;
   }
 
-    String shortenUsername(String fullName) {
+  String shortenUsername(String fullName) {
     List<String> parts = fullName.split(' ');
     if (parts.length >= 2) {
       return '${parts.first}';
@@ -182,7 +182,6 @@ class UserManagementService {
       return fullName;
     }
   }
-
 
   Future<int> getUserIdByEmail(String email) async {
     int id = -1;
@@ -195,10 +194,10 @@ class UserManagementService {
     return id;
   }
 
-  Future<String> getUidByEmail(String email) async{
+  Future<String> getUidByEmail(String email) async {
     String uid = '';
     QuerySnapshot querySnapshot =
-    await usersCollection.where('email', isEqualTo: email).get();
+        await usersCollection.where('email', isEqualTo: email).get();
     if (querySnapshot.docs.isNotEmpty) {
       DocumentSnapshot doc = querySnapshot.docs.first;
       uid = doc.id;
@@ -230,8 +229,11 @@ class UserManagementService {
     return patientList;
   }
 
-  Future<String> fetchUidByUserId(int id){
-    return usersCollection.where('id', isEqualTo: id).get().then((value) => value.docs.first.id);
+  Future<String> fetchUidByUserId(int id) {
+    return usersCollection
+        .where('id', isEqualTo: id)
+        .get()
+        .then((value) => value.docs.first.id);
   }
 
   Future<String> fetchPhoneNumberByUserId(int id) async {
@@ -244,5 +246,22 @@ class UserManagementService {
     }
     return phoneNumber;
   }
-  
+
+  Future<void> updateSharedJournalStatus(String uid, bool sharedJournal) async {
+    try {
+      await usersCollection.doc(uid).update({'sharedJournal': sharedJournal});
+    } catch (error) {
+      print('Error updating shared journal status: $error');
+      throw Exception('Error updating shared journal status');
+    }
+  }
+
+  Future<bool> fetchSharedJournalStatus(String uid){
+    try {
+      return usersCollection.doc(uid).get().then((value) => value['sharedJournal']);
+    } catch (error) {
+      print('Error fetching shared journal status: $error');
+      throw Exception('Error fetching shared journal status');
+    }
+  }
 }

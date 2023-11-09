@@ -13,6 +13,7 @@ class UserModel{
   int level;
   int totalExp;
   double progressToNextLevel;
+  bool sharedJournal;
 
   UserModel({
     required this.id,
@@ -27,6 +28,7 @@ class UserModel{
     required this.level,
     required this.totalExp,
     required this.progressToNextLevel,
+    required this.sharedJournal,
   });
 
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot){
@@ -43,7 +45,8 @@ class UserModel{
       profileImageUrl: data['profileImageUrl'],
       level: data['level'],
       totalExp: data['totalExp'],
-      progressToNextLevel: (data['progressToNextLevel'] ?? 0).toDouble()
+      progressToNextLevel: (data['progressToNextLevel'] ?? 0).toDouble(),
+      sharedJournal: data['sharedJournal'],
     );
   }
 
@@ -61,6 +64,7 @@ class UserModel{
       'level': level,
       'totalExp': totalExp,
       'progressToNextLevel': progressToNextLevel,
+      'sharedJournal': sharedJournal,
     };
     return map;
   }

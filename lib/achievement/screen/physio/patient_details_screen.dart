@@ -50,7 +50,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       isTakenTest: false,
       address: '',
       phone: '',
-      totalExp: 0);
+      totalExp: 0,
+      sharedJournal: false);
 
   AchievementService _achievementService = AchievementService();
   final double width = 10;
@@ -104,7 +105,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     if (userSnapshot.exists) {
       // Retrieve the existing experience and level from the document snapshot
       level = userSnapshot.get('level') ?? 0;
-      progressToNextLevel = userSnapshot.get('progressToNextLevel').toDouble() ?? 0.0;
+      progressToNextLevel =
+          userSnapshot.get('progressToNextLevel').toDouble() ?? 0.0;
     }
     final CollectionReference ptCollection =
         userCollection.doc(uid).collection('pt_activities');
@@ -311,7 +313,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     if (phoneNumber.length > 0 && phoneNumber != '') {
       String number = formatPhoneNumber(phoneNumber);
 
-      final message = LocaleKeys.Hello_this_is_my_message.tr(); // Replace with your message
+      final message =
+          LocaleKeys.Hello_this_is_my_message.tr(); // Replace with your message
 
       // Construct the WhatsApp URL
       //final url = 'https://wa.me/$number/?text=${Uri.parse(message)}';

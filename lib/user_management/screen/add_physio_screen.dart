@@ -62,6 +62,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                   level: 0,
                   totalExp: 0,
                   progressToNextLevel: 0.0,
+                  sharedJournal: false,
                 ),
                 await _userService.addNewUserToFirestore(user, value.user!.uid),
                 ScaffoldMessenger.of(context).showSnackBar(
