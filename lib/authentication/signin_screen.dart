@@ -11,6 +11,7 @@ import 'package:physio_track/authentication/signup_screen.dart';
 import 'package:physio_track/patient/patient_home_screen.dart';
 import 'package:physio_track/physio/physio_home_page.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
+import 'package:physio_track/profile/screen/change_language_screen.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 
@@ -185,95 +186,109 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(ImageConstant.LOGIN_PIC),
-                  alignment: Alignment.center,
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(ImageConstant.LOGIN_PIC),
+                alignment: Alignment.center,
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(
+                  20,
+                  MediaQuery.of(context).size.height * 0.39,
+                  20,
+                  0,
+                ),
+                child: Column(
+                  children: [
+                    logoWidget(ImageConstant.LOGO),
+                    SizedBox(height: 10),
+                    reusableTextField(
+                      LocaleKeys.Enter_Email.tr(),
+                      LocaleKeys.Please_Insert_Valid_Email.tr(),
+                      Icons.email_outlined,
+                      false,
+                      _emailTextController,
+                      _validateEmailInput,
+                      _isObscure,
+                      toggleObscure,
+                    ),
+                    SizedBox(height: 20),
+                    reusableTextField(
+                      LocaleKeys.Enter_Password.tr(),
+                      LocaleKeys.Please_Insert_Password.tr(),
+                      Icons.lock_outline,
+                      true,
+                      _passwordTextController,
+                      _validatePasswordInput,
+                      _isObscure,
+                      toggleObscure,
+                    ),
+                    SizedBox(height: 5),
+                    forgetPassword(),
+                    SizedBox(height: 10),
+                    customButton(
+                        context,
+                        LocaleKeys.Login.tr(),
+                        ColorConstant.BLUE_BUTTON_TEXT,
+                        ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ColorConstant.BLUE_BUTTON_PRESSED, () {
+                      setState(() {
+                        _emailTextController.text.isEmpty ||
+                                !_emailTextController.text.contains("@")
+                            ? _validateEmailInput = true
+                            : _validateEmailInput = false;
+                        _passwordTextController.text.isEmpty
+                            ? _validatePasswordInput = true
+                            : _validatePasswordInput = false;
+                      });
+                      if (_validateEmailInput == false &&
+                          _validatePasswordInput == false) {
+                        loginWithEmailPassword(
+                          _emailTextController.text,
+                          _passwordTextController.text,
+                        );
+                      }
+                    }),
+                    signInGmailButton(context, () async {
+                      // await signOutGoogle();
+                      loginWithGoogle();
+                    }),
+                    signUpOption(),
+                  ],
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    20,
-                    MediaQuery.of(context).size.height * 0.39,
-                    20,
-                    0,
-                  ),
-                  child: Column(
-                    children: [
-                      logoWidget(ImageConstant.LOGO),
-                      SizedBox(height: 10),
-                      reusableTextField(
-                        LocaleKeys.Enter_Email.tr(),
-                        LocaleKeys.Please_Insert_Valid_Email.tr(),
-                        Icons.email_outlined,
-                        false,
-                        _emailTextController,
-                        _validateEmailInput,
-                        _isObscure,
-                        toggleObscure,
-                      ),
-                      SizedBox(height: 20),
-                      reusableTextField(
-                        LocaleKeys.Enter_Password.tr(),
-                        LocaleKeys.Please_Insert_Password.tr(),
-                        Icons.lock_outline,
-                        true,
-                        _passwordTextController,
-                        _validatePasswordInput,
-                        _isObscure,
-                        toggleObscure,
-                      ),
-                      SizedBox(height: 5),
-                      forgetPassword(),
-                      SizedBox(height: 10),
-                      customButton(
-                          context,
-                          LocaleKeys.Login.tr(),
-                          ColorConstant.BLUE_BUTTON_TEXT,
-                          ColorConstant.BLUE_BUTTON_UNPRESSED,
-                          ColorConstant.BLUE_BUTTON_PRESSED, () {
-                        setState(() {
-                          _emailTextController.text.isEmpty ||
-                                  !_emailTextController.text.contains("@")
-                              ? _validateEmailInput = true
-                              : _validateEmailInput = false;
-                          _passwordTextController.text.isEmpty
-                              ? _validatePasswordInput = true
-                              : _validatePasswordInput = false;
-                        });
-                        if (_validateEmailInput == false &&
-                            _validatePasswordInput == false) {
-                          loginWithEmailPassword(
-                            _emailTextController.text,
-                            _passwordTextController.text,
-                          );
-                        }
-                      }),
-                      signInGmailButton(context, () async {
-                        // await signOutGoogle();
-                        loginWithGoogle();
-                      }),
-                      signUpOption(),
-                    ],
-                  ),
-                ),
+          ),
+          Positioned(
+            top: 25,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                color: Colors.black,
+                icon: Icon(Icons.language_outlined),
+                iconSize: 35,
+                onPressed: () {
+                  Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ChangeLanguageScreen()));
+                },
               ),
             ),
-          ],
-        ),
-        bottomNavigationBar:
-            null // Hide the persistent_bottom_nav_bar on the sign-in page
-        );
+          ),
+        ],
+      ),
+    );
   }
 
   Row signUpOption() {

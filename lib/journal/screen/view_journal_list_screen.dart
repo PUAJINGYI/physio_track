@@ -194,7 +194,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                 style: TextStyle(fontSize: 15.0)),
           ),
           Positioned(
-            bottom: 20,
+            bottom: 5,
             left: 0,
             right: 0,
             child: GestureDetector(
