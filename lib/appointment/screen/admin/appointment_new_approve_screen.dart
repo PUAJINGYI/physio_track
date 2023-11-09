@@ -183,7 +183,8 @@ class _AppointmentNewApproveScreenState
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(LocaleKeys.Appointment_has_been_approved.tr()),
+                            content: Text(
+                                LocaleKeys.Appointment_has_been_approved.tr()),
                             duration: Duration(seconds: 3),
                           ),
                         );
@@ -235,7 +236,8 @@ class _AppointmentNewApproveScreenState
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+            return Center(
+                child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           }
           if (snapshot.hasData && snapshot.data!.isEmpty) {
             return Center(
@@ -339,8 +341,14 @@ class _AppointmentNewApproveScreenState
                                                   if (snapshot.hasData) {
                                                     String username =
                                                         snapshot.data!;
-                                                    return Text(shortenUsername(
-                                                        username));
+                                                    return Container(
+                                                      width: 40,
+                                                      child: AutoSizeText(
+                                                        shortenUsername(username),
+                                                        maxLines: 1,
+                                                        minFontSize: 10,
+                                                      ),
+                                                    );
                                                   }
                                                   return Container();
                                                 },
@@ -373,8 +381,14 @@ class _AppointmentNewApproveScreenState
                                                   if (snapshot.hasData) {
                                                     String username =
                                                         snapshot.data!;
-                                                    return Text(shortenUsername(
-                                                        username));
+                                                    return Container(
+                                                      width: 40,
+                                                      child: AutoSizeText(
+                                                        shortenUsername(username),
+                                                        maxLines: 1,
+                                                        minFontSize: 10,
+                                                      ),
+                                                    );
                                                   }
                                                   return Container();
                                                 },

@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:physio_track/notification/model/notification_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
 
 class NotificationService {
@@ -239,5 +242,47 @@ class NotificationService {
         throw Exception('Failed to load translation for all email addresses');
       }
     }
+  }
+
+  void sendWhatsAppMessage(int userId, String message) async {
+    try {
+      String? phoneNumber =
+          await userManagementService.fetchPhoneNumberByUserId(userId);
+
+      if (phoneNumber.length > 2 && phoneNumber != '') {
+        String number = formatPhoneNumber(phoneNumber);
+        final url = dotenv.get('WHATSAPP_API_KEY', fallback: '') +
+            number +
+            dotenv.get('WHATSAPP_WITH_TEXT', fallback: '') +
+            Uri.encodeComponent(message);
+
+        if (await canLaunch(url)) {
+          await launch(url);
+        } else {
+          throw Exception('Could not launch $url');
+        }
+      } else {
+        throw Exception('Phone number not found');
+      }
+    } catch (e) {
+      print(
+          'Error: $e'); // Handle the error as needed, e.g., log it or show an error message to the user
+    }
+  }
+
+  String formatPhoneNumber(String phoneNumber) {
+    // Remove any '-' or spaces within the phone number
+    phoneNumber = phoneNumber.replaceAll(RegExp(r'[-\s]'), '');
+
+    // Check if the phone number starts with '0', and if not, add '60' in front
+    if (phoneNumber.startsWith('60')) {
+      phoneNumber = phoneNumber;
+    } else if (!phoneNumber.startsWith('0')) {
+      phoneNumber = '60' + phoneNumber;
+    } else {
+      phoneNumber = '6' + phoneNumber;
+    }
+
+    return phoneNumber;
   }
 }

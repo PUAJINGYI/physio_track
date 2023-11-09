@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:physio_track/achievement/screen/physio/patient_list_by_phiso_screen.dart';
+import 'package:physio_track/achievement/screen/physio/patient_list_by_physio_screen.dart';
 import 'package:physio_track/appointment/screen/physio/appointment_history_physio_screen.dart';
 import 'package:physio_track/appointment/screen/physio/appointment_schedule_screen.dart';
 import 'package:physio_track/user_management/screen/patient_list_screen.dart';

@@ -172,15 +172,17 @@ class AppointmentInPendingService {
       String physioUid =
           await userManagementService.fetchUidByUserId(appointment.physioId);
 
-      notificationService.addNotificationFromAdmin(
-          patientUid,
-          'Appointment Booking Approved',
-          'Dear patient, your recent appointment booking request for ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)} has been approved. Please remember to attend the appointment on that selected time slot. Thank you.');
-      notificationService.addNotificationFromAdmin(
-          physioUid,
-          'Appointment Booking Approved',
-          'Dear physio, there is a new appointment on ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}');
-
+      String title = 'Appointment Booking Approved';
+      String patientMsg =
+          'Dear patient, your recent appointment booking request for ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)} has been approved. Please remember to attend the appointment on that selected time slot. Thank you.';
+      String physioMsg =
+          'Dear physio, there is a new appointment on ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}';
+      await notificationService.addNotificationFromAdmin(
+          patientUid, title, patientMsg);
+      await notificationService.addNotificationFromAdmin(
+          physioUid, title, physioMsg);
+      notificationService.sendWhatsAppMessage(
+          appointment.patientId, patientMsg);
       isApproved = true;
     }
     return isApproved;
@@ -263,15 +265,17 @@ class AppointmentInPendingService {
             await userManagementService.fetchUidByUserId(appointment.patientId);
         String physioUid =
             await userManagementService.fetchUidByUserId(appointment.physioId);
-
+        String title = 'Appointment Update Approved';
+        String patientMsg =
+            'Dear patient, your recent appointment update request from ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}.';
+        String physioMsg =
+            'Dear physio, there is an appointment originally on ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}';
         notificationService.addNotificationFromAdmin(
-            patientUid,
-            'Appointment Update Approved',
-            'Dear patient, your recent appointment update request from ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}.');
+            patientUid, title, patientMsg);
         notificationService.addNotificationFromAdmin(
-            physioUid,
-            'Appointment Update Approved',
-            'Dear physio, there is an appointment originally on ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}');
+            physioUid, title, physioMsg);
+        notificationService.sendWhatsAppMessage(
+            appointment.patientId, patientMsg);
       }
     }
   }
@@ -294,15 +298,16 @@ class AppointmentInPendingService {
       String physioUid =
           await userManagementService.fetchUidByUserId(appointment.physioId);
 
+      String title = 'Appointment Cancellation Approved';
+      String patientMsg =
+          'Dear patient, your recent appointment cancellation request for ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)} has been approved. Thank you.';
+      String physioMsg =
+          'Dear physio, the appointment on ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)} has been cancelled. Thank you.';
       notificationService.addNotificationFromAdmin(
-          patientUid,
-          'Appointment Cancellation Approved',
-          'Dear patient, your recent appointment cancellation request for ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)} has been approved. Thank you.');
-      notificationService.addNotificationFromAdmin(
-          physioUid,
-          'Appointment Cancellation Approved',
-          'Dear physio, the appointment on ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)} has been cancelled. Thank you.');
-
+          patientUid, title, patientMsg);
+      notificationService.addNotificationFromAdmin(physioUid, title, physioMsg);
+      notificationService.sendWhatsAppMessage(
+          appointment.patientId, patientMsg);
       appointmentService.deleteAppointmentReferenceFromUserById(
           appointment.patientId, appointmentId);
       appointmentService.deleteAppointmentReferenceFromUserById(

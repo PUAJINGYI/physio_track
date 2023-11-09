@@ -46,7 +46,7 @@ import 'package:physio_track/user_management/screen/add_physio_screen.dart';
 import 'package:workmanager/workmanager.dart';
 import 'achievement/screen/add_achievement_screen.dart';
 import 'achievement/screen/bar_chart_sample1.dart';
-import 'achievement/screen/physio/patient_list_by_phiso_screen.dart';
+import 'achievement/screen/physio/patient_list_by_physio_screen.dart';
 import 'achievement/screen/progress_screen.dart';
 import 'achievement/screen/weekly_analysis_screen.dart';
 import 'admin/admin_activity_management_screen.dart';

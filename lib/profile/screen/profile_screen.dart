@@ -342,7 +342,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             lineHeight: 10.0,
                                             animationDuration: 2000,
                                             percent:
-                                                userData['progressToNextLevel'].toDouble(),
+                                                userData['progressToNextLevel'].toDouble() ?? 0.0,
                                             barRadius: Radius.circular(10.0),
                                             progressColor: Colors.yellow,
                                             padding: EdgeInsets.zero,

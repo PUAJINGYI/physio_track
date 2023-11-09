@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:physio_track/achievement/screen/physio/patient_list_by_phiso_screen.dart';
+import 'package:physio_track/achievement/screen/physio/patient_list_by_physio_screen.dart';
 import 'package:physio_track/appointment/screen/physio/appointment_schedule_screen.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
 import '../profile/screen/profile_screen.dart';

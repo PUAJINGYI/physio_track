@@ -233,5 +233,16 @@ class UserManagementService {
   Future<String> fetchUidByUserId(int id){
     return usersCollection.where('id', isEqualTo: id).get().then((value) => value.docs.first.id);
   }
+
+  Future<String> fetchPhoneNumberByUserId(int id) async {
+    String phoneNumber = '';
+    QuerySnapshot querySnapshot =
+        await usersCollection.where('id', isEqualTo: id).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentSnapshot doc = querySnapshot.docs.first;
+      phoneNumber = doc['phone'];
+    }
+    return phoneNumber;
+  }
   
 }
