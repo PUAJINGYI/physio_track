@@ -80,7 +80,7 @@ class _TestPhysiotherapistRequestScreenState
         children: [
           SizedBox(height: 50),
           Text(
-            'Remarkable Physiotherapy & Rehabilitation Sdn. Bhd.',
+            'LIFE & JOY ENTERPRISE',
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 15,
@@ -182,7 +182,7 @@ class _TestPhysiotherapistRequestScreenState
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
             child: customButton(
               context,
               LocaleKeys.Next.tr(),

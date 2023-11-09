@@ -92,7 +92,8 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
       // Show snackbar alerting the user to answer all questions
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
+          content: Text(
+              LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
         ),
       );
       return; // Stop the submission process
@@ -151,8 +152,8 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Image.asset(
                     ImageConstant.TEST_LOWER,
-                    width: double.infinity,
-                    height: 200,
+                    width: 250,
+                    height: 150,
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -171,6 +172,7 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
                       const Center(child: CircularProgressIndicator())
                     else
                       ListView.builder(
+                        padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: questions.length,
@@ -210,7 +212,7 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
             child: customButton(
                 context,
                 LocaleKeys.Next.tr(),

@@ -151,8 +151,8 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Image.asset(
                     ImageConstant.TEST_GENERAL,
-                    width: double.infinity,
-                    height: 200,
+                    width: 250,
+                    height: 150,
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -171,6 +171,7 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
                       const Center(child: CircularProgressIndicator())
                     else
                       ListView.builder(
+                        padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: questions.length,
@@ -210,7 +211,7 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
             child: customButton(
                 context,
                 LocaleKeys.Next.tr(),

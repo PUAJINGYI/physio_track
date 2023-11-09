@@ -79,6 +79,10 @@ class _RedirectScreenState extends State<RedirectScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Handle null user data")),
           );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => SignInScreen()),
+          );
         }
       } else {
         // User document does not exist, handle as needed
@@ -90,9 +94,9 @@ class _RedirectScreenState extends State<RedirectScreen> {
       }
     } else {
       print("User does not exist");
-        Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => SignInScreen()),
-            );
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => SignInScreen()),
+      );
     }
   }
 
