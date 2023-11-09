@@ -40,7 +40,8 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return Future.value(true);
+        Navigator.pop(context, true);
+        return true;
       },
       child: Scaffold(
         body: Stack(
