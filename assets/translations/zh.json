@@ -321,5 +321,8 @@
   "Excited": "兴奋",
   "It_may_take_some_minutes": "可能需要几分钟...",
   "Sign_Out": "登出",
-  "Are_you_sure_to_sign_out": "您确定要登出吗？"
+  "Are_you_sure_to_sign_out": "您确定要登出吗？",
+  "Patient_Journal": "病患日志",
+  "patient_not_granted_permission_for_sharing_journal": "病人未授权与他人分享日记。",
+  " Unable_Access": "无法访问"
 }

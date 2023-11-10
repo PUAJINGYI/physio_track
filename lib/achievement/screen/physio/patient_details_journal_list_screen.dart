@@ -3,25 +3,27 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:physio_track/achievement/screen/physio/patient_details_journal_detail_screen.dart';
 import 'package:physio_track/journal/screen/add_journal_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_screen.dart';
 
-import '../../constant/ImageConstant.dart';
-import '../../constant/TextConstant.dart';
-import '../../patient/patient_home_screen.dart';
-import '../../translations/locale_keys.g.dart';
-import '../../user_management/service/user_management_service.dart';
-import '../model/journal_model.dart';
+import '../../../constant/ImageConstant.dart';
+import '../../../constant/TextConstant.dart';
+import '../../../journal/model/journal_model.dart';
+import '../../../translations/locale_keys.g.dart';
+import '../../../user_management/service/user_management_service.dart';
 
-class ViewJournalListScreen extends StatefulWidget {
-  const ViewJournalListScreen({super.key});
+class PatientDetailsJournalListScreen extends StatefulWidget {
+  final String userId;
+  const PatientDetailsJournalListScreen({super.key, required this.userId});
 
   @override
-  State<ViewJournalListScreen> createState() => _ViewJournalListScreenState();
+  State<PatientDetailsJournalListScreen> createState() =>
+      _PatientDetailsJournalListScreenState();
 }
 
-class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
-  String userId = FirebaseAuth.instance.currentUser!.uid;
+class _PatientDetailsJournalListScreenState
+    extends State<PatientDetailsJournalListScreen> {
   final dateFormat = DateFormat('dd/MM/yyyy');
   bool isSwitched = false;
   UserManagementService userManagementService = UserManagementService();
@@ -35,7 +37,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
   Future<void> _fetchSwitchStatus() async {
     try {
       final status =
-          await userManagementService.fetchSharedJournalStatus(userId);
+          await userManagementService.fetchSharedJournalStatus(widget.userId);
       setState(() {
         isSwitched = status;
       });
@@ -46,7 +48,8 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
 
   Future<void> _updateSharedJournalStatus(bool newValue) async {
     try {
-      await userManagementService.updateSharedJournalStatus(userId, newValue);
+      await userManagementService.updateSharedJournalStatus(
+          widget.userId, newValue);
       print(
           'Update successful'); // You can add appropriate success handling here
     } catch (error) {
@@ -69,7 +72,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('users')
-                      .doc(userId)
+                      .doc(widget.userId)
                       .collection('journals')
                       .orderBy('id', descending: true)
                       .snapshots(),
@@ -161,9 +164,10 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                ViewJournalScreen(
+                                                PatientDetailsJournalDetailScreen(
                                               journalId: journal.id,
-                                            ), // Replace NextPage with your desired page
+                                              userId: widget.userId,
+                                            ),
                                           ),
                                         );
 
@@ -184,7 +188,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                 ),
               ),
               SizedBox(
-                height: 90.0,
+                height: 55.0,
               )
             ],
           ),
@@ -196,28 +200,11 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                LocaleKeys.Journal.tr(),
+                LocaleKeys.Patient_Journal.tr(),
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 25,
-            right: 0,
-            child: Container(
-              height: kToolbarHeight,
-              alignment: Alignment.center,
-              child: Switch(
-                value: isSwitched,
-                onChanged: (newValue) {
-                  setState(() {
-                    isSwitched = newValue;
-                    _updateSharedJournalStatus(newValue);
-                  });
-                },
               ),
             ),
           ),
@@ -243,33 +230,16 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                 style: TextStyle(fontSize: 15.0)),
           ),
           Positioned(
-            bottom: 5,
+            top: 25,
             left: 0,
-            right: 0,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        AddJournalScreen(), // Replace NextPage with your desired page
-                  ),
-                );
-              },
-              child: Container(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.add,
-                  size: 30,
-                  color: Colors.white,
-                ),
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue, // Replace with desired button color
-                ),
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 35.0,
               ),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
             ),
           ),
         ],

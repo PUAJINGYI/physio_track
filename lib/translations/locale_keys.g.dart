@@ -324,5 +324,8 @@ abstract class  LocaleKeys {
   static const It_may_take_some_minutes = 'It_may_take_some_minutes';
   static const Sign_Out = 'Sign_Out';
   static const Are_you_sure_to_sign_out = 'Are_you_sure_to_sign_out';
+  static const Patient_Journal = 'Patient_Journal';
+  static const patient_not_granted_permission_for_sharing_journal = 'patient_not_granted_permission_for_sharing_journal';
+  static const  Unable_Access = ' Unable_Access';
 
 }

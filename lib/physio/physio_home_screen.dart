@@ -87,7 +87,8 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               // Handle the error.
-              return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+              return Center(
+                  child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
             } else {
               return Stack(
                 children: [
@@ -354,57 +355,6 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                               width: double.infinity,
                                               child: Image.asset(
                                                 ImageConstant.APPOINTMENT,
-                                                // fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 8, 20, 8),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          LocaleKeys.Patient_List.tr(),
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 0, 20, 0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PatientListByPhysioScreen(),
-                                            ),
-                                          );
-                                        },
-                                        child: Card(
-                                          color: Colors.blue.shade100,
-                                          elevation: 5.0,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0),
-                                            child: Container(
-                                              height:
-                                                  150.0, // Adjust the height as needed
-                                              width: double.infinity,
-                                              child: Image.asset(
-                                                ImageConstant.PATIENT_LIST,
                                                 // fit: BoxFit.cover,
                                               ),
                                             ),

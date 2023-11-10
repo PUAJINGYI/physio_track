@@ -337,7 +337,10 @@ class CodegenLoader extends AssetLoader{
   "Excited": "Excited",
   "It_may_take_some_minutes": "It may take some minutes...",
   "Sign_Out": "Sign Out",
-  "Are_you_sure_to_sign_out": "Are you sure to sign out?"
+  "Are_you_sure_to_sign_out": "Are you sure to sign out?",
+  "Patient_Journal": "Patient Journal",
+  "patient_not_granted_permission_for_sharing_journal": "The patient has not granted permission to share their journal with others.",
+  " Unable_Access": "Unable to Access"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -662,7 +665,10 @@ static const Map<String,dynamic> ms = {
   "Excited": "Teruja",
   "It_may_take_some_minutes": "Mungkin akan mengambil beberapa minit...",
   "Sign_Out": "Log Keluar",
-  "Are_you_sure_to_sign_out": "Adakah anda pasti untuk log keluar?"
+  "Are_you_sure_to_sign_out": "Adakah anda pasti untuk log keluar?",
+  "Patient_Journal": "Jurnal Pesakit",
+  "patient_not_granted_permission_for_sharing_journal": "Pesakit tidak memberikan kebenaran untuk berkongsi jurnal dengan orang lain.",
+  " Unable_Access": "Tidak Dapat Mengakses"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -987,7 +993,10 @@ static const Map<String,dynamic> zh = {
   "Excited": "兴奋",
   "It_may_take_some_minutes": "可能需要几分钟...",
   "Sign_Out": "登出",
-  "Are_you_sure_to_sign_out": "您确定要登出吗？"
+  "Are_you_sure_to_sign_out": "您确定要登出吗？",
+  "Patient_Journal": "病患日志",
+  "patient_not_granted_permission_for_sharing_journal": "病人未授权与他人分享日记。",
+  " Unable_Access": "无法访问"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

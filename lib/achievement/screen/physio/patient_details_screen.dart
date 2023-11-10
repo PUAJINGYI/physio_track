@@ -10,10 +10,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:physio_track/achievement/screen/physio/patient_details_journal_detail_screen.dart';
+import 'package:physio_track/achievement/screen/physio/patient_details_journal_list_screen.dart';
 import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../appointment/screen/appointment_history_screen.dart';
+import '../../../constant/ColorConstant.dart';
 import '../../../constant/TextConstant.dart';
 import '../../../ot_library/model/ot_activity_model.dart';
 import '../../../profile/model/user_model.dart';
@@ -52,7 +55,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       phone: '',
       totalExp: 0,
       sharedJournal: false);
-
   AchievementService _achievementService = AchievementService();
   final double width = 10;
   late List<BarChartGroupData> rawBarGroups = [];
@@ -78,6 +80,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   final Color leftBarColor = Color.fromARGB(255, 129, 238, 143);
   final Color rightBarColor = Color.fromARGB(255, 243, 124, 116);
   final Color avgColor = Colors.orange;
+  late bool sharedJournal = false;
 
   @override
   void initState() {
@@ -88,6 +91,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   Future<void> fetchData() async {
     patientInfo = await userManagementService.fecthUserById(widget.patientId);
     uid = await userManagementService.fetchUidByUserId(widget.patientId);
+    sharedJournal = patientInfo.sharedJournal;
     DateTime today = DateTime.now();
     DateTime todayWithoutTime = DateTime(today.year, today.month, today.day);
 
@@ -877,6 +881,151 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                               ),
                             ),
                           ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              LocaleKeys.Patient_Journal.tr(),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                          child: sharedJournal
+                              ? GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              PatientDetailsJournalListScreen(
+                                            userId: uid,
+                                          ),
+                                        ));
+                                  },
+                                  child: Card(
+                                    color: Colors.blue.shade100,
+                                    elevation: 5.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      child: Container(
+                                        height:
+                                            150.0, // Adjust the height as needed
+                                        width: double.infinity,
+                                        child: Image.asset(
+                                          ImageConstant.JOURNAL_IMAGE,
+                                          //fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          contentPadding: EdgeInsets
+                                              .zero, // Remove content padding
+                                          titlePadding: EdgeInsets.fromLTRB(16,
+                                              0, 16, 0), // Adjust title padding
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          title: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(LocaleKeys.Unable_Access
+                                                  .tr()),
+                                              IconButton(
+                                                icon: Icon(Icons.close,
+                                                    color: ColorConstant
+                                                        .RED_BUTTON_TEXT),
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pop(); // Close the dialog
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          content: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              LocaleKeys
+                                                  .patient_not_granted_permission_for_sharing_journal
+                                                  .tr(),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          actions: [
+                                            Center(
+                                              // Wrap actions in Center widget
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
+                                                      ),
+                                                      backgroundColor: ColorConstant
+                                                          .BLUE_BUTTON_UNPRESSED,
+                                                    ),
+                                                    child: Text(
+                                                        LocaleKeys.OK.tr(),
+                                                        style: TextStyle(
+                                                            color: ColorConstant
+                                                                .BLUE_BUTTON_TEXT)),
+                                                    onPressed: () async {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Card(
+                                    color: Colors.grey.shade400,
+                                    elevation: 5.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      child: Container(
+                                        height:
+                                            150.0, // Adjust the height as needed
+                                        width: double.infinity,
+                                        child: Image.asset(
+                                          ImageConstant.JOURNAL_IMAGE_GREY,
+                                          //fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                         )
                       ],
                     ),

@@ -321,5 +321,8 @@
   "Excited": "Excited",
   "It_may_take_some_minutes": "It may take some minutes...",
   "Sign_Out": "Sign Out",
-  "Are_you_sure_to_sign_out": "Are you sure to sign out?"
+  "Are_you_sure_to_sign_out": "Are you sure to sign out?",
+  "Patient_Journal": "Patient Journal",
+  "patient_not_granted_permission_for_sharing_journal": "The patient has not granted permission to share their journal with others.",
+  " Unable_Access": "Unable to Access"
 }

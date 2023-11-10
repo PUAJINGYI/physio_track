@@ -321,5 +321,8 @@
   "Excited": "Teruja",
   "It_may_take_some_minutes": "Mungkin akan mengambil beberapa minit...",
   "Sign_Out": "Log Keluar",
-  "Are_you_sure_to_sign_out": "Adakah anda pasti untuk log keluar?"
+  "Are_you_sure_to_sign_out": "Adakah anda pasti untuk log keluar?",
+  "Patient_Journal": "Jurnal Pesakit",
+  "patient_not_granted_permission_for_sharing_journal": "Pesakit tidak memberikan kebenaran untuk berkongsi jurnal dengan orang lain.",
+  " Unable_Access": "Tidak Dapat Mengakses"
 }
