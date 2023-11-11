@@ -327,5 +327,7 @@ abstract class  LocaleKeys {
   static const Patient_Journal = 'Patient_Journal';
   static const patient_not_granted_permission_for_sharing_journal = 'patient_not_granted_permission_for_sharing_journal';
   static const  Unable_Access = ' Unable_Access';
+  static const Select_Gender = 'Select_Gender';
+  static const Please_Select_Gender = 'Please_Select_Gender';
 
 }

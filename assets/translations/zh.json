@@ -324,5 +324,7 @@
   "Are_you_sure_to_sign_out": "您确定要登出吗？",
   "Patient_Journal": "病患日志",
   "patient_not_granted_permission_for_sharing_journal": "病人未授权与他人分享日记。",
-  " Unable_Access": "无法访问"
+  " Unable_Access": "无法访问",
+  "Select_Gender": "选择性别",
+  "Please_Select_Gender": "请选择理疗师性别"
 }

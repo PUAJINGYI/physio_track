@@ -340,7 +340,9 @@ class CodegenLoader extends AssetLoader{
   "Are_you_sure_to_sign_out": "Are you sure to sign out?",
   "Patient_Journal": "Patient Journal",
   "patient_not_granted_permission_for_sharing_journal": "The patient has not granted permission to share their journal with others.",
-  " Unable_Access": "Unable to Access"
+  " Unable_Access": "Unable to Access",
+  "Select_Gender": "Select Gender",
+  "Please_Select_Gender": "Please select physiotherapist's gender"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -668,7 +670,9 @@ static const Map<String,dynamic> ms = {
   "Are_you_sure_to_sign_out": "Adakah anda pasti untuk log keluar?",
   "Patient_Journal": "Jurnal Pesakit",
   "patient_not_granted_permission_for_sharing_journal": "Pesakit tidak memberikan kebenaran untuk berkongsi jurnal dengan orang lain.",
-  " Unable_Access": "Tidak Dapat Mengakses"
+  " Unable_Access": "Tidak Dapat Mengakses",
+  "Select_Gender": "Pilih Jantina",
+  "Please_Select_Gender": "Sila pilih jantina ahli fisioterapi"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -996,7 +1000,9 @@ static const Map<String,dynamic> zh = {
   "Are_you_sure_to_sign_out": "您确定要登出吗？",
   "Patient_Journal": "病患日志",
   "patient_not_granted_permission_for_sharing_journal": "病人未授权与他人分享日记。",
-  " Unable_Access": "无法访问"
+  " Unable_Access": "无法访问",
+  "Select_Gender": "选择性别",
+  "Please_Select_Gender": "请选择理疗师性别"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

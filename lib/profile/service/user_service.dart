@@ -31,6 +31,7 @@ class UserService {
       'level': userModel.level,
       'totalExp': userModel.totalExp,
       'progressToNextLevel': userModel.progressToNextLevel,
+      'gender': userModel.gender,
     });
   }
 
@@ -44,65 +45,5 @@ class UserService {
       throw Exception('User not found');
     }
   }
-
-  // // Update a user record
-  // Future<void> updateUser(UserModel user) async {
-  //   await usersCollection.doc(user.id).update({
-  //     'username': user.username,
-  //     'email': user.email,
-  //     'password': user.password,
-  //   });
-  // }
-
-  // // Delete a user record
-  // Future<void> deleteUser(String userId) async {
-  //   await usersCollection.doc(userId).delete();
-  // }
-
-  // Future<void> updateGender(DocumentReference userRef) async {
-  //   QuerySnapshot querySnapshot = await userRef
-  //       .collection('questionResponses')
-  //       .where('questionType', isEqualTo: 'gender')
-  //       .limit(1)
-  //       .get();
-
-  //   DocumentSnapshot genderSnapshot = querySnapshot.docs[0];
-  //   String gender = genderSnapshot.get('response');
-
-  //   if (gender == '1.0') {
-  //     await userRef.update({'gender': 'male'});
-  //   } else if (gender == '0.0') {
-  //     await userRef.update({'gender': 'female'});
-  //   }
-  // }
-
-  // Future<void> updateStatusForTopic(
-  //     DocumentReference userRef, String topic) async {
-  //   List<QuestionResponse> topicResponse =
-  //       await questionService.fetchQuestionResponseByTopic(userRef, topic);
-  //   print(topicResponse);
-
-  //   double topicScore = 0.0; // Initialize as double
-  //   topicResponse.forEach((response) {
-  //     print("response: ${response.response}");
-  //     topicScore += double.parse(response.response); // Parse as double
-  //   });
-
-  //   double topicStatusScore =
-  //       topicScore / (topicResponse.length * 5); // Use double division
-  //   if (topicStatusScore <= 0.4) {
-  //     userRef.update({'${topic}Status': 'beginner'});
-  //   } else if (topicStatusScore <= 0.8) {
-  //     userRef.update({'${topic}Status': 'intermediate'});
-  //   } else if (topicStatusScore <= 1.0) {
-  //     userRef.update({'${topic}Status': 'advanced'});
-  //   } else {
-  //     userRef.update({'${topic}Status': '-'});
-  //   }
-  // }
-
-  // Future<void> updateTakenTestStatus(DocumentReference userRef) async {
-  //   await userRef.update({'isTakenTest': true});
-  // }
   
 }

@@ -65,6 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   totalExp: 0,
                   progressToNextLevel: 0.0,
                   sharedJournal: false,
+                  gender: '',
                 ),
                 _userService.addNewUserToFirestore(user, value.user!.uid),
                 ScaffoldMessenger.of(context).showSnackBar(

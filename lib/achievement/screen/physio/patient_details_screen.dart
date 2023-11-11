@@ -54,7 +54,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       address: '',
       phone: '',
       totalExp: 0,
-      sharedJournal: false);
+      sharedJournal: false,
+      gender: '');
   AchievementService _achievementService = AchievementService();
   final double width = 10;
   late List<BarChartGroupData> rawBarGroups = [];

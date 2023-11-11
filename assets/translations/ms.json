@@ -324,5 +324,7 @@
   "Are_you_sure_to_sign_out": "Adakah anda pasti untuk log keluar?",
   "Patient_Journal": "Jurnal Pesakit",
   "patient_not_granted_permission_for_sharing_journal": "Pesakit tidak memberikan kebenaran untuk berkongsi jurnal dengan orang lain.",
-  " Unable_Access": "Tidak Dapat Mengakses"
+  " Unable_Access": "Tidak Dapat Mengakses",
+  "Select_Gender": "Pilih Jantina",
+  "Please_Select_Gender": "Sila pilih jantina ahli fisioterapi"
 }

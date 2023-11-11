@@ -14,6 +14,7 @@ class UserModel{
   int totalExp;
   double progressToNextLevel;
   bool sharedJournal;
+  String gender;
 
   UserModel({
     required this.id,
@@ -29,6 +30,7 @@ class UserModel{
     required this.totalExp,
     required this.progressToNextLevel,
     required this.sharedJournal,
+    required this.gender,
   });
 
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot){
@@ -47,11 +49,12 @@ class UserModel{
       totalExp: data['totalExp'],
       progressToNextLevel: (data['progressToNextLevel'] ?? 0).toDouble(),
       sharedJournal: data['sharedJournal'],
+      gender: data['gender'],
     );
   }
 
   Map<String, dynamic> toMap(){
-    Map<String, dynamic> map = {
+  Map<String, dynamic> map = {
       'id': id,
       'username': username,
       'email': email,
@@ -65,6 +68,7 @@ class UserModel{
       'totalExp': totalExp,
       'progressToNextLevel': progressToNextLevel,
       'sharedJournal': sharedJournal,
+      'gender': gender,
     };
     return map;
   }

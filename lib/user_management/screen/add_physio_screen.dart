@@ -24,9 +24,12 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController _genderController = TextEditingController();
   bool _validateUsernameInput = false;
   bool _validateEmailInput = false;
   bool _validatePasswordInput = false;
+  bool _validateGender = false;
+  String _selectedGender = '';
   bool _isObscure = true;
   UserService _userService = UserService();
 
@@ -41,6 +44,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
       final username = _usernameController.text;
       final email = _emailTextController.text;
       final password = _passwordTextController.text;
+      final gender = _genderController.text;
       UserModel user;
       // Sign in with email and password
       final userCredential = await FirebaseAuth.instance
@@ -63,6 +67,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                   totalExp: 0,
                   progressToNextLevel: 0.0,
                   sharedJournal: false,
+                  gender: gender,
                 ),
                 await _userService.addNewUserToFirestore(user, value.user!.uid),
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -95,84 +100,216 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
     }
   }
 
+  Future<void> _showGenderPicker(BuildContext context) async {
+    String selectedGender = '';
+
+    // Show the bottom sheet dialog
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext builder) {
+        return GestureDetector(
+          onTap: () {
+            // Do nothing when tapped inside the dialog
+          },
+          child: Container(
+            height: MediaQuery.of(context).copyWith().size.height / 4,
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.topCenter,
+                  padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          LocaleKeys.Select_Gender.tr(),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.check),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pop(); // Close the bottom s5heet
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          LocaleKeys.Male.tr(),
+                          textAlign: TextAlign.center,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            selectedGender = 'Male';
+                          });
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      ListTile(
+                        title: Text(
+                          LocaleKeys.Female.tr(),
+                          textAlign: TextAlign.center,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            selectedGender = 'Female';
+                          });
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    _genderController.text = selectedGender;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
       children: [
-        Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    20, MediaQuery.of(context).size.height * 0.45, 20, 0),
-                child: Column(
-                  children: [
-                    reusableTextField(
-                        LocaleKeys.Enter_username.tr(),
-                        LocaleKeys.Please_Insert_Username.tr(),
-                        Icons.person_outline,
-                        false,
-                        _usernameController,
-                        _validateUsernameInput,
-                        _isObscure,
-                        toggleObscure),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    reusableTextField(
-                        LocaleKeys.Enter_Email.tr(),
-                        LocaleKeys.Please_Insert_Valid_Email.tr(),
-                        Icons.mail_outline,
-                        false,
-                        _emailTextController,
-                        _validateEmailInput,
-                        _isObscure,
-                        toggleObscure),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    reusableTextField(
-                        LocaleKeys.Enter_Password.tr(),
-                        LocaleKeys.Please_Insert_Password.tr(),
-                        Icons.lock_outline,
-                        true,
-                        _passwordTextController,
-                        _validatePasswordInput,
-                        _isObscure,
-                        toggleObscure),
-                    SizedBox(
-                      height: 100,
-                    ),
-                    customButton(
-                        context,
-                        LocaleKeys.Add.tr(),
-                        ColorConstant.BLUE_BUTTON_TEXT,
-                        ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                      setState(() {
-                        _usernameController.text.isEmpty
-                            ? _validateUsernameInput = true
-                            : _validateUsernameInput = false;
-                        _emailTextController.text.isEmpty ||
-                                !_emailTextController.text.contains("@")
-                            ? _validateEmailInput = true
-                            : _validateEmailInput = false;
-                        _passwordTextController.text.isEmpty
-                            ? _validatePasswordInput = true
-                            : _validatePasswordInput = false;
-                      });
-                      if (_validateUsernameInput == false &&
-                          _validateEmailInput == false &&
-                          _validatePasswordInput == false) {
-                        await _createPhysioAccWithEmailAndPassword();
-                      }
-                    })
-                  ],
-                ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 70,
               ),
-            )),
+              Expanded(
+                  child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                ImageConstant.PHYSIO,
+                                width: 300.0,
+                              ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              reusableTextField(
+                                  LocaleKeys.Enter_username.tr(),
+                                  LocaleKeys.Please_Insert_Username.tr(),
+                                  Icons.person_outline,
+                                  false,
+                                  _usernameController,
+                                  _validateUsernameInput,
+                                  _isObscure,
+                                  toggleObscure),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              reusableTextField(
+                                  LocaleKeys.Enter_Email.tr(),
+                                  LocaleKeys.Please_Insert_Valid_Email.tr(),
+                                  Icons.mail_outline,
+                                  false,
+                                  _emailTextController,
+                                  _validateEmailInput,
+                                  _isObscure,
+                                  toggleObscure),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              reusableTextField(
+                                  LocaleKeys.Enter_Password.tr(),
+                                  LocaleKeys.Please_Insert_Password.tr(),
+                                  Icons.lock_outline,
+                                  true,
+                                  _passwordTextController,
+                                  _validatePasswordInput,
+                                  _isObscure,
+                                  toggleObscure),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  _showGenderPicker(context);
+                                },
+                                child: AbsorbPointer(
+                                  child: TextField(
+                                    controller: _genderController,
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.male_outlined,
+                                        color: Colors.black,
+                                      ),
+                                      labelText: LocaleKeys.Select_Gender.tr(),
+                                      errorText: _validateGender
+                                          ? LocaleKeys.Please_Select_Gender.tr()
+                                          : null,
+                                      labelStyle: TextStyle(
+                                          color: Colors.black.withOpacity(0.5)),
+                                      filled: true,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.never,
+                                      fillColor: Colors.white,
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 100,
+                              ),
+                            ],
+                          ),
+                        );
+                      })),
+              customButton(
+                  context,
+                  LocaleKeys.Add.tr(),
+                  ColorConstant.BLUE_BUTTON_TEXT,
+                  ColorConstant.BLUE_BUTTON_UNPRESSED,
+                  ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                setState(() {
+                  _usernameController.text.isEmpty
+                      ? _validateUsernameInput = true
+                      : _validateUsernameInput = false;
+                  _emailTextController.text.isEmpty ||
+                          !_emailTextController.text.contains("@")
+                      ? _validateEmailInput = true
+                      : _validateEmailInput = false;
+                  _passwordTextController.text.isEmpty
+                      ? _validatePasswordInput = true
+                      : _validatePasswordInput = false;
+                  _genderController.text.isEmpty
+                      ? _validateGender = true
+                      : _validateGender = false;
+                });
+                if (_validateUsernameInput == false &&
+                    _validateEmailInput == false &&
+                    _validatePasswordInput == false &&
+                    _validateGender == false) {
+                  await _createPhysioAccWithEmailAndPassword();
+                }
+              })
+            ],
+          ),
+        ),
         Positioned(
           top: 25,
           left: 0,
@@ -200,16 +337,6 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ),
-        Positioned(
-          top: 70,
-          right: 0,
-          left: 0,
-          child: Image.asset(
-            ImageConstant.PHYSIO,
-            width: 200.0,
-            height: 200.0,
           ),
         ),
       ],

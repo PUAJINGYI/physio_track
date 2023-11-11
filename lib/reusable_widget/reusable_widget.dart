@@ -134,7 +134,7 @@ Container signInGmailButton(BuildContext context, Function onTap) {
               return Colors.black;
             }),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(  
+                RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30))))),
   );
 }
@@ -449,37 +449,6 @@ Padding updatePrfoileButton(BuildContext context, Function onTap) {
     ),
   );
 }
-
-// Padding NextButton(BuildContext context, Function onTap) {
-//   return Padding(
-//     padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-//     child: Container(
-//       width: MediaQuery.of(context).size.width,
-//       height: 50,
-//       margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-//       decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
-//       child: ElevatedButton(
-//           onPressed: () {
-//             onTap();
-//           },
-//           child: Text(
-//             "Next",
-//             style: const TextStyle(
-//                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-//           ),
-//           style: ButtonStyle(
-//               backgroundColor: MaterialStateProperty.resolveWith((states) {
-//                 if (states.contains(MaterialState.pressed)) {
-//                   return Color.fromARGB(255, 66, 157, 173);
-//                 }
-//                 return Color.fromARGB(255, 43, 222, 253);
-//               }),
-//               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-//                   RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(30))))),
-//     ),
-//   );
-// }
 
 Container customButton(
   BuildContext context,
