@@ -16,6 +16,7 @@ import '../appointment/service/appointment_service.dart';
 import '../authentication/signin_screen.dart';
 import '../constant/ImageConstant.dart';
 import '../constant/TextConstant.dart';
+import '../leave/screen/leave_list_screen.dart';
 import '../reusable_widget/reusable_widget.dart';
 import '../translations/locale_keys.g.dart';
 import '../user_management/service/user_management_service.dart';
@@ -317,7 +318,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          LocaleKeys.Appointment_Schedule.tr(),
+                                          'Leave Manager',
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -330,12 +331,17 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       padding: const EdgeInsets.fromLTRB(
                                           20, 0, 20, 0),
                                       child: GestureDetector(
-                                        onTap: () {
+                                        onTap: () async {
+                                          int physioId =
+                                              await userManagementService
+                                                  .fetchUserIdByUid(uid);
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  AppointmentScheduleScreen(),
+                                                  LeaveListScreen(
+                                                physioId: physioId,
+                                              ),
                                             ),
                                           );
                                         },
@@ -353,9 +359,13 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                               height:
                                                   150.0, // Adjust the height as needed
                                               width: double.infinity,
-                                              child: Image.asset(
-                                                ImageConstant.APPOINTMENT,
-                                                // fit: BoxFit.cover,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Image.asset(
+                                                  ImageConstant.LEAVE,
+                                                  // fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                           ),

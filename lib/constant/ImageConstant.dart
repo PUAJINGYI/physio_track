@@ -15,6 +15,7 @@ class ImageConstant {
   static const String JOURNAL_IMAGE = "assets/images/journal-image.png";
   static const String JOURNAL_IMAGE_GREY = "assets/images/journal-image-grey.png";
   static const String LANGUAGE = "assets/images/language.png";
+  static const String LEAVE = "assets/images/leave.png";
   static const String LEVEL = "assets/images/level.png";
   static const String LOGIN_PIC = "assets/images/login-pic.png";
   static const String LOGO = "assets/images/logo.png";

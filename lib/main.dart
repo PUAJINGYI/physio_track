@@ -59,6 +59,8 @@ import 'appointment/screen/physio/appointment_schedule_screen.dart';
 import 'authentication/change_password_screen.dart';
 import 'authentication/service/auth_manager.dart';
 import 'authentication/splash_screen.dart';
+import 'leave/screen/leave_apply_screen.dart';
+import 'leave/screen/leave_list_screen.dart';
 import 'notification/noti.dart';
 import 'notification/screen/notification_list_screen.dart';
 import 'ot_library/screen/edit_ot_activity_library.dart';
@@ -167,6 +169,8 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
+      //LeaveApplyScreen(physioId: 6,),
+      //LeaveListScreen(physioId: 6),
       //ChangeLanguageScreen(),
       //AddPhysioScreen(),
       //AdminHomePage(),
