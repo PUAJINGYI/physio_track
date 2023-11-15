@@ -228,7 +228,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     itemExtent: 32.0,
                     onSelectedItemChanged: (int value) {
                       selectedDuration = value + 1;
-                      _durationController.text = "$selectedDuration ${LocaleKeys.minutes.tr()}}";
+                      _durationController.text = "$selectedDuration ${LocaleKeys.minutes.tr()}";
                     },
                     children: List<Widget>.generate(
                       100,

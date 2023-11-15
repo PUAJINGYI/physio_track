@@ -329,7 +329,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                     ],
                                   ),
                                   SizedBox(height: 8.0),
-                                
                                   FutureBuilder(
                                     future: notificationService.translateText(
                                         _otLibraryRecord.description, context),
@@ -497,10 +496,9 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                     child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
-                    onPressed: () {
-                      _controller.close();
+                    onPressed: () async {
+                      await _controller.stopVideo();
                       performDeleteLogic();
-                      //Navigator.pop(context);
                     },
                   ),
                   SizedBox(width: 10),

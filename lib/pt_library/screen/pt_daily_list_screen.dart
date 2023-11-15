@@ -199,7 +199,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                                   .thumbnailUrl !=
                                                               null
                                                           ? NetworkImage(ptLibrary
-                                                                  .thumbnailUrl!)
+                                                                  .thumbnailUrl)
                                                               as ImageProvider
                                                           : AssetImage(ImageConstant
                                                                   .DATA_NOT_FOUND)
@@ -348,7 +348,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                                   .thumbnailUrl !=
                                                               null
                                                           ? NetworkImage(ptLibrary
-                                                                  .thumbnailUrl!)
+                                                                  .thumbnailUrl)
                                                               as ImageProvider
                                                           : AssetImage(ImageConstant
                                                                   .DATA_NOT_FOUND)

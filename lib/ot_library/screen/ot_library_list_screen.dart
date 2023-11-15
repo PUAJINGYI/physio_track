@@ -100,7 +100,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                             image: otLibrary.thumbnailUrl !=
                                                     null
                                                 ? NetworkImage(
-                                                        otLibrary.thumbnailUrl!)
+                                                        otLibrary.thumbnailUrl)
                                                     as ImageProvider
                                                 : AssetImage(ImageConstant
                                                         .DATA_NOT_FOUND)

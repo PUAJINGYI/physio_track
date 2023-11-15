@@ -554,10 +554,9 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                     child: Text(LocaleKeys.Yes.tr(),
                         style:
                             TextStyle(color: Color.fromRGBO(18, 190, 246, 1))),
-                    onPressed: () {
-                      _controller.close();
+                    onPressed: () async {
+                      await _controller.stopVideo();
                       performDeleteLogic();
-                      //Navigator.pop(context);
                     },
                   ),
                   SizedBox(width: 10),

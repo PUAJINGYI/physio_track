@@ -203,7 +203,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                                   .thumbnailUrl !=
                                                               null
                                                           ? NetworkImage(otLibrary
-                                                                  .thumbnailUrl!)
+                                                                  .thumbnailUrl)
                                                               as ImageProvider
                                                           : AssetImage(ImageConstant
                                                                   .DATA_NOT_FOUND)
@@ -349,7 +349,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                                   .thumbnailUrl !=
                                                               null
                                                           ? NetworkImage(otLibrary
-                                                                  .thumbnailUrl!)
+                                                                  .thumbnailUrl)
                                                               as ImageProvider
                                                           : AssetImage(ImageConstant
                                                                   .DATA_NOT_FOUND)

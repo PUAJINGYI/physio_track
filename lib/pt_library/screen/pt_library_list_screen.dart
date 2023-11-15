@@ -99,7 +99,7 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                                             image: ptLibrary.thumbnailUrl !=
                                                     null
                                                 ? NetworkImage(
-                                                        ptLibrary.thumbnailUrl!)
+                                                        ptLibrary.thumbnailUrl)
                                                     as ImageProvider
                                                 : AssetImage(ImageConstant
                                                         .DATA_NOT_FOUND)
