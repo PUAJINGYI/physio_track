@@ -5,7 +5,7 @@ import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.
 import '../profile/screen/profile_screen.dart';
 import '../user_management/screen/navigation_page.dart';
 import 'admin_activity_management_screen.dart';
-import 'admin_home_screeen.dart';
+import 'admin_home_screen.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);

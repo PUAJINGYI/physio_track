@@ -100,6 +100,10 @@ class NotificationService {
     } else if (requestType == TextConstant.CANCELLED) {
       title = 'Appointment Cancellation Request';
       msg = '$patientName has requested to cancel an appointment';
+    } else if (requestType == TextConstant.CONFLICT) {
+      title = 'Appointment Conflict';
+      msg =
+          'The appointment slot booked by $patientName has conflict due to the physiotherapist is taking leave. Please asssign other available physiotherapists for that appointment slot to resolve the conflict.';
     }
 
     Notifications newNotification = Notifications(

@@ -22,6 +22,7 @@ class ImageConstant {
   static const String MONDAY = "assets/images/monday.png";
   static const String NOTIFICATION = "assets/images/notification.png";
   static const String OT = "assets/images/ot.png";
+  static const String ON_LEAVE = "assets/images/on-leave.png";
   static const String PATIENT_LIST = "assets/images/patient-list.png";
   static const String PHYSIO_HOME = "assets/images/physio-home.png";
   static const String PHYSIO = "assets/images/physio.png";

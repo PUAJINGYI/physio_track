@@ -4,6 +4,9 @@ import 'package:googleapis/calendar/v3.dart';
 import 'package:physio_track/appointment/service/google_calander_service.dart';
 
 import '../../constant/TextConstant.dart';
+import '../../leave/model/leave_model.dart';
+import '../../leave/service/leave_service.dart';
+import '../../notification/service/notification_service.dart';
 import '../../profile/model/user_model.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/appointment_in_pending_model.dart';
@@ -22,8 +25,11 @@ class AppointmentService {
       FirebaseFirestore.instance.collection('users');
   CollectionReference appointmentInPendingCollection =
       FirebaseFirestore.instance.collection('appointments_in_pending');
+  CollectionReference leaveCollection =
+      FirebaseFirestore.instance.collection('leaves');
   GoogleCalendarService googleCalendarService = GoogleCalendarService();
   UserManagementService userManagementService = UserManagementService();
+  NotificationService notificationService = NotificationService();
 
   Future<AuthClient?> getAuthClientUsingGoogleSignIn() async {
     var scopes = [CalendarApi.calendarScope];
@@ -100,7 +106,8 @@ class AppointmentService {
               .where('id', isEqualTo: appointment.id)
               .get()
               .then((snapshot) {
-            snapshot.docs.first.reference.update({'eventId': eventId});
+            snapshot.docs.first.reference
+                .update({'eventId': eventId, 'status': TextConstant.NEW});
           });
         });
         print("Appointment Added");
@@ -442,7 +449,7 @@ class AppointmentService {
   }
 
   Future<List<UserModel>> fetchAvailablePhysioListAtTime(
-      DateTime starTime, DateTime endTime) async {
+      DateTime startTime, DateTime endTime) async {
     List<UserModel> availablePhysioList = [];
     List<UserModel> physioList = [];
 
@@ -463,16 +470,95 @@ class AppointmentService {
       if (appointmentSnapshot.docs.isNotEmpty) {
         appointmentSnapshot.docs.forEach((doc) {
           Appointment appointment = Appointment.fromSnapshot(doc);
-          if (appointment.startTime.isAtSameMomentAs(starTime) &&
+          if (appointment.startTime.isAtSameMomentAs(startTime) &&
               appointment.endTime.isAtSameMomentAs(endTime)) {
             isAvailable = false;
           }
         });
       }
+
+      DateTime date = DateTime(startTime.year, startTime.month, startTime.day);
+      isAvailable = await checkPhysioAvailabilityByDateAndTime(
+          physio.id, date, startTime, endTime);
       if (isAvailable) {
         availablePhysioList.add(physio);
       }
     }
     return availablePhysioList;
+  }
+
+  // check availibility of physio on specific date and specific time
+  Future<bool> checkPhysioAvailabilityByDateAndTime(
+      int physioId, DateTime date, DateTime startTime, DateTime endTime) async {
+    QuerySnapshot querySnapshot = await leaveCollection
+        .where('physioId', isEqualTo: physioId)
+        .where('date', isEqualTo: date)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      List<Leave> leaveList =
+          querySnapshot.docs.map((doc) => Leave.fromSnapshot(doc)).toList();
+      for (Leave leave in leaveList) {
+        if (leave.isFullDay) {
+          return false;
+        } else {
+          if (startTime.isAtSameMomentAs(leave.startTime) ||
+              (startTime.isAfter(leave.startTime) &&
+                  startTime.isBefore(leave.endTime))) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  // change status of appointment to 'Conflict' due to physio on leave on specific date and time
+  Future<void> changeAppointmentStatusToConflict(int appointmentId) async {
+    await appointmentInPendingCollection
+        .where('id', isEqualTo: appointmentId)
+        .get()
+        .then((snapshot) {
+      snapshot.docs.first.reference.update({'status': TextConstant.CONFLICT});
+    });
+
+    QuerySnapshot querySnapshot = await appointmentInPendingCollection
+        .where('id', isEqualTo: appointmentId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      AppointmentInPending appointmentInPending =
+          AppointmentInPending.fromSnapshot(querySnapshot.docs.first);
+
+      String patientName = await userManagementService
+          .getUsernameById(appointmentInPending.patientId);
+      await notificationService.addAppointmentRequestNotiToAdmin(
+          TextConstant.CONFLICT, patientName);
+    } else {
+      print('no appointment in pending');
+    }
+  }
+
+  Future<void> fetchAppointmentByDateTimeAndChangeStatus(Leave leave) async {
+    DateTime startTime = leave.startTime;
+    DateTime endTime = leave.endTime;
+
+    QuerySnapshot querySnapshot = await appointmentCollection.get();
+
+    querySnapshot.docs.forEach((snapshot) {
+      Appointment appointment = Appointment.fromSnapshot(snapshot);
+
+      if (leave.isFullDay) {
+        if (appointment.date.isAtSameMomentAs(leave.date)) {
+          changeAppointmentStatusToConflict(appointment.id);
+        }
+      } else if (appointment.startTime.isAtSameMomentAs(startTime) &&
+          appointment.endTime.isAtSameMomentAs(endTime)) {
+        changeAppointmentStatusToConflict(appointment.id);
+      } else if (appointment.startTime.isAfter(leave.startTime) &&
+          appointment.startTime.isBefore(leave.endTime)) {
+        changeAppointmentStatusToConflict(appointment.id);
+      }
+    });
   }
 }

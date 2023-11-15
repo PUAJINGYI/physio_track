@@ -6,6 +6,7 @@ import '../../../constant/TextConstant.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../../service/appointment_service.dart';
 import 'appointment_cancel_approve_screen.dart';
+import 'appointment_edit_incharge_physio_onleave_screen.dart';
 import 'appointment_new_approve_screen.dart';
 import 'appointment_updated_approve_screen.dart';
 
@@ -35,6 +36,7 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
     AppointmentNewApproveScreen(),
     AppointmentUpdatedApproveScreen(),
     AppointmentCancelApproveScreen(),
+    AppointmentEditInChargePhysioOnLeaveScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -82,6 +84,15 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
                           label: LocaleKeys.Cancel.tr(),
                           isSelected: _selectedIndex == 2,
                           onTap: () => _onItemTapped(2),
+                        ),
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        flex: 1,
+                        child: TestNavigationBarItem(
+                          label: 'Conflict',
+                          isSelected: _selectedIndex == 3,
+                          onTap: () => _onItemTapped(3),
                         ),
                       ),
                     ],

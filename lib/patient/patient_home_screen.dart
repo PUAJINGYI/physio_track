@@ -11,7 +11,7 @@ import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/profile_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
-import '../admin/admin_home_screeen.dart';
+import '../admin/admin_home_screen.dart';
 import '../authentication/signin_screen.dart';
 import '../constant/ImageConstant.dart';
 import '../constant/TextConstant.dart';

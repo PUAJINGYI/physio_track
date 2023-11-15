@@ -15,7 +15,7 @@ import 'package:physio_track/profile/screen/change_language_screen.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 
-import '../admin/admin_home_screeen.dart';
+import '../admin/admin_home_screen.dart';
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
 import '../translations/locale_keys.g.dart';

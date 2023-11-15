@@ -84,9 +84,7 @@ class _EditAppointmentDetailScreenState
   }
 
   Future<void> performAppointmentUpdate(
-      AppointmentInPending appointmentInPending, oriPhysioId) async {
-    await _appointmentInPendingService
-        .updatePendingAppointmentRecord(appointmentInPending);
+      AppointmentInPending appointmentInPending, int oriPhysioId) async {
     String patientUid = await _userManagementService
         .fetchUidByUserId(appointmentInPending.patientId);
     String oriPhysioUid =
@@ -102,8 +100,8 @@ class _EditAppointmentDetailScreenState
         oriPhysioUid,
         LocaleKeys.Physiotherapist_Incharged_Changed.tr(),
         'Dear physio, there is a new appointment on ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been change to ${newPhysioName} due to you are not available on that time.');
-    await _appointmentInPendingService
-        .checkIfNewAppointmentSlotExist(appointmentInPending.id);
+    await _appointmentInPendingService.handleConflictUpdateAppointmentSlotExist(
+        appointmentInPending, oriPhysioId);
     Navigator.pop(context, true);
   }
 
@@ -304,10 +302,16 @@ class _EditAppointmentDetailScreenState
                     ColorConstant.BLUE_BUTTON_TEXT,
                     ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                  String patientUsername = await _userManagementService
+                      .getUsernameById(appointmentInPending.patientId);
+                  String physioUsername = await _userManagementService
+                      .getUsernameById(selectedUser!.id);
+                  String newTitle =
+                      '[Appointment] ${patientUsername} with ${physioUsername}';
                   int oriPhysioId = appointmentInPending.physioId;
                   AppointmentInPending appointment = new AppointmentInPending(
                       id: appointmentInPending.id,
-                      title: appointmentInPending.title,
+                      title: newTitle,
                       date: appointmentInPending.date,
                       startTime: appointmentInPending.startTime,
                       endTime: appointmentInPending.endTime,

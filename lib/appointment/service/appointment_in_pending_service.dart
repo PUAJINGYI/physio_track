@@ -8,6 +8,7 @@ import 'package:physio_track/appointment/service/appointment_service.dart';
 import 'package:sendgrid_mailer/sendgrid_mailer.dart';
 
 import '../../constant/TextConstant.dart';
+import '../../leave/service/leave_service.dart';
 import '../../notification/service/notification_service.dart';
 import '../../user_management/service/user_management_service.dart';
 
@@ -21,6 +22,7 @@ class AppointmentInPendingService {
   AppointmentService appointmentService = AppointmentService();
   UserManagementService userManagementService = UserManagementService();
   NotificationService notificationService = NotificationService();
+  LeaveService leaveService = LeaveService();
 
   // add new pending appointment record
   Future<void> addPendingAppointmentRecord(
@@ -206,9 +208,16 @@ class AppointmentInPendingService {
           break;
         }
       }
+
       if (!isConflict) {
-        await approveNewAppointmentRecord(appointmentId);
-        isApproved = true;
+        bool physioAvailability = await checkPhysioAvailability(appointment);
+
+        if (physioAvailability) {
+          await approveNewAppointmentRecord(appointmentId);
+          isApproved = true;
+        } else {
+          await rejectNewPendingAppointmentRecord(appointmentId);
+        }
       }
     }
     return isApproved;
@@ -236,12 +245,43 @@ class AppointmentInPendingService {
           break;
         }
       }
+
       if (!isConflict) {
-        await approveUpdatedAppointmentRecord(appointmentId);
-        isApproved = true;
+        bool physioAvailability = await checkPhysioAvailability(appointment);
+
+        if (physioAvailability) {
+          await approveUpdatedAppointmentRecord(appointmentId);
+          isApproved = true;
+        } else {
+          await rejectUpdatePendingAppointmentRecord(appointmentId);
+        }
       }
     }
     return isApproved;
+  }
+
+  Future<void> handleConflictUpdateAppointmentSlotExist(
+      AppointmentInPending appointmentInPending, int oriPhysio) async {
+    // update ori pending appointment record to new physio and new title
+    await updatePendingAppointmentRecord(appointmentInPending);
+    // update ori appointment record to new physio and new title
+    await appointmentService.deleteAppointmentReferenceFromUserById(
+        appointmentInPending.patientId, appointmentInPending.id);
+    await appointmentService.deleteAppointmentReferenceFromUserById(
+        oriPhysio, appointmentInPending.id);
+    await appointmentService.removeAppointmentRecord(appointmentInPending.id);
+
+    await appointmentService.addAppointmentRecord(appointmentInPending);
+    // notify patient and physio
+    //
+  }
+
+  Future<bool> checkPhysioAvailability(AppointmentInPending appointment) async {
+    return await leaveService.checkPhysioAvailabilityByDateAndTime(
+        appointment.physioId,
+        appointment.date,
+        appointment.startTime,
+        appointment.endTime);
   }
 
   Future<void> approveUpdatedAppointmentRecord(int appointmentId) async {
@@ -727,5 +767,16 @@ class AppointmentInPendingService {
     var latestRecord = documents.first;
 
     return AppointmentInPending.fromSnapshot(latestRecord);
+  }
+
+  Future<List<AppointmentInPending>> fetchConflictAppointmentRecord() async {
+    List<AppointmentInPending> appointmentList = [];
+    QuerySnapshot querySnapshot = await appointmentInPendingCollection
+        .where('status', isEqualTo: TextConstant.CONFLICT)
+        .get();
+    querySnapshot.docs.forEach((snapshot) {
+      appointmentList.add(AppointmentInPending.fromSnapshot(snapshot));
+    });
+    return appointmentList;
   }
 }

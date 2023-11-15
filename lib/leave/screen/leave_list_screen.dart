@@ -103,20 +103,22 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                               child: Text('Error: ${snapshot.error}'));
                         }
                         if (snapshot.hasData && snapshot.data!.isEmpty) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 100.0,
-                                height: 100.0,
-                                child:
-                                    Image.asset(ImageConstant.DATA_NOT_FOUND),
-                              ),
-                              Text('No Record Found',
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold)),
-                            ],
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 100.0,
+                                  height: 100.0,
+                                  child:
+                                      Image.asset(ImageConstant.DATA_NOT_FOUND),
+                                ),
+                                Text('No Record Found',
+                                    style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            ),
                           );
                         } else {
                           // Handle the case where you have notifications to display

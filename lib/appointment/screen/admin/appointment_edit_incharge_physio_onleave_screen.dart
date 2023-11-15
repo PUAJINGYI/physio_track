@@ -3,219 +3,47 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
-import 'package:physio_track/translations/locale_keys.g.dart';
 
 import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
+import '../../model/appointment_model.dart';
 import '../../service/appointment_in_pending_service.dart';
+import '../../service/appointment_service.dart';
 import 'edit_appointment_detail_screen.dart';
 
-class AppointmentNewApproveScreen extends StatefulWidget {
-  const AppointmentNewApproveScreen({super.key});
+class AppointmentEditInChargePhysioOnLeaveScreen extends StatefulWidget {
+  const AppointmentEditInChargePhysioOnLeaveScreen({super.key});
 
   @override
-  State<AppointmentNewApproveScreen> createState() =>
-      _AppointmentNewApproveScreenState();
+  State<AppointmentEditInChargePhysioOnLeaveScreen> createState() =>
+      _AppointmentEditInChargePhysioOnLeaveScreenState();
 }
 
-class _AppointmentNewApproveScreenState
-    extends State<AppointmentNewApproveScreen> {
+class _AppointmentEditInChargePhysioOnLeaveScreenState
+    extends State<AppointmentEditInChargePhysioOnLeaveScreen> {
+  AppointmentService appointmentService = AppointmentService();
   AppointmentInPendingService appointmentInPendingService =
       AppointmentInPendingService();
   UserManagementService userManagementService = UserManagementService();
-  late Future<List<AppointmentInPending>> _newAppointmentList;
+  late Future<List<AppointmentInPending>> _appointmentEditList;
   late String patientName;
   late String physioName;
 
   @override
   void initState() {
     super.initState();
-    _newAppointmentList = _fetchAppointmentList();
+    _appointmentEditList = _fetchConlicAppointmentList();
   }
 
-  Future<List<AppointmentInPending>> _fetchAppointmentList() async {
-    return appointmentInPendingService
-        .fetchAllNewAddedPendingAppointmentRecord();
+  Future<List<AppointmentInPending>> _fetchConlicAppointmentList() async {
+    return await appointmentInPendingService.fetchConflictAppointmentRecord();
   }
 
   Future<String> _getUsernameById(int id) async {
     return userManagementService.getUsernameById(id);
-  }
-
-  void showRejectConfirmationDialog(BuildContext context, int appointmentId) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
-          titlePadding:
-              EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(LocaleKeys.Reject_Appointment.tr()),
-              IconButton(
-                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-              ),
-            ],
-          ),
-          content: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              LocaleKeys.are_you_sure_reject_appointment.tr(),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          actions: [
-            Center(
-              // Wrap actions in Center widget
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
-                    ),
-                    child: Text(LocaleKeys.Yes.tr(),
-                        style:
-                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
-                    onPressed: () async {
-                      await appointmentInPendingService
-                          .rejectNewPendingAppointmentRecord(appointmentId);
-                      Navigator.pop(context);
-                      setState(() {
-                        _newAppointmentList = _fetchAppointmentList();
-                      });
-                    },
-                  ),
-                  SizedBox(width: 10),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
-                    ),
-                    child: Text(LocaleKeys.No.tr(),
-                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void showAppproveConfirmationDialog(BuildContext context, int appointmentId) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
-          titlePadding:
-              EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(LocaleKeys.Approve_Appointment.tr()),
-              IconButton(
-                icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-              ),
-            ],
-          ),
-          content: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              LocaleKeys.are_you_sure_approve_appointment.tr(),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          actions: [
-            Center(
-              // Wrap actions in Center widget
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
-                    ),
-                    child: Text(LocaleKeys.Yes.tr(),
-                        style:
-                            TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
-                    onPressed: () async {
-                      bool isApproved = await appointmentInPendingService
-                          .checkIfNewAppointmentSlotExist(appointmentId);
-                      if (!isApproved) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                LocaleKeys.Appointment_slot_not_available.tr()),
-                            duration: Duration(seconds: 3),
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                LocaleKeys.Appointment_has_been_approved.tr()),
-                            duration: Duration(seconds: 3),
-                          ),
-                        );
-                      }
-                      Navigator.pop(context);
-                      setState(() {
-                        _newAppointmentList = _fetchAppointmentList();
-                      });
-                    },
-                  ),
-                  SizedBox(width: 10),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
-                    ),
-                    child: Text(LocaleKeys.No.tr(),
-                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   String shortenUsername(String fullName) {
@@ -230,7 +58,7 @@ class _AppointmentNewApproveScreenState
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<AppointmentInPending>>(
-        future: _newAppointmentList,
+        future: _appointmentEditList,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -399,7 +227,7 @@ class _AppointmentNewApproveScreenState
                                           )
                                         ],
                                       ),
-                                      // SizedBox(width: 10),
+                                      //SizedBox(width: 10),
                                       // GestureDetector(
                                       //   onTap: () async {
                                       //     final needUpdate =
@@ -417,8 +245,8 @@ class _AppointmentNewApproveScreenState
                                       //     if (needUpdate != null &&
                                       //         needUpdate) {
                                       //       setState(() {
-                                      //         _newAppointmentList =
-                                      //             _fetchAppointmentList();
+                                      //         _appointmentEditList =
+                                      //             _fetchConlicAppointmentList();
                                       //       });
                                       //     }
                                       //   },
@@ -449,16 +277,30 @@ class _AppointmentNewApproveScreenState
                                           borderRadius: BorderRadius.circular(
                                               25.0), // Adjust the radius as needed
                                           child: TextButton(
-                                            onPressed: () {
-                                              showAppproveConfirmationDialog(
-                                                  context, appointment.id);
+                                            onPressed: () async {
+                                              final needUpdate =
+                                                  await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditAppointmentDetailScreen(
+                                                    appointmentInPendingId:
+                                                        appointment.id,
+                                                  ),
+                                                ),
+                                              );
+
+                                              if (needUpdate != null &&
+                                                  needUpdate) {
+                                                setState(() {
+                                                  _appointmentEditList =
+                                                      _fetchConlicAppointmentList();
+                                                });
+                                              }
                                             },
                                             style: TextButton.styleFrom(
-                                              backgroundColor: Color.fromARGB(
-                                                  255,
-                                                  197,
-                                                  245,
-                                                  199), // Background color of the button
+                                              backgroundColor: ColorConstant
+                                                  .YELLOW_BUTTON_UNPRESSED,
                                               primary:
                                                   Colors.white, // Text color
                                             ),
@@ -468,18 +310,18 @@ class _AppointmentNewApproveScreenState
                                               children: [
                                                 Icon(
                                                   Icons
-                                                      .check_circle_outlined, // Your icon here
+                                                      .edit_calendar_outlined, // Your icon here
                                                   color: ColorConstant
-                                                      .GREEN_BUTTON_TEXT, // Icon color
+                                                      .YELLOW_BUTTON_TEXT, // Icon color
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
-                                                  LocaleKeys.Approve.tr(),
+                                                  LocaleKeys.Edit.tr(),
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
                                                     color: ColorConstant
-                                                        .GREEN_BUTTON_TEXT,
+                                                        .YELLOW_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],
@@ -487,54 +329,54 @@ class _AppointmentNewApproveScreenState
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              25.0), // Adjust the radius as needed
-                                          child: TextButton(
-                                            onPressed: () {
-                                              showRejectConfirmationDialog(
-                                                  context, appointment.id);
-                                            },
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Color.fromARGB(
-                                                  255,
-                                                  241,
-                                                  163,
-                                                  157), // Background color of the button
-                                              primary:
-                                                  Colors.white, // Text color
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons
-                                                      .cancel_outlined, // Your icon here
-                                                  color: ColorConstant
-                                                      .RED_BUTTON_TEXT, // Icon colorF
-                                                ),
-                                                SizedBox(
-                                                    width:
-                                                        10.0), // Adjust the spacing between the icon and text
-                                                Text(
-                                                  LocaleKeys.Reject.tr(),
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        15.0, // Text font size
-                                                    color: ColorConstant
-                                                        .RED_BUTTON_TEXT,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      // SizedBox(
+                                      //   width: 10,
+                                      // ),
+                                      // Expanded(
+                                      //   child: ClipRRect(
+                                      //     borderRadius: BorderRadius.circular(
+                                      //         25.0), // Adjust the radius as needed
+                                      //     child: TextButton(
+                                      //       onPressed: () {
+                                      //         showRejectConfirmationDialog(
+                                      //             context, appointment.id);
+                                      //       },
+                                      //       style: TextButton.styleFrom(
+                                      //         backgroundColor: Color.fromARGB(
+                                      //             255,
+                                      //             241,
+                                      //             163,
+                                      //             157), // Background color of the button
+                                      //         primary:
+                                      //             Colors.white, // Text color
+                                      //       ),
+                                      //       child: Row(
+                                      //         mainAxisAlignment:
+                                      //             MainAxisAlignment.center,
+                                      //         children: [
+                                      //           Icon(
+                                      //             Icons
+                                      //                 .cancel_outlined, // Your icon here
+                                      //             color: ColorConstant
+                                      //                 .RED_BUTTON_TEXT, // Icon colorF
+                                      //           ),
+                                      //           SizedBox(
+                                      //               width:
+                                      //                   10.0), // Adjust the spacing between the icon and text
+                                      //           Text(
+                                      //             LocaleKeys.Reject.tr(),
+                                      //             style: TextStyle(
+                                      //               fontSize:
+                                      //                   15.0, // Text font size
+                                      //               color: ColorConstant
+                                      //                   .RED_BUTTON_TEXT,
+                                      //             ),
+                                      //           ),
+                                      //         ],
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ],

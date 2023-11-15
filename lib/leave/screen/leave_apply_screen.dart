@@ -72,7 +72,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
       );
       // check existing fuil day leave
       List<Leave> existingLeaves = await leaveService
-          .fetchLeaveHistoryByPhysioIdAndDate(widget.physioId, selectedDate!);
+          .fetchLeaveByPhysioIdAndDate(widget.physioId, selectedDate!);
       if (existingLeaves.isNotEmpty) {
         for (Leave leave in existingLeaves) {
           if (leave.isFullDay) {
@@ -87,6 +87,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
       }
 
       await leaveService.addLeaveRecord(newLeave);
+
 
       setState(() {
         selectedLeaveType = null;

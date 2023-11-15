@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../appointment/service/appointment_service.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/leave_model.dart';
 
@@ -9,6 +10,7 @@ class LeaveService {
   CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
   UserManagementService userManagementService = UserManagementService();
+  AppointmentService appointmentService = AppointmentService();
 
   // add leave record
   Future<void> addLeaveRecord(Leave leave) async {
@@ -27,6 +29,7 @@ class LeaveService {
     if (leave.isFullDay) {
       await removeLeaveRecordByPhysioIdAndDate(leave.physioId, leave.date);
     }
+    await appointmentService.fetchAppointmentByDateTimeAndChangeStatus(leave);
   }
 
   // add leave reference to physio
@@ -86,7 +89,7 @@ class LeaveService {
   }
 
   //fetch all leave history by physioId and specific date, in descending order
-  Future<List<Leave>> fetchLeaveHistoryByPhysioIdAndDate(
+  Future<List<Leave>> fetchLeaveByPhysioIdAndDate(
       int physioId, DateTime date) async {
     QuerySnapshot querySnapshot = await leaveCollection
         .where('physioId', isEqualTo: physioId)
@@ -162,6 +165,32 @@ class LeaveService {
           return false;
         } else {
           if (now.isAfter(leave.startTime) && now.isBefore(leave.endTime)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  // check availibility of physio on specific date and specific time
+  Future<bool> checkPhysioAvailabilityByDateAndTime(
+      int physioId, DateTime date, DateTime startTime, DateTime endTime) async {
+    QuerySnapshot querySnapshot = await leaveCollection
+        .where('physioId', isEqualTo: physioId)
+        .where('date', isEqualTo: date)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      List<Leave> leaveList =
+          querySnapshot.docs.map((doc) => Leave.fromSnapshot(doc)).toList();
+      for (Leave leave in leaveList) {
+        if (leave.isFullDay) {
+          return false;
+        } else {
+          if (startTime.isAtSameMomentAs(leave.startTime) ||
+              (startTime.isAfter(leave.startTime) &&
+                  startTime.isBefore(leave.endTime))) {
             return false;
           }
         }

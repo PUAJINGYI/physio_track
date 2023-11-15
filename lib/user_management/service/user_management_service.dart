@@ -264,4 +264,12 @@ class UserManagementService {
       throw Exception('Error fetching shared journal status');
     }
   }
+
+  Future<int> fetchPhysioIdByPatientUid (String patientUid) async{
+    int patientId = await fetchUserIdByUid(patientUid);
+    String physioEmail = await fetchPhysioEmailByPatientId(patientId);
+    String physioUid = await getUidByEmail(physioEmail);
+    int physioId = await fetchUserIdByUid(physioUid);
+    return physioId;
+  }
 }
