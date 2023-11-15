@@ -326,5 +326,13 @@
   "patient_not_granted_permission_for_sharing_journal": "Pesakit tidak memberikan kebenaran untuk berkongsi jurnal dengan orang lain.",
   " Unable_Access": "Tidak Dapat Mengakses",
   "Select_Gender": "Pilih Jantina",
-  "Please_Select_Gender": "Sila pilih jantina ahli fisioterapi"
+  "Please_Select_Gender": "Sila pilih jantina ahli fisioterapi",
+  "You_have_already_applied_for_a_full_day_leave": "Anda sudah memohon cuti sepanjang hari.",
+  "You_have_already_applied_for_a_leave_at_this_time": "Anda sudah memohon cuti pada masa ini.",
+  "Leave_application_submitted": "Permohonan cuti telah dihantar.",
+  "Leave_Manager": "Pengurusan Cuti",
+  "On_Call": "Bertugas",
+  "On_Leave": "Bercuti",
+  "Conflict": "Konflik",
+  "Physiotherapist_On_Leave": "Ahli Fisioterapis Sedang Bercuti"
 }

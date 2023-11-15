@@ -326,5 +326,13 @@
   "patient_not_granted_permission_for_sharing_journal": "病人未授权与他人分享日记。",
   " Unable_Access": "无法访问",
   "Select_Gender": "选择性别",
-  "Please_Select_Gender": "请选择理疗师性别"
+  "Please_Select_Gender": "请选择理疗师性别",
+  "You_have_already_applied_for_a_full_day_leave": "您已申请全天假期。",
+  "You_have_already_applied_for_a_leave_at_this_time": "您已经在此时间申请了假期。",
+  "Leave_application_submitted": "请假申请已提交。",
+  "Leave_Manager": "请假管理",
+  "On_Call": "值班中",
+  "On_Leave": "休假中",
+  "Conflict": "冲突",
+  "Physiotherapist_On_Leave": "理疗师休假中"
 }

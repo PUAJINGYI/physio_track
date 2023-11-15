@@ -329,5 +329,13 @@ abstract class  LocaleKeys {
   static const  Unable_Access = ' Unable_Access';
   static const Select_Gender = 'Select_Gender';
   static const Please_Select_Gender = 'Please_Select_Gender';
+  static const You_have_already_applied_for_a_full_day_leave = 'You_have_already_applied_for_a_full_day_leave';
+  static const You_have_already_applied_for_a_leave_at_this_time = 'You_have_already_applied_for_a_leave_at_this_time';
+  static const Leave_application_submitted = 'Leave_application_submitted';
+  static const Leave_Manager = 'Leave_Manager';
+  static const On_Call = 'On_Call';
+  static const On_Leave = 'On_Leave';
+  static const Conflict = 'Conflict';
+  static const Physiotherapist_On_Leave = 'Physiotherapist_On_Leave';
 
 }

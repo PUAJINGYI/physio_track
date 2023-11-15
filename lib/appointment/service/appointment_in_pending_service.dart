@@ -332,7 +332,7 @@ class AppointmentInPendingService {
 
     appointmentService.removeAppointmentRecord(appointmentId);
     if (appointment != null) {
-      sendEmailToNotifyApprove(appointment, 'Cancel');
+      sendEmailToNotifyApprove(appointment, TextConstant.CANCELLED);
       String patientUid =
           await userManagementService.fetchUidByUserId(appointment.patientId);
       String physioUid =
@@ -565,7 +565,7 @@ class AppointmentInPendingService {
       content = Content('text/plain',
           'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment update request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack');
       subject = 'Appointment Update Approved';
-    } else if (approveType == 'Cancel') {
+    } else if (approveType == TextConstant.CANCELLED) {
       content = Content('text/plain',
           'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment cancellation request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nThank you. \n\n\nRegards,\nPhysioTrack');
       subject = 'Appointment Cancellation Approved';

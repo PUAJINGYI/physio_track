@@ -76,18 +76,19 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
       if (existingLeaves.isNotEmpty) {
         for (Leave leave in existingLeaves) {
           if (leave.isFullDay) {
-            showSnackBar('You have already applied for a full day leave');
+            showSnackBar(
+                LocaleKeys.You_have_already_applied_for_a_full_day_leave.tr());
             return;
           } else if (leave.startTime.hour == startTime.hour &&
               leave.endTime.hour == endTime.hour) {
-            showSnackBar('You have already applied for a leave at this time');
+            showSnackBar(LocaleKeys
+                .You_have_already_applied_for_a_leave_at_this_time.tr());
             return;
           }
         }
       }
 
       await leaveService.addLeaveRecord(newLeave);
-
 
       setState(() {
         selectedLeaveType = null;
@@ -100,7 +101,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
         _validateReasonInput = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Leave application submitted'),
+        content: Text(LocaleKeys.Leave_application_submitted.tr()),
         duration: Duration(seconds: 2),
       ));
       Navigator.pop(context, true);

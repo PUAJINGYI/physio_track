@@ -235,10 +235,6 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                             20), // Add spacing between DatePicker and selected date text
                   ],
                 ),
-                Text(
-                  'Selected Date: ${DateFormat('yyyy-MM-dd hh:mm a').format(_selectedValue)}',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
                 Visibility(
                   visible:
                       isFullDayLeave, // Show the Text when isFullDayLeave is false
@@ -251,160 +247,14 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                           height: 190.0,
                           child: Image.asset(ImageConstant.ON_LEAVE),
                         ),
-                        Text('Physiotherapist On Leave',
+                        
+                        Text(LocaleKeys.Physiotherapist_On_Leave.tr(),
                             style: TextStyle(
                                 fontSize: 17.0, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
                 ),
-                // Visibility(
-                //   visible: !isFullDayLeave,
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       // Generate time slots from 10 AM to 8 PM with buttons
-                //       for (int startHour = 10; startHour <= 20; startHour += 3)
-                //         Row(
-                //           mainAxisAlignment: MainAxisAlignment.start,
-                //           children: [
-                //             for (int hour = startHour;
-                //                 hour < startHour + 3;
-                //                 hour++)
-                //               if (hour <= 20)
-                //                 Padding(
-                //                   padding:
-                //                       const EdgeInsets.fromLTRB(7, 15, 7, 15),
-                //                   child: Container(
-                //                     width: 110,
-                //                     child: ElevatedButton(
-                //                       onPressed: () {
-                //                         // Handle button tap for the selected time slot
-                //                         setState(() {
-                //                           if (events.any((event) {
-                //                                 final eventStartTime = event
-                //                                     .start!.dateTime!
-                //                                     .toLocal();
-                //                                 final eventEndTime = event
-                //                                     .end!.dateTime!
-                //                                     .toLocal();
-                //                                 final buttonStartTime =
-                //                                     DateTime(
-                //                                   _selectedValue.year,
-                //                                   _selectedValue.month,
-                //                                   _selectedValue.day,
-                //                                   hour,
-                //                                 );
-                //                                 return buttonStartTime
-                //                                     .isAtSameMomentAs(
-                //                                         eventStartTime);
-                //                               }) ||
-                //                               leaves.any((leave) {
-                //                                 final leaveStartTime =
-                //                                     leave.startTime.toLocal();
-                //                                 final leaveEndTime =
-                //                                     leave.endTime.toLocal();
-                //                                 final buttonStartTime =
-                //                                     DateTime(
-                //                                   _selectedValue.year,
-                //                                   _selectedValue.month,
-                //                                   _selectedValue.day,
-                //                                   hour,
-                //                                 );
-                //                                 return buttonStartTime
-                //                                         .isAtSameMomentAs(
-                //                                             leaveStartTime) ||
-                //                                     (buttonStartTime.isAfter(
-                //                                             leaveStartTime) &&
-                //                                         buttonStartTime
-                //                                             .isBefore(
-                //                                                 leaveEndTime));
-                //                               })) {
-                //                             // If the button meets a conflict, do nothing (it remains disabled)
-                //                             return;
-                //                           }
-
-                //                           // If there was a previous selection, make it default again
-                //                           if (selectedHour != null) {
-                //                             selectedHour = null;
-                //                           }
-
-                //                           // Set the current button as active
-                //                           selectedHour = hour;
-
-                //                           // Update _selectedValue to match the selected hour
-                //                           _selectedValue = DateTime(
-                //                             _selectedValue.year,
-                //                             _selectedValue.month,
-                //                             _selectedValue.day,
-                //                             hour,
-                //                           );
-                //                         });
-                //                       },
-                //                       style: ButtonStyle(
-                //                         backgroundColor: MaterialStateProperty
-                //                             .resolveWith<Color>(
-                //                           (Set<MaterialState> states) {
-                //                             if (states.contains(
-                //                                 MaterialState.disabled)) {
-                //                               // Disabled state (conflict with an event)
-                //                               return Color.fromARGB(
-                //                                   255, 239, 154, 154);
-                //                             } else if (states.contains(
-                //                                     MaterialState.pressed) ||
-                //                                 selectedHour == hour) {
-                //                               // Active state (button is pressed or previously selected)
-                //                               return Color.fromARGB(
-                //                                   255, 138, 193, 238);
-                //                             } else {
-                //                               // Default state (not pressed and not selected)
-                //                               return Color.fromARGB(
-                //                                   255, 216, 234, 248);
-                //                             }
-                //                           },
-                //                         ),
-                //                       ),
-                //                       child: Text(
-                //                         '${hour % 12 == 0 ? 12 : hour % 12}:00 ${hour < 12 ? 'AM' : 'PM'}',
-                //                         style: TextStyle(
-                //                           fontSize: 16,
-                //                           color: selectedHour == hour
-                //                               ? Color.fromARGB(255, 5, 136, 243)
-                //                               : events.any((event) {
-                //                                   final eventStartTime = event
-                //                                       .start!.dateTime!
-                //                                       .toLocal();
-                //                                   final eventEndTime = event
-                //                                       .end!.dateTime!
-                //                                       .toLocal();
-                //                                   final buttonStartTime =
-                //                                       DateTime(
-                //                                     _selectedValue.year,
-                //                                     _selectedValue.month,
-                //                                     _selectedValue.day,
-                //                                     hour,
-                //                                   );
-                //                                   return buttonStartTime
-                //                                       .isAtSameMomentAs(
-                //                                           eventStartTime);
-                //                                 })
-                //                                   ? Colors
-                //                                       .white // Text color for disabled button
-                //                                   : Color.fromARGB(
-                //                                       255,
-                //                                       150,
-                //                                       200,
-                //                                       238), // Text color for active button
-                //                         ),
-                //                       ),
-                //                     ),
-                //                   ),
-                //                 ),
-                //           ],
-                //         ),
-                //     ],
-                //   ),
-                // ),
                 Visibility(
                   visible: !isFullDayLeave,
                   child: Column(

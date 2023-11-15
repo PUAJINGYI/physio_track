@@ -326,5 +326,13 @@
   "patient_not_granted_permission_for_sharing_journal": "The patient has not granted permission to share their journal with others.",
   " Unable_Access": "Unable to Access",
   "Select_Gender": "Select Gender",
-  "Please_Select_Gender": "Please select physiotherapist's gender"
+  "Please_Select_Gender": "Please select physiotherapist's gender",
+  "You_have_already_applied_for_a_full_day_leave": "You have already applied for a full day leave.",
+  "You_have_already_applied_for_a_leave_at_this_time": "You have already applied for a leave at this time.",
+  "Leave_application_submitted": "Leave application submitted.",
+  "Leave_Manager": "Leave Manager",
+  "On_Call": "On Call",
+  "On_Leave": "On Leave",
+  "Conflict": "Conflict",
+  "Physiotherapist_On_Leave": "Physiotherapist On Leave"
 }

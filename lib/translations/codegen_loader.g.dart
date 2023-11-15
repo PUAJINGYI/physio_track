@@ -342,7 +342,15 @@ class CodegenLoader extends AssetLoader{
   "patient_not_granted_permission_for_sharing_journal": "The patient has not granted permission to share their journal with others.",
   " Unable_Access": "Unable to Access",
   "Select_Gender": "Select Gender",
-  "Please_Select_Gender": "Please select physiotherapist's gender"
+  "Please_Select_Gender": "Please select physiotherapist's gender",
+  "You_have_already_applied_for_a_full_day_leave": "You have already applied for a full day leave.",
+  "You_have_already_applied_for_a_leave_at_this_time": "You have already applied for a leave at this time.",
+  "Leave_application_submitted": "Leave application submitted.",
+  "Leave_Manager": "Leave Manager",
+  "On_Call": "On Call",
+  "On_Leave": "On Leave",
+  "Conflict": "Conflict",
+  "Physiotherapist_On_Leave": "Physiotherapist On Leave"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -672,7 +680,15 @@ static const Map<String,dynamic> ms = {
   "patient_not_granted_permission_for_sharing_journal": "Pesakit tidak memberikan kebenaran untuk berkongsi jurnal dengan orang lain.",
   " Unable_Access": "Tidak Dapat Mengakses",
   "Select_Gender": "Pilih Jantina",
-  "Please_Select_Gender": "Sila pilih jantina ahli fisioterapi"
+  "Please_Select_Gender": "Sila pilih jantina ahli fisioterapi",
+  "You_have_already_applied_for_a_full_day_leave": "Anda sudah memohon cuti sepanjang hari.",
+  "You_have_already_applied_for_a_leave_at_this_time": "Anda sudah memohon cuti pada masa ini.",
+  "Leave_application_submitted": "Permohonan cuti telah dihantar.",
+  "Leave_Manager": "Pengurusan Cuti",
+  "On_Call": "Bertugas",
+  "On_Leave": "Bercuti",
+  "Conflict": "Konflik",
+  "Physiotherapist_On_Leave": "Ahli Fisioterapis Sedang Bercuti"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -1002,7 +1018,15 @@ static const Map<String,dynamic> zh = {
   "patient_not_granted_permission_for_sharing_journal": "病人未授权与他人分享日记。",
   " Unable_Access": "无法访问",
   "Select_Gender": "选择性别",
-  "Please_Select_Gender": "请选择理疗师性别"
+  "Please_Select_Gender": "请选择理疗师性别",
+  "You_have_already_applied_for_a_full_day_leave": "您已申请全天假期。",
+  "You_have_already_applied_for_a_leave_at_this_time": "您已经在此时间申请了假期。",
+  "Leave_application_submitted": "请假申请已提交。",
+  "Leave_Manager": "请假管理",
+  "On_Call": "值班中",
+  "On_Leave": "休假中",
+  "Conflict": "冲突",
+  "Physiotherapist_On_Leave": "理疗师休假中"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

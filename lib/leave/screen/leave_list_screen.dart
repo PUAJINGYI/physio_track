@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,6 +6,7 @@ import 'package:physio_track/leave/screen/leave_apply_screen.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/leave_model.dart';
 import '../service/leave_service.dart';
 import '../widget/calendar_tile.dart';
@@ -75,7 +77,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                           ),
                           SizedBox(width: 8.0),
                           Text(
-                            isOnCall ? 'On Call' : 'On Leave',
+                            isOnCall ? LocaleKeys.On_Call.tr() : LocaleKeys.On_Leave.tr(),
                             style: TextStyle(color: Colors.white),
                           ),
                         ],
@@ -100,7 +102,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                         }
                         if (snapshot.hasError) {
                           return Center(
-                              child: Text('Error: ${snapshot.error}'));
+                              child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                         }
                         if (snapshot.hasData && snapshot.data!.isEmpty) {
                           return Center(
@@ -113,7 +115,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                                   child:
                                       Image.asset(ImageConstant.DATA_NOT_FOUND),
                                 ),
-                                Text('No Record Found',
+                                Text(LocaleKeys.No_Record_Found.tr(),
                                     style: TextStyle(
                                         fontSize: 20.0,
                                         fontWeight: FontWeight.bold)),
@@ -172,7 +174,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                 height: kToolbarHeight,
                 alignment: Alignment.center,
                 child: Text(
-                  'Leave Manager',
+                  LocaleKeys.Leave_Manager.tr(),
                   style: TextStyle(
                     fontSize: TextConstant.TITLE_FONT_SIZE,
                     fontWeight: FontWeight.bold,

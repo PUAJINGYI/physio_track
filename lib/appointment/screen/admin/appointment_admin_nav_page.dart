@@ -10,6 +10,7 @@ import 'appointment_edit_incharge_physio_onleave_screen.dart';
 import 'appointment_new_approve_screen.dart';
 import 'appointment_updated_approve_screen.dart';
 
+// hello
 class AppointmentAdminNavPage extends StatefulWidget {
   const AppointmentAdminNavPage({super.key});
 
@@ -90,7 +91,7 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
                       Expanded(
                         flex: 1,
                         child: TestNavigationBarItem(
-                          label: 'Conflict',
+                          label: LocaleKeys.Conflict.tr(),
                           isSelected: _selectedIndex == 3,
                           onTap: () => _onItemTapped(3),
                         ),
