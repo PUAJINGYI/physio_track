@@ -104,7 +104,8 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+            return Center(
+                child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           } else {
             return Stack(
               children: [
@@ -149,7 +150,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                                 // Navigate to the other page when the card is tapped
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                    WeeklyAnalsisDetailScreen(
+                                      WeeklyAnalsisDetailScreen(
                                           ot: otList[index],
                                           pt: ptList[index],
                                           uid: widget.uid),
@@ -234,7 +235,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                   left: 25,
                   child: Text(LocaleKeys.Weekly_Analysis.tr(),
                       style: TextStyle(
-                          fontSize: 30.0, fontWeight: FontWeight.bold)),
+                          fontSize: 25.0, fontWeight: FontWeight.bold)),
                 ),
                 Positioned(
                   top: 160,
@@ -265,7 +266,11 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                     left: 0.0,
                     right: 0.0,
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.fromLTRB(
+                          TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                          TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                          TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                          TextConstant.CUSTOM_BUTTON_TB_PADDING),
                       child: customButton(
                           context,
                           LocaleKeys.Select_Dates.tr(),

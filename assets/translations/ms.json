@@ -334,5 +334,18 @@
   "On_Call": "Bertugas",
   "On_Leave": "Bercuti",
   "Conflict": "Konflik",
-  "Physiotherapist_On_Leave": "Ahli Fisioterapis Sedang Bercuti"
+  "Physiotherapist_On_Leave": "Ahli Fisioterapis Sedang Bercuti",
+  "Leave_Type": "Jenis Cuti",
+  "Sick_Leave": "Cuti Sakit",
+  "Casual_Leave": "Cuti Kecemasan",
+  "Annual_Leave": "Cuti Tahunan",
+  "Start_Time": "Masa Mula:",
+  "End_Time": "Masa Tamat:",
+  "Reason": "Sebab",
+  "Please_enter_your_reason": "Sila masukkan sebab anda",
+  "Please_enter_a_valid_reason": "Sila masukkan sebab yang sah",
+  "Apply": "Mohon",
+  "Please_enter_a_valid_time": "Sila masukkan masa yang sah",
+  "Leave_Application": "Permohonan Cuti",
+  "Full_Day_Leave": "Cuti Sepenuh Hari?"
 }

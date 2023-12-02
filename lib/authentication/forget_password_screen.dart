@@ -8,6 +8,7 @@ import 'package:physio_track/authentication/signin_screen.dart';
 
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
+import '../constant/TextConstant.dart';
 import '../reusable_widget/reusable_widget.dart';
 import '../translations/locale_keys.g.dart';
 
@@ -97,29 +98,40 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         _validateEmailInput,
                         _isObscure,
                         toggleObscure),
-                    SizedBox(
-                      height: 100,
-                    ),
-                    customButton(
-                        context,
-                        LocaleKeys.Reset_Password.tr(),
-                        ColorConstant.BLUE_BUTTON_TEXT,
-                        ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED, () {
-                      setState(() {
-                        _emailTextController.text.isEmpty ||
-                                !_emailTextController.text.contains("@")
-                            ? _validateEmailInput = true
-                            : _validateEmailInput = false;
-                      });
-                      if (_validateEmailInput == false) {
-                        _sendPasswordResetEmail();
-                      }
-                    })
                   ],
                 ),
               ),
             )),
+        Positioned(
+          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING),
+            child: customButton(
+              context,
+              LocaleKeys.Reset_Password.tr(),
+              ColorConstant.BLUE_BUTTON_TEXT,
+              ColorConstant.BLUE_BUTTON_UNPRESSED,
+              ColorConstant.BLUE_BUTTON_PRESSED,
+              () {
+                setState(() {
+                  _emailTextController.text.isEmpty ||
+                          !_emailTextController.text.contains("@")
+                      ? _validateEmailInput = true
+                      : _validateEmailInput = false;
+                });
+                if (_validateEmailInput == false) {
+                  _sendPasswordResetEmail();
+                }
+              },
+            ),
+          ),
+        )
       ]),
     );
   }

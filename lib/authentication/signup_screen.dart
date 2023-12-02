@@ -11,6 +11,7 @@ import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
 import '../constant/ColorConstant.dart';
+import '../constant/TextConstant.dart';
 import '../profile/model/user_model.dart';
 import '../profile/service/user_service.dart';
 import '../translations/locale_keys.g.dart';
@@ -69,7 +70,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 _userService.addNewUserToFirestore(user, value.user!.uid),
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(LocaleKeys.New_account_created_successfully.tr())),
+                  SnackBar(
+                      content: Text(
+                          LocaleKeys.New_account_created_successfully.tr())),
                 ),
                 print("New account created successfully"),
                 Navigator.pop(context),
@@ -153,37 +156,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         _validatePasswordInput,
                         _isObscure,
                         toggleObscure),
-                    SizedBox(
-                      height: 100,
-                    ),
-                    customButton(
-                        context,
-                        LocaleKeys.Sign_Up.tr(),
-                        ColorConstant.BLUE_BUTTON_TEXT,
-                        ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED, () {
-                      setState(() {
-                        _usernameController.text.isEmpty
-                            ? _validateUsernameInput = true
-                            : _validateUsernameInput = false;
-                        _emailTextController.text.isEmpty ||
-                                !_emailTextController.text.contains("@")
-                            ? _validateEmailInput = true
-                            : _validateEmailInput = false;
-                        _passwordTextController.text.isEmpty
-                            ? _validatePasswordInput = true
-                            : _validatePasswordInput = false;
-                      });
-                      if (_validateUsernameInput == false &&
-                          _validateEmailInput == false &&
-                          _validatePasswordInput == false) {
-                        _createUserWithEmailAndPassword();
-                      }
-                    })
                   ],
                 ),
               ),
             )),
+        Positioned(
+          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING),
+            child: customButton(
+              context,
+              LocaleKeys.Sign_Up.tr(),
+              ColorConstant.BLUE_BUTTON_TEXT,
+              ColorConstant.BLUE_BUTTON_UNPRESSED,
+              ColorConstant.BLUE_BUTTON_PRESSED,
+              () {
+                setState(() {
+                  _usernameController.text.isEmpty
+                      ? _validateUsernameInput = true
+                      : _validateUsernameInput = false;
+                  _emailTextController.text.isEmpty ||
+                          !_emailTextController.text.contains("@")
+                      ? _validateEmailInput = true
+                      : _validateEmailInput = false;
+                  _passwordTextController.text.isEmpty
+                      ? _validatePasswordInput = true
+                      : _validatePasswordInput = false;
+                });
+                if (_validateUsernameInput == false &&
+                    _validateEmailInput == false &&
+                    _validatePasswordInput == false) {
+                  _createUserWithEmailAndPassword();
+                }
+              },
+            ),
+          ),
+        )
       ]),
     );
   }

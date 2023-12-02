@@ -149,9 +149,12 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                         Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                            color: Colors.blue[100],
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                              color: Colors.blue[500]!,
+                                              width: 2.0,
+                                            ),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
@@ -173,10 +176,13 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                         Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                            color: _getLevelBackgroundColor(
-                                                _otLibraryRecord.level),
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                              color: _getLevelColor(
+                                                  _otLibraryRecord.level),
+                                              width: 2.0,
+                                            ),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
@@ -278,9 +284,12 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                       Container(
                                         padding: EdgeInsets.all(8.0),
                                         decoration: BoxDecoration(
-                                          color: Colors.blue[100],
                                           borderRadius:
                                               BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                            color: Colors.blue[500]!,
+                                            width: 2.0,
+                                          ),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
@@ -302,10 +311,13 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                       Container(
                                         padding: EdgeInsets.all(8.0),
                                         decoration: BoxDecoration(
-                                          color: _getLevelBackgroundColor(
-                                              _otLibraryRecord.level),
                                           borderRadius:
                                               BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                            color: _getLevelColor(
+                                                _otLibraryRecord.level),
+                                            width: 2.0,
+                                          ),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
@@ -553,18 +565,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
     }
     // Default color if the level doesn't match the conditions
     return Colors.black;
-  }
-
-  Color _getLevelBackgroundColor(String level) {
-    if (level == 'Advanced') {
-      return Colors.red[100]!;
-    } else if (level == 'Intermediate') {
-      return Colors.yellow[100]!;
-    } else if (level == 'Beginner') {
-      return Colors.green[100]!;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Colors.grey[300]!;
   }
 
   String _getLevelText(String level) {

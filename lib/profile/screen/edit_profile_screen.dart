@@ -208,8 +208,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
                 SizedBox(height: 50),
-                editProfileInputField('${LocaleKeys.Username.tr()}:', 'Please insert username !',
-                    _validateUsernameInput, _usernameController),
+                editProfileInputField(
+                    '${LocaleKeys.Username.tr()}:',
+                    'Please insert username !',
+                    _validateUsernameInput,
+                    _usernameController),
                 SizedBox(height: 20),
                 editProfileInputField(
                     '${LocaleKeys.TelNo.tr()}:',
@@ -217,17 +220,58 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     _validatePhoneInput,
                     _phoneController),
                 SizedBox(height: 20),
-                editProfileInputField('${LocaleKeys.Email.tr()}:', 'Please insert email !',
-                    _validateEmailInput, _emailController),
+                editProfileInputField(
+                    '${LocaleKeys.Email.tr()}:',
+                    'Please insert email !',
+                    _validateEmailInput,
+                    _emailController),
                 SizedBox(height: 20),
                 editProfileInputField(
                     '${LocaleKeys.Home_Address.tr()}:',
                     'Please insert address !',
                     _validateAddressInput,
                     _addressController),
-                SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              ],
+            ),
+            Positioned(
+              top: 25,
+              left: 0,
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  size: 35.0,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Positioned(
+              top: 25,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: kToolbarHeight,
+                alignment: Alignment.center,
+                child: Text(
+                  LocaleKeys.Edit_Profile.tr(),
+                  style: TextStyle(
+                    fontSize: TextConstant.TITLE_FONT_SIZE,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+                bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
                   child: customButton(
                       context,
                       LocaleKeys.Update_Profile.tr(),
@@ -260,38 +304,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           _addressController.text);
                     }
                   }),
-                )
-              ],
-            ),
-            Positioned(
-              top: 25,
-              left: 0,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 35.0,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            Positioned(
-              top: 25,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: kToolbarHeight,
-                alignment: Alignment.center,
-                child: Text(
-                  LocaleKeys.Edit_Profile.tr(),
-                  style: TextStyle(
-                    fontSize: TextConstant.TITLE_FONT_SIZE,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+                ))
           ],
         ),
       );

@@ -60,24 +60,12 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     if (level == 'Advanced') {
       return Colors.red[500]!;
     } else if (level == 'Intermediate') {
-      return Colors.yellow[500]!;
+      return Colors.orange[500]!;
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
     // Default color if the level doesn't match the conditions
     return Colors.black;
-  }
-
-  Color _getLevelBackgroundColor(String level) {
-    if (level == 'Advanced') {
-      return Colors.red[100]!;
-    } else if (level == 'Intermediate') {
-      return Colors.yellow[100]!;
-    } else if (level == 'Beginner') {
-      return Colors.green[100]!;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Colors.grey[300]!;
   }
 
   String _getLevelText(String level) {
@@ -90,30 +78,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     }
     // Default background color if the level doesn't match the conditions
     return '';
-  }
-
-  Color _getCatBackgroundColor(String cat) {
-    if (cat == 'Lower') {
-      return Colors.blue[100]!;
-    } else if (cat == 'Upper') {
-      return Colors.red[100]!;
-    } else if (cat == 'Transfer') {
-      return Colors.green[100]!;
-    } else if (cat == 'Bed Mobility') {
-      return Colors.purple[100]!;
-    } else if (cat == 'Breathing') {
-      return Colors.teal[100]!;
-    } else if (cat == 'Core Movement') {
-      return Colors.orange[100]!;
-    } else if (cat == 'Passive Movement') {
-      return Colors.grey[300]!;
-    } else if (cat == 'Sitting') {
-      return Colors.brown[100]!;
-    } else if (cat == 'Active Assisted Movement') {
-      return Colors.yellow[100]!;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Colors.grey[300]!;
   }
 
   IconData _getCatIcon(String cat) {
@@ -181,7 +145,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     } else if (cat == 'Sitting') {
       return Colors.brown[500]!;
     } else if (cat == 'Active Assisted Movement') {
-      return Colors.yellow[500]!;
+      return Colors.yellow[600]!;
     }
     // Default color if the level doesn't match the conditions
     return Colors.black;
@@ -577,9 +541,12 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                         Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                            color: Colors.blue[100],
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                              color: Colors.blue[500]!,
+                                              width: 2.0,
+                                            ),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
@@ -601,10 +568,13 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                         Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                            color: _getLevelBackgroundColor(
-                                                _ptLibraryRecord.level),
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                              color: _getLevelColor(
+                                                  _ptLibraryRecord.level),
+                                              width: 2.0,
+                                            ),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
@@ -629,10 +599,13 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                         Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                            color: _getCatBackgroundColor(
-                                                _ptLibraryRecord.cat),
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                              color: _getCatColor(
+                                                  _ptLibraryRecord.level),
+                                              width: 2.0,
+                                            ),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
@@ -735,9 +708,12 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                       Container(
                                         padding: EdgeInsets.all(8.0),
                                         decoration: BoxDecoration(
-                                          color: Colors.blue[100],
                                           borderRadius:
                                               BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                            color: Colors.blue[500]!,
+                                            width: 2.0,
+                                          ),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
@@ -759,10 +735,13 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                       Container(
                                         padding: EdgeInsets.all(8.0),
                                         decoration: BoxDecoration(
-                                          color: _getLevelBackgroundColor(
-                                              _ptLibraryRecord.level),
                                           borderRadius:
                                               BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                            color: _getLevelColor(
+                                                _ptLibraryRecord.level),
+                                            width: 2.0,
+                                          ),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
@@ -787,10 +766,13 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                       Container(
                                         padding: EdgeInsets.all(8.0),
                                         decoration: BoxDecoration(
-                                          color: _getCatBackgroundColor(
-                                              _ptLibraryRecord.cat),
                                           borderRadius:
                                               BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                            color: _getCatColor(
+                                                _ptLibraryRecord.cat),
+                                            width: 2.0,
+                                          ),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
@@ -879,11 +861,11 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 70,
+                      bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
                       left: 0,
                       right: 0,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.fromLTRB(TextConstant.CUSTOM_BUTTON_SIDE_PADDING, TextConstant.CUSTOM_BUTTON_TB_PADDING, TextConstant.CUSTOM_BUTTON_SIDE_PADDING, TextConstant.CUSTOM_BUTTON_TB_PADDING),
                         child: Container(
                           height: kToolbarHeight,
                           alignment: Alignment.center,

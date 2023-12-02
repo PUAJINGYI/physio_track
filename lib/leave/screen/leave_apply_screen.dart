@@ -144,7 +144,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Leave Type',
+                                  LocaleKeys.Leave_Type.tr(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -160,7 +160,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 LeaveTypeCard(
-                                    leaveType: 'Sick Leave',
+                                    leaveType: LocaleKeys.Sick_Leave.tr(),
                                     selectedLeaveType: selectedLeaveType,
                                     onChanged: (value) {
                                       setState(() {
@@ -170,7 +170,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                     }),
                                 SizedBox(width: 2.0),
                                 LeaveTypeCard(
-                                    leaveType: 'Casual Leave',
+                                    leaveType: LocaleKeys.Casual_Leave.tr(),
                                     selectedLeaveType: selectedLeaveType,
                                     onChanged: (value) {
                                       setState(() {
@@ -180,7 +180,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                     }),
                                 SizedBox(width: 2.0),
                                 LeaveTypeCard(
-                                    leaveType: 'Annual Leave',
+                                    leaveType: LocaleKeys.Annual_Leave.tr(),
                                     selectedLeaveType: selectedLeaveType,
                                     onChanged: (value) {
                                       setState(() {
@@ -198,7 +198,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Date',
+                                  LocaleKeys.Date.tr(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -240,7 +240,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Full Day Leave?',
+                                  Text(LocaleKeys.Full_Day_Leave.tr(),
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
@@ -285,7 +285,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                             Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                'Start Time:',
+                                                LocaleKeys.Start_Time.tr(),
                                                 textAlign: TextAlign.start,
                                               ),
                                             ),
@@ -338,7 +338,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                             Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                'End Time:',
+                                                LocaleKeys.End_Time.tr(),
                                                 textAlign: TextAlign.start,
                                               ),
                                             ),
@@ -397,7 +397,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Reason',
+                                  LocaleKeys.Reason.tr(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -421,9 +421,11 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                 maxLines: 3,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
-                                  hintText: 'Please enter your reason',
+                                  hintText:
+                                      LocaleKeys.Please_enter_your_reason.tr(),
                                   errorText: _validateReasonInput
-                                      ? 'Please enter a valid reason'
+                                      ? LocaleKeys.Please_enter_a_valid_reason
+                                          .tr()
                                       : null,
                                 ),
                               ),
@@ -431,35 +433,6 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                           ],
                         );
                       })),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customButton(
-                    context,
-                    'Apply Now',
-                    ColorConstant.BLUE_BUTTON_TEXT,
-                    ColorConstant.BLUE_BUTTON_UNPRESSED,
-                    ColorConstant.BLUE_BUTTON_PRESSED, () {
-                  if (startTime == endTime || !getTime(startTime, endTime)) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Please enter a valid time'),
-                      duration: Duration(seconds: 2),
-                    ));
-                  } else if (!_validateReasonInput &&
-                      selectedLeaveType != null &&
-                      selectedDate != null &&
-                      _reasonController.text.isNotEmpty &&
-                      (!(startTime == TimeOfDay(hour: 0, minute: 0) &&
-                              endTime == TimeOfDay(hour: 0, minute: 0)) ||
-                          isFullDay)) {
-                    submitApplication();
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Please fill in all the fields'),
-                      duration: Duration(seconds: 2),
-                    ));
-                  }
-                }),
-              ),
             ],
           )),
       Positioned(
@@ -483,12 +456,50 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
           height: kToolbarHeight,
           alignment: Alignment.center,
           child: Text(
-            'Leave Application',
+            LocaleKeys.Leave_Application.tr(),
             style: TextStyle(
               fontSize: TextConstant.TITLE_FONT_SIZE,
               fontWeight: FontWeight.bold,
             ),
           ),
+        ),
+      ),
+      Positioned(
+        bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+        left: 0,
+        right: 0,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(
+              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+              TextConstant.CUSTOM_BUTTON_TB_PADDING,
+              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+              TextConstant.CUSTOM_BUTTON_TB_PADDING),
+          child: customButton(
+              context,
+              LocaleKeys.Apply.tr(),
+              ColorConstant.BLUE_BUTTON_TEXT,
+              ColorConstant.BLUE_BUTTON_UNPRESSED,
+              ColorConstant.BLUE_BUTTON_PRESSED, () {
+            if (startTime == endTime || !getTime(startTime, endTime)) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(LocaleKeys.Please_enter_a_valid_time.tr()),
+                duration: Duration(seconds: 2),
+              ));
+            } else if (!_validateReasonInput &&
+                selectedLeaveType != null &&
+                selectedDate != null &&
+                _reasonController.text.isNotEmpty &&
+                (!(startTime == TimeOfDay(hour: 0, minute: 0) &&
+                        endTime == TimeOfDay(hour: 0, minute: 0)) ||
+                    isFullDay)) {
+              submitApplication();
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(LocaleKeys.Please_fill_in_all_the_fields.tr()),
+                duration: Duration(seconds: 2),
+              ));
+            }
+          }),
         ),
       ),
     ]));

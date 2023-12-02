@@ -247,7 +247,6 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                           height: 190.0,
                           child: Image.asset(ImageConstant.ON_LEAVE),
                         ),
-                        
                         Text(LocaleKeys.Physiotherapist_On_Leave.tr(),
                             style: TextStyle(
                                 fontSize: 17.0, fontWeight: FontWeight.bold)),
@@ -361,7 +360,6 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                                             }
                                           },
                                         ),
-                                        
                                       ),
                                       child: Text(
                                         '${hour % 12 == 0 ? 12 : hour % 12}:00 ${hour < 12 ? 'AM' : 'PM'}',
@@ -404,7 +402,6 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                     ],
                   ),
                 ),
-
                 SizedBox(
                   height: 50,
                 ),
@@ -464,11 +461,15 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
           Visibility(
             visible: !isFullDayLeave,
             child: Positioned(
-                bottom: 20,
+                bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
                 right: 0,
                 left: 0,
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.fromLTRB(
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
                   child: customButton(
                     context,
                     LocaleKeys.Book_Now.tr(),

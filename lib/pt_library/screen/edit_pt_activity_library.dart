@@ -60,7 +60,8 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
           _levelController.text = ptActivity.level;
           _catController.text = ptActivity.cat;
           _videoUrlController.text = ptActivity.videoUrl;
-          _durationController.text = '${ptActivity.duration} ${LocaleKeys.minutes.tr()}';
+          _durationController.text =
+              '${ptActivity.duration} ${LocaleKeys.minutes.tr()}';
         });
       }
     } catch (e) {
@@ -189,11 +190,15 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
             ),
           ),
           Positioned(
-            bottom: 20,
+            bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
             left: 0,
             right: 0,
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
               child: customButton(
                 context,
                 LocaleKeys.Save.tr(),
@@ -590,7 +595,8 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
             _levelController.text = updatedPTActivity.level;
             _catController.text = updatedPTActivity.cat;
             _videoUrlController.text = updatedPTActivity.videoUrl;
-            _durationController.text = '${updatedPTActivity.duration} ${LocaleKeys.minutes.tr()}';
+            _durationController.text =
+                '${updatedPTActivity.duration} ${LocaleKeys.minutes.tr()}';
           });
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(LocaleKeys.PT_Activity_Updated.tr())),

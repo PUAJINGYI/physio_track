@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:physio_track/constant/ColorConstant.dart';
+import 'package:physio_track/constant/TextConstant.dart';
 
 import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
@@ -140,19 +141,6 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                         ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: customButton(
-                      context,
-                      LocaleKeys.Back.tr(),
-                      ColorConstant.BLUE_BUTTON_TEXT,
-                      ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ColorConstant.BLUE_BUTTON_PRESSED,
-                      () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
                 ],
               ),
               Positioned(
@@ -168,6 +156,28 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                   },
                 ),
               ),
+              Positioned(
+                bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                  child: customButton(
+                    context,
+                    LocaleKeys.Back.tr(),
+                    ColorConstant.BLUE_BUTTON_TEXT,
+                    ColorConstant.BLUE_BUTTON_UNPRESSED,
+                    ColorConstant.BLUE_BUTTON_PRESSED,
+                    () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              )
             ],
           ),
         ),

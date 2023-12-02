@@ -101,24 +101,12 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
     if (level == 'Advanced') {
       return Colors.red[500]!;
     } else if (level == 'Intermediate') {
-      return Colors.yellow[500]!;
+      return Colors.orange[500]!;
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
     // Default color if the level doesn't match the conditions
     return Colors.black;
-  }
-
-  Color _getLevelBackgroundColor(String level) {
-    if (level == 'Advanced') {
-      return Colors.red[100]!;
-    } else if (level == 'Intermediate') {
-      return Colors.yellow[100]!;
-    } else if (level == 'Beginner') {
-      return Colors.green[100]!;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Colors.grey[300]!;
   }
 
   String _getLevelText(String level) {
@@ -248,6 +236,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                       }
                                                     },
                                                   ),
+                                                  SizedBox(height: 5),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -255,9 +244,6 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              ptLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -266,7 +252,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                             ptLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -284,6 +270,8 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                               ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     ptLibrary
@@ -397,6 +385,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                       }
                                                     },
                                                   ),
+                                                  SizedBox(height: 5),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -404,18 +393,13 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              ptLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
                                                       border: Border.all(
                                                         color: _getLevelColor(
-                                                            ptLibrary
-                                                                .level), // Set the border color to black
-                                                        width:
-                                                            1.0, // Set the border width
+                                                            ptLibrary.level),
+                                                        width: 2.0,
                                                       ),
                                                     ),
                                                     child: Row(
@@ -433,6 +417,8 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                               ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     ptLibrary

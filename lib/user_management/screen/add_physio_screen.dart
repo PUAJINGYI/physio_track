@@ -279,34 +279,6 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                           ),
                         );
                       })),
-              customButton(
-                  context,
-                  LocaleKeys.Add.tr(),
-                  ColorConstant.BLUE_BUTTON_TEXT,
-                  ColorConstant.BLUE_BUTTON_UNPRESSED,
-                  ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                setState(() {
-                  _usernameController.text.isEmpty
-                      ? _validateUsernameInput = true
-                      : _validateUsernameInput = false;
-                  _emailTextController.text.isEmpty ||
-                          !_emailTextController.text.contains("@")
-                      ? _validateEmailInput = true
-                      : _validateEmailInput = false;
-                  _passwordTextController.text.isEmpty
-                      ? _validatePasswordInput = true
-                      : _validatePasswordInput = false;
-                  _genderController.text.isEmpty
-                      ? _validateGender = true
-                      : _validateGender = false;
-                });
-                if (_validateUsernameInput == false &&
-                    _validateEmailInput == false &&
-                    _validatePasswordInput == false &&
-                    _validateGender == false) {
-                  await _createPhysioAccWithEmailAndPassword();
-                }
-              })
             ],
           ),
         ),
@@ -339,6 +311,45 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
             ),
           ),
         ),
+        Positioned(
+            bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
+              child: customButton(
+                  context,
+                  LocaleKeys.Add.tr(),
+                  ColorConstant.BLUE_BUTTON_TEXT,
+                  ColorConstant.BLUE_BUTTON_UNPRESSED,
+                  ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                setState(() {
+                  _usernameController.text.isEmpty
+                      ? _validateUsernameInput = true
+                      : _validateUsernameInput = false;
+                  _emailTextController.text.isEmpty ||
+                          !_emailTextController.text.contains("@")
+                      ? _validateEmailInput = true
+                      : _validateEmailInput = false;
+                  _passwordTextController.text.isEmpty
+                      ? _validatePasswordInput = true
+                      : _validatePasswordInput = false;
+                  _genderController.text.isEmpty
+                      ? _validateGender = true
+                      : _validateGender = false;
+                });
+                if (_validateUsernameInput == false &&
+                    _validateEmailInput == false &&
+                    _validatePasswordInput == false &&
+                    _validateGender == false) {
+                  await _createPhysioAccWithEmailAndPassword();
+                }
+              }),
+            ))
       ],
     ));
   }

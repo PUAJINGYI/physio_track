@@ -135,7 +135,10 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                             AsyncSnapshot<String> snapshot) {
                                           if (snapshot.connectionState ==
                                               ConnectionState.waiting) {
-                                            return ShimmeringTextListWidget(width: 300, numOfLines: 4); // or any loading indicator
+                                            return ShimmeringTextListWidget(
+                                                width: 300,
+                                                numOfLines:
+                                                    4); // or any loading indicator
                                           } else if (snapshot.hasError) {
                                             return Text(
                                                 'Error: ${snapshot.error}');
@@ -161,17 +164,6 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                       }
                       return Container();
                     })),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: customButton(
-                  context,
-                  LocaleKeys.Back.tr(),
-                  ColorConstant.BLUE_BUTTON_TEXT,
-                  ColorConstant.BLUE_BUTTON_UNPRESSED,
-                  ColorConstant.BLUE_BUTTON_PRESSED, () {
-                Navigator.pop(context, true);
-              }),
-            )
           ],
         ),
         Positioned(
@@ -213,6 +205,26 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
             height: 190.0,
           ),
         ),
+        Positioned(
+          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING),
+            child: customButton(
+                context,
+                LocaleKeys.Back.tr(),
+                ColorConstant.BLUE_BUTTON_TEXT,
+                ColorConstant.BLUE_BUTTON_UNPRESSED,
+                ColorConstant.BLUE_BUTTON_PRESSED, () {
+              Navigator.pop(context, true);
+            }),
+          ),
+        )
       ],
     ));
   }

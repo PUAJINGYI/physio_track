@@ -337,5 +337,18 @@ abstract class  LocaleKeys {
   static const On_Leave = 'On_Leave';
   static const Conflict = 'Conflict';
   static const Physiotherapist_On_Leave = 'Physiotherapist_On_Leave';
+  static const Leave_Type = 'Leave_Type';
+  static const Sick_Leave = 'Sick_Leave';
+  static const Casual_Leave = 'Casual_Leave';
+  static const Annual_Leave = 'Annual_Leave';
+  static const Start_Time = 'Start_Time';
+  static const End_Time = 'End_Time';
+  static const Reason = 'Reason';
+  static const Please_enter_your_reason = 'Please_enter_your_reason';
+  static const Please_enter_a_valid_reason = 'Please_enter_a_valid_reason';
+  static const Apply = 'Apply';
+  static const Please_enter_a_valid_time = 'Please_enter_a_valid_time';
+  static const Leave_Application = 'Leave_Application';
+  static const Full_Day_Leave = 'Full_Day_Leave';
 
 }

@@ -350,7 +350,20 @@ class CodegenLoader extends AssetLoader{
   "On_Call": "On Call",
   "On_Leave": "On Leave",
   "Conflict": "Conflict",
-  "Physiotherapist_On_Leave": "Physiotherapist On Leave"
+  "Physiotherapist_On_Leave": "Physiotherapist On Leave",
+  "Leave_Type": "Leave Type",
+  "Sick_Leave": "Sick Leave",
+  "Casual_Leave": "Casual Leave",
+  "Annual_Leave": "Annual Leave",
+  "Start_Time": "Start Time:",
+  "End_Time": "End Time:",
+  "Reason": "Reason",
+  "Please_enter_your_reason": "Please enter your reason",
+  "Please_enter_a_valid_reason": "Please enter a valid reason",
+  "Apply": "Apply",
+  "Please_enter_a_valid_time": "Please enter a valid time",
+  "Leave_Application": "Leave Application",
+  "Full_Day_Leave": "Full Day Leave?"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -688,7 +701,20 @@ static const Map<String,dynamic> ms = {
   "On_Call": "Bertugas",
   "On_Leave": "Bercuti",
   "Conflict": "Konflik",
-  "Physiotherapist_On_Leave": "Ahli Fisioterapis Sedang Bercuti"
+  "Physiotherapist_On_Leave": "Ahli Fisioterapis Sedang Bercuti",
+  "Leave_Type": "Jenis Cuti",
+  "Sick_Leave": "Cuti Sakit",
+  "Casual_Leave": "Cuti Kecemasan",
+  "Annual_Leave": "Cuti Tahunan",
+  "Start_Time": "Masa Mula:",
+  "End_Time": "Masa Tamat:",
+  "Reason": "Sebab",
+  "Please_enter_your_reason": "Sila masukkan sebab anda",
+  "Please_enter_a_valid_reason": "Sila masukkan sebab yang sah",
+  "Apply": "Mohon",
+  "Please_enter_a_valid_time": "Sila masukkan masa yang sah",
+  "Leave_Application": "Permohonan Cuti",
+  "Full_Day_Leave": "Cuti Sepenuh Hari?"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -1026,7 +1052,20 @@ static const Map<String,dynamic> zh = {
   "On_Call": "值班中",
   "On_Leave": "休假中",
   "Conflict": "冲突",
-  "Physiotherapist_On_Leave": "理疗师休假中"
+  "Physiotherapist_On_Leave": "理疗师休假中",
+  "Leave_Type": "请假类型",
+  "Sick_Leave": "病假",
+  "Casual_Leave": "临时假",
+  "Annual_Leave": "年假",
+  "Start_Time": "开始时间：",
+  "End_Time": "结束时间：",
+  "Reason": "原因",
+  "Please_enter_your_reason": "请输入您的原因",
+  "Please_enter_a_valid_reason": "请输入有效的原因",
+  "Apply": "申请",
+  "Please_enter_a_valid_time": "请输入有效的时间",
+  "Leave_Application": "请假申请",
+  "Full_Day_Leave": "全天假？"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

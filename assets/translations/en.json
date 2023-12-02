@@ -334,5 +334,18 @@
   "On_Call": "On Call",
   "On_Leave": "On Leave",
   "Conflict": "Conflict",
-  "Physiotherapist_On_Leave": "Physiotherapist On Leave"
+  "Physiotherapist_On_Leave": "Physiotherapist On Leave",
+  "Leave_Type": "Leave Type",
+  "Sick_Leave": "Sick Leave",
+  "Casual_Leave": "Casual Leave",
+  "Annual_Leave": "Annual Leave",
+  "Start_Time": "Start Time:",
+  "End_Time": "End Time:",
+  "Reason": "Reason",
+  "Please_enter_your_reason": "Please enter your reason",
+  "Please_enter_a_valid_reason": "Please enter a valid reason",
+  "Apply": "Apply",
+  "Please_enter_a_valid_time": "Please enter a valid time",
+  "Leave_Application": "Leave Application",
+  "Full_Day_Leave": "Full Day Leave?"
 }

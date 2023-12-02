@@ -159,11 +159,15 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
             ),
           ),
           Positioned(
-              bottom: 20,
+              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
               left: 0,
               right: 0,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.fromLTRB(
+                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                    TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                    TextConstant.CUSTOM_BUTTON_TB_PADDING),
                 child: customButton(
                   context,
                   LocaleKeys.Add.tr(),
@@ -228,7 +232,8 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                     itemExtent: 32.0,
                     onSelectedItemChanged: (int value) {
                       selectedDuration = value + 1;
-                      _durationController.text = "$selectedDuration ${LocaleKeys.minutes.tr()}";
+                      _durationController.text =
+                          "$selectedDuration ${LocaleKeys.minutes.tr()}";
                     },
                     children: List<Widget>.generate(
                       100,
@@ -562,7 +567,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
         Navigator.pop(context, true);
       } else {
         // Show an error message for invalid video URL
-       showDialog(
+        showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(

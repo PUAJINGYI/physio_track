@@ -145,11 +145,15 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
             ),
           ),
           Positioned(
-              bottom: 20,
+              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
               left: 0,
               right: 0,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.fromLTRB(
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
                 child: customButton(
                   context,
                   LocaleKeys.Add.tr(),

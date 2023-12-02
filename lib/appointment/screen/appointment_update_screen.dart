@@ -350,47 +350,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                       ),
                   ],
                 ),
-                SizedBox(
-                  height: 50,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: customButton(
-                    context,
-                    LocaleKeys.Update.tr(),
-                    ColorConstant.BLUE_BUTTON_TEXT,
-                    ColorConstant.BLUE_BUTTON_UNPRESSED,
-                    ColorConstant.BLUE_BUTTON_PRESSED,
-                    () {
-                      if (selectedHour == null) {
-                        // No hour selected, display a snackbar
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(LocaleKeys.Please_select_an_appointment_time.tr()),
-                          ),
-                        );
-                        return; // Do not proceed further
-                      }
-
-                      appointmentInPendingService
-                          .updatePendingAppointmentRecordByDetails(
-                              widget.appointmentId!,
-                              _selectedValue,
-                              DateTime(
-                                  _selectedValue.year,
-                                  _selectedValue.month,
-                                  _selectedValue.day,
-                                  selectedHour!),
-                              DateTime(
-                                  _selectedValue.year,
-                                  _selectedValue.month,
-                                  _selectedValue.day,
-                                  selectedHour! + 1),
-                              Duration(hours: 1).inSeconds);
-                      Navigator.pop(context, true);
-                    },
-                  ),
-                )
+             
               ],
             ),
           ),
@@ -444,6 +404,54 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
             child: Text(patientData['physio'] ?? '',
                 style: TextStyle(fontSize: 15.0)),
           ),
+          Positioned(
+            bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
+              child: customButton(
+                context,
+                  LocaleKeys.Update.tr(),
+                ColorConstant.BLUE_BUTTON_TEXT,
+                ColorConstant.BLUE_BUTTON_UNPRESSED,
+                ColorConstant.BLUE_BUTTON_PRESSED,
+                ()  {
+                      if (selectedHour == null) {
+                        // No hour selected, display a snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(LocaleKeys
+                                .Please_select_an_appointment_time.tr()),
+                          ),
+                        );
+                        return; // Do not proceed further
+                      }
+
+                      appointmentInPendingService
+                          .updatePendingAppointmentRecordByDetails(
+                              widget.appointmentId!,
+                              _selectedValue,
+                              DateTime(
+                                  _selectedValue.year,
+                                  _selectedValue.month,
+                                  _selectedValue.day,
+                                  selectedHour!),
+                              DateTime(
+                                  _selectedValue.year,
+                                  _selectedValue.month,
+                                  _selectedValue.day,
+                                  selectedHour! + 1),
+                              Duration(hours: 1).inSeconds);
+                      Navigator.pop(context, true);
+                    },
+              ),
+            ),
+          )
         ],
       ),
     );

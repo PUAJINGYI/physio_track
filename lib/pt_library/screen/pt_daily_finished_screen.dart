@@ -4,6 +4,7 @@ import 'package:confetti/confetti.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../patient/patient_home_page.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
@@ -104,20 +105,31 @@ class _PTDailyFinishedScreenState extends State<PTDailyFinishedScreen> {
                     SizedBox(
                       height: 360,
                     ),
-                    customButton(
-                        context,
-                        LocaleKeys.Done.tr(),
-                        ColorConstant.BLUE_BUTTON_TEXT,
-                        ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED, () {
-                      Navigator.pop(context, true);
-                      Navigator.pop(context, true);
-                    })
                   ],
                 ),
               ),
             ),
           ),
+          Positioned(
+              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                    TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                    TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                child: customButton(
+                    context,
+                    LocaleKeys.Done.tr(),
+                    ColorConstant.BLUE_BUTTON_TEXT,
+                    ColorConstant.BLUE_BUTTON_UNPRESSED,
+                    ColorConstant.BLUE_BUTTON_PRESSED, () {
+                  Navigator.pop(context, true);
+                  Navigator.pop(context, true);
+                }),
+              )),
         ],
       ),
     );

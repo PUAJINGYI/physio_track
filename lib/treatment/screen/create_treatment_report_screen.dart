@@ -221,7 +221,6 @@ class _CreateTreatmentReportScreenState
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-   
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -931,19 +930,6 @@ class _CreateTreatmentReportScreenState
                     );
                   }),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-              child: customButton(
-                context,
-                'Submit',
-                ColorConstant.GREEN_BUTTON_TEXT,
-                ColorConstant.GREEN_BUTTON_UNPRESSED,
-                ColorConstant.GREEN_BUTTON_PRESSED,
-                () {
-                  _addTreatmentReport();
-                },
-              ),
-            ),
           ],
         ),
         Positioned(
@@ -985,6 +971,28 @@ class _CreateTreatmentReportScreenState
             height: 190.0,
           ),
         ),
+        Positioned(
+          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING),
+            child: customButton(
+              context,
+              'Submit',
+              ColorConstant.GREEN_BUTTON_TEXT,
+              ColorConstant.GREEN_BUTTON_UNPRESSED,
+              ColorConstant.GREEN_BUTTON_PRESSED,
+              () {
+                _addTreatmentReport();
+              },
+            ),
+          ),
+        )
       ],
     ));
   }

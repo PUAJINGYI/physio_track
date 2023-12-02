@@ -111,35 +111,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         _validateNewPasswordInput,
                         _isObscure3,
                         toggleObscure3),
-                    SizedBox(
-                      height: 100,
-                    ),
-                    customButton(
-                        context,
-                        LocaleKeys.Reset_Password.tr(),
-                        ColorConstant.BLUE_BUTTON_TEXT,
-                        ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED, () {
-                      setState(() {
-                        _passwordTextController.text.isEmpty
-                            ? _validatePasswordInput = true
-                            : _validatePasswordInput = false;
-                        _confirmPasswordTextController.text.isEmpty
-                            ? _validateConfirmPasswordInput = true
-                            : _validateConfirmPasswordInput = false;
-                        _newPasswordTextController.text.isEmpty
-                            ? _validateNewPasswordInput = true
-                            : _validateNewPasswordInput = false;
-                      });
-                      if (_validatePasswordInput == false &&
-                          _validateConfirmPasswordInput == false &&
-                          _validateNewPasswordInput == false) {
-                        changePassword(
-                            _passwordTextController.text,
-                            _confirmPasswordTextController.text,
-                            _newPasswordTextController.text);
-                      }
-                    }),
                   ],
                 ),
               ),
@@ -173,6 +144,46 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
           ),
         ),
+        Positioned(
+          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                TextConstant.CUSTOM_BUTTON_TB_PADDING),
+            child: customButton(
+              context,
+              LocaleKeys.Reset_Password.tr(),
+              ColorConstant.BLUE_BUTTON_TEXT,
+              ColorConstant.BLUE_BUTTON_UNPRESSED,
+              ColorConstant.BLUE_BUTTON_PRESSED,
+              () {
+                setState(() {
+                  _passwordTextController.text.isEmpty
+                      ? _validatePasswordInput = true
+                      : _validatePasswordInput = false;
+                  _confirmPasswordTextController.text.isEmpty
+                      ? _validateConfirmPasswordInput = true
+                      : _validateConfirmPasswordInput = false;
+                  _newPasswordTextController.text.isEmpty
+                      ? _validateNewPasswordInput = true
+                      : _validateNewPasswordInput = false;
+                });
+                if (_validatePasswordInput == false &&
+                    _validateConfirmPasswordInput == false &&
+                    _validateNewPasswordInput == false) {
+                  changePassword(
+                      _passwordTextController.text,
+                      _confirmPasswordTextController.text,
+                      _newPasswordTextController.text);
+                }
+              },
+            ),
+          ),
+        )
       ]),
     );
   }
@@ -196,22 +207,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
         // Show success message to the user
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(LocaleKeys.Password_updated_successfully.tr())),
+          SnackBar(
+              content: Text(LocaleKeys.Password_updated_successfully.tr())),
         );
         Navigator.pop(context);
       } else {
         // Show error message to the user
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(
-                  LocaleKeys.Both_Password_Must_Same.tr())), // Replace with the actual user name
+              content: Text(LocaleKeys.Both_Password_Must_Same
+                  .tr())), // Replace with the actual user name
         );
       }
     } catch (e) {
       // Show error message to the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(LocaleKeys.Wrong_password.tr())),
+        SnackBar(content: Text(LocaleKeys.Wrong_password.tr())),
       );
     }
   }

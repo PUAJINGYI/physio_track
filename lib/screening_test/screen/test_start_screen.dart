@@ -7,6 +7,7 @@ import 'package:physio_track/screening_test/screen/test_physiotherapist_request_
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 
@@ -67,25 +68,35 @@ class _TestStartScreenState extends State<TestStartScreen> {
                   SizedBox(
                     height: 400,
                   ),
-                  customButton(
-                      context,
-                      LocaleKeys.Start_Quiz.tr(),
-                      ColorConstant.BLUE_BUTTON_TEXT,
-                      ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ColorConstant.BLUE_BUTTON_PRESSED, () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            TestPhysiotherapistRequestScreen(),
-                      ),
-                    );
-                  })
                 ],
               ),
             ),
           ),
         ),
+        Positioned(
+            bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
+              child: customButton(
+                  context,
+                  LocaleKeys.Start_Quiz.tr(),
+                  ColorConstant.BLUE_BUTTON_TEXT,
+                  ColorConstant.BLUE_BUTTON_UNPRESSED,
+                  ColorConstant.BLUE_BUTTON_PRESSED, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TestPhysiotherapistRequestScreen(),
+                  ),
+                );
+              }),
+            ))
       ]),
     );
   }

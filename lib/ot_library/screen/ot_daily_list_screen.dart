@@ -103,24 +103,12 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
     if (level == 'Advanced') {
       return Colors.red[500]!;
     } else if (level == 'Intermediate') {
-      return Colors.yellow[500]!;
+      return Colors.orange[500]!;
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
     // Default color if the level doesn't match the conditions
     return Colors.black;
-  }
-
-  Color _getLevelBackgroundColor(String level) {
-    if (level == 'Advanced') {
-      return Colors.red[100]!;
-    } else if (level == 'Intermediate') {
-      return Colors.yellow[100]!;
-    } else if (level == 'Beginner') {
-      return Colors.green[100]!;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Colors.grey[300]!;
   }
 
   String _getLevelText(String level) {
@@ -230,7 +218,10 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                               .connectionState ==
                                                           ConnectionState
                                                               .waiting) {
-                                                        return ShimmeringTextListWidget(width: 300, numOfLines: 2); // or any loading indicator
+                                                        return ShimmeringTextListWidget(
+                                                            width: 300,
+                                                            numOfLines:
+                                                                2); // or any loading indicator
                                                       } else if (snapshot
                                                           .hasError) {
                                                         return Text(
@@ -256,9 +247,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              otLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -267,7 +255,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                             otLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -285,6 +273,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                               otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     otLibrary
@@ -376,7 +366,10 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                               .connectionState ==
                                                           ConnectionState
                                                               .waiting) {
-                                                        return ShimmeringTextListWidget(width: 300, numOfLines: 2,); // or any loading indicator
+                                                        return ShimmeringTextListWidget(
+                                                          width: 300,
+                                                          numOfLines: 2,
+                                                        ); // or any loading indicator
                                                       } else if (snapshot
                                                           .hasError) {
                                                         return Text(
@@ -402,9 +395,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              otLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -413,7 +403,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                             otLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -431,6 +421,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                               otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     otLibrary
