@@ -13,7 +13,7 @@ class CalendarTile extends StatelessWidget {
       height: 60, // Adjust the height as needed
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black), // Add a border for better visibility
-        //borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Stack(
         children: [

@@ -8,7 +8,7 @@ class Leave {
   String reason;
   bool isFullDay;
   int physioId;
-  String leaveType;
+  int leaveType;
 
   Leave({
     required this.id,

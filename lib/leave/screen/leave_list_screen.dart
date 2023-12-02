@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/leave/screen/leave_apply_screen.dart';
 
+import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../translations/locale_keys.g.dart';
@@ -45,6 +46,17 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
     });
   }
 
+  String getLeaveType(int leaveType) {
+    if (leaveType == 1) {
+      return LocaleKeys.Sick_Leave.tr();
+    } else if (leaveType == 2) {
+      return LocaleKeys.Annual_Leave.tr();
+    } else if (leaveType == 3) {
+      return LocaleKeys.Casual_Leave.tr();
+    }
+    return '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -63,24 +75,35 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: Container(
-                      height: 100,
-                      padding: EdgeInsets.all(8.0),
-                      color: isOnCall ? Colors.green : Colors.red,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            isOnCall ? Icons.phone_in_talk : Icons.do_not_disturb,
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 8.0),
-                          Text(
-                            isOnCall ? LocaleKeys.On_Call.tr() : LocaleKeys.On_Leave.tr(),
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Card(
+                      child: Container(
+                        height: 100,
+                        padding: EdgeInsets.all(8.0),
+                        color: isOnCall
+                            ? ColorConstant.GREEN_BUTTON_PRESSED
+                            : ColorConstant.RED_BUTTON_PRESSED,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              isOnCall
+                                  ? Icons.phone_in_talk
+                                  : Icons.do_not_disturb,
+                              color: Colors.white,
+                              size: 30.0,
+                            ),
+                            SizedBox(width: 8.0),
+                            Text(
+                              isOnCall
+                                  ? LocaleKeys.On_Call.tr()
+                                  : LocaleKeys.On_Leave.tr(),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20.0),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -102,7 +125,8 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                         }
                         if (snapshot.hasError) {
                           return Center(
-                              child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+                              child: Text(
+                                  '${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                         }
                         if (snapshot.hasData && snapshot.data!.isEmpty) {
                           return Center(
@@ -132,11 +156,17 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                                 child: Card(
                                   child: ListTile(
-                                    leading: CalendarTile(
-                                        date: snapshot.data![index].date),
-                                    title: Text(snapshot.data![index].reason),
-                                    subtitle:
-                                        Text(snapshot.data![index].leaveType),
+                                    leading: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: CalendarTile(
+                                          date: snapshot.data![index].date),
+                                    ),
+                                    title: Text(snapshot.data![index].reason,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                            fontWeight: FontWeight.bold)),
+                                    subtitle: Text(getLeaveType(
+                                        snapshot.data![index].leaveType)),
                                   ),
                                 ),
                               );
@@ -197,7 +227,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
               left: 0,
               right: 0,
               child: GestureDetector(
-                onTap: () async{
+                onTap: () async {
                   final needUpdate = await Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -207,7 +237,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                     ),
                   );
 
-                  if (needUpdate!= null && needUpdate) {
+                  if (needUpdate != null && needUpdate) {
                     setState(() {
                       leaveList = fetchLeaveHistory();
                     });

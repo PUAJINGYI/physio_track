@@ -1,15 +1,29 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../translations/locale_keys.g.dart';
+
 class LeaveTypeCard extends StatelessWidget {
-  final String leaveType;
-  final String? selectedLeaveType;
-  final Function(String) onChanged;
+  final int leaveType;
+  final int? selectedLeaveType;
+  final Function(int) onChanged;
 
   LeaveTypeCard({
     required this.leaveType,
     required this.selectedLeaveType,
     required this.onChanged,
   });
+
+  String getLeaveType(int leaveType) {
+    if (leaveType == 1) {
+      return LocaleKeys.Sick_Leave.tr();
+    } else if (leaveType == 2) {
+      return LocaleKeys.Annual_Leave.tr();
+    } else if (leaveType == 3) {
+      return LocaleKeys.Casual_Leave.tr();
+    }
+    return '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +40,7 @@ class LeaveTypeCard extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Center(
                 child: Text(
-                  leaveType,
+                  getLeaveType(leaveType),
                   style: TextStyle(
                       color: selectedLeaveType == leaveType
                           ? Colors.white

@@ -21,7 +21,7 @@ class LeaveApplyScreen extends StatefulWidget {
 }
 
 class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
-  String? selectedLeaveType;
+  int? selectedLeaveType;
   DateTime? selectedDate;
   bool isFullDay = false;
   TimeOfDay startTime = TimeOfDay(hour: 0, minute: 0);
@@ -160,7 +160,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 LeaveTypeCard(
-                                    leaveType: LocaleKeys.Sick_Leave.tr(),
+                                    leaveType: 1,
                                     selectedLeaveType: selectedLeaveType,
                                     onChanged: (value) {
                                       setState(() {
@@ -170,7 +170,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                     }),
                                 SizedBox(width: 2.0),
                                 LeaveTypeCard(
-                                    leaveType: LocaleKeys.Casual_Leave.tr(),
+                                    leaveType: 2,
                                     selectedLeaveType: selectedLeaveType,
                                     onChanged: (value) {
                                       setState(() {
@@ -180,7 +180,7 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                     }),
                                 SizedBox(width: 2.0),
                                 LeaveTypeCard(
-                                    leaveType: LocaleKeys.Annual_Leave.tr(),
+                                    leaveType: 3,
                                     selectedLeaveType: selectedLeaveType,
                                     onChanged: (value) {
                                       setState(() {
