@@ -237,11 +237,7 @@ class _AppointmentHistoryPhysioScreenState
                                                         style: TextButton
                                                             .styleFrom(
                                                           backgroundColor:
-                                                              Color.fromARGB(
-                                                                  255,
-                                                                  250,
-                                                                  244,
-                                                                  191),
+                                                              Color.fromARGB(255, 250, 224, 191),
                                                           primary: Colors.white,
                                                         ),
                                                         child: Row(
@@ -253,12 +249,7 @@ class _AppointmentHistoryPhysioScreenState
                                                               LocaleKeys.View_Report.tr(),
                                                               style: TextStyle(
                                                                 fontSize: 15.0,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        255,
-                                                                        234,
-                                                                        47),
+                                                                color: Color.fromARGB(255, 255, 147, 47),
                                                               ),
                                                             ),
                                                           ],

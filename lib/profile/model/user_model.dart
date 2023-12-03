@@ -36,20 +36,20 @@ class UserModel{
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot){
     final data = snapshot.data() as Map<String, dynamic>;
     return UserModel(
-      id: data['id'],
-      username: data['username'],
-      email: data['email'],
-      role: data['role'],
-      createTime: data['createTime'],
-      isTakenTest: data['isTakenTest'],
-      address: data['address'],
-      phone: data['phone'],
-      profileImageUrl: data['profileImageUrl'],
-      level: data['level'],
-      totalExp: data['totalExp'],
+      id: (data['id']?? -1),
+      username: (data['username']?? ''),
+      email: (data['email']?? ''),
+      role: (data['role']?? ''),
+      createTime: (data['createTime']?? Timestamp.now()),
+      isTakenTest: (data['isTakenTest']?? false),
+      address: (data['address']??''),
+      phone: (data['phone']??''),
+      profileImageUrl: (data['profileImageUrl']?? ''),
+      level: (data['level']?? -1),
+      totalExp: (data['totalExp']?? -1),
       progressToNextLevel: (data['progressToNextLevel'] ?? 0).toDouble(),
-      sharedJournal: data['sharedJournal'],
-      gender: data['gender'],
+      sharedJournal: (data['sharedJournal']?? false),
+      gender: (data['gender']?? ''),
     );
   }
 

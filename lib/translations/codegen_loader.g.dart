@@ -386,7 +386,7 @@ static const Map<String,dynamic> ms = {
   "User_Management": "Pengurusan Pengguna",
   "Upper": "Atas",
   "Update_Approve": "Kemas Kini & Lulus",
-  "Update": "Kemas Kini",
+  "Update": "Kemas",
   "Title": "Tajuk",
   "Add": "Tambah",
   "Add_Question": "Tambah Soalan",

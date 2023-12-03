@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:physio_track/journal/screen/add_journal_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_screen.dart';
 
+import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../patient/patient_home_screen.dart';
@@ -210,14 +211,148 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
             child: Container(
               height: kToolbarHeight,
               alignment: Alignment.center,
-              child: Switch(
-                value: isSwitched,
-                onChanged: (newValue) {
-                  setState(() {
-                    isSwitched = newValue;
-                    _updateSharedJournalStatus(newValue);
-                  });
-                },
+              child: Row(
+                children: [
+                  Text('Share'),
+                  Switch(
+                    value: isSwitched,
+                    onChanged: (newValue) {
+                      if (newValue) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              contentPadding:
+                                  EdgeInsets.zero, // Remove content padding
+                              titlePadding: EdgeInsets.fromLTRB(
+                                  16, 0, 16, 0), // Adjust title padding
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Shared Journal'),
+                                  IconButton(
+                                    icon: Icon(Icons.close,
+                                        color: ColorConstant.RED_BUTTON_TEXT),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                  ),
+                                ],
+                              ),
+                              content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Journal is accessible by the physiotherapist.',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              actions: [
+                                Center(
+                                  // Wrap actions in Center widget
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          backgroundColor: ColorConstant
+                                              .BLUE_BUTTON_UNPRESSED,
+                                        ),
+                                        child: Text(LocaleKeys.OK.tr(),
+                                            style: TextStyle(
+                                                color: ColorConstant
+                                                    .BLUE_BUTTON_TEXT)),
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              contentPadding:
+                                  EdgeInsets.zero, // Remove content padding
+                              titlePadding: EdgeInsets.fromLTRB(
+                                  16, 0, 16, 0), // Adjust title padding
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Unshared Journal'),
+                                  IconButton(
+                                    icon: Icon(Icons.close,
+                                        color: ColorConstant.RED_BUTTON_TEXT),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                  ),
+                                ],
+                              ),
+                              content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Journal is unaccessible by the physiotherapist.',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              actions: [
+                                Center(
+                                  // Wrap actions in Center widget
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          backgroundColor: ColorConstant
+                                              .BLUE_BUTTON_UNPRESSED,
+                                        ),
+                                        child: Text(LocaleKeys.OK.tr(),
+                                            style: TextStyle(
+                                                color: ColorConstant
+                                                    .BLUE_BUTTON_TEXT)),
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                      setState(() {
+                        isSwitched = newValue;
+                        _updateSharedJournalStatus(newValue);
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
           ),
