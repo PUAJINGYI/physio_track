@@ -108,24 +108,12 @@ class _WeeklyAnalysisPTActivityDetailScreenState
     if (level == 'Advanced') {
       return Colors.red[500]!;
     } else if (level == 'Intermediate') {
-      return Colors.yellow[500]!;
+      return Colors.orange[500]!;
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
     // Default color if the level doesn't match the conditions
     return Colors.black;
-  }
-
-  Color _getLevelBackgroundColor(String level) {
-    if (level == 'Advanced') {
-      return Colors.red[100]!;
-    } else if (level == 'Intermediate') {
-      return Colors.yellow[100]!;
-    } else if (level == 'Beginner') {
-      return Colors.green[100]!;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Colors.grey[300]!;
   }
 
   String _getLevelText(String level) {
@@ -218,7 +206,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                     FutureBuilder(
+                                                    FutureBuilder(
                                                       future:
                                                           notificationService
                                                               .translateText(
@@ -269,10 +257,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       decoration: BoxDecoration(
-                                                        color:
-                                                            _getLevelBackgroundColor(
-                                                                ptLibrary
-                                                                    .level),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8.0),
@@ -281,7 +265,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                               ptLibrary
                                                                   .level), // Set the border color to black
                                                           width:
-                                                              1.0, // Set the border width
+                                                              2.0, // Set the border width
                                                         ),
                                                       ),
                                                       child: Row(
@@ -300,6 +284,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                     .level),
                                                             style: TextStyle(
                                                               fontSize: 12.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
                                                                   _getLevelColor(
                                                                       ptLibrary
@@ -379,7 +366,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                   FutureBuilder(
+                                                    FutureBuilder(
                                                       future:
                                                           notificationService
                                                               .translateText(
@@ -430,10 +417,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       decoration: BoxDecoration(
-                                                        color:
-                                                            _getLevelBackgroundColor(
-                                                                ptLibrary
-                                                                    .level),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8.0),
@@ -442,7 +425,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                               ptLibrary
                                                                   .level), // Set the border color to black
                                                           width:
-                                                              1.0, // Set the border width
+                                                              2.0, // Set the border width
                                                         ),
                                                       ),
                                                       child: Row(
@@ -461,6 +444,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                     .level),
                                                             style: TextStyle(
                                                               fontSize: 12.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
                                                                   _getLevelColor(
                                                                       ptLibrary
@@ -540,50 +526,47 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                   FutureBuilder(
-                                                      future:
-                                                          notificationService
-                                                              .translateText(
-                                                                  ptLibrary
-                                                                      .title,
-                                                                  context),
-                                                      builder: (BuildContext
-                                                              context,
-                                                          AsyncSnapshot<String>
-                                                              snapshot) {
-                                                        if (snapshot
-                                                                .connectionState ==
-                                                            ConnectionState
-                                                                .waiting) {
-                                                          return Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .stretch,
-                                                            children: [
-                                                              ShimmeringTextListWidget(
-                                                                  width: 300,
-                                                                  numOfLines:
-                                                                      2),
-                                                            ],
-                                                          ); // or any loading indicator
-                                                        } else if (snapshot
-                                                            .hasError) {
-                                                          return Text(
-                                                              'Error: ${snapshot.error}');
-                                                        } else {
-                                                          String title =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            title,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 14.0),
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            ptLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .stretch,
+                                                          children: [
+                                                            ShimmeringTextListWidget(
+                                                                width: 300,
+                                                                numOfLines: 2),
+                                                          ],
+                                                        ); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String title =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          title,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -591,9 +574,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              ptLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -602,7 +582,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                             ptLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -620,6 +600,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                               ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     ptLibrary
@@ -687,50 +669,47 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                    FutureBuilder(
-                                                      future:
-                                                          notificationService
-                                                              .translateText(
-                                                                  ptLibrary
-                                                                      .title,
-                                                                  context),
-                                                      builder: (BuildContext
-                                                              context,
-                                                          AsyncSnapshot<String>
-                                                              snapshot) {
-                                                        if (snapshot
-                                                                .connectionState ==
-                                                            ConnectionState
-                                                                .waiting) {
-                                                          return Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .stretch,
-                                                            children: [
-                                                              ShimmeringTextListWidget(
-                                                                  width: 300,
-                                                                  numOfLines:
-                                                                      2),
-                                                            ],
-                                                          ); // or any loading indicator
-                                                        } else if (snapshot
-                                                            .hasError) {
-                                                          return Text(
-                                                              'Error: ${snapshot.error}');
-                                                        } else {
-                                                          String title =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            title,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 14.0),
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            ptLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .stretch,
+                                                          children: [
+                                                            ShimmeringTextListWidget(
+                                                                width: 300,
+                                                                numOfLines: 2),
+                                                          ],
+                                                        ); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String title =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          title,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -738,9 +717,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              ptLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -749,7 +725,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                             ptLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -766,6 +742,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                           ptLibrary.level,
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     ptLibrary
@@ -844,50 +822,47 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                   FutureBuilder(
-                                                      future:
-                                                          notificationService
-                                                              .translateText(
-                                                                  ptLibrary
-                                                                      .title,
-                                                                  context),
-                                                      builder: (BuildContext
-                                                              context,
-                                                          AsyncSnapshot<String>
-                                                              snapshot) {
-                                                        if (snapshot
-                                                                .connectionState ==
-                                                            ConnectionState
-                                                                .waiting) {
-                                                          return Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .stretch,
-                                                            children: [
-                                                              ShimmeringTextListWidget(
-                                                                  width: 300,
-                                                                  numOfLines:
-                                                                      2),
-                                                            ],
-                                                          ); // or any loading indicator
-                                                        } else if (snapshot
-                                                            .hasError) {
-                                                          return Text(
-                                                              'Error: ${snapshot.error}');
-                                                        } else {
-                                                          String title =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            title,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 14.0),
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            ptLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .stretch,
+                                                          children: [
+                                                            ShimmeringTextListWidget(
+                                                                width: 300,
+                                                                numOfLines: 2),
+                                                          ],
+                                                        ); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String title =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          title,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -895,9 +870,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              ptLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -906,7 +878,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                             ptLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -920,9 +892,12 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                               .center, // Center the text vertically
                                                       children: [
                                                         Text(
-                                                          _getLevelText(ptLibrary.level),
+                                                          _getLevelText(
+                                                              ptLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     ptLibrary

@@ -364,7 +364,12 @@ class CodegenLoader extends AssetLoader{
   "Please_enter_a_valid_time": "Please enter a valid time",
   "Leave_Application": "Leave Application",
   "Full_Day_Leave": "Full Day Leave?",
-  "Create_Report": "Create Report"
+  "Create_Report": "Create Report",
+  "Share": "Share",
+  "Shared_Journal": "Shared Journal",
+  "Journal_is_accessible_by_the_physiotherapist": "Journal is accessible by the physiotherapist.",
+  "Unshared_Journal": "Unshared Journal",
+  "Journal_is_unaccessible_by_the_physiotherapist": "Journal is unaccessible by the physiotherapist."
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -716,7 +721,12 @@ static const Map<String,dynamic> ms = {
   "Please_enter_a_valid_time": "Sila masukkan masa yang sah",
   "Leave_Application": "Permohonan Cuti",
   "Full_Day_Leave": "Cuti Sepenuh Hari?",
-  "Create_Report": "Cipta Laporan"
+  "Create_Report": "Cipta Laporan",
+  "Share": "Kongsi",
+  "Shared_Journal": "Berkongsi Jurnal",
+  "Journal_is_accessible_by_the_physiotherapist": "Jurnal boleh diakses oleh ahli fisioterapi.",
+  "Unshared_Journal": "Tidak Kongsi Jurnal",
+  "Journal_is_unaccessible_by_the_physiotherapist": "Jurnal tidak dapat diakses oleh ahli fisioterapi."
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -1068,7 +1078,12 @@ static const Map<String,dynamic> zh = {
   "Please_enter_a_valid_time": "请输入有效的时间",
   "Leave_Application": "请假申请",
   "Full_Day_Leave": "全天假？",
-  "Create_Report": "创建报告"
+  "Create_Report": "创建报告",
+  "Share": "共享",
+  "Shared_Journal": "共享日志",
+  "Journal_is_accessible_by_the_physiotherapist": "日志可供理疗师访问。",
+  "Unshared_Journal": "未共享日志",
+  "Journal_is_unaccessible_by_the_physiotherapist": "日志无法被理疗师访问。"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

@@ -6,7 +6,7 @@ import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
 import '../../translations/locale_keys.g.dart';
 import '../service/user_management_service.dart';
-import 'navigation_page.dart';
+import 'user_management_page.dart';
 
 class PatientListScreen extends StatefulWidget {
   @override

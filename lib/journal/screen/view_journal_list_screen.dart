@@ -213,7 +213,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
               alignment: Alignment.center,
               child: Row(
                 children: [
-                  Text('Share'),
+                  Text(LocaleKeys.Share.tr()),
                   Switch(
                     value: isSwitched,
                     onChanged: (newValue) {
@@ -233,7 +233,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Shared Journal'),
+                                  Text(LocaleKeys.Shared_Journal.tr()),
                                   IconButton(
                                     icon: Icon(Icons.close,
                                         color: ColorConstant.RED_BUTTON_TEXT),
@@ -247,7 +247,9 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                               content: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Journal is accessible by the physiotherapist.',
+                                  LocaleKeys
+                                          .Journal_is_accessible_by_the_physiotherapist
+                                      .tr(),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -297,7 +299,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Unshared Journal'),
+                                  Text(LocaleKeys.Unshared_Journal.tr()),
                                   IconButton(
                                     icon: Icon(Icons.close,
                                         color: ColorConstant.RED_BUTTON_TEXT),
@@ -311,7 +313,9 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                               content: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Journal is unaccessible by the physiotherapist.',
+                                  LocaleKeys
+                                          .Journal_is_unaccessible_by_the_physiotherapist
+                                      .tr(),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -357,12 +361,12 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
             ),
           ),
           Positioned(
-            top: 80,
+            top: 70,
             right: 5,
             child: Image.asset(
               ImageConstant.JOURNAL_IMAGE,
-              width: 211.0,
-              height: 169.0,
+              width: 190.0,
+              height: 190.0,
             ),
           ),
           Positioned(

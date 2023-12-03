@@ -105,99 +105,112 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
-        Container(
-          height: MediaQuery.of(context).size.height * 0.5,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(ImageConstant.SIGNUP_PIC),
-                alignment: Alignment.center,
-                fit: BoxFit.fitWidth),
-          ),
-        ),
-        Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    20, MediaQuery.of(context).size.height * 0.45, 20, 0),
-                child: Column(
-                  children: [
-                    reusableTextField(
-                        LocaleKeys.Username.tr(),
-                        LocaleKeys.Please_Insert_Username.tr(),
-                        Icons.person_outline,
-                        false,
-                        _usernameController,
-                        _validateUsernameInput,
-                        _isObscure,
-                        toggleObscure),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    reusableTextField(
-                        LocaleKeys.Enter_Email.tr(),
-                        LocaleKeys.Please_Insert_Valid_Email.tr(),
-                        Icons.mail_outline,
-                        false,
-                        _emailTextController,
-                        _validateEmailInput,
-                        _isObscure,
-                        toggleObscure),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    reusableTextField(
-                        LocaleKeys.Enter_Password.tr(),
-                        LocaleKeys.Please_Insert_Password.tr(),
-                        Icons.lock_outline,
-                        true,
-                        _passwordTextController,
-                        _validatePasswordInput,
-                        _isObscure,
-                        toggleObscure),
-                  ],
-                ),
-              ),
-            )),
-        Positioned(
-          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING),
-            child: customButton(
-              context,
-              LocaleKeys.Sign_Up.tr(),
-              ColorConstant.BLUE_BUTTON_TEXT,
-              ColorConstant.BLUE_BUTTON_UNPRESSED,
-              ColorConstant.BLUE_BUTTON_PRESSED,
-              () {
-                setState(() {
-                  _usernameController.text.isEmpty
-                      ? _validateUsernameInput = true
-                      : _validateUsernameInput = false;
-                  _emailTextController.text.isEmpty ||
-                          !_emailTextController.text.contains("@")
-                      ? _validateEmailInput = true
-                      : _validateEmailInput = false;
-                  _passwordTextController.text.isEmpty
-                      ? _validatePasswordInput = true
-                      : _validatePasswordInput = false;
-                });
-                if (_validateUsernameInput == false &&
-                    _validateEmailInput == false &&
-                    _validatePasswordInput == false) {
-                  _createUserWithEmailAndPassword();
-                }
-              },
+        Column(
+          children: [
+            SizedBox(
+              height: 70,
             ),
-          ),
-        )
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(ImageConstant.SIGNUP_PIC),
+                          alignment: Alignment.center,
+                          fit: BoxFit.fitHeight),
+                    ),
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                            ),
+                            reusableTextField(
+                                LocaleKeys.Username.tr(),
+                                LocaleKeys.Please_Insert_Username.tr(),
+                                Icons.person_outline,
+                                false,
+                                _usernameController,
+                                _validateUsernameInput,
+                                _isObscure,
+                                toggleObscure),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            reusableTextField(
+                                LocaleKeys.Enter_Email.tr(),
+                                LocaleKeys.Please_Insert_Valid_Email.tr(),
+                                Icons.mail_outline,
+                                false,
+                                _emailTextController,
+                                _validateEmailInput,
+                                _isObscure,
+                                toggleObscure),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            reusableTextField(
+                                LocaleKeys.Enter_Password.tr(),
+                                LocaleKeys.Please_Insert_Password.tr(),
+                                Icons.lock_outline,
+                                true,
+                                _passwordTextController,
+                                _validatePasswordInput,
+                                _isObscure,
+                                toggleObscure),
+                          ],
+                        ),
+                      )),
+                  Positioned(
+                    bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+                    left: 0,
+                    right: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                          TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                          TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                          TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                          TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                      child: customButton(
+                        context,
+                        LocaleKeys.Sign_Up.tr(),
+                        ColorConstant.BLUE_BUTTON_TEXT,
+                        ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ColorConstant.BLUE_BUTTON_PRESSED,
+                        () {
+                          setState(() {
+                            _usernameController.text.isEmpty
+                                ? _validateUsernameInput = true
+                                : _validateUsernameInput = false;
+                            _emailTextController.text.isEmpty ||
+                                    !_emailTextController.text.contains("@")
+                                ? _validateEmailInput = true
+                                : _validateEmailInput = false;
+                            _passwordTextController.text.isEmpty
+                                ? _validatePasswordInput = true
+                                : _validatePasswordInput = false;
+                          });
+                          if (_validateUsernameInput == false &&
+                              _validateEmailInput == false &&
+                              _validatePasswordInput == false) {
+                            _createUserWithEmailAndPassword();
+                          }
+                        },
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ]),
     );
   }

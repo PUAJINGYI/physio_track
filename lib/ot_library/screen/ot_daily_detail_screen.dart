@@ -554,135 +554,151 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                           );
                         }
 
-                        return ListView(
+                        return Column(
                           children: [
-                            SizedBox(height: 40.0),
-                            player,
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
+                            SizedBox(height: 70),
+                            Expanded(
+                              child: ListView(
+                                padding: EdgeInsets.zero,
                                 children: [
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: FutureBuilder(
-                                      future: notificationService.translateText(
-                                          _otLibraryRecord.title, context),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<String> snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return ShimmeringTextListWidget(
-                                            width: 300,
-                                            numOfLines: 2,
-                                          ); // or any loading indicator
-                                        } else if (snapshot.hasError) {
-                                          return Text(
-                                              'Error: ${snapshot.error}');
-                                        } else {
-                                          String title = snapshot.data!;
-                                          return Text(
-                                            title,
-                                            style: TextStyle(
-                                              fontSize: 24.0,
-                                              fontWeight: FontWeight.bold,
+                                  player,
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: FutureBuilder(
+                                            future: notificationService
+                                                .translateText(
+                                                    _otLibraryRecord.title,
+                                                    context),
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<String>
+                                                    snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return ShimmeringTextListWidget(
+                                                  width: 300,
+                                                  numOfLines: 2,
+                                                ); // or any loading indicator
+                                              } else if (snapshot.hasError) {
+                                                return Text(
+                                                    'Error: ${snapshot.error}');
+                                              } else {
+                                                String title = snapshot.data!;
+                                                return Text(
+                                                  title,
+                                                  style: TextStyle(
+                                                    fontSize: 24.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(height: 8.0),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(8.0),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                border: Border.all(
+                                                  color: Colors.blue[500]!,
+                                                  width: 2.0,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Icon(Icons.access_time,
+                                                      color: Colors.blue[500]),
+                                                  SizedBox(width: 4.0),
+                                                  Text(
+                                                    '${_otLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
+                                                    style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      color: Colors.blue[500],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          );
-                                        }
-                                      },
+                                            SizedBox(width: 8.0),
+                                            Container(
+                                              padding: EdgeInsets.all(8.0),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                border: Border.all(
+                                                  color: _getLevelColor(
+                                                      _otLibraryRecord.level),
+                                                  width: 2.0,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Icon(Icons.directions_run,
+                                                      color: _getLevelColor(
+                                                          _otLibraryRecord
+                                                              .level)),
+                                                  SizedBox(width: 4.0),
+                                                  Text(
+                                                    _getLevelText(
+                                                        _otLibraryRecord.level),
+                                                    style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      color: _getLevelColor(
+                                                          _otLibraryRecord
+                                                              .level),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 8.0),
+                                        FutureBuilder(
+                                          future:
+                                              notificationService.translateText(
+                                                  _otLibraryRecord.description,
+                                                  context),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<String> snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  ShimmeringTextListWidget(
+                                                      width: 400,
+                                                      numOfLines: 4),
+                                                ],
+                                              ); // or any loading indicator
+                                            } else if (snapshot.hasError) {
+                                              return Text(
+                                                  'Error: ${snapshot.error}');
+                                            } else {
+                                              String desc = snapshot.data!;
+                                              return Text(
+                                                desc,
+                                                style: TextStyle(
+                                                    fontSize: 16.0,
+                                                    color: Colors.grey[500]),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                        SizedBox(height: 250.0),
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(height: 8.0),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          border: Border.all(
-                                            color: Colors.blue[500]!,
-                                            width: 2.0,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(Icons.access_time,
-                                                color: Colors.blue[500]),
-                                            SizedBox(width: 4.0),
-                                            Text(
-                                              '${_otLibraryRecord.duration} ${LocaleKeys.minutes.tr()}',
-                                              style: TextStyle(
-                                                fontSize: 15.0,
-                                                color: Colors.blue[500],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(width: 8.0),
-                                      Container(
-                                        padding: EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          border: Border.all(
-                                            color: _getLevelColor(
-                                                _otLibraryRecord.level),
-                                            width: 2.0,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(Icons.directions_run,
-                                                color: _getLevelColor(
-                                                    _otLibraryRecord.level)),
-                                            SizedBox(width: 4.0),
-                                            Text(
-                                              _getLevelText(
-                                                  _otLibraryRecord.level),
-                                              style: TextStyle(
-                                                fontSize: 15.0,
-                                                color: _getLevelColor(
-                                                    _otLibraryRecord.level),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 8.0),
-                                  FutureBuilder(
-                                    future: notificationService.translateText(
-                                        _otLibraryRecord.description, context),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<String> snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
-                                          children: [
-                                            ShimmeringTextListWidget(
-                                                width: 400, numOfLines: 4),
-                                          ],
-                                        ); // or any loading indicator
-                                      } else if (snapshot.hasError) {
-                                        return Text('Error: ${snapshot.error}');
-                                      } else {
-                                        String desc = snapshot.data!;
-                                        return Text(
-                                          desc,
-                                          style: TextStyle(
-                                              fontSize: 16.0,
-                                              color: Colors.grey[500]),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                  SizedBox(height: 250.0),
                                 ],
                               ),
                             ),

@@ -254,169 +254,214 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Scaffold(
         body: Stack(
           children: [
-            ListView(
-              // padding: EdgeInsets.all(16.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 50),
-                Container(
-                  alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(top: 20, left: 20),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 75,
-                            backgroundImage:
-                                profileImageUrl == null || profileImageUrl == ''
-                                    ? AssetImage(ImageConstant.DEFAULT_USER)
-                                    : NetworkImage(profileImageUrl!)
-                                        as ImageProvider<Object>?,
-                            backgroundColor: Colors.grey,
-                          ),
-                          SizedBox(width: 10),
-                          // Expanded(
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          //     child: AutoSizeText(
-                          //       userData['username'] != ''
-                          //           ? userData['username']
-                          //           : 'N/A',
-                          //       style: TextStyle(
-                          //         fontSize: 20,
-                          //         fontWeight: FontWeight.bold,
-                          //       ),
-                          //       minFontSize: 12,
-                          //       maxFontSize: 20,
-                          //       maxLines: 1,
-                          //       overflow: TextOverflow.ellipsis,
-                          //     ),
-                          //   ),
-                          // ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AutoSizeText(
-                                    userData['username'],
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    minFontSize: 12,
-                                    maxFontSize: 20,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  if (userData['role'] == 'patient')
-                                    // AutoSizeText(
-                                    //   'Level: ${userData['level']}',
-                                    //   style: TextStyle(
-                                    //     fontSize:
-                                    //         16, // Adjust the font size as needed
-                                    //   ),
-                                    //   maxLines: 1,
-                                    //   overflow: TextOverflow.ellipsis,
-                                    // ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          '${LocaleKeys.Level.tr()} ${userData['level']}',
-                                          style: TextStyle(
-                                            fontSize: 13.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                SizedBox(height: 70),
+                Expanded(
+                    child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: 1,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            children: [
+                              Container(
+                                alignment: Alignment.topLeft,
+                                margin: EdgeInsets.only(top: 20, left: 20),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 75,
+                                          backgroundImage: profileImageUrl ==
+                                                      null ||
+                                                  profileImageUrl == ''
+                                              ? AssetImage(
+                                                  ImageConstant.DEFAULT_USER)
+                                              : NetworkImage(profileImageUrl!)
+                                                  as ImageProvider<Object>?,
+                                          backgroundColor: Colors.grey,
                                         ),
-                                        SizedBox(height: 2.0),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0, 0, 20, 0),
-                                          child: LinearPercentIndicator(
-                                            animation: true,
-                                            lineHeight: 10.0,
-                                            animationDuration: 2000,
-                                            percent:
-                                                userData['progressToNextLevel'].toDouble() ?? 0.0,
-                                            barRadius: Radius.circular(10.0),
-                                            progressColor: Colors.yellow,
-                                            padding: EdgeInsets.zero,
+                                        SizedBox(width: 10),
+                                        // Expanded(
+                                        //   child: Padding(
+                                        //     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                        //     child: AutoSizeText(
+                                        //       userData['username'] != ''
+                                        //           ? userData['username']
+                                        //           : 'N/A',
+                                        //       style: TextStyle(
+                                        //         fontSize: 20,
+                                        //         fontWeight: FontWeight.bold,
+                                        //       ),
+                                        //       minFontSize: 12,
+                                        //       maxFontSize: 20,
+                                        //       maxLines: 1,
+                                        //       overflow: TextOverflow.ellipsis,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 10, 0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                AutoSizeText(
+                                                  userData['username'],
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  minFontSize: 12,
+                                                  maxFontSize: 20,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                if (userData['role'] ==
+                                                    'patient')
+                                                  // AutoSizeText(
+                                                  //   'Level: ${userData['level']}',
+                                                  //   style: TextStyle(
+                                                  //     fontSize:
+                                                  //         16, // Adjust the font size as needed
+                                                  //   ),
+                                                  //   maxLines: 1,
+                                                  //   overflow: TextOverflow.ellipsis,
+                                                  // ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Text(
+                                                        '${LocaleKeys.Level.tr()} ${userData['level']}',
+                                                        style: TextStyle(
+                                                          fontSize: 13.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 2.0),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 20, 0),
+                                                        child:
+                                                            LinearPercentIndicator(
+                                                          animation: true,
+                                                          lineHeight: 10.0,
+                                                          animationDuration:
+                                                              2000,
+                                                          percent: userData[
+                                                                      'progressToNextLevel']
+                                                                  .toDouble() ??
+                                                              0.0,
+                                                          barRadius:
+                                                              Radius.circular(
+                                                                  10.0),
+                                                          progressColor:
+                                                              Colors.yellow,
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
+                                        )
                                       ],
                                     ),
-                                ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                infoCard(Icons.phone_outlined,
-                    userData['phone'] != '' ? userData['phone'] : 'N/A'),
-                SizedBox(height: 10),
-                infoCard(Icons.email_outlined,
-                    userData['email'] != '' ? userData['email'] : 'N/A'),
-                SizedBox(height: 10),
-                infoCard(Icons.pin_drop_outlined,
-                    userData['address'] != '' ? userData['address'] : 'N/A'),
-                SizedBox(height: 5),
-                changePassword(),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: customButton(
-                      context,
-                      LocaleKeys.Edit_Profile.tr(),
-                      ColorConstant.YELLOW_BUTTON_TEXT,
-                      ColorConstant.YELLOW_BUTTON_UNPRESSED,
-                      ColorConstant.YELLOW_BUTTON_PRESSED, () {
-                    _navigateToEditProfileScreen(context);
-                  }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: customButton(
-                      context,
-                      LocaleKeys.Change_Language.tr(),
-                      ColorConstant.BLUE_BUTTON_TEXT,
-                      ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                    final needUpdate = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeLanguageScreen(),
-                      ),
-                    );
-                    if (needUpdate != null && needUpdate) {
-                      setState(() {
-                        getUserData();
-                      });
-                    }
-                  }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: customButton(
-                      context,
-                      LocaleKeys.Log_Out.tr(),
-                      ColorConstant.RED_BUTTON_TEXT,
-                      ColorConstant.RED_BUTTON_UNPRESSED,
-                      ColorConstant.RED_BUTTON_PRESSED, () {
-                    showConfirmationDialog(context, LocaleKeys.Log_Out.tr(),
-                        LocaleKeys.Are_you_sure_to_sign_out.tr(), () {
-                      signOut();
-                    });
-                  }),
-                ),
+                              SizedBox(height: 10),
+                              infoCard(
+                                  Icons.phone_outlined,
+                                  userData['phone'] != ''
+                                      ? userData['phone']
+                                      : 'N/A'),
+                              SizedBox(height: 10),
+                              infoCard(
+                                  Icons.email_outlined,
+                                  userData['email'] != ''
+                                      ? userData['email']
+                                      : 'N/A'),
+                              SizedBox(height: 10),
+                              infoCard(
+                                  Icons.pin_drop_outlined,
+                                  userData['address'] != ''
+                                      ? userData['address']
+                                      : 'N/A'),
+                              SizedBox(height: 5),
+                              changePassword(),
+                              SizedBox(height: 20),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: customButton(
+                                    context,
+                                    LocaleKeys.Edit_Profile.tr(),
+                                    ColorConstant.YELLOW_BUTTON_TEXT,
+                                    ColorConstant.YELLOW_BUTTON_UNPRESSED,
+                                    ColorConstant.YELLOW_BUTTON_PRESSED, () {
+                                  _navigateToEditProfileScreen(context);
+                                }),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: customButton(
+                                    context,
+                                    LocaleKeys.Change_Language.tr(),
+                                    ColorConstant.BLUE_BUTTON_TEXT,
+                                    ColorConstant.BLUE_BUTTON_UNPRESSED,
+                                    ColorConstant.BLUE_BUTTON_PRESSED,
+                                    () async {
+                                  final needUpdate = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChangeLanguageScreen(),
+                                    ),
+                                  );
+                                  if (needUpdate != null && needUpdate) {
+                                    setState(() {
+                                      getUserData();
+                                    });
+                                  }
+                                }),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: customButton(
+                                    context,
+                                    LocaleKeys.Log_Out.tr(),
+                                    ColorConstant.RED_BUTTON_TEXT,
+                                    ColorConstant.RED_BUTTON_UNPRESSED,
+                                    ColorConstant.RED_BUTTON_PRESSED, () {
+                                  showConfirmationDialog(
+                                      context,
+                                      LocaleKeys.Log_Out.tr(),
+                                      LocaleKeys.Are_you_sure_to_sign_out.tr(),
+                                      () {
+                                    signOut();
+                                  });
+                                }),
+                              )
+                            ],
+                          );
+                        }))
               ],
             ),
             Positioned(

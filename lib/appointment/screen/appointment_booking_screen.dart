@@ -7,7 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis/calendar/v3.dart' as Calendar;
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:intl/intl.dart';
-import 'package:physio_track/appointment/screen/appointment_patient_screeen.dart';
+import 'package:physio_track/appointment/screen/appointment_patient_screen.dart';
 import 'package:physio_track/appointment/service/appointment_in_pending_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/user_management/service/user_management_service.dart';
@@ -193,217 +193,262 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 220,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          LocaleKeys.Clinic_Appointment.tr(),
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    DatePicker(
-                      locale: context.locale.toString(),
-                      height: 100,
-                      DateTime.now().add(Duration(days: 1)),
-                      initialSelectedDate:
-                          DateTime.now().add(Duration(days: 1)),
-                      selectionColor: Colors.blue,
-                      selectedTextColor: Colors.white,
-                      onDateChange: (date) {
-                        // New date selected
-                        setState(() {
-                          _selectedValue = date;
-                          _loadEvents(_selectedValue);
-                          _loadLeave(_selectedValue);
-                        });
-                      },
-                    ),
-                    SizedBox(
-                        height:
-                            20), // Add spacing between DatePicker and selected date text
-                  ],
+                SizedBox(
+                  height: 220,
                 ),
-                Visibility(
-                  visible:
-                      isFullDayLeave, // Show the Text when isFullDayLeave is false
-                  child: Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 190.0,
-                          height: 190.0,
-                          child: Image.asset(ImageConstant.ON_LEAVE),
-                        ),
-                        Text(LocaleKeys.Physiotherapist_On_Leave.tr(),
-                            style: TextStyle(
-                                fontSize: 17.0, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: !isFullDayLeave,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                Expanded(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
                     children: [
-                      // Generate time slots from 10 AM to 8 PM with buttons
-                      for (int startHour = 10; startHour <= 20; startHour += 3)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                      Container(
+                        height: MediaQuery.of(context).size.height*0.6,
+                        child: Column(
                           children: [
-                            for (int hour = startHour;
-                                hour < startHour + 3;
-                                hour++)
-                              if (hour <= 20)
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(7, 15, 7, 15),
-                                  child: Container(
-                                    width: 110,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        // Handle button tap for the selected time slot
-                                        setState(() {
-                                          if (events.any((event) {
-                                                final eventStartTime = event
-                                                    .start!.dateTime!
-                                                    .toLocal();
-                                                final eventEndTime = event
-                                                    .end!.dateTime!
-                                                    .toLocal();
-                                                final buttonStartTime =
-                                                    DateTime(
-                                                  _selectedValue.year,
-                                                  _selectedValue.month,
-                                                  _selectedValue.day,
-                                                  hour,
-                                                );
-                                                return buttonStartTime
-                                                    .isAtSameMomentAs(
-                                                        eventStartTime);
-                                              }) ||
-                                              leaves.any((leave) {
-                                                final leaveStartTime =
-                                                    leave.startTime.toLocal();
-                                                final leaveEndTime =
-                                                    leave.endTime.toLocal();
-                                                final buttonStartTime =
-                                                    DateTime(
-                                                  _selectedValue.year,
-                                                  _selectedValue.month,
-                                                  _selectedValue.day,
-                                                  hour,
-                                                );
-                                                return buttonStartTime
-                                                        .isAtSameMomentAs(
-                                                            leaveStartTime) ||
-                                                    (buttonStartTime.isAfter(
-                                                            leaveStartTime) &&
-                                                        buttonStartTime
-                                                            .isBefore(
-                                                                leaveEndTime));
-                                              })) {
-                                            // If the button meets a conflict, do nothing (it remains disabled)
-                                            MaterialState.disabled;
-                                            return;
-                                          }
-
-                                          // If there was a previous selection, make it default again
-                                          if (selectedHour != null) {
-                                            selectedHour = null;
-                                          }
-
-                                          // Set the current button as active
-                                          selectedHour = hour;
-
-                                          // Update _selectedValue to match the selected hour
-                                          _selectedValue = DateTime(
-                                            _selectedValue.year,
-                                            _selectedValue.month,
-                                            _selectedValue.day,
-                                            hour,
-                                          );
-                                        });
-                                      },
-                                      style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty
-                                            .resolveWith<Color>(
-                                          (Set<MaterialState> states) {
-                                            if (states.contains(
-                                                MaterialState.disabled)) {
-                                              // Disabled state (conflict with an event or leave)
-                                              return Color.fromARGB(
-                                                  255, 239, 154, 154);
-                                            } else if (states.contains(
-                                                    MaterialState.pressed) ||
-                                                selectedHour == hour) {
-                                              // Active state (button is pressed or previously selected)
-                                              return Color.fromARGB(
-                                                  255, 138, 193, 238);
-                                            } else {
-                                              // Default state (not pressed and not selected)
-                                              return Color.fromARGB(
-                                                  255, 216, 234, 248);
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                      child: Text(
-                                        '${hour % 12 == 0 ? 12 : hour % 12}:00 ${hour < 12 ? 'AM' : 'PM'}',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: selectedHour == hour
-                                              ? Color.fromARGB(255, 5, 136, 243)
-                                              : events.any((event) {
-                                                  final eventStartTime = event
-                                                      .start!.dateTime!
-                                                      .toLocal();
-                                                  final eventEndTime = event
-                                                      .end!.dateTime!
-                                                      .toLocal();
-                                                  final buttonStartTime =
-                                                      DateTime(
-                                                    _selectedValue.year,
-                                                    _selectedValue.month,
-                                                    _selectedValue.day,
-                                                    hour,
-                                                  );
-                                                  return buttonStartTime
-                                                      .isAtSameMomentAs(
-                                                          eventStartTime);
-                                                })
-                                                  ? Colors
-                                                      .white // Text color for disabled button
-                                                  : Color.fromARGB(
-                                                      255,
-                                                      150,
-                                                      200,
-                                                      238), // Text color for active button
-                                        ),
-                                      ),
-                                    ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  LocaleKeys.Clinic_Appointment.tr(),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
                                   ),
                                 ),
+                              ),
+                            ),
+                            DatePicker(
+                              locale: context.locale.toString(),
+                              height: 100,
+                              DateTime.now().add(Duration(days: 1)),
+                              initialSelectedDate:
+                                  DateTime.now().add(Duration(days: 1)),
+                              selectionColor: Colors.blue,
+                              selectedTextColor: Colors.white,
+                              onDateChange: (date) {
+                                // New date selected
+                                setState(() {
+                                  _selectedValue = date;
+                                  _loadEvents(_selectedValue);
+                                  _loadLeave(_selectedValue);
+                                });
+                              },
+                            ),
+                            SizedBox(height: 20),
+                            Visibility(
+                              visible:
+                                  isFullDayLeave, // Show the Text when isFullDayLeave is false
+                              child: Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 190.0,
+                                      height: 190.0,
+                                      child:
+                                          Image.asset(ImageConstant.ON_LEAVE),
+                                    ),
+                                    Text(
+                                        LocaleKeys.Physiotherapist_On_Leave
+                                            .tr(),
+                                        style: TextStyle(
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: !isFullDayLeave,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Generate time slots from 10 AM to 8 PM with buttons
+                                  for (int startHour = 10;
+                                      startHour <= 20;
+                                      startHour += 3)
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        for (int hour = startHour;
+                                            hour < startHour + 3;
+                                            hour++)
+                                          if (hour <= 20)
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      7, 15, 7, 15),
+                                              child: Container(
+                                                width: 110,
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    // Handle button tap for the selected time slot
+                                                    setState(() {
+                                                      if (events.any((event) {
+                                                            final eventStartTime =
+                                                                event.start!
+                                                                    .dateTime!
+                                                                    .toLocal();
+                                                            final eventEndTime =
+                                                                event.end!
+                                                                    .dateTime!
+                                                                    .toLocal();
+                                                            final buttonStartTime =
+                                                                DateTime(
+                                                              _selectedValue
+                                                                  .year,
+                                                              _selectedValue
+                                                                  .month,
+                                                              _selectedValue
+                                                                  .day,
+                                                              hour,
+                                                            );
+                                                            return buttonStartTime
+                                                                .isAtSameMomentAs(
+                                                                    eventStartTime);
+                                                          }) ||
+                                                          leaves.any((leave) {
+                                                            final leaveStartTime =
+                                                                leave.startTime
+                                                                    .toLocal();
+                                                            final leaveEndTime =
+                                                                leave.endTime
+                                                                    .toLocal();
+                                                            final buttonStartTime =
+                                                                DateTime(
+                                                              _selectedValue
+                                                                  .year,
+                                                              _selectedValue
+                                                                  .month,
+                                                              _selectedValue
+                                                                  .day,
+                                                              hour,
+                                                            );
+                                                            return buttonStartTime
+                                                                    .isAtSameMomentAs(
+                                                                        leaveStartTime) ||
+                                                                (buttonStartTime
+                                                                        .isAfter(
+                                                                            leaveStartTime) &&
+                                                                    buttonStartTime
+                                                                        .isBefore(
+                                                                            leaveEndTime));
+                                                          })) {
+                                                        // If the button meets a conflict, do nothing (it remains disabled)
+                                                        MaterialState.disabled;
+                                                        return;
+                                                      }
+
+                                                      // If there was a previous selection, make it default again
+                                                      if (selectedHour !=
+                                                          null) {
+                                                        selectedHour = null;
+                                                      }
+
+                                                      // Set the current button as active
+                                                      selectedHour = hour;
+
+                                                      // Update _selectedValue to match the selected hour
+                                                      _selectedValue = DateTime(
+                                                        _selectedValue.year,
+                                                        _selectedValue.month,
+                                                        _selectedValue.day,
+                                                        hour,
+                                                      );
+                                                    });
+                                                  },
+                                                  style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .resolveWith<Color>(
+                                                      (Set<MaterialState>
+                                                          states) {
+                                                        if (states.contains(
+                                                            MaterialState
+                                                                .disabled)) {
+                                                          // Disabled state (conflict with an event or leave)
+                                                          return Color.fromARGB(
+                                                              255,
+                                                              239,
+                                                              154,
+                                                              154);
+                                                        } else if (states.contains(
+                                                                MaterialState
+                                                                    .pressed) ||
+                                                            selectedHour ==
+                                                                hour) {
+                                                          // Active state (button is pressed or previously selected)
+                                                          return Color.fromARGB(
+                                                              255,
+                                                              138,
+                                                              193,
+                                                              238);
+                                                        } else {
+                                                          // Default state (not pressed and not selected)
+                                                          return Color.fromARGB(
+                                                              255,
+                                                              216,
+                                                              234,
+                                                              248);
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    '${hour % 12 == 0 ? 12 : hour % 12}:00 ${hour < 12 ? 'AM' : 'PM'}',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: selectedHour ==
+                                                              hour
+                                                          ? Color.fromARGB(
+                                                              255, 5, 136, 243)
+                                                          : events.any((event) {
+                                                              final eventStartTime =
+                                                                  event.start!
+                                                                      .dateTime!
+                                                                      .toLocal();
+                                                              final eventEndTime =
+                                                                  event.end!
+                                                                      .dateTime!
+                                                                      .toLocal();
+                                                              final buttonStartTime =
+                                                                  DateTime(
+                                                                _selectedValue
+                                                                    .year,
+                                                                _selectedValue
+                                                                    .month,
+                                                                _selectedValue
+                                                                    .day,
+                                                                hour,
+                                                              );
+                                                              return buttonStartTime
+                                                                  .isAtSameMomentAs(
+                                                                      eventStartTime);
+                                                            })
+                                                              ? Colors
+                                                                  .white // Text color for disabled button
+                                                              : Color.fromARGB(
+                                                                  255,
+                                                                  150,
+                                                                  200,
+                                                                  238), // Text color for active button
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                      ],
+                                    ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
+                      ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 50,
                 ),
               ],
             ),
@@ -438,12 +483,12 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             ),
           ),
           Positioned(
-            top: 80,
+            top: 50,
             right: 5,
             child: Image.asset(
               ImageConstant.APPOINTMENT,
-              width: 211.0,
-              height: 169.0,
+              width: 190.0,
+              height: 190.0,
             ),
           ),
           Positioned(

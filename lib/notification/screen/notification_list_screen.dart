@@ -223,8 +223,8 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
               left: 0,
               child: Image.asset(
                 ImageConstant.NOTIFICATION,
-                width: 271.0,
-                height: 190.0,
+                width: 190.0,
+                height: 170.0,
               ),
             ),
           ],

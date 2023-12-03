@@ -348,5 +348,10 @@
   "Please_enter_a_valid_time": "Sila masukkan masa yang sah",
   "Leave_Application": "Permohonan Cuti",
   "Full_Day_Leave": "Cuti Sepenuh Hari?",
-  "Create_Report": "Cipta Laporan"
+  "Create_Report": "Cipta Laporan",
+  "Share": "Kongsi",
+  "Shared_Journal": "Berkongsi Jurnal",
+  "Journal_is_accessible_by_the_physiotherapist": "Jurnal boleh diakses oleh ahli fisioterapi.",
+  "Unshared_Journal": "Tidak Kongsi Jurnal",
+  "Journal_is_unaccessible_by_the_physiotherapist": "Jurnal tidak dapat diakses oleh ahli fisioterapi."
 }

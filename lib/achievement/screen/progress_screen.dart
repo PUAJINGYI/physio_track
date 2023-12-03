@@ -939,8 +939,8 @@ class ProgressScreenState extends State<ProgressScreen> {
                       right: 5,
                       child: Image.asset(
                         ImageConstant.PROGRESS,
-                        width: 220.0,
-                        height: 220.0,
+                        width: 190.0,
+                        height: 190.0,
                       ),
                     ),
                     Positioned(

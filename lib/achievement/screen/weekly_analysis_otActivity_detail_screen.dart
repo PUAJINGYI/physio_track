@@ -108,24 +108,12 @@ class _WeeklyAnalysisOTActivityDetailScreenState
     if (level == 'Advanced') {
       return Colors.red[500]!;
     } else if (level == 'Intermediate') {
-      return Colors.yellow[500]!;
+      return Colors.orange[500]!;
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
     // Default color if the level doesn't match the conditions
     return Colors.black;
-  }
-
-  Color _getLevelBackgroundColor(String level) {
-    if (level == 'Advanced') {
-      return Colors.red[100]!;
-    } else if (level == 'Intermediate') {
-      return Colors.yellow[100]!;
-    } else if (level == 'Beginner') {
-      return Colors.green[100]!;
-    }
-    // Default background color if the level doesn't match the conditions
-    return Colors.grey[300]!;
   }
 
   String _getLevelText(String level) {
@@ -277,10 +265,6 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       decoration: BoxDecoration(
-                                                        color:
-                                                            _getLevelBackgroundColor(
-                                                                otLibrary
-                                                                    .level),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8.0),
@@ -289,7 +273,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                               otLibrary
                                                                   .level), // Set the border color to black
                                                           width:
-                                                              1.0, // Set the border width
+                                                              2.0, // Set the border width
                                                         ),
                                                       ),
                                                       child: Row(
@@ -308,6 +292,9 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                                     .level),
                                                             style: TextStyle(
                                                               fontSize: 12.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
                                                                   _getLevelColor(
                                                                       otLibrary
@@ -387,7 +374,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                      FutureBuilder(
+                                                    FutureBuilder(
                                                       future:
                                                           notificationService
                                                               .translateText(
@@ -438,10 +425,6 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       decoration: BoxDecoration(
-                                                        color:
-                                                            _getLevelBackgroundColor(
-                                                                otLibrary
-                                                                    .level),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8.0),
@@ -450,7 +433,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                               otLibrary
                                                                   .level), // Set the border color to black
                                                           width:
-                                                              1.0, // Set the border width
+                                                              2.0, // Set the border width
                                                         ),
                                                       ),
                                                       child: Row(
@@ -469,6 +452,9 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                                     .level),
                                                             style: TextStyle(
                                                               fontSize: 12.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
                                                                   _getLevelColor(
                                                                       otLibrary
@@ -549,49 +535,46 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                      future:
-                                                          notificationService
-                                                              .translateText(
-                                                                  otLibrary
-                                                                      .title,
-                                                                  context),
-                                                      builder: (BuildContext
-                                                              context,
-                                                          AsyncSnapshot<String>
-                                                              snapshot) {
-                                                        if (snapshot
-                                                                .connectionState ==
-                                                            ConnectionState
-                                                                .waiting) {
-                                                          return Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .stretch,
-                                                            children: [
-                                                              ShimmeringTextListWidget(
-                                                                  width: 300,
-                                                                  numOfLines:
-                                                                      2),
-                                                            ],
-                                                          ); // or any loading indicator
-                                                        } else if (snapshot
-                                                            .hasError) {
-                                                          return Text(
-                                                              'Error: ${snapshot.error}');
-                                                        } else {
-                                                          String desc =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            desc,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 14.0),
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
+                                                    future: notificationService
+                                                        .translateText(
+                                                            otLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .stretch,
+                                                          children: [
+                                                            ShimmeringTextListWidget(
+                                                                width: 300,
+                                                                numOfLines: 2),
+                                                          ],
+                                                        ); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String desc =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          desc,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -599,9 +582,6 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              otLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -610,7 +590,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                             otLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -628,6 +608,8 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                               otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     otLibrary
@@ -695,50 +677,47 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                   FutureBuilder(
-                                                      future:
-                                                          notificationService
-                                                              .translateText(
-                                                                  otLibrary
-                                                                      .title,
-                                                                  context),
-                                                      builder: (BuildContext
-                                                              context,
-                                                          AsyncSnapshot<String>
-                                                              snapshot) {
-                                                        if (snapshot
-                                                                .connectionState ==
-                                                            ConnectionState
-                                                                .waiting) {
-                                                          return Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .stretch,
-                                                            children: [
-                                                              ShimmeringTextListWidget(
-                                                                  width: 300,
-                                                                  numOfLines:
-                                                                      2),
-                                                            ],
-                                                          ); // or any loading indicator
-                                                        } else if (snapshot
-                                                            .hasError) {
-                                                          return Text(
-                                                              'Error: ${snapshot.error}');
-                                                        } else {
-                                                          String desc =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            desc,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 14.0),
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            otLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .stretch,
+                                                          children: [
+                                                            ShimmeringTextListWidget(
+                                                                width: 300,
+                                                                numOfLines: 2),
+                                                          ],
+                                                        ); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String desc =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          desc,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -746,9 +725,6 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              otLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -757,7 +733,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                             otLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -775,6 +751,8 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                               otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     otLibrary
@@ -853,50 +831,47 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                   FutureBuilder(
-                                                      future:
-                                                          notificationService
-                                                              .translateText(
-                                                                  otLibrary
-                                                                      .title,
-                                                                  context),
-                                                      builder: (BuildContext
-                                                              context,
-                                                          AsyncSnapshot<String>
-                                                              snapshot) {
-                                                        if (snapshot
-                                                                .connectionState ==
-                                                            ConnectionState
-                                                                .waiting) {
-                                                          return Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .stretch,
-                                                            children: [
-                                                              ShimmeringTextListWidget(
-                                                                  width: 300,
-                                                                  numOfLines:
-                                                                      2),
-                                                            ],
-                                                          ); // or any loading indicator
-                                                        } else if (snapshot
-                                                            .hasError) {
-                                                          return Text(
-                                                              'Error: ${snapshot.error}');
-                                                        } else {
-                                                          String desc =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            desc,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 14.0),
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
+                                                  FutureBuilder(
+                                                    future: notificationService
+                                                        .translateText(
+                                                            otLibrary.title,
+                                                            context),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .stretch,
+                                                          children: [
+                                                            ShimmeringTextListWidget(
+                                                                width: 300,
+                                                                numOfLines: 2),
+                                                          ],
+                                                        ); // or any loading indicator
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            'Error: ${snapshot.error}');
+                                                      } else {
+                                                        String desc =
+                                                            snapshot.data!;
+                                                        return Text(
+                                                          desc,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 14.0),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
                                                   Container(
                                                     // This is your new Container
                                                     width:
@@ -904,9 +879,6 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          _getLevelBackgroundColor(
-                                                              otLibrary.level),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -915,7 +887,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                             otLibrary
                                                                 .level), // Set the border color to black
                                                         width:
-                                                            1.0, // Set the border width
+                                                            2.0, // Set the border width
                                                       ),
                                                     ),
                                                     child: Row(
@@ -933,6 +905,8 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                               otLibrary.level),
                                                           style: TextStyle(
                                                             fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color:
                                                                 _getLevelColor(
                                                                     otLibrary

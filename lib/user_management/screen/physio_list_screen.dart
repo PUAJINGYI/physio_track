@@ -7,7 +7,7 @@ import '../../profile/model/user_model.dart';
 import '../../translations/locale_keys.g.dart';
 import '../service/user_management_service.dart';
 import 'add_physio_screen.dart';
-import 'navigation_page.dart';
+import 'user_management_page.dart';
 
 class PhysioListScreen extends StatefulWidget {
   @override

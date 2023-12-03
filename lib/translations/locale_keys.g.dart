@@ -351,5 +351,10 @@ abstract class  LocaleKeys {
   static const Leave_Application = 'Leave_Application';
   static const Full_Day_Leave = 'Full_Day_Leave';
   static const Create_Report = 'Create_Report';
+  static const Share = 'Share';
+  static const Shared_Journal = 'Shared_Journal';
+  static const Journal_is_accessible_by_the_physiotherapist = 'Journal_is_accessible_by_the_physiotherapist';
+  static const Unshared_Journal = 'Unshared_Journal';
+  static const Journal_is_unaccessible_by_the_physiotherapist = 'Journal_is_unaccessible_by_the_physiotherapist';
 
 }

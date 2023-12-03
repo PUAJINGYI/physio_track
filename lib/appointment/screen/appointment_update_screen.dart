@@ -15,7 +15,7 @@ import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/appointment_in_pending_model.dart';
-import 'appointment_patient_screeen.dart';
+import 'appointment_patient_screen.dart';
 
 class AppointmentUpdateScreen extends StatefulWidget {
   final int? appointmentId;
@@ -180,177 +180,230 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 220,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          LocaleKeys.Clinic_Appointment.tr(),
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    DatePicker(
-                      DateTime(
-                        widget.appointmentDate!.year,
-                        widget.appointmentDate!.month,
-                        widget.appointmentDate!.day,
-                      ).add(Duration(days: -1)),
-                      initialSelectedDate: DateTime(_selectedValue.year,
-                          _selectedValue.month, _selectedValue.day),
-                      selectionColor: Colors.blue,
-                      selectedTextColor: Colors.white,
-                      onDateChange: (date) {
-                        // New date selected
-                        setState(() {
-                          _selectedValue = date;
-                          _loadEvents(_selectedValue);
-                          if (_selectedValue.isAtSameMomentAs(DateTime(
-                            widget.appointmentDate!.year,
-                            widget.appointmentDate!.month,
-                            widget.appointmentDate!.day,
-                          ))) {
-                            print('yes');
-                            print(selectedHour);
-                            selectedHour = oriSelectedHour;
-                          } else {
-                            selectedHour = null;
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(
-                        height:
-                            20), // Add spacing between DatePicker and selected date text
-                  ],
+                SizedBox(
+                  height: 220,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Generate time slots from 10 AM to 8 PM with buttons
-                    for (int startHour = 10; startHour <= 20; startHour += 3)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          for (int hour = startHour;
-                              hour < startHour + 3;
-                              hour++)
-                            if (hour <= 20)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(7, 15, 7, 15),
-                                child: Container(
-                                  width: 110,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      // Handle button tap for the selected time slot
-                                      setState(() {
-                                        if (events.any((event) {
-                                          final eventStartTime =
-                                              event.start!.dateTime!.toLocal();
-                                          final eventEndTime =
-                                              event.end!.dateTime!.toLocal();
-                                          final buttonStartTime = DateTime(
-                                            _selectedValue.year,
-                                            _selectedValue.month,
-                                            _selectedValue.day,
-                                            hour,
-                                          );
-                                          return buttonStartTime
-                                              .isAtSameMomentAs(eventStartTime);
-                                        })) {
-                                          // If the button meets a conflict, do nothing (it remains disabled)
-                                          return;
-                                        }
-
-                                        // If there was a previous selection, make it default again
-                                        if (selectedHour != null) {
-                                          selectedHour = null;
-                                        }
-
-                                        // Set the current button as active
-                                        selectedHour = hour;
-
-                                        // Update _selectedValue to match the selected hour
-                                        _selectedValue = DateTime(
-                                          _selectedValue.year,
-                                          _selectedValue.month,
-                                          _selectedValue.day,
-                                          hour,
-                                        );
-                                      });
-                                    },
-                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty
-                                          .resolveWith<Color>(
-                                        (Set<MaterialState> states) {
-                                          if (states.contains(
-                                              MaterialState.disabled)) {
-                                            // Disabled state (conflict with an event)
-                                            return Color.fromARGB(
-                                                255, 239, 154, 154);
-                                          } else if (states.contains(
-                                                  MaterialState.pressed) ||
-                                              selectedHour == hour) {
-                                            // Active state (button is pressed or previously selected)
-                                            return Color.fromARGB(
-                                                255, 138, 193, 238);
-                                          } else {
-                                            // Default state (not pressed and not selected)
-                                            return Color.fromARGB(
-                                                255, 216, 234, 248);
-                                          }
-                                        },
-                                      ),
-                                    ),
+                Expanded(
+                    child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: 1,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height * 0.6,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
                                     child: Text(
-                                      '${hour % 12 == 0 ? 12 : hour % 12}:00 ${hour < 12 ? 'AM' : 'PM'}',
+                                      LocaleKeys.Clinic_Appointment.tr(),
                                       style: TextStyle(
-                                        fontSize: 16,
-                                        color: selectedHour == hour
-                                            ? Color.fromARGB(255, 5, 136, 243)
-                                            : events.any((event) {
-                                                final eventStartTime = event
-                                                    .start!.dateTime!
-                                                    .toLocal();
-                                                final eventEndTime = event
-                                                    .end!.dateTime!
-                                                    .toLocal();
-                                                final buttonStartTime =
-                                                    DateTime(
-                                                  _selectedValue.year,
-                                                  _selectedValue.month,
-                                                  _selectedValue.day,
-                                                  hour,
-                                                );
-                                                return buttonStartTime
-                                                    .isAtSameMomentAs(
-                                                        eventStartTime);
-                                              })
-                                                ? Colors
-                                                    .white // Text color for disabled button
-                                                : Color.fromARGB(255, 150, 200,
-                                                    238), // Text color for active button
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                        ],
-                      ),
-                  ],
-                ),
-             
+                                DatePicker(
+                                  DateTime(
+                                    widget.appointmentDate!.year,
+                                    widget.appointmentDate!.month,
+                                    widget.appointmentDate!.day,
+                                  ).add(Duration(days: -1)),
+                                  initialSelectedDate: DateTime(
+                                      _selectedValue.year,
+                                      _selectedValue.month,
+                                      _selectedValue.day),
+                                  selectionColor: Colors.blue,
+                                  selectedTextColor: Colors.white,
+                                  onDateChange: (date) {
+                                    // New date selected
+                                    setState(() {
+                                      _selectedValue = date;
+                                      _loadEvents(_selectedValue);
+                                      if (_selectedValue
+                                          .isAtSameMomentAs(DateTime(
+                                        widget.appointmentDate!.year,
+                                        widget.appointmentDate!.month,
+                                        widget.appointmentDate!.day,
+                                      ))) {
+                                        print('yes');
+                                        print(selectedHour);
+                                        selectedHour = oriSelectedHour;
+                                      } else {
+                                        selectedHour = null;
+                                      }
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Generate time slots from 10 AM to 8 PM with buttons
+                                    for (int startHour = 10;
+                                        startHour <= 20;
+                                        startHour += 3)
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          for (int hour = startHour;
+                                              hour < startHour + 3;
+                                              hour++)
+                                            if (hour <= 20)
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        7, 15, 7, 15),
+                                                child: Container(
+                                                  width: 110,
+                                                  child: ElevatedButton(
+                                                    onPressed: () {
+                                                      // Handle button tap for the selected time slot
+                                                      setState(() {
+                                                        if (events.any((event) {
+                                                          final eventStartTime =
+                                                              event.start!
+                                                                  .dateTime!
+                                                                  .toLocal();
+                                                          final eventEndTime =
+                                                              event.end!
+                                                                  .dateTime!
+                                                                  .toLocal();
+                                                          final buttonStartTime =
+                                                              DateTime(
+                                                            _selectedValue.year,
+                                                            _selectedValue
+                                                                .month,
+                                                            _selectedValue.day,
+                                                            hour,
+                                                          );
+                                                          return buttonStartTime
+                                                              .isAtSameMomentAs(
+                                                                  eventStartTime);
+                                                        })) {
+                                                          // If the button meets a conflict, do nothing (it remains disabled)
+                                                          return;
+                                                        }
+
+                                                        // If there was a previous selection, make it default again
+                                                        if (selectedHour !=
+                                                            null) {
+                                                          selectedHour = null;
+                                                        }
+
+                                                        // Set the current button as active
+                                                        selectedHour = hour;
+
+                                                        // Update _selectedValue to match the selected hour
+                                                        _selectedValue =
+                                                            DateTime(
+                                                          _selectedValue.year,
+                                                          _selectedValue.month,
+                                                          _selectedValue.day,
+                                                          hour,
+                                                        );
+                                                      });
+                                                    },
+                                                    style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .resolveWith<
+                                                                  Color>(
+                                                        (Set<MaterialState>
+                                                            states) {
+                                                          if (states.contains(
+                                                              MaterialState
+                                                                  .disabled)) {
+                                                            // Disabled state (conflict with an event)
+                                                            return Color
+                                                                .fromARGB(
+                                                                    255,
+                                                                    239,
+                                                                    154,
+                                                                    154);
+                                                          } else if (states.contains(
+                                                                  MaterialState
+                                                                      .pressed) ||
+                                                              selectedHour ==
+                                                                  hour) {
+                                                            // Active state (button is pressed or previously selected)
+                                                            return Color
+                                                                .fromARGB(
+                                                                    255,
+                                                                    138,
+                                                                    193,
+                                                                    238);
+                                                          } else {
+                                                            // Default state (not pressed and not selected)
+                                                            return Color
+                                                                .fromARGB(
+                                                                    255,
+                                                                    216,
+                                                                    234,
+                                                                    248);
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
+                                                    child: Text(
+                                                      '${hour % 12 == 0 ? 12 : hour % 12}:00 ${hour < 12 ? 'AM' : 'PM'}',
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: selectedHour ==
+                                                                hour
+                                                            ? Color.fromARGB(
+                                                                255,
+                                                                5,
+                                                                136,
+                                                                243)
+                                                            : events.any(
+                                                                    (event) {
+                                                                final eventStartTime =
+                                                                    event.start!
+                                                                        .dateTime!
+                                                                        .toLocal();
+                                                                final eventEndTime =
+                                                                    event.end!
+                                                                        .dateTime!
+                                                                        .toLocal();
+                                                                final buttonStartTime =
+                                                                    DateTime(
+                                                                  _selectedValue
+                                                                      .year,
+                                                                  _selectedValue
+                                                                      .month,
+                                                                  _selectedValue
+                                                                      .day,
+                                                                  hour,
+                                                                );
+                                                                return buttonStartTime
+                                                                    .isAtSameMomentAs(
+                                                                        eventStartTime);
+                                                              })
+                                                                ? Colors
+                                                                    .white // Text color for disabled button
+                                                                : Color.fromARGB(
+                                                                    255,
+                                                                    150,
+                                                                    200,
+                                                                    238), // Text color for active button
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                        ],
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        })),
               ],
             ),
           ),
@@ -384,12 +437,12 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
             ),
           ),
           Positioned(
-            top: 80,
+            top: 50,
             right: 5,
             child: Image.asset(
               ImageConstant.APPOINTMENT,
-              width: 211.0,
-              height: 169.0,
+              width: 190.0,
+              height: 190.0,
             ),
           ),
           Positioned(
@@ -416,39 +469,33 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                   TextConstant.CUSTOM_BUTTON_TB_PADDING),
               child: customButton(
                 context,
-                  LocaleKeys.Update.tr(),
+                LocaleKeys.Update.tr(),
                 ColorConstant.BLUE_BUTTON_TEXT,
                 ColorConstant.BLUE_BUTTON_UNPRESSED,
                 ColorConstant.BLUE_BUTTON_PRESSED,
-                ()  {
-                      if (selectedHour == null) {
-                        // No hour selected, display a snackbar
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(LocaleKeys
-                                .Please_select_an_appointment_time.tr()),
-                          ),
-                        );
-                        return; // Do not proceed further
-                      }
+                () {
+                  if (selectedHour == null) {
+                    // No hour selected, display a snackbar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            LocaleKeys.Please_select_an_appointment_time.tr()),
+                      ),
+                    );
+                    return; // Do not proceed further
+                  }
 
-                      appointmentInPendingService
-                          .updatePendingAppointmentRecordByDetails(
-                              widget.appointmentId!,
-                              _selectedValue,
-                              DateTime(
-                                  _selectedValue.year,
-                                  _selectedValue.month,
-                                  _selectedValue.day,
-                                  selectedHour!),
-                              DateTime(
-                                  _selectedValue.year,
-                                  _selectedValue.month,
-                                  _selectedValue.day,
-                                  selectedHour! + 1),
-                              Duration(hours: 1).inSeconds);
-                      Navigator.pop(context, true);
-                    },
+                  appointmentInPendingService
+                      .updatePendingAppointmentRecordByDetails(
+                          widget.appointmentId!,
+                          _selectedValue,
+                          DateTime(_selectedValue.year, _selectedValue.month,
+                              _selectedValue.day, selectedHour!),
+                          DateTime(_selectedValue.year, _selectedValue.month,
+                              _selectedValue.day, selectedHour! + 1),
+                          Duration(hours: 1).inSeconds);
+                  Navigator.pop(context, true);
+                },
               ),
             ),
           )

@@ -33,152 +33,168 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: 250,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        15.0), // Adjust the radius as needed
-                    child: GestureDetector(
-                      onTap: () {
-                        today = DateTime(today.year, today.month, today.day);
-                        if (widget.ot.date == Timestamp.fromDate(today)) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => PTDailyListScreen(
-                              uid: widget.uid,
-                            ),
-                          ));
-                        } else {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                WeeklyAnalysisPTActivityDetailScreen(
-                              id: widget.pt.id,
-                              uid: widget.uid,
-                              isPatientView: true,
-                            ),
-                          ));
-                        }
-                      },
-                      child: Container(
-                        child: Card(
-                          color: Color.fromARGB(255, 208, 245, 208),
-                          elevation: 5.0,
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  LocaleKeys.PT.tr(),
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Center(
-                                  child: CircularPercentIndicator(
-                                    radius: 80,
-                                    lineWidth: 15.0,
-                                    percent: widget.pt.progress,
-                                    progressColor: Colors.blue,
-                                    backgroundColor: Colors.blue.shade100,
-                                    circularStrokeCap: CircularStrokeCap.round,
-                                    center: Text(
-                                      '${widget.pt.progress * 100}%',
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 250,
+              ),
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  15.0), // Adjust the radius as needed
+                              child: GestureDetector(
+                                onTap: () {
+                                  today =
+                                      DateTime(today.year, today.month, today.day);
+                                  if (widget.ot.date == Timestamp.fromDate(today)) {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => PTDailyListScreen(
+                                        uid: widget.uid,
+                                      ),
+                                    ));
+                                  } else {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          WeeklyAnalysisPTActivityDetailScreen(
+                                        id: widget.pt.id,
+                                        uid: widget.uid,
+                                        isPatientView: true,
+                                      ),
+                                    ));
+                                  }
+                                },
+                                child: Container(
+                                  child: Card(
+                                    color: Color.fromARGB(255, 208, 245, 208),
+                                    elevation: 5.0,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            LocaleKeys.PT.tr(),
+                                            style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Center(
+                                            child: CircularPercentIndicator(
+                                              radius: 80,
+                                              lineWidth: 15.0,
+                                              percent: widget.pt.progress,
+                                              progressColor: Colors.blue,
+                                              backgroundColor: Colors.blue.shade100,
+                                              circularStrokeCap:
+                                                  CircularStrokeCap.round,
+                                              center: Text(
+                                                '${widget.pt.progress * 100}%',
+                                                style: TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        15.0), // Adjust the radius as needed
-                    child: GestureDetector(
-                      onTap: () {
-                        today = DateTime(today.year, today.month, today.day);
-                        if (widget.ot.date == Timestamp.fromDate(today)) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                OTDailyListScreen(uid: widget.uid),
-                          ));
-                        } else {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                WeeklyAnalysisOTActivityDetailScreen(
-                              id: widget.ot.id,
-                              uid: widget.uid,
-                              isPatientView: true,
-                            ),
-                          ));
-                        }
-                      },
-                      child: Container(
-                        child: Card(
-                          color: Color.fromARGB(255, 245, 208, 208),
-                          elevation: 5.0,
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  LocaleKeys.OT.tr(),
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Center(
-                                  child: CircularPercentIndicator(
-                                    radius: 80,
-                                    lineWidth: 15.0,
-                                    percent: widget.ot.progress,
-                                    progressColor: Colors.blue,
-                                    backgroundColor: Colors.blue.shade100,
-                                    circularStrokeCap: CircularStrokeCap.round,
-                                    center: Text(
-                                      '${widget.ot.progress * 100}%',
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
+                          SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  15.0), // Adjust the radius as needed
+                              child: GestureDetector(
+                                onTap: () {
+                                  today =
+                                      DateTime(today.year, today.month, today.day);
+                                  if (widget.ot.date == Timestamp.fromDate(today)) {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          OTDailyListScreen(uid: widget.uid),
+                                    ));
+                                  } else {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          WeeklyAnalysisOTActivityDetailScreen(
+                                        id: widget.ot.id,
+                                        uid: widget.uid,
+                                        isPatientView: true,
+                                      ),
+                                    ));
+                                  }
+                                },
+                                child: Container(
+                                  child: Card(
+                                    color: Color.fromARGB(255, 245, 208, 208),
+                                    elevation: 5.0,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            LocaleKeys.OT.tr(),
+                                            style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Center(
+                                            child: CircularPercentIndicator(
+                                              radius: 80,
+                                              lineWidth: 15.0,
+                                              percent: widget.ot.progress,
+                                              progressColor: Colors.blue,
+                                              backgroundColor: Colors.blue.shade100,
+                                              circularStrokeCap:
+                                                  CircularStrokeCap.round,
+                                              center: Text(
+                                                '${widget.ot.progress * 100}%',
+                                                style: TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Positioned(
             top: 25,
@@ -201,7 +217,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
               height: kToolbarHeight,
               alignment: Alignment.center,
               child: Text(
-                '${DateFormat('MMM dd').format(widget.ot.date.toDate())}${LocaleKeys.Progress.tr()}',
+                '${DateFormat('MMM dd').format(widget.ot.date.toDate())} ${LocaleKeys.Progress.tr()}',
                 style: TextStyle(
                   fontSize: TextConstant.TITLE_FONT_SIZE,
                   fontWeight: FontWeight.bold,

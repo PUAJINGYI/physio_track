@@ -68,40 +68,80 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
-        Container(
-          height: MediaQuery.of(context).size.height * 0.7,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(ImageConstant.RESET_PASSWORD_PIC),
-              alignment: Alignment.center,
+        Column(
+          children: [
+            SizedBox(
+              height: 70,
+            ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(ImageConstant.RESET_PASSWORD_PIC),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 100,
+                            ),
+                            reusableTextField(
+                                LocaleKeys.Enter_Registered_Email.tr(),
+                                LocaleKeys.Please_Insert_Valid_Email.tr(),
+                                Icons.email_outlined,
+                                false,
+                                _emailTextController,
+                                _validateEmailInput,
+                                _isObscure,
+                                toggleObscure),
+                          ],
+                        ),
+                      )),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 35.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              LocaleKeys.Forget_Password.tr(),
+              style: TextStyle(
+                fontSize: TextConstant.TITLE_FONT_SIZE,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
-        Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    20, MediaQuery.of(context).size.height * 0.39, 20, 0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 200,
-                    ),
-                    reusableTextField(
-                        LocaleKeys.Enter_Registered_Email.tr(),
-                        LocaleKeys.Please_Insert_Valid_Email.tr(),
-                        Icons.email_outlined,
-                        false,
-                        _emailTextController,
-                        _validateEmailInput,
-                        _isObscure,
-                        toggleObscure),
-                  ],
-                ),
-              ),
-            )),
         Positioned(
           bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
           left: 0,

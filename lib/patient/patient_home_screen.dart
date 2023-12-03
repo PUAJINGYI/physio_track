@@ -6,7 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:physio_track/achievement/screen/progress_screen.dart';
-import 'package:physio_track/appointment/screen/appointment_patient_screeen.dart';
+import 'package:physio_track/appointment/screen/appointment_patient_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/profile_screen.dart';
@@ -164,166 +164,183 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
             // Return your main content when the data is ready.
             return Stack(
               children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 200,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            LocaleKeys.Exercises.tr(),
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 14.0), // Adjust the padding as needed
-                        child: Row(
-                          children: [
-                            exerciseCard(
-                                context,
-                                ptProgress,
-                                ImageConstant.PT,
-                                LocaleKeys.PT.tr(),
-                                '8.00 AM - 1.30 PM', () async {
-                              final needUpdate = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      PTDailyListScreen(uid: uId),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 180,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      LocaleKeys.Exercises.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              );
-
-                              if (needUpdate != null && needUpdate) {
-                                setState(() {
-                                  updateProgress();
-                                });
-                              }
-                            }),
-                            SizedBox(width: 10.0), // Add spacing between cards
-                            exerciseCard(
-                                context,
-                                otProgress,
-                                ImageConstant.OT,
-                                LocaleKeys.OT.tr(),
-                                '8.00 AM - 1.30 PM', () async {
-                              final needUpdate = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      OTDailyListScreen(uid: uId),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          14.0), // Adjust the padding as needed
+                                  child: Row(
+                                    children: [
+                                      exerciseCard(
+                                          context,
+                                          ptProgress,
+                                          ImageConstant.PT,
+                                          LocaleKeys.PT.tr(), () async {
+                                        final needUpdate = await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PTDailyListScreen(uid: uId),
+                                          ),
+                                        );
+                    
+                                        if (needUpdate != null && needUpdate) {
+                                          setState(() {
+                                            updateProgress();
+                                          });
+                                        }
+                                      }),
+                                      SizedBox(
+                                          width:
+                                              10.0), // Add spacing between cards
+                                      exerciseCard(
+                                          context,
+                                          otProgress,
+                                          ImageConstant.OT,
+                                          LocaleKeys.OT.tr(), () async {
+                                        final needUpdate = await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                OTDailyListScreen(uid: uId),
+                                          ),
+                                        );
+                    
+                                        if (needUpdate != null && needUpdate) {
+                                          setState(() {
+                                            updateProgress();
+                                          });
+                                        }
+                                      }),
+                                    ],
+                                  ),
                                 ),
-                              );
-
-                              if (needUpdate != null && needUpdate) {
-                                setState(() {
-                                  updateProgress();
-                                });
-                              }
-                            }),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            LocaleKeys.Features.tr(),
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 14.0), // Adjust the padding as needed
-                        child: Row(
-                          children: [
-                            customHalfSizeCard(
-                                context,
-                                ImageConstant.PROGRESS,
-                                LocaleKeys.Progress.tr(),
-                                Color.fromARGB(255, 255, 205, 210), () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProgressScreen(
-                                          uniqueKey: UniqueKey(),
-                                        )),
-                              );
-                            }),
-                            SizedBox(width: 10.0), // Add spacing between cards
-                            customHalfSizeCard(
-                                context,
-                                ImageConstant.JOURNAL_IMAGE,
-                                LocaleKeys.Journal.tr(),
-                                Color.fromARGB(255, 200, 230, 201), () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ViewJournalListScreen()),
-                              );
-                            }),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 5.0),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 14.0), // Adjust the padding as needed
-                        child: Row(
-                          children: [
-                            customHalfSizeCard(
-                                context,
-                                ImageConstant.SCHEDULE,
-                                LocaleKeys.Appointment.tr(),
-                                Color.fromARGB(255, 255, 224, 178), () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AppointmentPatientScreen()),
-                              );
-                            }),
-                            SizedBox(width: 10.0), // Add spacing between cards
-                            customHalfSizeCard(
-                                context,
-                                ImageConstant.USER,
-                                LocaleKeys.User_Profile.tr(),
-                                Color.fromARGB(255, 225, 190, 231), () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfileScreen(), // Replace NextPage with your desired page
+                                SizedBox(
+                                  height: 10,
                                 ),
-                              );
-                            }),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      LocaleKeys.Features.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          14.0), // Adjust the padding as needed
+                                  child: Row(
+                                    children: [
+                                      customHalfSizeCard(
+                                          context,
+                                          ImageConstant.PROGRESS,
+                                          LocaleKeys.Progress.tr(),
+                                          Color.fromARGB(255, 255, 205, 210), () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProgressScreen(
+                                                    uniqueKey: UniqueKey(),
+                                                  )),
+                                        );
+                                      }),
+                                      SizedBox(
+                                          width:
+                                              10.0), // Add spacing between cards
+                                      customHalfSizeCard(
+                                          context,
+                                          ImageConstant.JOURNAL_IMAGE,
+                                          LocaleKeys.Journal.tr(),
+                                          Color.fromARGB(255, 200, 230, 201), () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ViewJournalListScreen()),
+                                        );
+                                      }),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 5.0),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          14.0), // Adjust the padding as needed
+                                  child: Row(
+                                    children: [
+                                      customHalfSizeCard(
+                                          context,
+                                          ImageConstant.SCHEDULE,
+                                          LocaleKeys.Appointment.tr(),
+                                          Color.fromARGB(255, 255, 224, 178), () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AppointmentPatientScreen()),
+                                        );
+                                      }),
+                                      SizedBox(
+                                          width:
+                                              10.0), // Add spacing between cards
+                                      customHalfSizeCard(
+                                          context,
+                                          ImageConstant.USER,
+                                          LocaleKeys.User_Profile.tr(),
+                                          Color.fromARGB(255, 225, 190, 231), () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfileScreen(), // Replace NextPage with your desired page
+                                          ),
+                                        );
+                                      }),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
+                    )
+                  ],
                 ),
                 Positioned(
                   top: 25,

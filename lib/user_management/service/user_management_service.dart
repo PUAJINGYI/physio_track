@@ -8,27 +8,27 @@ class UserManagementService {
 
   // fetch user list by role
   Future<List<UserModel>> fetchUsersByRole(String role) async {
-    // try {
-    //   QuerySnapshot querySnapshot =
-    //       await usersCollection.where('role', isEqualTo: role).get();
-    //   if (querySnapshot.docs.isNotEmpty) {
-    //     List<UserModel> userList = querySnapshot.docs
-    //         .map((doc) => UserModel.fromSnapshot(doc))
-    //         .toList();
-    //     return userList;
-    //   } else {
-    //     print('User list not found');
-    //     return [];
-    //   }
-    // } catch (error) {
-    //   print('Error fetching user list: $error');
-    //   throw Exception('Error fetching user list');
-    // }
-    QuerySnapshot querySnapshot = await usersCollection.where('role', isEqualTo: role).get();
+    try {
+      QuerySnapshot querySnapshot =
+          await usersCollection.where('role', isEqualTo: role).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        List<UserModel> userList = querySnapshot.docs
+            .map((doc) => UserModel.fromSnapshot(doc))
+            .toList();
+        return userList;
+      } else {
+        print('User list not found');
+        return [];
+      }
+    } catch (error) {
+      print('Error fetching user list: $error');
+      throw Exception('Error fetching user list');
+    }
+    // QuerySnapshot querySnapshot = await usersCollection.where('role', isEqualTo: role).get();
 
-    List<UserModel> fetchUserList = querySnapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList();
-    fetchUserList.sort((a, b) => a.id.compareTo(b.id));
-    return fetchUserList;
+    // List<UserModel> fetchUserList = querySnapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList();
+    // fetchUserList.sort((a, b) => a.id.compareTo(b.id));
+    // return fetchUserList;
   }
 
   // fetch particular user
@@ -261,16 +261,19 @@ class UserManagementService {
     }
   }
 
-  Future<bool> fetchSharedJournalStatus(String uid){
+  Future<bool> fetchSharedJournalStatus(String uid) {
     try {
-      return usersCollection.doc(uid).get().then((value) => value['sharedJournal']);
+      return usersCollection
+          .doc(uid)
+          .get()
+          .then((value) => value['sharedJournal']);
     } catch (error) {
       print('Error fetching shared journal status: $error');
       throw Exception('Error fetching shared journal status');
     }
   }
 
-  Future<int> fetchPhysioIdByPatientUid (String patientUid) async{
+  Future<int> fetchPhysioIdByPatientUid(String patientUid) async {
     int patientId = await fetchUserIdByUid(patientUid);
     String physioEmail = await fetchPhysioEmailByPatientId(patientId);
     String physioUid = await getUidByEmail(physioEmail);

@@ -583,7 +583,7 @@ GestureDetector customHalfSizeCard(BuildContext context, String imagePath,
 }
 
 GestureDetector exerciseCard(BuildContext context, double progress,
-    String imagePath2, String upperText, String title, Function() onTap) {
+    String imagePath2, String upperText, Function() onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -621,25 +621,17 @@ GestureDetector exerciseCard(BuildContext context, double progress,
                         // ),
                       ],
                     ),
-                    Center(
-                      child: Image.asset(
-                        imagePath2,
-                        width: 150,
-                        height: 100,
-                      ),
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                      child: Center(
+                        child: Image.asset(
+                          imagePath2,
+                          width: 150,
+                          height: 100,
                         ),
                       ),
                     ),
+                  
                   ],
                 ),
                 Padding(

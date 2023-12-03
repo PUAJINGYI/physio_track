@@ -399,45 +399,6 @@ class _AppointmentNewApproveScreenState
                                           )
                                         ],
                                       ),
-                                      // SizedBox(width: 10),
-                                      // GestureDetector(
-                                      //   onTap: () async {
-                                      //     final needUpdate =
-                                      //         await Navigator.push(
-                                      //       context,
-                                      //       MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             EditAppointmentDetailScreen(
-                                      //           appointmentInPendingId:
-                                      //               appointment.id,
-                                      //         ),
-                                      //       ),
-                                      //     );
-
-                                      //     if (needUpdate != null &&
-                                      //         needUpdate) {
-                                      //       setState(() {
-                                      //         _newAppointmentList =
-                                      //             _fetchAppointmentList();
-                                      //       });
-                                      //     }
-                                      //   },
-                                      //   child: Row(
-                                      //     children: [
-                                      //       Icon(Icons.edit_outlined),
-                                      //       SizedBox(width: 2),
-                                      //       Container(
-                                      //         width: 20,
-                                      //         child: AutoSizeText(
-                                      //           LocaleKeys.Edit.tr(),
-                                      //           maxLines: 1,
-                                      //           minFontSize: 7,
-                                      //           style: TextStyle(),
-                                      //         ),
-                                      //       ),
-                                      //     ],
-                                      //   ),
-                                      // )
                                     ],
                                   ),
                                   Row(

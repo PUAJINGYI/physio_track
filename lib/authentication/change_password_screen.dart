@@ -57,64 +57,76 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
-        Container(
-          height: MediaQuery.of(context).size.height * 0.7,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(ImageConstant.RESET_PASSWORD_PIC),
-              alignment: Alignment.center,
+        Column(
+          children: [
+            SizedBox(
+              height: 70,
             ),
-          ),
-        ),
-        Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    20, MediaQuery.of(context).size.height * 0.39, 20, 0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 80,
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(ImageConstant.RESET_PASSWORD_PIC),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                      ),
                     ),
-                    reusableTextField(
-                        LocaleKeys.Enter_Existing_Password.tr(),
-                        LocaleKeys.Please_insert_existing_password.tr(),
-                        Icons.lock_outline,
-                        true,
-                        _passwordTextController,
-                        _validatePasswordInput,
-                        _isObscure,
-                        toggleObscure),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    reusableTextField(
-                        LocaleKeys.Enter_Confirmed_Password.tr(),
-                        LocaleKeys.Please_insert_confirmed_password.tr(),
-                        Icons.lock_outline,
-                        true,
-                        _confirmPasswordTextController,
-                        _validateConfirmPasswordInput,
-                        _isObscure2,
-                        toggleObscure2),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    reusableTextField(
-                        LocaleKeys.Enter_New_Password.tr(),
-                        LocaleKeys.Please_insert_new_password.tr(),
-                        Icons.lock_outline,
-                        true,
-                        _newPasswordTextController,
-                        _validateNewPasswordInput,
-                        _isObscure3,
-                        toggleObscure3),
-                  ],
-                ),
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            20, 0, 20, 0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                            ),
+                            reusableTextField(
+                                LocaleKeys.Enter_Existing_Password.tr(),
+                                LocaleKeys.Please_insert_existing_password.tr(),
+                                Icons.lock_outline,
+                                true,
+                                _passwordTextController,
+                                _validatePasswordInput,
+                                _isObscure,
+                                toggleObscure),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            reusableTextField(
+                                LocaleKeys.Enter_Confirmed_Password.tr(),
+                                LocaleKeys.Please_insert_confirmed_password.tr(),
+                                Icons.lock_outline,
+                                true,
+                                _confirmPasswordTextController,
+                                _validateConfirmPasswordInput,
+                                _isObscure2,
+                                toggleObscure2),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            reusableTextField(
+                                LocaleKeys.Enter_New_Password.tr(),
+                                LocaleKeys.Please_insert_new_password.tr(),
+                                Icons.lock_outline,
+                                true,
+                                _newPasswordTextController,
+                                _validateNewPasswordInput,
+                                _isObscure3,
+                                toggleObscure3),
+                          ],
+                        ),
+                      )),
+                ],
               ),
-            )),
+            ),
+          ],
+        ),
         Positioned(
           top: 25,
           left: 0,

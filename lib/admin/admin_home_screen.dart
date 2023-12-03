@@ -8,7 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:physio_track/appointment/screen/admin/appointment_admin_nav_page.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.dart';
-import 'package:physio_track/user_management/screen/navigation_page.dart';
+import 'package:physio_track/user_management/screen/user_management_page.dart';
 
 import '../authentication/signin_screen.dart';
 import '../constant/ImageConstant.dart';

@@ -136,101 +136,112 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       return Scaffold(
         body: Stack(
           children: [
-            ListView(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 50),
-                Container(
-                  alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(top: 20, left: 20),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Stack(
-                            children: [
-                              CircleAvatar(
-                                radius: 75,
-                                backgroundImage: _profileImage != null
-                                    ? FileImage(_profileImage!)
-                                        as ImageProvider<Object>?
-                                    : userData['profileImageUrl'] != null &&
-                                            userData['profileImageUrl'] != ''
-                                        ? NetworkImage(
-                                                userData['profileImageUrl'])
-                                            as ImageProvider<Object>?
-                                        : AssetImage(
-                                            ImageConstant.DEFAULT_USER),
-                                backgroundColor: Colors.grey,
-                              ),
-                              if (userData['profileImageUrl'] == null)
-                                CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.blue),
+                SizedBox(height: 70),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: EdgeInsets.only(top: 20, left: 20),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Stack(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 75,
+                                      backgroundImage: _profileImage != null
+                                          ? FileImage(_profileImage!)
+                                              as ImageProvider<Object>?
+                                          : userData['profileImageUrl'] !=
+                                                      null &&
+                                                  userData['profileImageUrl'] !=
+                                                      ''
+                                              ? NetworkImage(userData[
+                                                      'profileImageUrl'])
+                                                  as ImageProvider<Object>?
+                                              : AssetImage(
+                                                  ImageConstant.DEFAULT_USER),
+                                      backgroundColor: Colors.grey,
+                                    ),
+                                    if (userData['profileImageUrl'] == null)
+                                      CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.blue),
+                                      ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: GestureDetector(
+                                        onTap: _pickImage,
+                                        child: Container(
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.grey.withOpacity(0.6),
+                                          ),
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: GestureDetector(
-                                  onTap: _pickImage,
-                                  child: Container(
-                                    padding: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.grey.withOpacity(0.6),
+                                SizedBox(width: 10),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  child: AutoSizeText(
+                                    userData['username'],
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    child: Icon(
-                                      Icons.edit,
-                                      color: Colors.white,
-                                    ),
+                                    maxLines: 1,
+                                    minFontSize: 11,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 10),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: AutoSizeText(
-                              userData['username'],
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              maxLines: 1,
-                              minFontSize: 11,
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 50),
+                      editProfileInputField(
+                          '${LocaleKeys.Username.tr()}:',
+                          'Please insert username !',
+                          _validateUsernameInput,
+                          _usernameController),
+                      SizedBox(height: 20),
+                      editProfileInputField(
+                          '${LocaleKeys.TelNo.tr()}:',
+                          'Please insert phone number !',
+                          _validatePhoneInput,
+                          _phoneController),
+                      SizedBox(height: 20),
+                      editProfileInputField(
+                          '${LocaleKeys.Email.tr()}:',
+                          'Please insert email !',
+                          _validateEmailInput,
+                          _emailController),
+                      SizedBox(height: 20),
+                      editProfileInputField(
+                          '${LocaleKeys.Home_Address.tr()}:',
+                          'Please insert address !',
+                          _validateAddressInput,
+                          _addressController),
+                    ],
                   ),
                 ),
-                SizedBox(height: 50),
-                editProfileInputField(
-                    '${LocaleKeys.Username.tr()}:',
-                    'Please insert username !',
-                    _validateUsernameInput,
-                    _usernameController),
-                SizedBox(height: 20),
-                editProfileInputField(
-                    '${LocaleKeys.TelNo.tr()}:',
-                    'Please insert phone number !',
-                    _validatePhoneInput,
-                    _phoneController),
-                SizedBox(height: 20),
-                editProfileInputField(
-                    '${LocaleKeys.Email.tr()}:',
-                    'Please insert email !',
-                    _validateEmailInput,
-                    _emailController),
-                SizedBox(height: 20),
-                editProfileInputField(
-                    '${LocaleKeys.Home_Address.tr()}:',
-                    'Please insert address !',
-                    _validateAddressInput,
-                    _addressController),
               ],
             ),
             Positioned(

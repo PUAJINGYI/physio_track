@@ -48,179 +48,189 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(
-                      height: 290,
+                      height: 265,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedLanguage = 1;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 100,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Card(
-                              elevation: 5,
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    ImageConstant.GB,
-                                    width: 90.0,
-                                    height: 90.0,
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    'English',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                    child: Transform.scale(
-                                      scale: 1.5,
-                                      child: Radio<int>(
-                                        value: 1,
-                                        groupValue: selectedLanguage,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedLanguage = value!;
-                                          });
-                                        },
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedLanguage = 1;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 100,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Card(
+                                        elevation: 5,
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                              ImageConstant.GB,
+                                              width: 90.0,
+                                              height: 90.0,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(
+                                              'English',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(
+                                                  0, 0, 10, 0),
+                                              child: Transform.scale(
+                                                scale: 1.5,
+                                                child: Radio<int>(
+                                                  value: 1,
+                                                  groupValue: selectedLanguage,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      selectedLanguage = value!;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedLanguage = 2;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 100,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Card(
-                              elevation: 5,
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    ImageConstant.MALAYSIA,
-                                    width: 90.0,
-                                    height: 90.0,
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    'Bahasa Malaysia',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                    child: Transform.scale(
-                                      scale: 1.5,
-                                      child: Radio<int>(
-                                        value: 2,
-                                        groupValue: selectedLanguage,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedLanguage = value!;
-                                          });
-                                        },
+                              SizedBox(
+                                height: 5,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedLanguage = 2;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 100,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Card(
+                                        elevation: 5,
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                              ImageConstant.MALAYSIA,
+                                              width: 90.0,
+                                              height: 90.0,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(
+                                              'Bahasa Malaysia',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(
+                                                  0, 0, 10, 0),
+                                              child: Transform.scale(
+                                                scale: 1.5,
+                                                child: Radio<int>(
+                                                  value: 2,
+                                                  groupValue: selectedLanguage,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      selectedLanguage = value!;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedLanguage = 3;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 100,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Card(
-                              elevation: 5,
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    ImageConstant.CHINA,
-                                    width: 90.0,
-                                    height: 90.0,
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    '简体中文',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                    child: Transform.scale(
-                                      scale: 1.5,
-                                      child: Radio<int>(
-                                        value: 3,
-                                        groupValue: selectedLanguage,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedLanguage = value!;
-                                          });
-                                        },
+                              SizedBox(
+                                height: 5,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedLanguage = 3;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 100,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Card(
+                                        elevation: 5,
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                              ImageConstant.CHINA,
+                                              width: 90.0,
+                                              height: 90.0,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(
+                                              '简体中文',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(
+                                                  0, 0, 10, 0),
+                                              child: Transform.scale(
+                                                scale: 1.5,
+                                                child: Radio<int>(
+                                                  value: 3,
+                                                  groupValue: selectedLanguage,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      selectedLanguage = value!;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ),
+                        ],
                       ),
-                    ),
+                    )
                   ])),
           Positioned(
             top: 25,

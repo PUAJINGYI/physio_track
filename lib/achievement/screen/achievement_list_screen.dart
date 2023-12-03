@@ -119,8 +119,8 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
                 right: 5,
                 child: Image.asset(
                   ImageConstant.ACHIEVEMENT,
-                  width: 211.0,
-                  height: 169.0,
+                  width: 190.0,
+                  height: 150.0,
                 ),
               ),
               Positioned(

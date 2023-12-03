@@ -5,7 +5,7 @@ import 'package:physio_track/achievement/screen/progress_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 import 'package:physio_track/patient/patient_home_screen.dart';
 
-import '../appointment/screen/appointment_patient_screeen.dart';
+import '../appointment/screen/appointment_patient_screen.dart';
 import '../ot_library/service/user_ot_list_service.dart';
 import '../profile/screen/profile_screen.dart';
 import '../pt_library/service/user_pt_list_service.dart';

@@ -348,5 +348,10 @@
   "Please_enter_a_valid_time": "Please enter a valid time",
   "Leave_Application": "Leave Application",
   "Full_Day_Leave": "Full Day Leave?",
-  "Create_Report": "Create Report"
+  "Create_Report": "Create Report",
+  "Share": "Share",
+  "Shared_Journal": "Shared Journal",
+  "Journal_is_accessible_by_the_physiotherapist": "Journal is accessible by the physiotherapist.",
+  "Unshared_Journal": "Unshared Journal",
+  "Journal_is_unaccessible_by_the_physiotherapist": "Journal is unaccessible by the physiotherapist."
 }
