@@ -350,5 +350,6 @@ abstract class  LocaleKeys {
   static const Please_enter_a_valid_time = 'Please_enter_a_valid_time';
   static const Leave_Application = 'Leave_Application';
   static const Full_Day_Leave = 'Full_Day_Leave';
+  static const Create_Report = 'Create_Report';
 
 }

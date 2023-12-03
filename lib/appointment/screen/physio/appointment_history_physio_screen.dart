@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,6 +8,7 @@ import 'package:physio_track/appointment/service/appointment_service.dart';
 
 import '../../../constant/ImageConstant.dart';
 import '../../../constant/TextConstant.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../../treatment/model/treatment_model.dart';
 import '../../../treatment/screen/create_treatment_report_screen.dart';
 import '../../../treatment/screen/view_treatment_report_screen.dart';
@@ -81,7 +83,7 @@ class _AppointmentHistoryPhysioScreenState
                     return Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
+                    return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                   }
                   if (snapshot.hasData) {
                     List<Appointment> appointments = snapshot.data!;
@@ -164,7 +166,7 @@ class _AppointmentHistoryPhysioScreenState
                                                       }
                                                       if (snapshot.hasError) {
                                                         return Text(
-                                                            'Error: ${snapshot.error}');
+                                                            '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                                       }
                                                       if (snapshot.hasData) {
                                                         String username =
@@ -199,7 +201,7 @@ class _AppointmentHistoryPhysioScreenState
                                               }
                                               if (snapshot.hasError) {
                                                 return Text(
-                                                    'Error: ${snapshot.error}');
+                                                    '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                               }
                                               if (snapshot.hasData) {
                                                 bool status = snapshot.data!;
@@ -248,7 +250,7 @@ class _AppointmentHistoryPhysioScreenState
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              "View Report",
+                                                              LocaleKeys.View_Report.tr(),
                                                               style: TextStyle(
                                                                 fontSize: 15.0,
                                                                 color: Color
@@ -309,7 +311,7 @@ class _AppointmentHistoryPhysioScreenState
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              "Create Report",
+                                                              LocaleKeys.Create_Report.tr(),
                                                               style: TextStyle(
                                                                 fontSize: 15.0,
                                                                 color: Colors
@@ -365,7 +367,7 @@ class _AppointmentHistoryPhysioScreenState
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Appointment History',
+              LocaleKeys.Appointment_History.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,

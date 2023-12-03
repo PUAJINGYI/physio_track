@@ -363,7 +363,8 @@ class CodegenLoader extends AssetLoader{
   "Apply": "Apply",
   "Please_enter_a_valid_time": "Please enter a valid time",
   "Leave_Application": "Leave Application",
-  "Full_Day_Leave": "Full Day Leave?"
+  "Full_Day_Leave": "Full Day Leave?",
+  "Create_Report": "Create Report"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -714,7 +715,8 @@ static const Map<String,dynamic> ms = {
   "Apply": "Mohon",
   "Please_enter_a_valid_time": "Sila masukkan masa yang sah",
   "Leave_Application": "Permohonan Cuti",
-  "Full_Day_Leave": "Cuti Sepenuh Hari?"
+  "Full_Day_Leave": "Cuti Sepenuh Hari?",
+  "Create_Report": "Cipta Laporan"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -1065,7 +1067,8 @@ static const Map<String,dynamic> zh = {
   "Apply": "申请",
   "Please_enter_a_valid_time": "请输入有效的时间",
   "Leave_Application": "请假申请",
-  "Full_Day_Leave": "全天假？"
+  "Full_Day_Leave": "全天假？",
+  "Create_Report": "创建报告"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }
