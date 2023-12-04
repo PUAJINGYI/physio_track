@@ -116,137 +116,150 @@ class _EditAppointmentDetailScreenState
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(
-                    height: 250,
+                    height: 230,
                   ),
-                  Card(
-                    color: Colors.blue[50],
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_month_outlined,
-                            size: 50,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            DateFormat('dd MMM yyyy').format(
-                                appointmentInPending.date), // Display the date
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Card(
-                      color: Colors.blue[50],
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.schedule_outlined, size: 50),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              DateFormat('hh:mm a').format(appointmentInPending
-                                  .startTime), // Display the start time
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Card(
-                    color: Colors.blue[50],
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        children: [
-                          Icon(Icons.medical_services_outlined, size: 50),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: DropdownButtonFormField<UserModel>(
-                              value: selectedUser,
-                              hint: Text(selectedUser?.username ?? ''),
-                              onChanged: (UserModel? newValue) {
-                                setState(() {
-                                  selectedUser = newValue;
-                                  isSelectionEmpty = false;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return LocaleKeys
-                                      .Please_select_a_physiotherapist.tr();
-                                }
-                                return null;
-                              },
-                              items: physioAvailableList.map((UserModel user) {
-                                return DropdownMenuItem<UserModel>(
-                                  value: user,
-                                  child: Text(user.username),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Card(
-                    color: Colors.blue[50],
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        children: [
-                          Icon(Icons.person_outline, size: 50),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          FutureBuilder<String>(
-                            future: _userManagementService.getUsernameById(
-                                appointmentInPending.patientId),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<String> snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                // While the Future is still running, show a loading indicator.
-                                return CircularProgressIndicator();
-                              } else if (snapshot.hasError) {
-                                // If an error occurred, you can handle it here.
-                                return Text(
-                                    '${LocaleKeys.Error.tr()}: ${snapshot.error}');
-                              } else {
-                                // When the Future is complete, display the patient's name.
-                                return Text(
-                                  snapshot.data ??
-                                      'N/A', // Display the patient name or 'N/A' if not available
+                  Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: [
+                      
+                        Card(
+                          color: Colors.blue[50],
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.calendar_month_outlined,
+                                  size: 50,
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  DateFormat('dd MMM yyyy').format(
+                                      appointmentInPending
+                                          .date), // Display the date
                                   style: TextStyle(
                                     fontSize: 20,
                                   ),
-                                );
-                              }
-                            },
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Card(
+                            color: Colors.blue[50],
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.schedule_outlined, size: 50),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    DateFormat('hh:mm a').format(
+                                        appointmentInPending
+                                            .startTime), // Display the start time
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Card(
+                          color: Colors.blue[50],
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.medical_services_outlined, size: 50),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: DropdownButtonFormField<UserModel>(
+                                    value: selectedUser,
+                                    hint: Text(selectedUser?.username ?? ''),
+                                    onChanged: (UserModel? newValue) {
+                                      setState(() {
+                                        selectedUser = newValue;
+                                        isSelectionEmpty = false;
+                                      });
+                                    },
+                                    validator: (value) {
+                                      if (value == null) {
+                                        return LocaleKeys
+                                                .Please_select_a_physiotherapist
+                                            .tr();
+                                      }
+                                      return null;
+                                    },
+                                    items: physioAvailableList
+                                        .map((UserModel user) {
+                                      return DropdownMenuItem<UserModel>(
+                                        value: user,
+                                        child: Text(user.username),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Card(
+                          color: Colors.blue[50],
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.person_outline, size: 50),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                FutureBuilder<String>(
+                                  future:
+                                      _userManagementService.getUsernameById(
+                                          appointmentInPending.patientId),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<String> snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      // While the Future is still running, show a loading indicator.
+                                      return CircularProgressIndicator();
+                                    } else if (snapshot.hasError) {
+                                      // If an error occurred, you can handle it here.
+                                      return Text(
+                                          '${LocaleKeys.Error.tr()}: ${snapshot.error}');
+                                    } else {
+                                      // When the Future is complete, display the patient's name.
+                                      return Text(
+                                        snapshot.data ??
+                                            'N/A', // Display the patient name or 'N/A' if not available
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -281,13 +294,13 @@ class _EditAppointmentDetailScreenState
             ),
           ),
           Positioned(
-            top: 70,
+            top: 60,
             right: 0,
             left: 0,
             child: Image.asset(
               ImageConstant.APPOINTMENT,
-              width: 200.0,
-              height: 200.0,
+              width: 190.0,
+              height: 190.0,
             ),
           ),
           Positioned(

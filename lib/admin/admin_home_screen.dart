@@ -15,6 +15,7 @@ import '../constant/ImageConstant.dart';
 import '../constant/TextConstant.dart';
 import '../translations/locale_keys.g.dart';
 import '../user_management/service/user_management_service.dart';
+import 'admin_activity_management_screen.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
@@ -55,6 +56,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       children: [
                         Column(
                           children: [
+                            SizedBox(
+                              height: 230,
+                            ),
                             Expanded(
                                 child: ListView.builder(
                                     padding: EdgeInsets.zero,
@@ -63,16 +67,15 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                         (BuildContext context, int index) {
                                       return Column(
                                         children: [
-                                          SizedBox(
-                                            height: 210,
-                                          ),
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 20, 8, 20, 8),
                                             child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                LocaleKeys.Appointment_Management.tr(),
+                                                LocaleKeys
+                                                        .Appointment_Management
+                                                    .tr(),
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
@@ -226,7 +229,62 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                                 ),
                                               ),
                                             ),
-                                          )
+                                          ),
+                                           Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 8, 20, 8),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                LocaleKeys.Activity_Management.tr(),
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 0, 20, 0),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AdminActivityManagementScreen(),
+                                                  ),
+                                                );
+                                              },
+                                              child: Card(
+                                                color: Colors.blue.shade100,
+                                                elevation: 5.0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
+                                                  child: Container(
+                                                    height:
+                                                        150.0, // Adjust the height as needed
+                                                    width: double.infinity,
+                                                    child: Image.asset(
+                                                      ImageConstant
+                                                          .PHYSIO_HOME,
+                                                      // fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          
                                         ],
                                       );
                                     })),

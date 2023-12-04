@@ -30,83 +30,87 @@ class _AdminActivityManagementScreenState
             SizedBox(
               height: 250,
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(15.0), // Adjust the radius as needed
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PTLibraryListScreen()),
-                    );
-                  },
-                  child: Card(
-                    elevation: 5.0,
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            LocaleKeys.PT.tr(),
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(32, 0, 32, 16),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          15.0), // Adjust the radius as needed
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PTLibraryListScreen()),
+                          );
+                        },
+                        child: Card(
+                          elevation: 5.0,
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  LocaleKeys.PT.tr(),
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Image.asset(
+                                  ImageConstant.PT,
+                                  width: 211.0,
+                                  height: 169.0,
+                                ),
+                              ],
                             ),
                           ),
-                          Image.asset(
-                            ImageConstant.PT,
-                            width: 211.0,
-                            height: 169.0,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(15.0), // Adjust the radius as needed
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OTLibraryListScreen()),
-                    );
-                  },
-                  child: Card(
-                    elevation: 5.0,
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            LocaleKeys.OT.tr(),
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          15.0), // Adjust the radius as needed
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OTLibraryListScreen()),
+                          );
+                        },
+                        child: Card(
+                          elevation: 5.0,
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  LocaleKeys.OT.tr(),
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Image.asset(
+                                  ImageConstant.OT,
+                                  width: 211.0,
+                                  height: 169.0,
+                                ),
+                              ],
                             ),
                           ),
-                          Image.asset(
-                            ImageConstant.OT,
-                            width: 211.0,
-                            height: 169.0,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ],

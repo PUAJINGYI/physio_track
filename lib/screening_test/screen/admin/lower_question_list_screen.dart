@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
 
 import '../../../constant/ColorConstant.dart';
+import '../../../notification/service/notification_service.dart';
+import '../../../notification/widget/shimmering_text_list_widget.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../../model/question_model.dart';
 
@@ -18,6 +20,7 @@ class LowerQuestionListScreen extends StatefulWidget {
 
 class _LowerQuestionListScreenState extends State<LowerQuestionListScreen> {
   QuestionService questionService = QuestionService();
+  NotificationService notificationService = NotificationService();
   late Future<List<Question>> _lowerQuestionListFuture;
   final TextEditingController _questionController = TextEditingController();
   String _questionType = 'scale';
@@ -58,7 +61,7 @@ class _LowerQuestionListScreenState extends State<LowerQuestionListScreen> {
           content: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-             LocaleKeys.are_you_sure_delete_question.tr(),
+              LocaleKeys.are_you_sure_delete_question.tr(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -292,7 +295,9 @@ class _LowerQuestionListScreenState extends State<LowerQuestionListScreen> {
                           Navigator.of(context).pop(); // Close the dialog
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(LocaleKeys.Question_cannot_be_empty.tr())),
+                            SnackBar(
+                                content: Text(
+                                    LocaleKeys.Question_cannot_be_empty.tr())),
                           );
                         }
                       },
@@ -366,7 +371,9 @@ class _LowerQuestionListScreenState extends State<LowerQuestionListScreen> {
                           Navigator.of(context).pop();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(LocaleKeys.Question_cannot_be_empty.tr())),
+                            SnackBar(
+                                content: Text(
+                                    LocaleKeys.Question_cannot_be_empty.tr())),
                           );
                         }
                       },
@@ -382,6 +389,22 @@ class _LowerQuestionListScreenState extends State<LowerQuestionListScreen> {
     );
   }
 
+  String getQuestionType(String qType) {
+    if (qType == 'option') {
+      return LocaleKeys.Option.tr();
+    } else if (qType == 'scale') {
+      return LocaleKeys.Scale.tr();
+    } else if (qType == 'date') {
+      return LocaleKeys.Date.tr();
+    } else if (qType == 'short') {
+      return LocaleKeys.Short_Answer.tr();
+    } else if (qType == 'gender') {
+      return LocaleKeys.Gender.tr();
+    } else {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Question>>(
@@ -391,7 +414,8 @@ class _LowerQuestionListScreenState extends State<LowerQuestionListScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+          return Center(
+              child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
         }
         if (snapshot.hasData) {
           List<Question> questions = snapshot.data!;
@@ -408,11 +432,35 @@ class _LowerQuestionListScreenState extends State<LowerQuestionListScreen> {
                         children: [
                           Expanded(
                             child: ListTile(
-                              title: Text(
-                                question.question,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                              title: FutureBuilder(
+                                future: notificationService.translateText(
+                                    question.question, context),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<String> snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        ShimmeringTextListWidget(
+                                            width: 400, numOfLines: 1),
+                                      ],
+                                    ); // or any loading indicator
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else {
+                                    String title = snapshot.data!;
+                                    return Text(
+                                      title,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    );
+                                  }
+                                },
                               ),
-                              subtitle: Text(question.questionType),
+                              subtitle:
+                                  Text(getQuestionType(question.questionType)),
                             ),
                           ),
                           Padding(

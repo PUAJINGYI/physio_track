@@ -382,7 +382,8 @@ class CodegenLoader extends AssetLoader{
   "Sep": "Sep",
   "Oct": "Oct",
   "Nov": "Nov",
-  "Dec": "Dec"
+  "Dec": "Dec",
+  "Gender": "Gender"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -752,7 +753,8 @@ static const Map<String,dynamic> ms = {
   "Sep": "Sep",
   "Oct": "Okt",
   "Nov": "Nov",
-  "Dec": "Dis"
+  "Dec": "Dis",
+  "Gender": "Jantina"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -1122,7 +1124,8 @@ static const Map<String,dynamic> zh = {
   "Sep": "九月",
   "Oct": "十月",
   "Nov": "十一",
-  "Dec": "十二"
+  "Dec": "十二",
+  "Gender": "性别"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }
