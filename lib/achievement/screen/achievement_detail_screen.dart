@@ -47,19 +47,20 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                       fit: BoxFit.fitHeight,
                     ),
                   ),
-                 // SizedBox(height: 16.0), // Add some spacing
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: FutureBuilder(
                       future: notificationService.translateText(
                           widget.achievement.title, context),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<String> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              ShimmeringTextListWidget(width: 400, numOfLines: 1),
+                              ShimmeringTextListWidget(
+                                  width: 400, numOfLines: 1),
                             ],
                           ); // or any loading indicator
                         } else if (snapshot.hasError) {
@@ -78,20 +79,20 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                       },
                     ),
                   ),
-
-                 // SizedBox(height: 8.0), // Add some spacing
                   Padding(
                     padding: const EdgeInsets.all(32.0),
                     child: FutureBuilder(
                       future: notificationService.translateText(
                           widget.achievement.description, context),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<String> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              ShimmeringTextListWidget(width: 400, numOfLines: 2),
+                              ShimmeringTextListWidget(
+                                  width: 400, numOfLines: 2),
                             ],
                           ); // or any loading indicator
                         } else if (snapshot.hasError) {
@@ -109,7 +110,6 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                       },
                     ),
                   ),
-                  //SizedBox(height: 8.0), // Add some spacing
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Stack(
@@ -118,7 +118,7 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                           padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
                           child: widget.userAchievement.isTaken
                               ? Center(
-                                child: Text(
+                                  child: Text(
                                     LocaleKeys.Completed.tr(),
                                     style: TextStyle(
                                         fontSize: 14.0,
@@ -126,7 +126,7 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                                         color: Colors.green),
                                     textAlign: TextAlign.center,
                                   ),
-                              )
+                                )
                               : LinearPercentIndicator(
                                   animation: true,
                                   lineHeight: 15.0,
@@ -145,7 +145,8 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                               child: Text(
                                 '${(widget.userAchievement.progress * 100).toStringAsFixed(1)}%',
                                 style: TextStyle(
-                                    fontSize: 14.0, fontWeight: FontWeight.bold),
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
