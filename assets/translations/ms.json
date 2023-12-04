@@ -353,5 +353,18 @@
   "Shared_Journal": "Berkongsi Jurnal",
   "Journal_is_accessible_by_the_physiotherapist": "Jurnal boleh diakses oleh ahli fisioterapi.",
   "Unshared_Journal": "Tidak Kongsi Jurnal",
-  "Journal_is_unaccessible_by_the_physiotherapist": "Jurnal tidak dapat diakses oleh ahli fisioterapi."
+  "Journal_is_unaccessible_by_the_physiotherapist": "Jurnal tidak dapat diakses oleh ahli fisioterapi.",
+  "Off_Working_Hour": "Luar Waktu Bekerja",
+  "Jan": "Jan",
+  "Feb": "Feb",
+  "Mar": "Mac",
+  "Apr": "Apr",
+  "May": "Mei",
+  "Jun": "Jun",
+  "Jul ": "Jul",
+  "Aug": "Ogos",
+  "Sep": "Sep",
+  "Oct": "Okt",
+  "Nov": "Nov",
+  "Dec": "Dis"
 }

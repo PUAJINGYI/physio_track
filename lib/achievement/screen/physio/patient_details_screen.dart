@@ -19,9 +19,11 @@ import '../../../appointment/screen/appointment_history_screen.dart';
 import '../../../constant/ColorConstant.dart';
 import '../../../constant/TextConstant.dart';
 import '../../../ot_library/model/ot_activity_model.dart';
+import '../../../ot_library/service/user_ot_list_service.dart';
 import '../../../profile/model/user_model.dart';
 import '../../../pt_library/model/pt_activity_model.dart';
 import '../../../pt_library/screen/pt_daily_list_screen.dart';
+import '../../../pt_library/service/user_pt_list_service.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/achievement_model.dart';
@@ -82,11 +84,13 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   final Color rightBarColor = Color.fromARGB(255, 243, 124, 116);
   final Color avgColor = Colors.orange;
   late bool sharedJournal = false;
+  UserPTListService userPTListService = UserPTListService();
+  UserOTListService userOTListService = UserOTListService();
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    // fetchData();
   }
 
   Future<void> fetchData() async {
@@ -146,6 +150,20 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                   progress: 0.0));
         }
       }
+    } else {
+      await userPTListService.suggestPTActivityList(userRef, uid);
+      QuerySnapshot ptSnapshot = await ptCollection
+          .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(monday))
+          .where('date', isLessThanOrEqualTo: Timestamp.fromDate(sunday))
+          .get();
+      ptList =
+          ptSnapshot.docs.map((doc) => PTActivity.fromSnapshot(doc)).toList();
+
+      for (var pt in ptList) {
+        if (pt.date.toDate().day == todayWithoutTime.day) {
+          todayPT = pt;
+        }
+      }
     }
     DateTime lastDatePTList = ptList[ptList.length - 1].date.toDate();
     int i = 1;
@@ -190,6 +208,20 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                   progress: 0.0));
         }
       }
+    } else {
+      await userOTListService.suggestOTActivityList(userRef, uid);
+      QuerySnapshot otSnapshot = await otCollection
+          .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(monday))
+          .where('date', isLessThanOrEqualTo: Timestamp.fromDate(sunday))
+          .get();
+      otList =
+          otSnapshot.docs.map((doc) => OTActivity.fromSnapshot(doc)).toList();
+
+      for (var ot in otList) {
+        if (ot.date.toDate().day == todayWithoutTime.day) {
+          todayOT = ot;
+        }
+      }
     }
     DateTime lastDateOTList = otList[otList.length - 1].date.toDate();
 
@@ -203,6 +235,9 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       j++;
     }
     print("ptlength :${ptList.length}");
+    for (PTActivity pt in ptList) {
+      print(pt.date.toDate());
+    }
     print("otlength :${otList.length}");
     mondayThisWeek = DateFormat('dd/MM').format(monday);
     sundayThisWeek = DateFormat('dd/MM').format(sunday);
@@ -228,9 +263,9 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       barGroups.add(barGroup);
     }
 
-    setState(() {
-      rawBarGroups = barGroups;
-    });
+    //setState(() {
+    rawBarGroups = barGroups;
+    //});
   }
 
   BarChartGroupData makeGroupData(int x, double y1, double y2) {
@@ -396,644 +431,737 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
             SizedBox(
               height: 10.0,
             ),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              LocaleKeys.Current_Level.tr(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                                15.0), // Adjust the radius as needed
-                            child: Card(
-                              color: Color.fromARGB(255, 255, 231, 196),
-                              elevation: 5.0,
-                              child: Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: Image.asset(
-                                          ImageConstant
-                                              .LEVEL, // Replace with your image path
-                                          width: 60.0,
-                                          height: 60.0,
-                                        ),
+            FutureBuilder(
+                future: fetchData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    // Display a loading indicator while waiting for data
+                    return Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    // Display an error message if there's an error during data fetching
+                    return Expanded(
+                      child: Center(
+                        child: Text('Error loading data'),
+                      ),
+                    );
+                  } else {
+                    return Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: 1,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      LocaleKeys.Current_Level.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 6,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                10, 0, 0, 0),
-                                            child: Text(
-                                              '${LocaleKeys.Level.tr()} ${level}',
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 5.0),
-                                          Column(
-                                            children: [
-                                              LinearPercentIndicator(
-                                                animation: true,
-                                                lineHeight: 10.0,
-                                                animationDuration: 2000,
-                                                percent: progressToNextLevel,
-                                                barRadius:
-                                                    Radius.circular(10.0),
-                                                progressColor: Colors.yellow,
-                                              ),
-                                              Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          10, 5, 0, 0),
-                                                  child: Text(
-                                                    '${formattedProgress}%',
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              LocaleKeys.Achivement_Gained.tr(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 15, 0),
-                          child: GestureDetector(
-                            onTap: () async {
-                              // Navigate to the new page here
-                              String uid = await userManagementService
-                                  .fetchUidByUserId(widget.patientId);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AchievementListScreen(
-                                        uid:
-                                            uid)), // Replace DetailsPage() with your actual page
-                              );
-                            },
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                '${LocaleKeys.More_Details.tr()} >',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors
-                                      .black, // You can change the text color to indicate it's clickable
-                                  // Add underline to indicate it's clickable
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                          child: Card(
-                            elevation: 2.0,
-                            color: imageUrls.isEmpty
-                                ? Color.fromARGB(255, 255, 196, 196)
-                                : Colors.blue[50],
-                            child: imageUrls.isEmpty
-                                ? Container(
-                                    height: 100.0,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.error,
-                                            color: Colors.red, size: 50.0),
-                                        Center(
-                                          child: Text(
-                                            LocaleKeys.No_Record.tr(),
-                                            style: TextStyle(
-                                              color: Colors.red,
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                : CarouselSlider(
-                                    options: CarouselOptions(
-                                      height: 100.0,
-                                      autoPlay: true,
-                                      autoPlayInterval: Duration(seconds: 3),
-                                      enlargeCenterPage: true,
-                                      viewportFraction: 0.3,
-                                    ),
-                                    items: imageUrls.map((imageUrl) {
-                                      return Builder(
-                                        builder: (BuildContext context) {
-                                          return Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 5.0),
-                                            decoration: BoxDecoration(
-                                              color: Colors.transparent,
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              image: DecorationImage(
-                                                image: NetworkImage(imageUrl),
-                                                fit: BoxFit.fitHeight,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    }).toList(),
                                   ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              LocaleKeys.Today_Progress.tr(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      15.0), // Adjust the radius as needed
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      // Navigate to the other page when the card is tapped
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  WeeklyAnalysisPTActivityDetailScreen(
-                                                    id: todayPT.id,
-                                                    uid: uid,
-                                                    isPatientView: false,
-                                                  )));
-                                    },
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        15.0), // Adjust the radius as needed
                                     child: Card(
+                                      color: Color.fromARGB(255, 255, 231, 196),
                                       elevation: 5.0,
                                       child: Padding(
                                         padding: EdgeInsets.all(16.0),
-                                        child: Column(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            Text(
-                                              LocaleKeys.PT.tr(),
-                                              style: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            CircularPercentIndicator(
-                                              radius: 60,
-                                              lineWidth: 15.0,
-                                              percent: todayPT.progress,
-                                              progressColor: Colors.blue,
-                                              backgroundColor:
-                                                  Colors.blue.shade100,
-                                              circularStrokeCap:
-                                                  CircularStrokeCap.round,
-                                              center: Text(
-                                                '${todayPT.progress * 100}%',
-                                                style: TextStyle(
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.bold,
+                                            Expanded(
+                                              flex: 2,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: Image.asset(
+                                                  ImageConstant
+                                                      .LEVEL, // Replace with your image path
+                                                  width: 60.0,
+                                                  height: 60.0,
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      15.0), // Adjust the radius as needed
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      // Navigate to the other page when the card is tapped
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              WeeklyAnalysisOTActivityDetailScreen(
-                                                  id: todayOT.id,
-                                                  uid: uid,
-                                                  isPatientView: false)));
-                                    },
-                                    child: Card(
-                                      elevation: 5.0,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(16.0),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Text(
-                                              LocaleKeys.OT.tr(),
-                                              style: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            CircularPercentIndicator(
-                                              radius: 60,
-                                              lineWidth: 15.0,
-                                              percent: todayOT.progress,
-                                              progressColor: Colors.blue,
-                                              backgroundColor:
-                                                  Colors.blue.shade100,
-                                              circularStrokeCap:
-                                                  CircularStrokeCap.round,
-                                              center: Text(
-                                                '${todayOT.progress * 100}%',
-                                                style: TextStyle(
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              LocaleKeys.Weekly_Statistics.tr(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              // Navigate to the other page when the card is tapped
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    WeeklyAnalysisScreen(uid: uid),
-                              ));
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  15.0), // Adjust the radius as needed
-                              child: Card(
-                                elevation: 5.0,
-                                child: Container(
-                                  height: 200,
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        10, 15, 10, 10),
-                                    child: Column(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment
-                                              .centerLeft, // Align left
-                                          child: Text(
-                                            mondayThisWeek +
-                                                " - " +
-                                                sundayThisWeek,
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Expanded(
-                                          child: BarChart(
-                                            BarChartData(
-                                              maxY: 100,
-                                              titlesData: FlTitlesData(
-                                                show: true,
-                                                rightTitles: AxisTitles(
-                                                  sideTitles: SideTitles(
-                                                      showTitles: false),
-                                                ),
-                                                topTitles: AxisTitles(
-                                                  sideTitles: SideTitles(
-                                                      showTitles: false),
-                                                ),
-                                                bottomTitles: AxisTitles(
-                                                  sideTitles: SideTitles(
-                                                    showTitles: true,
-                                                    getTitlesWidget:
-                                                        bottomTitles,
-                                                    reservedSize: 42,
-                                                  ),
-                                                ),
-                                                leftTitles: AxisTitles(
-                                                  sideTitles: SideTitles(
-                                                    showTitles: true,
-                                                    reservedSize: 28,
-                                                    interval: 1,
-                                                    getTitlesWidget: leftTitles,
-                                                  ),
-                                                ),
-                                              ),
-                                              borderData: FlBorderData(
-                                                show: false,
-                                              ),
-                                              barGroups: rawBarGroups,
-                                              gridData: FlGridData(show: false),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              LocaleKeys.Appointment_History.tr(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      AppointmentHistoryScreen(
-                                    uid: uid,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Card(
-                              color: Colors.blue.shade100,
-                              elevation: 5.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Container(
-                                  height: 150.0, // Adjust the height as needed
-                                  width: double.infinity,
-                                  child: Image.asset(
-                                    ImageConstant.PATIENT_LIST,
-                                    // fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              LocaleKeys.Patient_Journal.tr(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                          child: sharedJournal
-                              ? GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              PatientDetailsJournalListScreen(
-                                            userId: uid,
-                                          ),
-                                        ));
-                                  },
-                                  child: Card(
-                                    color: Colors.blue.shade100,
-                                    elevation: 5.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      child: Container(
-                                        height:
-                                            150.0, // Adjust the height as needed
-                                        width: double.infinity,
-                                        child: Image.asset(
-                                          ImageConstant.JOURNAL_IMAGE,
-                                          //fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : GestureDetector(
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          contentPadding: EdgeInsets
-                                              .zero, // Remove content padding
-                                          titlePadding: EdgeInsets.fromLTRB(16,
-                                              0, 16, 0), // Adjust title padding
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          title: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(LocaleKeys.Unable_Access
-                                                  .tr()),
-                                              IconButton(
-                                                icon: Icon(Icons.close,
-                                                    color: ColorConstant
-                                                        .RED_BUTTON_TEXT),
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(); // Close the dialog
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                          content: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              LocaleKeys
-                                                  .patient_not_granted_permission_for_sharing_journal
-                                                  .tr(),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                          actions: [
-                                            Center(
-                                              // Wrap actions in Center widget
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
-                                                      backgroundColor: ColorConstant
-                                                          .BLUE_BUTTON_UNPRESSED,
-                                                    ),
+                                            Expanded(
+                                              flex: 6,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(10, 0, 0, 0),
                                                     child: Text(
-                                                        LocaleKeys.OK.tr(),
-                                                        style: TextStyle(
-                                                            color: ColorConstant
-                                                                .BLUE_BUTTON_TEXT)),
-                                                    onPressed: () async {
-                                                      Navigator.pop(context);
-                                                    },
+                                                      '${LocaleKeys.Level.tr()} ${level}',
+                                                      style: TextStyle(
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 5.0),
+                                                  Column(
+                                                    children: [
+                                                      LinearPercentIndicator(
+                                                        animation: true,
+                                                        lineHeight: 10.0,
+                                                        animationDuration: 2000,
+                                                        percent:
+                                                            progressToNextLevel,
+                                                        barRadius:
+                                                            Radius.circular(
+                                                                10.0),
+                                                        progressColor:
+                                                            Colors.yellow,
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  10, 5, 0, 0),
+                                                          child: Text(
+                                                            '${formattedProgress}%',
+                                                            style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Card(
-                                    color: Colors.grey.shade400,
-                                    elevation: 5.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      child: Container(
-                                        height:
-                                            150.0, // Adjust the height as needed
-                                        width: double.infinity,
-                                        child: Image.asset(
-                                          ImageConstant.JOURNAL_IMAGE_GREY,
-                                          //fit: BoxFit.contain,
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
-            )
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      LocaleKeys.Achivement_Gained.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 0, 15, 0),
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      // Navigate to the new page here
+                                      String uid = await userManagementService
+                                          .fetchUidByUserId(widget.patientId);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                AchievementListScreen(
+                                                    uid:
+                                                        uid)), // Replace DetailsPage() with your actual page
+                                      );
+                                    },
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        '${LocaleKeys.More_Details.tr()} >',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: Colors
+                                              .black, // You can change the text color to indicate it's clickable
+                                          // Add underline to indicate it's clickable
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                                  child: Card(
+                                    elevation: 2.0,
+                                    color: imageUrls.isEmpty
+                                        ? Color.fromARGB(255, 255, 196, 196)
+                                        : Colors.blue[50],
+                                    child: imageUrls.isEmpty
+                                        ? Container(
+                                            height: 100.0,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.error,
+                                                    color: Colors.red,
+                                                    size: 50.0),
+                                                Center(
+                                                  child: Text(
+                                                    LocaleKeys.No_Record.tr(),
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : CarouselSlider(
+                                            options: CarouselOptions(
+                                              height: 100.0,
+                                              autoPlay: true,
+                                              autoPlayInterval:
+                                                  Duration(seconds: 3),
+                                              enlargeCenterPage: true,
+                                              viewportFraction: 0.3,
+                                            ),
+                                            items: imageUrls.map((imageUrl) {
+                                              return Builder(
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 5.0),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      image: DecorationImage(
+                                                        image: NetworkImage(
+                                                            imageUrl),
+                                                        fit: BoxFit.fitHeight,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            }).toList(),
+                                          ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      LocaleKeys.Today_Progress.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              15.0), // Adjust the radius as needed
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              // Navigate to the other page when the card is tapped
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          WeeklyAnalysisPTActivityDetailScreen(
+                                                            id: todayPT.id,
+                                                            uid: uid,
+                                                            isPatientView:
+                                                                false,
+                                                          )));
+                                            },
+                                            child: Card(
+                                              elevation: 5.0,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(16.0),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      LocaleKeys.PT.tr(),
+                                                      style: TextStyle(
+                                                        fontSize: 20.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    CircularPercentIndicator(
+                                                      radius: 60,
+                                                      lineWidth: 15.0,
+                                                      percent: todayPT.progress,
+                                                      progressColor:
+                                                          Colors.blue,
+                                                      backgroundColor:
+                                                          Colors.blue.shade100,
+                                                      circularStrokeCap:
+                                                          CircularStrokeCap
+                                                              .round,
+                                                      center: Text(
+                                                        '${todayPT.progress * 100}%',
+                                                        style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              15.0), // Adjust the radius as needed
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              // Navigate to the other page when the card is tapped
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          WeeklyAnalysisOTActivityDetailScreen(
+                                                              id: todayOT.id,
+                                                              uid: uid,
+                                                              isPatientView:
+                                                                  false)));
+                                            },
+                                            child: Card(
+                                              elevation: 5.0,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(16.0),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      LocaleKeys.OT.tr(),
+                                                      style: TextStyle(
+                                                        fontSize: 20.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    CircularPercentIndicator(
+                                                      radius: 60,
+                                                      lineWidth: 15.0,
+                                                      percent: todayOT.progress,
+                                                      progressColor:
+                                                          Colors.blue,
+                                                      backgroundColor:
+                                                          Colors.blue.shade100,
+                                                      circularStrokeCap:
+                                                          CircularStrokeCap
+                                                              .round,
+                                                      center: Text(
+                                                        '${todayOT.progress * 100}%',
+                                                        style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      LocaleKeys.Weekly_Statistics.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // Navigate to the other page when the card is tapped
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                        builder: (context) =>
+                                            WeeklyAnalysisScreen(uid: uid),
+                                      ));
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          15.0), // Adjust the radius as needed
+                                      child: Card(
+                                        elevation: 5.0,
+                                        child: Container(
+                                          height: 200,
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 15, 10, 10),
+                                            child: Column(
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment
+                                                      .centerLeft, // Align left
+                                                  child: Text(
+                                                    mondayThisWeek +
+                                                        " - " +
+                                                        sundayThisWeek,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Expanded(
+                                                  child: BarChart(
+                                                    BarChartData(
+                                                      maxY: 100,
+                                                      titlesData: FlTitlesData(
+                                                        show: true,
+                                                        rightTitles: AxisTitles(
+                                                          sideTitles:
+                                                              SideTitles(
+                                                                  showTitles:
+                                                                      false),
+                                                        ),
+                                                        topTitles: AxisTitles(
+                                                          sideTitles:
+                                                              SideTitles(
+                                                                  showTitles:
+                                                                      false),
+                                                        ),
+                                                        bottomTitles:
+                                                            AxisTitles(
+                                                          sideTitles:
+                                                              SideTitles(
+                                                            showTitles: true,
+                                                            getTitlesWidget:
+                                                                bottomTitles,
+                                                            reservedSize: 42,
+                                                          ),
+                                                        ),
+                                                        leftTitles: AxisTitles(
+                                                          sideTitles:
+                                                              SideTitles(
+                                                            showTitles: true,
+                                                            reservedSize: 28,
+                                                            interval: 1,
+                                                            getTitlesWidget:
+                                                                leftTitles,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      borderData: FlBorderData(
+                                                        show: false,
+                                                      ),
+                                                      barGroups: rawBarGroups,
+                                                      gridData: FlGridData(
+                                                          show: false),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      LocaleKeys.Appointment_History.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AppointmentHistoryScreen(
+                                            uid: uid,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Card(
+                                      color: Colors.blue.shade100,
+                                      elevation: 5.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        child: Container(
+                                          height:
+                                              150.0, // Adjust the height as needed
+                                          width: double.infinity,
+                                          child: Image.asset(
+                                            ImageConstant.PATIENT_LIST,
+                                            // fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      LocaleKeys.Patient_Journal.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                                  child: sharedJournal
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PatientDetailsJournalListScreen(
+                                                    userId: uid,
+                                                  ),
+                                                ));
+                                          },
+                                          child: Card(
+                                            color: Colors.blue.shade100,
+                                            elevation: 5.0,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                              child: Container(
+                                                height:
+                                                    150.0, // Adjust the height as needed
+                                                width: double.infinity,
+                                                child: Image.asset(
+                                                  ImageConstant.JOURNAL_IMAGE,
+                                                  //fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : GestureDetector(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  contentPadding: EdgeInsets
+                                                      .zero, // Remove content padding
+                                                  titlePadding: EdgeInsets.fromLTRB(
+                                                      16,
+                                                      0,
+                                                      16,
+                                                      0), // Adjust title padding
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  title: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(LocaleKeys
+                                                          .Unable_Access.tr()),
+                                                      IconButton(
+                                                        icon: Icon(Icons.close,
+                                                            color: ColorConstant
+                                                                .RED_BUTTON_TEXT),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop(); // Close the dialog
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  content: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      LocaleKeys
+                                                          .patient_not_granted_permission_for_sharing_journal
+                                                          .tr(),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    Center(
+                                                      // Wrap actions in Center widget
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          ElevatedButton(
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                              ),
+                                                              backgroundColor:
+                                                                  ColorConstant
+                                                                      .BLUE_BUTTON_UNPRESSED,
+                                                            ),
+                                                            child: Text(
+                                                                LocaleKeys.OK
+                                                                    .tr(),
+                                                                style: TextStyle(
+                                                                    color: ColorConstant
+                                                                        .BLUE_BUTTON_TEXT)),
+                                                            onPressed:
+                                                                () async {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Card(
+                                            color: Colors.grey.shade400,
+                                            elevation: 5.0,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                              child: Container(
+                                                height:
+                                                    150.0, // Adjust the height as needed
+                                                width: double.infinity,
+                                                child: Image.asset(
+                                                  ImageConstant
+                                                      .JOURNAL_IMAGE_GREY,
+                                                  //fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                })
           ],
         ),
         Positioned(

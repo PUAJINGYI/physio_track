@@ -7,6 +7,8 @@ import 'package:physio_track/leave/screen/leave_apply_screen.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../notification/service/notification_service.dart';
+import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/leave_model.dart';
 import '../service/leave_service.dart';
@@ -26,6 +28,8 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   bool isOnCall = true;
+  bool isOfficeHour = true;
+  NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
@@ -41,8 +45,15 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
   Future<void> updatePhysioAvailability() async {
     bool availability =
         await leaveService.checkPhysioAvailability(widget.physioId);
+    DateTime nowTime = DateTime.now();
+    bool workingHour = true;
+
+    if (nowTime.hour < 10 || nowTime.hour > 20) {
+      workingHour = false;
+    }
     setState(() {
       isOnCall = availability;
+      isOfficeHour = workingHour;
     });
   }
 
@@ -55,6 +66,36 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
       return LocaleKeys.Casual_Leave.tr();
     }
     return '';
+  }
+
+  Color getStatusColor() {
+    if (isOfficeHour && isOnCall) {
+      return ColorConstant.GREEN_BUTTON_PRESSED;
+    } else {
+      return ColorConstant.RED_BUTTON_PRESSED;
+    }
+  }
+
+  String getStatusText() {
+    if (isOfficeHour && isOnCall) {
+      return LocaleKeys.On_Call.tr();
+    } else {
+      if (!isOfficeHour) {
+        return LocaleKeys.Off_Working_Hour.tr();
+      }
+      if (!isOnCall) {
+        return LocaleKeys.On_Leave.tr();
+      }
+    }
+    return '';
+  }
+
+  IconData getStatusIcon() {
+    if (isOfficeHour && isOnCall) {
+      return Icons.phone_in_talk;
+    } else {
+      return Icons.do_not_disturb;
+    }
   }
 
   @override
@@ -81,24 +122,18 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                       child: Container(
                         height: 100,
                         padding: EdgeInsets.all(8.0),
-                        color: isOnCall
-                            ? ColorConstant.GREEN_BUTTON_PRESSED
-                            : ColorConstant.RED_BUTTON_PRESSED,
+                        color: getStatusColor(),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              isOnCall
-                                  ? Icons.phone_in_talk
-                                  : Icons.do_not_disturb,
+                              getStatusIcon(),
                               color: Colors.white,
                               size: 30.0,
                             ),
                             SizedBox(width: 8.0),
                             Text(
-                              isOnCall
-                                  ? LocaleKeys.On_Call.tr()
-                                  : LocaleKeys.On_Leave.tr(),
+                              getStatusText(),
                               style: TextStyle(
                                   color: Colors.white, fontSize: 20.0),
                             ),
@@ -161,10 +196,32 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                                       child: CalendarTile(
                                           date: snapshot.data![index].date),
                                     ),
-                                    title: Text(snapshot.data![index].reason,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                            fontWeight: FontWeight.bold)),
+                                    title: FutureBuilder(
+                                      future: notificationService.translateText(
+                                          snapshot.data![index].reason,
+                                          context),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return ShimmeringTextListWidget(
+                                              width: 300,
+                                              numOfLines:
+                                                  1); // or any loading indicator
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        } else {
+                                          String title = snapshot.data!;
+                                          return Text(
+                                            title,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20.0),
+                                          );
+                                        }
+                                      },
+                                    ),
                                     subtitle: Text(getLeaveType(
                                         snapshot.data![index].leaveType)),
                                   ),

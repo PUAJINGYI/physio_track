@@ -201,7 +201,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                     padding: EdgeInsets.zero,
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height*0.6,
+                        height: 500,
                         child: Column(
                           children: [
                             Padding(

@@ -353,5 +353,18 @@
   "Shared_Journal": "Shared Journal",
   "Journal_is_accessible_by_the_physiotherapist": "Journal is accessible by the physiotherapist.",
   "Unshared_Journal": "Unshared Journal",
-  "Journal_is_unaccessible_by_the_physiotherapist": "Journal is unaccessible by the physiotherapist."
+  "Journal_is_unaccessible_by_the_physiotherapist": "Journal is unaccessible by the physiotherapist.",
+  "Off_Working_Hour": "Off Working Hour",
+  "Jan": "Jan",
+  "Feb": "Feb",
+  "Mar": "Mar",
+  "Apr": "Apr",
+  "May": "May",
+  "Jun": "Jun",
+  "Jul ": "Jul",
+  "Aug": "Aug",
+  "Sep": "Sep",
+  "Oct": "Oct",
+  "Nov": "Nov",
+  "Dec": "Dec"
 }

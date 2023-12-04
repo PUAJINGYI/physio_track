@@ -369,7 +369,20 @@ class CodegenLoader extends AssetLoader{
   "Shared_Journal": "Shared Journal",
   "Journal_is_accessible_by_the_physiotherapist": "Journal is accessible by the physiotherapist.",
   "Unshared_Journal": "Unshared Journal",
-  "Journal_is_unaccessible_by_the_physiotherapist": "Journal is unaccessible by the physiotherapist."
+  "Journal_is_unaccessible_by_the_physiotherapist": "Journal is unaccessible by the physiotherapist.",
+  "Off_Working_Hour": "Off Working Hour",
+  "Jan": "Jan",
+  "Feb": "Feb",
+  "Mar": "Mar",
+  "Apr": "Apr",
+  "May": "May",
+  "Jun": "Jun",
+  "Jul ": "Jul",
+  "Aug": "Aug",
+  "Sep": "Sep",
+  "Oct": "Oct",
+  "Nov": "Nov",
+  "Dec": "Dec"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -726,7 +739,20 @@ static const Map<String,dynamic> ms = {
   "Shared_Journal": "Berkongsi Jurnal",
   "Journal_is_accessible_by_the_physiotherapist": "Jurnal boleh diakses oleh ahli fisioterapi.",
   "Unshared_Journal": "Tidak Kongsi Jurnal",
-  "Journal_is_unaccessible_by_the_physiotherapist": "Jurnal tidak dapat diakses oleh ahli fisioterapi."
+  "Journal_is_unaccessible_by_the_physiotherapist": "Jurnal tidak dapat diakses oleh ahli fisioterapi.",
+  "Off_Working_Hour": "Luar Waktu Bekerja",
+  "Jan": "Jan",
+  "Feb": "Feb",
+  "Mar": "Mac",
+  "Apr": "Apr",
+  "May": "Mei",
+  "Jun": "Jun",
+  "Jul ": "Jul",
+  "Aug": "Ogos",
+  "Sep": "Sep",
+  "Oct": "Okt",
+  "Nov": "Nov",
+  "Dec": "Dis"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -1083,7 +1109,20 @@ static const Map<String,dynamic> zh = {
   "Shared_Journal": "共享日志",
   "Journal_is_accessible_by_the_physiotherapist": "日志可供理疗师访问。",
   "Unshared_Journal": "未共享日志",
-  "Journal_is_unaccessible_by_the_physiotherapist": "日志无法被理疗师访问。"
+  "Journal_is_unaccessible_by_the_physiotherapist": "日志无法被理疗师访问。",
+  "Off_Working_Hour": "非工作时间",
+  "Jan": "一月",
+  "Feb": "二月",
+  "Mar": "三月",
+  "Apr": "四月",
+  "May": "五月",
+  "Jun": "六月",
+  "Jul ": "七月",
+  "Aug": "八月",
+  "Sep": "九月",
+  "Oct": "十月",
+  "Nov": "十一",
+  "Dec": "十二"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

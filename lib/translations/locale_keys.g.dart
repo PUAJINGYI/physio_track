@@ -356,5 +356,18 @@ abstract class  LocaleKeys {
   static const Journal_is_accessible_by_the_physiotherapist = 'Journal_is_accessible_by_the_physiotherapist';
   static const Unshared_Journal = 'Unshared_Journal';
   static const Journal_is_unaccessible_by_the_physiotherapist = 'Journal_is_unaccessible_by_the_physiotherapist';
+  static const Off_Working_Hour = 'Off_Working_Hour';
+  static const Jan = 'Jan';
+  static const Feb = 'Feb';
+  static const Mar = 'Mar';
+  static const Apr = 'Apr';
+  static const May = 'May';
+  static const Jun = 'Jun';
+  static const Jul  = 'Jul ';
+  static const Aug = 'Aug';
+  static const Sep = 'Sep';
+  static const Oct = 'Oct';
+  static const Nov = 'Nov';
+  static const Dec = 'Dec';
 
 }

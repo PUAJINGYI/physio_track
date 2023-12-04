@@ -59,6 +59,7 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
                       return Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: GridView.builder(
+                          padding: EdgeInsets.zero,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, // Two columns
@@ -156,13 +157,13 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
             ),
           ),
           Positioned(
-            top: 60,
+            top: 55,
             right: 0,
             left: 0,
             child: Image.asset(
               ImageConstant.PATIENT_LIST,
-              width: 271.0,
-              height: 200.0,
+              width: 261.0,
+              height: 190.0,
             ),
           ),
         ],

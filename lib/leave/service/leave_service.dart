@@ -152,9 +152,10 @@ class LeaveService {
   // check availability of physio on now time
   Future<bool> checkPhysioAvailability(int physioId) async {
     DateTime now = DateTime.now();
+    DateTime todayWithoutTime= DateTime(now.year, now.month, now.day);
     QuerySnapshot querySnapshot = await leaveCollection
         .where('physioId', isEqualTo: physioId)
-        .where('date', isEqualTo: now)
+        .where('date', isEqualTo: todayWithoutTime)
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {

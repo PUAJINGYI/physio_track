@@ -318,7 +318,7 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          'Leave Manager',
+                                          LocaleKeys.Leave_Manager.tr(),
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,

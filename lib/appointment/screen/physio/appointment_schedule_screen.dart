@@ -62,11 +62,12 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
     }
   }
 
-void _onPageChanged(DateTime focusedDay) {
-  setState(() {
-    selectedDate = DateTime(focusedDay.year, focusedDay.month, selectedDate.day);
-  });
-}
+  void _onPageChanged(DateTime focusedDay) {
+    setState(() {
+      selectedDate =
+          DateTime(focusedDay.year, focusedDay.month, selectedDate.day);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,27 +98,40 @@ void _onPageChanged(DateTime focusedDay) {
 
                       return Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                            child: TableCalendar(
-                              calendarFormat: calendarFormat,
-                              focusedDay: selectedDate,
-                              locale: context.locale.toString(),
-                              selectedDayPredicate: (day) =>
-                                  isSameDay(selectedDate, day),
-                              firstDay: DateTime(2023),
-                              lastDay: DateTime(2030),
-                              startingDayOfWeek: StartingDayOfWeek.monday,
-                              eventLoader: getAppointmentForSelectedDate,
-                              headerStyle: HeaderStyle(
-                                formatButtonShowsNext: false,
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.42,
+                            child: Expanded(
+                              child: ListView(
+                                padding: EdgeInsets.zero,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                                    child: TableCalendar(
+                                      calendarFormat: calendarFormat,
+                                      focusedDay: selectedDate,
+                                      locale: context.locale.toString(),
+                                      selectedDayPredicate: (day) =>
+                                          isSameDay(selectedDate, day),
+                                      firstDay: DateTime(2023),
+                                      lastDay: DateTime(2030),
+                                      startingDayOfWeek:
+                                          StartingDayOfWeek.monday,
+                                      eventLoader:
+                                          getAppointmentForSelectedDate,
+                                      headerStyle: HeaderStyle(
+                                        formatButtonShowsNext: false,
+                                      ),
+                                      onPageChanged: _onPageChanged,
+                                      onDaySelected: (date, events) {
+                                        setState(() {
+                                          selectedDate = date;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                              onPageChanged: _onPageChanged,
-                              onDaySelected: (date, events) {
-                                setState(() {
-                                  selectedDate = date;
-                                });
-                              },
                             ),
                           ),
                           Expanded(
@@ -300,8 +314,8 @@ void _onPageChanged(DateTime focusedDay) {
             left: 0,
             child: Image.asset(
               ImageConstant.SCHEDULE,
-              width: 271.0,
-              height: 180.0,
+              width: 240.0,
+              height: 160.0,
             ),
           ),
         ],
