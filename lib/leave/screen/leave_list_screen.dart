@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/leave/screen/leave_apply_screen.dart';
+import 'package:physio_track/leave/widget/leave_type_card.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
@@ -224,6 +225,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                                     ),
                                     subtitle: Text(getLeaveType(
                                         snapshot.data![index].leaveType)),
+                                    trailing: LeaveTag(snapshot.data![index]),
                                   ),
                                 ),
                               );
@@ -318,6 +320,36 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  LeaveTag(Leave leave) {
+    String leaveTime = '';
+    DateTime startTime = leave.startTime;
+    DateTime endTime = leave.endTime;
+    leaveTime = '${startTime.hour}:00 - ${endTime.hour}:00';
+    return Container(
+      width: 100,
+      padding: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(
+          color: leave.isFullDay
+              ? ColorConstant.RED_BUTTON_PRESSED
+              : ColorConstant.GREEN_BUTTON_UNPRESSED,
+          width: 2.0,
+        ),
+      ),
+      child: Text(
+        leave.isFullDay ? LocaleKeys.Full_Day_Text.tr() : leaveTime,
+        style: TextStyle(
+          color: leave.isFullDay
+              ? ColorConstant.RED_BUTTON_PRESSED
+              : ColorConstant.GREEN_BUTTON_UNPRESSED,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }

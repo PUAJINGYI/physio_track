@@ -370,5 +370,6 @@ abstract class  LocaleKeys {
   static const Nov = 'Nov';
   static const Dec = 'Dec';
   static const Gender = 'Gender';
+  static const Full_Day_Text = 'Full_Day_Text';
 
 }
