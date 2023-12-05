@@ -330,7 +330,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
     DateTime endTime = leave.endTime;
     leaveTime = '${startTime.hour}:00 - ${endTime.hour}:00';
     return Container(
-      width: 100,
+      width: 110,
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
