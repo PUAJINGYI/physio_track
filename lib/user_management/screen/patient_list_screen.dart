@@ -139,60 +139,63 @@ class _PatientListScreenState extends State<PatientListScreen> {
         }
         if (snapshot.hasData) {
           List<UserModel> patients = snapshot.data!;
-          return ListView(
-            padding: EdgeInsets.zero,
-            children: patients.map((UserModel user) {
-              return Card(
-                color: Color.fromRGBO(241, 243, 250, 1),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          radius: 30.0,
-                          backgroundImage: user.profileImageUrl.isNotEmpty
-                              ? NetworkImage(user.profileImageUrl)
-                                  as ImageProvider
-                              : AssetImage(ImageConstant.DEFAULT_USER)
-                                  as ImageProvider,
-                          backgroundColor: Colors.transparent,
-                          child: user.profileImageUrl.isEmpty
-                              ? Image.asset(
-                                  ImageConstant
-                                      .DEFAULT_USER, // Replace with the default image path
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
-                        ),
-                        title: Text(user.username,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        subtitle: Text(
-                            user.email), // Replace with the actual user name
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      child: Container(
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color:
-                              Colors.white, // Replace with desired button color
-                        ),
-                        child: IconButton(
-                          icon: Icon(Icons
-                              .delete_outline), // Replace with desired icon
-                          color: Colors.blue, // Replace with desired icon color
-                          onPressed: () {
-                            showDeleteConfirmationDialog(context, user.id);
-                          },
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: patients.map((UserModel user) {
+                return Card(
+                  color: Color.fromRGBO(241, 243, 250, 1),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 30.0,
+                            backgroundImage: user.profileImageUrl.isNotEmpty
+                                ? NetworkImage(user.profileImageUrl)
+                                    as ImageProvider
+                                : AssetImage(ImageConstant.DEFAULT_USER)
+                                    as ImageProvider,
+                            backgroundColor: Colors.transparent,
+                            child: user.profileImageUrl.isEmpty
+                                ? Image.asset(
+                                    ImageConstant
+                                        .DEFAULT_USER, // Replace with the default image path
+                                    fit: BoxFit.cover,
+                                  )
+                                : null,
+                          ),
+                          title: Text(user.username,
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          subtitle: Text(
+                              user.email), // Replace with the actual user name
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Container(
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                Colors.white, // Replace with desired button color
+                          ),
+                          child: IconButton(
+                            icon: Icon(Icons
+                                .delete_outline), // Replace with desired icon
+                            color: Colors.blue, // Replace with desired icon color
+                            onPressed: () {
+                              showDeleteConfirmationDialog(context, user.id);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
           );
         }
         return Container(); // Return an empty container if no data is available

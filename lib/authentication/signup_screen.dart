@@ -168,47 +168,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                       )),
-                  Positioned(
-                    bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-                    left: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                          TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                          TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                          TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                          TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                      child: customButton(
-                        context,
-                        LocaleKeys.Sign_Up.tr(),
-                        ColorConstant.BLUE_BUTTON_TEXT,
-                        ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED,
-                        () {
-                          setState(() {
-                            _usernameController.text.isEmpty
-                                ? _validateUsernameInput = true
-                                : _validateUsernameInput = false;
-                            _emailTextController.text.isEmpty ||
-                                    !_emailTextController.text.contains("@")
-                                ? _validateEmailInput = true
-                                : _validateEmailInput = false;
-                            _passwordTextController.text.isEmpty
-                                ? _validatePasswordInput = true
-                                : _validatePasswordInput = false;
-                          });
-                          if (_validateUsernameInput == false &&
-                              _validateEmailInput == false &&
-                              _validatePasswordInput == false) {
-                            _createUserWithEmailAndPassword();
-                          }
-                        },
-                      ),
+                  SizedBox(height: 170),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                        TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                        TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                    child: customButton(
+                      context,
+                      LocaleKeys.Sign_Up.tr(),
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED,
+                      () {
+                        setState(() {
+                          _usernameController.text.isEmpty
+                              ? _validateUsernameInput = true
+                              : _validateUsernameInput = false;
+                          _emailTextController.text.isEmpty ||
+                                  !_emailTextController.text.contains("@")
+                              ? _validateEmailInput = true
+                              : _validateEmailInput = false;
+                          _passwordTextController.text.isEmpty
+                              ? _validatePasswordInput = true
+                              : _validatePasswordInput = false;
+                        });
+                        if (_validateUsernameInput == false &&
+                            _validateEmailInput == false &&
+                            _validatePasswordInput == false) {
+                          _createUserWithEmailAndPassword();
+                        }
+                      },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
+            SizedBox(height: 45),
           ],
         ),
       ]),

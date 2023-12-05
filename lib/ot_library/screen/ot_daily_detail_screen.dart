@@ -520,31 +520,35 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                       ],
                                     ),
                                     SizedBox(height: 8.0),
-                                    FutureBuilder(
-                                      future: notificationService.translateText(
-                                          _otLibraryRecord.description,
-                                          context),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<String> snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return ShimmeringTextListWidget(
-                                            width: 400,
-                                            numOfLines: 4,
-                                          ); // or any loading indicator
-                                        } else if (snapshot.hasError) {
-                                          return Text(
-                                              'Error: ${snapshot.error}');
-                                        } else {
-                                          String desc = snapshot.data!;
-                                          return Text(
-                                            desc,
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: Colors.grey[500]),
-                                          );
-                                        }
-                                      },
+                                    Container(
+                                      height: 340,
+                                      child: FutureBuilder(
+                                        future:
+                                            notificationService.translateText(
+                                                _otLibraryRecord.description,
+                                                context),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return ShimmeringTextListWidget(
+                                              width: 400,
+                                              numOfLines: 4,
+                                            ); // or any loading indicator
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            String desc = snapshot.data!;
+                                            return Text(
+                                              desc,
+                                              style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.grey[500]),
+                                            );
+                                          }
+                                        },
+                                      ),
                                     ),
                                     SizedBox(height: 250.0),
                                   ],
@@ -663,45 +667,72 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                           ],
                                         ),
                                         SizedBox(height: 8.0),
-                                        FutureBuilder(
-                                          future:
-                                              notificationService.translateText(
-                                                  _otLibraryRecord.description,
-                                                  context),
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot<String> snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.stretch,
-                                                children: [
-                                                  ShimmeringTextListWidget(
-                                                      width: 400,
-                                                      numOfLines: 4),
-                                                ],
-                                              ); // or any loading indicator
-                                            } else if (snapshot.hasError) {
-                                              return Text(
-                                                  'Error: ${snapshot.error}');
-                                            } else {
-                                              String desc = snapshot.data!;
-                                              return Text(
-                                                desc,
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: Colors.grey[500]),
-                                              );
-                                            }
-                                          },
+                                        Container(
+                                          height: 310,
+                                          child: FutureBuilder(
+                                            future: notificationService
+                                                .translateText(
+                                                    _otLibraryRecord
+                                                        .description,
+                                                    context),
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<String>
+                                                    snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  children: [
+                                                    ShimmeringTextListWidget(
+                                                        width: 400,
+                                                        numOfLines: 4),
+                                                  ],
+                                                ); // or any loading indicator
+                                              } else if (snapshot.hasError) {
+                                                return Text(
+                                                    'Error: ${snapshot.error}');
+                                              } else {
+                                                String desc = snapshot.data!;
+                                                return Text(
+                                                  desc,
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.grey[500]),
+                                                );
+                                              }
+                                            },
+                                          ),
                                         ),
-                                        SizedBox(height: 250.0),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                              child: Container(
+                                height: kToolbarHeight,
+                                alignment: Alignment.center,
+                                child: customButton(
+                                  context,
+                                  LocaleKeys.Mark_as_Completed.tr(),
+                                  ColorConstant.GREEN_BUTTON_TEXT,
+                                  ColorConstant.GREEN_BUTTON_UNPRESSED,
+                                  ColorConstant.GREEN_BUTTON_PRESSED,
+                                  () {
+                                    _markAsCompleted();
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 45),
                           ],
                         );
                       },
@@ -733,28 +764,6 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                             fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 70,
-                      left: 0,
-                      right: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: kToolbarHeight,
-                          alignment: Alignment.center,
-                          child: customButton(
-                            context,
-                            LocaleKeys.Mark_as_Completed.tr(),
-                            ColorConstant.GREEN_BUTTON_TEXT,
-                            ColorConstant.GREEN_BUTTON_UNPRESSED,
-                            ColorConstant.GREEN_BUTTON_PRESSED,
-                            () {
-                              _markAsCompleted();
-                            },
                           ),
                         ),
                       ),

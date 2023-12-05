@@ -42,6 +42,9 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
 
   Future<void> getUserRole() async {
     String role = await userManagementService.getRoleByUid(userId);
+    setState(() {
+      this.role = role;
+    });
   }
 
   @override
@@ -74,6 +77,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                                 onTap: () {
                                   today = DateTime(
                                       today.year, today.month, today.day);
+
                                   if (widget.ot.date ==
                                           Timestamp.fromDate(today) &&
                                       role == 'patient') {

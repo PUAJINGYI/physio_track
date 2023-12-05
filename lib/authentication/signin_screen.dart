@@ -195,86 +195,88 @@ class _SignInScreenState extends State<SignInScreen> {
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.zero,
-                  children: [Container(
-                    height: MediaQuery.of(context).size.height * 0.38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(ImageConstant.LOGIN_PIC),
-                        fit: BoxFit.cover,
-                        alignment: Alignment.center,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.33,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(ImageConstant.LOGIN_PIC),
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                   child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        20,
-                      0,
-                        20,
-                        0,
-                      ),
-                      child: Column(
-                        children: [
-                          logoWidget(ImageConstant.LOGO),
-                          reusableTextField(
-                            LocaleKeys.Enter_Email.tr(),
-                            LocaleKeys.Please_Insert_Valid_Email.tr(),
-                            Icons.email_outlined,
-                            false,
-                            _emailTextController,
-                            _validateEmailInput,
-                            _isObscure,
-                            toggleObscure,
-                          ),
-                          SizedBox(height: 20),
-                          reusableTextField(
-                            LocaleKeys.Enter_Password.tr(),
-                            LocaleKeys.Please_Insert_Password.tr(),
-                            Icons.lock_outline,
-                            true,
-                            _passwordTextController,
-                            _validatePasswordInput,
-                            _isObscure,
-                            toggleObscure,
-                          ),
-                          SizedBox(height: 5),
-                          forgetPassword(),
-                          SizedBox(height: 10),
-                          customButton(
-                              context,
-                              LocaleKeys.Login.tr(),
-                              ColorConstant.BLUE_BUTTON_TEXT,
-                              ColorConstant.BLUE_BUTTON_UNPRESSED,
-                              ColorConstant.BLUE_BUTTON_PRESSED, () {
-                            setState(() {
-                              _emailTextController.text.isEmpty ||
-                                      !_emailTextController.text.contains("@")
-                                  ? _validateEmailInput = true
-                                  : _validateEmailInput = false;
-                              _passwordTextController.text.isEmpty
-                                  ? _validatePasswordInput = true
-                                  : _validatePasswordInput = false;
-                            });
-                            if (_validateEmailInput == false &&
-                                _validatePasswordInput == false) {
-                              loginWithEmailPassword(
-                                _emailTextController.text,
-                                _passwordTextController.text,
-                              );
-                            }
-                          }),
-                          signInGmailButton(context, () async {
-                            // await signOutGoogle();
-                            loginWithGoogle();
-                          }),
-                          signUpOption(),
-                        ],
+                    Container(
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(
+                          20,
+                          0,
+                          20,
+                          0,
+                        ),
+                        child: Column(
+                          children: [
+                            logoWidget(ImageConstant.LOGO),
+                            reusableTextField(
+                              LocaleKeys.Enter_Email.tr(),
+                              LocaleKeys.Please_Insert_Valid_Email.tr(),
+                              Icons.email_outlined,
+                              false,
+                              _emailTextController,
+                              _validateEmailInput,
+                              _isObscure,
+                              toggleObscure,
+                            ),
+                            SizedBox(height: 20),
+                            reusableTextField(
+                              LocaleKeys.Enter_Password.tr(),
+                              LocaleKeys.Please_Insert_Password.tr(),
+                              Icons.lock_outline,
+                              true,
+                              _passwordTextController,
+                              _validatePasswordInput,
+                              _isObscure,
+                              toggleObscure,
+                            ),
+                            SizedBox(height: 5),
+                            forgetPassword(),
+                            SizedBox(height: 10),
+                            customButton(
+                                context,
+                                LocaleKeys.Login.tr(),
+                                ColorConstant.BLUE_BUTTON_TEXT,
+                                ColorConstant.BLUE_BUTTON_UNPRESSED,
+                                ColorConstant.BLUE_BUTTON_PRESSED, () {
+                              setState(() {
+                                _emailTextController.text.isEmpty ||
+                                        !_emailTextController.text.contains("@")
+                                    ? _validateEmailInput = true
+                                    : _validateEmailInput = false;
+                                _passwordTextController.text.isEmpty
+                                    ? _validatePasswordInput = true
+                                    : _validatePasswordInput = false;
+                              });
+                              if (_validateEmailInput == false &&
+                                  _validatePasswordInput == false) {
+                                loginWithEmailPassword(
+                                  _emailTextController.text,
+                                  _passwordTextController.text,
+                                );
+                              }
+                            }),
+                            signInGmailButton(context, () async {
+                              // await signOutGoogle();
+                              loginWithGoogle();
+                            }),
+                            signUpOption(),
+                          ],
+                        ),
                       ),
                     ),
-                  ),],
+                  ],
                 ),
               ),
-          ],
+            ],
           ),
           Positioned(
             top: 25,
@@ -286,8 +288,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 icon: Icon(Icons.language_outlined),
                 iconSize: 35,
                 onPressed: () {
-                  Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ChangeLanguageScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChangeLanguageScreen()));
                 },
               ),
             ),

@@ -80,7 +80,9 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                     return Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+                    return Center(
+                        child: Text(
+                            '${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                   }
                   if (snapshot.hasData) {
                     List<Appointment> appointments = snapshot.data!;
@@ -254,7 +256,9 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              LocaleKeys.View_Report.tr(),
+                                                              LocaleKeys
+                                                                      .View_Report
+                                                                  .tr(),
                                                               style: TextStyle(
                                                                 fontSize: 15.0,
                                                                 color: Colors
@@ -288,7 +292,8 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                   return Container();
                 },
               ),
-            )
+            ),
+            SizedBox(height: 70),
           ],
         ),
         Positioned(

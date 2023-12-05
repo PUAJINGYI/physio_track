@@ -125,7 +125,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                       Text(
                                           dateFormat.format(notification.date)),
                                       SizedBox(
-                                        height: 100.0,
+                                        height: 50.0,
                                       ),
                                       FutureBuilder(
                                         future:
@@ -164,6 +164,23 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                       }
                       return Container();
                     })),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
+              child: customButton(
+                  context,
+                  LocaleKeys.Back.tr(),
+                  ColorConstant.BLUE_BUTTON_TEXT,
+                  ColorConstant.BLUE_BUTTON_UNPRESSED,
+                  ColorConstant.BLUE_BUTTON_PRESSED, () {
+                Navigator.pop(context, true);
+              }),
+            ),
+            SizedBox(
+              height: 45.0,)
           ],
         ),
         Positioned(
@@ -205,26 +222,6 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
             height: 170.0,
           ),
         ),
-        Positioned(
-          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING),
-            child: customButton(
-                context,
-                LocaleKeys.Back.tr(),
-                ColorConstant.BLUE_BUTTON_TEXT,
-                ColorConstant.BLUE_BUTTON_UNPRESSED,
-                ColorConstant.BLUE_BUTTON_PRESSED, () {
-              Navigator.pop(context, true);
-            }),
-          ),
-        )
       ],
     ));
   }

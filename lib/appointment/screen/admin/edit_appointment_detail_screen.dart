@@ -122,7 +122,6 @@ class _EditAppointmentDetailScreenState
                     child: ListView(
                       padding: EdgeInsets.zero,
                       children: [
-                      
                         Card(
                           color: Colors.blue[50],
                           child: Padding(
@@ -259,9 +258,56 @@ class _EditAppointmentDetailScreenState
                             ),
                           ),
                         ),
+                        SizedBox(
+                            height: 110, ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                              0,
+                              TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                              0,
+                              TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                          child: customButton(
+                              context,
+                              LocaleKeys.Update_Approve.tr(),
+                              ColorConstant.BLUE_BUTTON_TEXT,
+                              ColorConstant.BLUE_BUTTON_UNPRESSED,
+                              ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                            String patientUsername =
+                                await _userManagementService.getUsernameById(
+                                    appointmentInPending.patientId);
+                            String physioUsername = await _userManagementService
+                                .getUsernameById(selectedUser!.id);
+                            String newTitle =
+                                '[Appointment] ${patientUsername} with ${physioUsername}';
+                            int oriPhysioId = appointmentInPending.physioId;
+                            AppointmentInPending appointment =
+                                new AppointmentInPending(
+                                    id: appointmentInPending.id,
+                                    title: newTitle,
+                                    date: appointmentInPending.date,
+                                    startTime: appointmentInPending.startTime,
+                                    endTime: appointmentInPending.endTime,
+                                    durationInSecond:
+                                        appointmentInPending.durationInSecond,
+                                    status: appointmentInPending.status,
+                                    isApproved: appointmentInPending.isApproved,
+                                    patientId: appointmentInPending.patientId,
+                                    physioId: selectedUser!.id,
+                                    eventId: appointmentInPending.eventId);
+                            if (selectedUser == null) {
+                              setState(() {
+                                isSelectionEmpty = true;
+                              });
+                            } else {
+                              await performAppointmentUpdate(
+                                  appointment, oriPhysioId);
+                            }
+                          }),
+                        ),
                       ],
                     ),
                   ),
+                  SizedBox(height: 40),
                 ],
               )),
           Positioned(
@@ -303,50 +349,6 @@ class _EditAppointmentDetailScreenState
               height: 190.0,
             ),
           ),
-          Positioned(
-              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-              right: 0,
-              left: 0,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                    TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                    TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                child: customButton(
-                    context,
-                    LocaleKeys.Update_Approve.tr(),
-                    ColorConstant.BLUE_BUTTON_TEXT,
-                    ColorConstant.BLUE_BUTTON_UNPRESSED,
-                    ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                  String patientUsername = await _userManagementService
-                      .getUsernameById(appointmentInPending.patientId);
-                  String physioUsername = await _userManagementService
-                      .getUsernameById(selectedUser!.id);
-                  String newTitle =
-                      '[Appointment] ${patientUsername} with ${physioUsername}';
-                  int oriPhysioId = appointmentInPending.physioId;
-                  AppointmentInPending appointment = new AppointmentInPending(
-                      id: appointmentInPending.id,
-                      title: newTitle,
-                      date: appointmentInPending.date,
-                      startTime: appointmentInPending.startTime,
-                      endTime: appointmentInPending.endTime,
-                      durationInSecond: appointmentInPending.durationInSecond,
-                      status: appointmentInPending.status,
-                      isApproved: appointmentInPending.isApproved,
-                      patientId: appointmentInPending.patientId,
-                      physioId: selectedUser!.id,
-                      eventId: appointmentInPending.eventId);
-                  if (selectedUser == null) {
-                    setState(() {
-                      isSelectionEmpty = true;
-                    });
-                  } else {
-                    await performAppointmentUpdate(appointment, oriPhysioId);
-                  }
-                }),
-              )),
         ],
       ),
     );

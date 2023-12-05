@@ -74,7 +74,7 @@ class _TestStartScreenState extends State<TestStartScreen> {
           ),
         ),
         Positioned(
-            bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+            bottom: TextConstant.CUSTOM_BUTTON_BOTTOM+15,
             left: 0,
             right: 0,
             child: Padding(

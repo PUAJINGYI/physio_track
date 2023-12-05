@@ -115,494 +115,504 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
               height: 240.0,
             ),
             Expanded(
-              child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return FutureBuilder<Treatment?>(
-                      future: _loadTreatmentReport(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          treatmentReport = snapshot.data!;
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                            child: Card(
-                              elevation: 3,
-                              color: Color.fromRGBO(195, 232, 243, 1),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  FutureBuilder<Treatment?>(
+                    future: _loadTreatmentReport(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        treatmentReport = snapshot.data!;
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                          child: Card(
+                            elevation: 3,
+                            color: Color.fromRGBO(195, 232, 243, 1),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  '${LocaleKeys.Date.tr()} :',
+                                                  style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 40, 0, 0),
+                                                  child: Text(
+                                                    DateFormat('dd MMM yyyy')
+                                                        .format(treatmentReport
+                                                            .dateTime),
+                                                    textAlign: TextAlign
+                                                        .right, // Right-align the date text
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  '${LocaleKeys.Time.tr()} :',
+                                                  style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 40, 0, 0),
+                                                  child: Text(
+                                                    DateFormat('hh:mm a')
+                                                        .format(treatmentReport
+                                                            .dateTime),
+                                                    textAlign: TextAlign
+                                                        .right, // Right-align the date text
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.0),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons
+                                                      .medical_services_outlined,
+                                                  color: Colors.black,
+                                                  size: 25.0,
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                FutureBuilder<String>(
+                                                  future: _getUsernameById(
+                                                      treatmentReport.physioId),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return CircularProgressIndicator();
+                                                    }
+                                                    if (snapshot.hasError) {
+                                                      return Text(
+                                                          '${LocaleKeys.Error.tr()}: ${snapshot.error}');
+                                                    }
+                                                    if (snapshot.hasData) {
+                                                      String username =
+                                                          snapshot.data!;
+                                                      return Text(
+                                                        username,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      );
+                                                    }
+                                                    return Container();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.person,
+                                                  color: Colors.black,
+                                                  size: 25.0,
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                FutureBuilder<String>(
+                                                  future: _getUsernameById(
+                                                      treatmentReport
+                                                          .patientId),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return CircularProgressIndicator();
+                                                    }
+                                                    if (snapshot.hasError) {
+                                                      return Text(
+                                                          '${LocaleKeys.Error.tr()}: ${snapshot.error}');
+                                                    }
+                                                    if (snapshot.hasData) {
+                                                      String username =
+                                                          snapshot.data!;
+                                                      return Text(
+                                                        username,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      );
+                                                    }
+                                                    return Container();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Card(
+                                      elevation: 5.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      color: Colors.grey[
+                                          300], // Use different colors for active and inactive states
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          children: [
+                                            // Left side with icon
+                                            Icon(
+                                              Icons.directions_walk_outlined,
+                                              size: 30.0,
+                                              color: Colors
+                                                  .black, // Customize the icon color here
+                                            ),
+                                            SizedBox(width: 16.0),
+
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    '${LocaleKeys.Date.tr()} :',
+                                                    LocaleKeys.Leg_Lifting.tr(),
                                                     style: TextStyle(
-                                                      fontSize: 18.0,
+                                                      fontSize: 14.0,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 40, 0, 0),
-                                                    child: Text(
-                                                      DateFormat('dd MMM yyyy')
-                                                          .format(
-                                                              treatmentReport
-                                                                  .dateTime),
-                                                      textAlign: TextAlign
-                                                          .right, // Right-align the date text
-                                                      style: TextStyle(
-                                                        fontSize: 16.0,
-                                                      ),
+                                                  Text(
+                                                    '${treatmentReport.legLiftingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.legLiftingRep} ${LocaleKeys.Reps.tr()}',
+                                                    style: TextStyle(
+                                                      fontSize: 14.0,
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                      ),
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Card(
+                                      elevation: 5.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      color: Colors.grey[
+                                          300], // Use different colors for active and inactive states
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          children: [
+                                            // Left side with icon
+                                            Icon(
+                                              Icons.directions_walk_outlined,
+                                              size: 30.0,
+                                              color: Colors
+                                                  .black, // Customize the icon color here
+                                            ),
+                                            SizedBox(width: 16.0),
+
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    '${LocaleKeys.Time.tr()} :',
+                                                    LocaleKeys.Standing.tr(),
                                                     style: TextStyle(
-                                                      fontSize: 18.0,
+                                                      fontSize: 14.0,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 40, 0, 0),
-                                                    child: Text(
-                                                      DateFormat('hh:mm a')
-                                                          .format(
-                                                              treatmentReport
-                                                                  .dateTime),
-                                                      textAlign: TextAlign
-                                                          .right, // Right-align the date text
-                                                      style: TextStyle(
-                                                        fontSize: 16.0,
-                                                      ),
+                                                  Text(
+                                                    '${treatmentReport.standingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.standingRep} ${LocaleKeys.Reps.tr()}',
+                                                    style: TextStyle(
+                                                      fontSize: 14.0,
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                    SizedBox(height: 10.0),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Card(
+                                      elevation: 5.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      color: Colors.grey[
+                                          300], // Use different colors for active and inactive states
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          children: [
+                                            // Left side with icon
+                                            Icon(
+                                              FontAwesomeIcons.dumbbell,
+                                              size: 30.0,
+                                              color: Colors
+                                                  .black, // Customize the icon color here
+                                            ),
+                                            SizedBox(width: 16.0),
+
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Icon(
-                                                    Icons
-                                                        .medical_services_outlined,
-                                                    color: Colors.black,
-                                                    size: 25.0,
+                                                  Text(
+                                                    LocaleKeys.Arm_Lifting.tr(),
+                                                    style: TextStyle(
+                                                      fontSize: 14.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  FutureBuilder<String>(
-                                                    future: _getUsernameById(
-                                                        treatmentReport
-                                                            .physioId),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      if (snapshot
-                                                              .connectionState ==
-                                                          ConnectionState
-                                                              .waiting) {
-                                                        return CircularProgressIndicator();
-                                                      }
-                                                      if (snapshot.hasError) {
-                                                        return Text(
-                                                            '${LocaleKeys.Error.tr()}: ${snapshot.error}');
-                                                      }
-                                                      if (snapshot.hasData) {
-                                                        String username =
-                                                            snapshot.data!;
-                                                        return Text(
-                                                          username,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        );
-                                                      }
-                                                      return Container();
-                                                    },
+                                                  Text(
+                                                    '${treatmentReport.armLiftingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.armLiftingRep} ${LocaleKeys.Reps.tr()}',
+                                                    style: TextStyle(
+                                                      fontSize: 14.0,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
+                                      ),
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Card(
+                                      elevation: 5.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      color: Colors.grey[
+                                          300], // Use different colors for active and inactive states
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          children: [
+                                            // Left side with icon
+                                            Icon(
+                                              FontAwesomeIcons.shoePrints,
+                                              size: 30.0,
+                                              color: Colors
+                                                  .black, // Customize the icon color here
+                                            ),
+                                            SizedBox(width: 16.0),
+
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Icon(
-                                                    Icons.person,
-                                                    color: Colors.black,
-                                                    size: 25.0,
+                                                  Text(
+                                                    LocaleKeys.Foot_Stepping
+                                                        .tr(),
+                                                    style: TextStyle(
+                                                      fontSize: 14.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  FutureBuilder<String>(
-                                                    future: _getUsernameById(
-                                                        treatmentReport
-                                                            .patientId),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      if (snapshot
-                                                              .connectionState ==
-                                                          ConnectionState
-                                                              .waiting) {
-                                                        return CircularProgressIndicator();
-                                                      }
-                                                      if (snapshot.hasError) {
-                                                        return Text(
-                                                            '${LocaleKeys.Error.tr()}: ${snapshot.error}');
-                                                      }
-                                                      if (snapshot.hasData) {
-                                                        String username =
-                                                            snapshot.data!;
-                                                        return Text(
-                                                          username,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        );
-                                                      }
-                                                      return Container();
-                                                    },
+                                                  Text(
+                                                    '${treatmentReport.footStepSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.footStepRep} ${LocaleKeys.Reps.tr()}',
+                                                    style: TextStyle(
+                                                      fontSize: 14.0,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Card(
-                                        elevation: 5.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        color: Colors.grey[
-                                            300], // Use different colors for active and inactive states
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Row(
-                                            children: [
-                                              // Left side with icon
-                                              Icon(
-                                                Icons.directions_walk_outlined,
-                                                size: 30.0,
-                                                color: Colors
-                                                    .black, // Customize the icon color here
-                                              ),
-                                              SizedBox(width: 16.0),
-
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      LocaleKeys.Leg_Lifting
-                                                          .tr(),
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '${treatmentReport.legLiftingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.legLiftingRep} ${LocaleKeys.Reps.tr()}',
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Card(
-                                        elevation: 5.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        color: Colors.grey[
-                                            300], // Use different colors for active and inactive states
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Row(
-                                            children: [
-                                              // Left side with icon
-                                              Icon(
-                                                Icons.directions_walk_outlined,
-                                                size: 30.0,
-                                                color: Colors
-                                                    .black, // Customize the icon color here
-                                              ),
-                                              SizedBox(width: 16.0),
-
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      LocaleKeys.Standing.tr(),
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '${treatmentReport.standingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.standingRep} ${LocaleKeys.Reps.tr()}',
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    '${LocaleKeys.Performance.tr()}:',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Card(
-                                        elevation: 5.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        color: Colors.grey[
-                                            300], // Use different colors for active and inactive states
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Row(
-                                            children: [
-                                              // Left side with icon
-                                              Icon(
-                                                FontAwesomeIcons.dumbbell,
-                                                size: 30.0,
-                                                color: Colors
-                                                    .black, // Customize the icon color here
-                                              ),
-                                              SizedBox(width: 16.0),
-
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      LocaleKeys.Arm_Lifting
-                                                          .tr(),
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '${treatmentReport.armLiftingSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.armLiftingRep} ${LocaleKeys.Reps.tr()}',
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Card(
-                                        elevation: 5.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        color: Colors.grey[
-                                            300], // Use different colors for active and inactive states
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Row(
-                                            children: [
-                                              // Left side with icon
-                                              Icon(
-                                                FontAwesomeIcons.shoePrints,
-                                                size: 30.0,
-                                                color: Colors
-                                                    .black, // Customize the icon color here
-                                              ),
-                                              SizedBox(width: 16.0),
-
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      LocaleKeys.Foot_Stepping
-                                                          .tr(),
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '${treatmentReport.footStepSet} ${LocaleKeys.Sets.tr()} * ${treatmentReport.footStepRep} ${LocaleKeys.Reps.tr()}',
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Text(
-                                      '${LocaleKeys.Performance.tr()}:',
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Container(
-                                      height: 35.0,
-                                      color: getPerformanceColor(
-                                          treatmentReport.performamce),
-                                      child: Center(
-                                          child: Text(
-                                              getPerformanceText(
+                                  ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Container(
+                                    height: 35.0,
+                                    color: getPerformanceColor(
+                                        treatmentReport.performamce),
+                                    child: Center(
+                                        child: Text(
+                                            getPerformanceText(
+                                                treatmentReport.performamce),
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: getPerformanceTextColor(
                                                   treatmentReport.performamce),
-                                              style: TextStyle(
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.bold,
-                                                color: getPerformanceTextColor(
-                                                    treatmentReport
-                                                        .performamce),
-                                              ))),
+                                            ))),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    '${LocaleKeys.Remarks.tr()}:',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    SizedBox(
-                                      height: 10.0,
+                                  ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(
+                                    '${treatmentReport.remark}',
+                                    style: TextStyle(
+                                      fontSize: 14.0,
                                     ),
-                                    Text(
-                                      '${LocaleKeys.Remarks.tr()}:',
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      '${treatmentReport.remark}',
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20.0,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.0,
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                        TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                        TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                    child: customButton(
+                      context,
+                      LocaleKeys.Back.tr(),
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED,
+                      () {
+                        Navigator.pop(context);
                       },
-                    );
-                  }),
+                    ),
+                  ),
+                ],
+              ),
             ),
+            SizedBox(
+              height: 45.0,
+            )
           ],
         ),
         Positioned(
@@ -644,28 +654,6 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
             height: 190.0,
           ),
         ),
-        Positioned(
-          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING),
-            child: customButton(
-              context,
-              LocaleKeys.Back.tr(),
-              ColorConstant.BLUE_BUTTON_TEXT,
-              ColorConstant.BLUE_BUTTON_UNPRESSED,
-              ColorConstant.BLUE_BUTTON_PRESSED,
-              () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-        )
       ],
     ));
   }

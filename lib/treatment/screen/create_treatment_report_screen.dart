@@ -256,680 +256,635 @@ class _CreateTreatmentReportScreenState
               height: 250.0,
             ),
             Expanded(
-              child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Card(
-                            elevation: 5.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Container(
-                              height: 435.0,
-                              color: Colors.grey[100],
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(16, 3, 16, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Card(
-                                        elevation: 5.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        color: legLifting
-                                            ? Colors.orange[100]
-                                            : Colors.grey[
-                                                300], // Use different colors for active and inactive states
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Row(
-                                            children: [
-                                              // Left side with icon
-                                              Icon(
-                                                Icons.directions_walk_outlined,
-                                                size: 48.0,
-                                                color: Colors
-                                                    .black, // Customize the icon color here
-                                              ),
-                                              SizedBox(width: 16.0),
+                child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Card(
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: Container(
+                      height: 435.0,
+                      color: Colors.grey[100],
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 3, 16, 0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Card(
+                                elevation: 5.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                color: legLifting
+                                    ? Colors.orange[100]
+                                    : Colors.grey[
+                                        300], // Use different colors for active and inactive states
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+                                      // Left side with icon
+                                      Icon(
+                                        Icons.directions_walk_outlined,
+                                        size: 48.0,
+                                        color: Colors
+                                            .black, // Customize the icon color here
+                                      ),
+                                      SizedBox(width: 16.0),
 
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Leg Lifting',
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: IgnorePointer(
-                                                            ignoring:
-                                                                !legLifting,
-                                                            child: TextField(
-                                                              controller:
-                                                                  _legLiftingSetsController,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              decoration:
-                                                                  InputDecoration(),
-                                                              enabled:
-                                                                  legLifting,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number, // This sets the keyboard to numeric
-                                                              inputFormatters: <
-                                                                  TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
-                                                              ],
-                                                              onChanged:
-                                                                  (value) {
-                                                                legLiftingSets =
-                                                                    int.tryParse(
-                                                                            value) ??
-                                                                        0;
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'set',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: IgnorePointer(
-                                                            // Prevent user interaction when the card is inactive
-                                                            ignoring:
-                                                                !legLifting,
-                                                            child: TextField(
-                                                              controller:
-                                                                  _legLiftingRepsController, // Add the controller here
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              decoration:
-                                                                  InputDecoration(),
-                                                              enabled:
-                                                                  legLifting,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number, // This sets the keyboard to numeric
-                                                              inputFormatters: <
-                                                                  TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
-                                                              ],
-                                                              onChanged:
-                                                                  (value) {
-                                                                legLiftingReps =
-                                                                    int.tryParse(
-                                                                            value) ??
-                                                                        0;
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'rep',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Leg Lifting',
+                                              style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: IgnorePointer(
+                                                    ignoring: !legLifting,
+                                                    child: TextField(
+                                                      controller:
+                                                          _legLiftingSetsController,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          InputDecoration(),
+                                                      enabled: legLifting,
+                                                      keyboardType: TextInputType
+                                                          .number, // This sets the keyboard to numeric
+                                                      inputFormatters: <
+                                                          TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .digitsOnly, // Allow only digits
                                                       ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-
-                                              SizedBox(width: 16.0),
-                                              // Right side with Checkbox
-                                              Checkbox(
-                                                value: legLifting,
-                                                onChanged: (bool? value) {
-                                                  setState(() {
-                                                    legLifting = value ?? false;
-                                                  });
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(16, 3, 16, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Card(
-                                        elevation: 5.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        color: standing
-                                            ? Colors.orange[100]
-                                            : Colors.grey[
-                                                300], // Use different colors for active and inactive states
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Row(
-                                            children: [
-                                              // Left side with icon
-                                              Icon(
-                                                Icons.directions_walk_outlined,
-                                                size: 48.0,
-                                                color: Colors
-                                                    .black, // Customize the icon color here
-                                              ),
-                                              SizedBox(width: 16.0),
-
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Standing',
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
+                                                      onChanged: (value) {
+                                                        legLiftingSets =
+                                                            int.tryParse(
+                                                                    value) ??
+                                                                0;
+                                                      },
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: IgnorePointer(
-                                                            ignoring: !standing,
-                                                            child: TextField(
-                                                              controller:
-                                                                  _standingSetsController,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              decoration:
-                                                                  InputDecoration(),
-                                                              enabled: standing,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number, // This sets the keyboard to numeric
-                                                              inputFormatters: <
-                                                                  TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
-                                                              ],
-                                                              onChanged:
-                                                                  (value) {
-                                                                standingSets =
-                                                                    int.tryParse(
-                                                                            value) ??
-                                                                        0;
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'set',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: IgnorePointer(
-                                                            // Prevent user interaction when the card is inactive
-                                                            ignoring: !standing,
-                                                            child: TextField(
-                                                              controller:
-                                                                  _standingRepsController, // Add the controller here
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              decoration:
-                                                                  InputDecoration(),
-                                                              enabled: standing,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number, // This sets the keyboard to numeric
-                                                              inputFormatters: <
-                                                                  TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
-                                                              ],
-                                                              onChanged:
-                                                                  (value) {
-                                                                standingReps =
-                                                                    int.tryParse(
-                                                                            value) ??
-                                                                        0;
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'rep',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-
-                                              SizedBox(width: 16.0),
-                                              // Right side with Checkbox
-                                              Checkbox(
-                                                value: standing,
-                                                onChanged: (bool? value) {
-                                                  setState(() {
-                                                    standing = value ?? false;
-                                                  });
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(16, 3, 16, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Card(
-                                        elevation: 5.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        color: armLifting
-                                            ? Colors.orange[100]
-                                            : Colors.grey[
-                                                300], // Use different colors for active and inactive states
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Row(
-                                            children: [
-                                              // Left side with icon
-                                              Icon(
-                                                FontAwesomeIcons.dumbbell,
-                                                size: 48.0,
-                                                color: Colors
-                                                    .black, // Customize the icon color here
-                                              ),
-                                              SizedBox(width: 16.0),
-
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Arm Lifting',
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
+                                                Text(
+                                                  'set',
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: IgnorePointer(
+                                                    // Prevent user interaction when the card is inactive
+                                                    ignoring: !legLifting,
+                                                    child: TextField(
+                                                      controller:
+                                                          _legLiftingRepsController, // Add the controller here
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          InputDecoration(),
+                                                      enabled: legLifting,
+                                                      keyboardType: TextInputType
+                                                          .number, // This sets the keyboard to numeric
+                                                      inputFormatters: <
+                                                          TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .digitsOnly, // Allow only digits
+                                                      ],
+                                                      onChanged: (value) {
+                                                        legLiftingReps =
+                                                            int.tryParse(
+                                                                    value) ??
+                                                                0;
+                                                      },
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: IgnorePointer(
-                                                            ignoring:
-                                                                !armLifting,
-                                                            child: TextField(
-                                                              controller:
-                                                                  _armLiftingSetsController,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              decoration:
-                                                                  InputDecoration(),
-                                                              enabled:
-                                                                  armLifting,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number, // This sets the keyboard to numeric
-                                                              inputFormatters: <
-                                                                  TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
-                                                              ],
-                                                              onChanged:
-                                                                  (value) {
-                                                                armLiftingSets =
-                                                                    int.tryParse(
-                                                                            value) ??
-                                                                        0;
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'set',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: IgnorePointer(
-                                                            // Prevent user interaction when the card is inactive
-                                                            ignoring:
-                                                                !armLifting,
-                                                            child: TextField(
-                                                              controller:
-                                                                  _armLiftingRepsController, // Add the controller here
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              decoration:
-                                                                  InputDecoration(),
-                                                              enabled:
-                                                                  armLifting,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number, // This sets the keyboard to numeric
-                                                              inputFormatters: <
-                                                                  TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
-                                                              ],
-                                                              onChanged:
-                                                                  (value) {
-                                                                armLiftingReps =
-                                                                    int.tryParse(
-                                                                            value) ??
-                                                                        0;
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'rep',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-
-                                              SizedBox(width: 16.0),
-                                              // Right side with Checkbox
-                                              Checkbox(
-                                                value: armLifting,
-                                                onChanged: (bool? value) {
-                                                  setState(() {
-                                                    armLifting = value ?? false;
-                                                  });
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(16, 3, 16, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Card(
-                                        elevation: 5.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        color: footStepping
-                                            ? Colors.orange[100]
-                                            : Colors.grey[
-                                                300], // Use different colors for active and inactive states
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Row(
-                                            children: [
-                                              // Left side with icon
-                                              Icon(
-                                                FontAwesomeIcons.shoePrints,
-                                                size: 48.0,
-                                                color: Colors
-                                                    .black, // Customize the icon color here
-                                              ),
-                                              SizedBox(width: 16.0),
-
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Foot Stepping',
-                                                      style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: IgnorePointer(
-                                                            ignoring:
-                                                                !footStepping,
-                                                            child: TextField(
-                                                              controller:
-                                                                  _footSteppingSetsController,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              decoration:
-                                                                  InputDecoration(),
-                                                              enabled:
-                                                                  footStepping,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number, // This sets the keyboard to numeric
-                                                              inputFormatters: <
-                                                                  TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
-                                                              ],
-                                                              onChanged:
-                                                                  (value) {
-                                                                footSteppingSets =
-                                                                    int.tryParse(
-                                                                            value) ??
-                                                                        0;
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'set',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: IgnorePointer(
-                                                            // Prevent user interaction when the card is inactive
-                                                            ignoring:
-                                                                !footStepping,
-                                                            child: TextField(
-                                                              controller:
-                                                                  _footSteppingRepsController, // Add the controller here
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              decoration:
-                                                                  InputDecoration(),
-                                                              enabled:
-                                                                  footStepping,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number, // This sets the keyboard to numeric
-                                                              inputFormatters: <
-                                                                  TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
-                                                              ],
-                                                              onChanged:
-                                                                  (value) {
-                                                                footSteppingReps =
-                                                                    int.tryParse(
-                                                                            value) ??
-                                                                        0;
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'rep',
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
+                                                Text(
+                                                  'rep',
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(width: 16.0),
-                                              // Right side with Checkbox
-                                              Checkbox(
-                                                value: footStepping,
-                                                onChanged: (bool? value) {
-                                                  setState(() {
-                                                    footStepping =
-                                                        value ?? false;
-                                                  });
-                                                },
-                                              ),
-                                            ],
-                                          ),
+                                              ],
+                                            )
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Performance',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                          child: buildSlider(
-                            performance,
-                            (newValue) {
-                              setState(() {
-                                performance = newValue
-                                    .toDouble(); // Update the value when the slider changes
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Remarks',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                          child: Card(
-                            child: Container(
-                              color: Colors.blue[50],
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 15, 20, 5),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextField(
-                                      controller: _remarksController,
-                                      decoration: InputDecoration(
-                                        hintText: 'Enter remarks',
+
+                                      SizedBox(width: 16.0),
+                                      // Right side with Checkbox
+                                      Checkbox(
+                                        value: legLifting,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            legLifting = value ?? false;
+                                          });
+                                        },
                                       ),
-                                      onChanged: (value) {
-                                        remarks = value;
-                                      },
-                                    ),
-                                    SizedBox(height: 8),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 3, 16, 0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Card(
+                                elevation: 5.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                color: standing
+                                    ? Colors.orange[100]
+                                    : Colors.grey[
+                                        300], // Use different colors for active and inactive states
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+                                      // Left side with icon
+                                      Icon(
+                                        Icons.directions_walk_outlined,
+                                        size: 48.0,
+                                        color: Colors
+                                            .black, // Customize the icon color here
+                                      ),
+                                      SizedBox(width: 16.0),
+
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Standing',
+                                              style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: IgnorePointer(
+                                                    ignoring: !standing,
+                                                    child: TextField(
+                                                      controller:
+                                                          _standingSetsController,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          InputDecoration(),
+                                                      enabled: standing,
+                                                      keyboardType: TextInputType
+                                                          .number, // This sets the keyboard to numeric
+                                                      inputFormatters: <
+                                                          TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .digitsOnly, // Allow only digits
+                                                      ],
+                                                      onChanged: (value) {
+                                                        standingSets =
+                                                            int.tryParse(
+                                                                    value) ??
+                                                                0;
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'set',
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: IgnorePointer(
+                                                    // Prevent user interaction when the card is inactive
+                                                    ignoring: !standing,
+                                                    child: TextField(
+                                                      controller:
+                                                          _standingRepsController, // Add the controller here
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          InputDecoration(),
+                                                      enabled: standing,
+                                                      keyboardType: TextInputType
+                                                          .number, // This sets the keyboard to numeric
+                                                      inputFormatters: <
+                                                          TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .digitsOnly, // Allow only digits
+                                                      ],
+                                                      onChanged: (value) {
+                                                        standingReps =
+                                                            int.tryParse(
+                                                                    value) ??
+                                                                0;
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'rep',
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+
+                                      SizedBox(width: 16.0),
+                                      // Right side with Checkbox
+                                      Checkbox(
+                                        value: standing,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            standing = value ?? false;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 3, 16, 0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Card(
+                                elevation: 5.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                color: armLifting
+                                    ? Colors.orange[100]
+                                    : Colors.grey[
+                                        300], // Use different colors for active and inactive states
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+                                      // Left side with icon
+                                      Icon(
+                                        FontAwesomeIcons.dumbbell,
+                                        size: 48.0,
+                                        color: Colors
+                                            .black, // Customize the icon color here
+                                      ),
+                                      SizedBox(width: 16.0),
+
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Arm Lifting',
+                                              style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: IgnorePointer(
+                                                    ignoring: !armLifting,
+                                                    child: TextField(
+                                                      controller:
+                                                          _armLiftingSetsController,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          InputDecoration(),
+                                                      enabled: armLifting,
+                                                      keyboardType: TextInputType
+                                                          .number, // This sets the keyboard to numeric
+                                                      inputFormatters: <
+                                                          TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .digitsOnly, // Allow only digits
+                                                      ],
+                                                      onChanged: (value) {
+                                                        armLiftingSets =
+                                                            int.tryParse(
+                                                                    value) ??
+                                                                0;
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'set',
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: IgnorePointer(
+                                                    // Prevent user interaction when the card is inactive
+                                                    ignoring: !armLifting,
+                                                    child: TextField(
+                                                      controller:
+                                                          _armLiftingRepsController, // Add the controller here
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          InputDecoration(),
+                                                      enabled: armLifting,
+                                                      keyboardType: TextInputType
+                                                          .number, // This sets the keyboard to numeric
+                                                      inputFormatters: <
+                                                          TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .digitsOnly, // Allow only digits
+                                                      ],
+                                                      onChanged: (value) {
+                                                        armLiftingReps =
+                                                            int.tryParse(
+                                                                    value) ??
+                                                                0;
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'rep',
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+
+                                      SizedBox(width: 16.0),
+                                      // Right side with Checkbox
+                                      Checkbox(
+                                        value: armLifting,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            armLifting = value ?? false;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 3, 16, 0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Card(
+                                elevation: 5.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                color: footStepping
+                                    ? Colors.orange[100]
+                                    : Colors.grey[
+                                        300], // Use different colors for active and inactive states
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+                                      // Left side with icon
+                                      Icon(
+                                        FontAwesomeIcons.shoePrints,
+                                        size: 48.0,
+                                        color: Colors
+                                            .black, // Customize the icon color here
+                                      ),
+                                      SizedBox(width: 16.0),
+
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Foot Stepping',
+                                              style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: IgnorePointer(
+                                                    ignoring: !footStepping,
+                                                    child: TextField(
+                                                      controller:
+                                                          _footSteppingSetsController,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          InputDecoration(),
+                                                      enabled: footStepping,
+                                                      keyboardType: TextInputType
+                                                          .number, // This sets the keyboard to numeric
+                                                      inputFormatters: <
+                                                          TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .digitsOnly, // Allow only digits
+                                                      ],
+                                                      onChanged: (value) {
+                                                        footSteppingSets =
+                                                            int.tryParse(
+                                                                    value) ??
+                                                                0;
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'set',
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: IgnorePointer(
+                                                    // Prevent user interaction when the card is inactive
+                                                    ignoring: !footStepping,
+                                                    child: TextField(
+                                                      controller:
+                                                          _footSteppingRepsController, // Add the controller here
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          InputDecoration(),
+                                                      enabled: footStepping,
+                                                      keyboardType: TextInputType
+                                                          .number, // This sets the keyboard to numeric
+                                                      inputFormatters: <
+                                                          TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .digitsOnly, // Allow only digits
+                                                      ],
+                                                      onChanged: (value) {
+                                                        footSteppingReps =
+                                                            int.tryParse(
+                                                                    value) ??
+                                                                0;
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'rep',
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(width: 16.0),
+                                      // Right side with Checkbox
+                                      Checkbox(
+                                        value: footStepping,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            footStepping = value ?? false;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Performance',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: buildSlider(
+                    performance,
+                    (newValue) {
+                      setState(() {
+                        performance = newValue
+                            .toDouble(); // Update the value when the slider changes
+                      });
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Remarks',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: Card(
+                    child: Container(
+                      color: Colors.blue[50],
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 15, 20, 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextField(
+                              controller: _remarksController,
+                              decoration: InputDecoration(
+                                hintText: 'Enter remarks',
+                              ),
+                              onChanged: (value) {
+                                remarks = value;
+                              },
+                            ),
+                            SizedBox(height: 8),
+                          ],
                         ),
-                      ],
-                    );
-                  }),
-            ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                  child: customButton(
+                    context,
+                    'Submit',
+                    ColorConstant.GREEN_BUTTON_TEXT,
+                    ColorConstant.GREEN_BUTTON_UNPRESSED,
+                    ColorConstant.GREEN_BUTTON_PRESSED,
+                    () {
+                      _addTreatmentReport();
+                    },
+                  ),
+                ),
+              ],
+            )),
+            SizedBox(height: 45.0),
           ],
         ),
         Positioned(
@@ -971,28 +926,6 @@ class _CreateTreatmentReportScreenState
             height: 190.0,
           ),
         ),
-        Positioned(
-          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING),
-            child: customButton(
-              context,
-              'Submit',
-              ColorConstant.GREEN_BUTTON_TEXT,
-              ColorConstant.GREEN_BUTTON_UNPRESSED,
-              ColorConstant.GREEN_BUTTON_PRESSED,
-              () {
-                _addTreatmentReport();
-              },
-            ),
-          ),
-        )
       ],
     ));
   }

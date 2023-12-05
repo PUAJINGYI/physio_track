@@ -455,6 +455,22 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                           ],
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                            TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                            TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                            TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                            TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                        child: customButton(
+                            context,
+                            LocaleKeys.Save.tr(),
+                            ColorConstant.BLUE_BUTTON_TEXT,
+                            ColorConstant.BLUE_BUTTON_UNPRESSED,
+                            ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                          await updateJournal();
+                        }),
+                      ),
+                      SizedBox(height: 50.0),
                     ],
                   ),
                   Positioned(
@@ -533,25 +549,6 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
           ),
         ),
       ),
-      Positioned(
-          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING),
-            child: customButton(
-                context,
-                LocaleKeys.Save.tr(),
-                ColorConstant.BLUE_BUTTON_TEXT,
-                ColorConstant.BLUE_BUTTON_UNPRESSED,
-                ColorConstant.BLUE_BUTTON_PRESSED, () async {
-              await updateJournal();
-            }),
-          ))
     ]));
   }
 }

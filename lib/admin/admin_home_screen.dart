@@ -182,61 +182,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                             child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                LocaleKeys.User_Management.tr(),
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                20, 0, 20, 0),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        UserManagementPage(),
-                                                  ),
-                                                );
-                                              },
-                                              child: Card(
-                                                color: Colors.blue.shade100,
-                                                elevation: 5.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15.0),
-                                                ),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15.0),
-                                                  child: Container(
-                                                    height:
-                                                        150.0, // Adjust the height as needed
-                                                    width: double.infinity,
-                                                    child: Image.asset(
-                                                      ImageConstant
-                                                          .ACCOUNT_MANAGE,
-                                                      // fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                           Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                20, 8, 20, 8),
-                                            child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                LocaleKeys.Activity_Management.tr(),
+                                                LocaleKeys.Activity_Management
+                                                    .tr(),
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
@@ -275,8 +222,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                                         150.0, // Adjust the height as needed
                                                     width: double.infinity,
                                                     child: Image.asset(
-                                                      ImageConstant
-                                                          .PHYSIO_HOME,
+                                                      ImageConstant.PHYSIO_HOME,
                                                       // fit: BoxFit.cover,
                                                     ),
                                                   ),
@@ -284,7 +230,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                               ),
                                             ),
                                           ),
-                                          
                                         ],
                                       );
                                     })),

@@ -130,309 +130,330 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                 height: 70,
               ),
               Expanded(
-                  child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            SizedBox(
-                              height: 30.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  LocaleKeys.Leave_Type.tr(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                LeaveTypeCard(
-                                    leaveType: 1,
-                                    selectedLeaveType: selectedLeaveType,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedLeaveType = value;
-                                        print(selectedLeaveType);
-                                      });
-                                    }),
-                                SizedBox(width: 2.0),
-                                LeaveTypeCard(
-                                    leaveType: 2,
-                                    selectedLeaveType: selectedLeaveType,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedLeaveType = value;
-                                        print(selectedLeaveType);
-                                      });
-                                    }),
-                                SizedBox(width: 2.0),
-                                LeaveTypeCard(
-                                    leaveType: 3,
-                                    selectedLeaveType: selectedLeaveType,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedLeaveType = value;
-                                        print(selectedLeaveType);
-                                      });
-                                    }),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  LocaleKeys.Date.tr(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Container(
-                              color: Color.fromARGB(255, 233, 243, 252),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: DatePicker(
-                                  locale: context.locale.toString(),
-                                  height: 100,
-                                  DateTime.now(),
-                                  initialSelectedDate: null,
-                                  selectionColor: Colors.blue,
-                                  selectedTextColor: Colors.white,
-                                  onDateChange: (date) {
-                                    // New date selected
-                                    setState(() {
-                                      selectedDate = date;
-                                      print(selectedDate);
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(LocaleKeys.Full_Day_Leave.tr(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      )),
-                                  Switch(
-                                    value: isFullDay,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        isFullDay = value;
-                                        if (isFullDay) {
-                                          startTime =
-                                              TimeOfDay(hour: 0, minute: 0);
-                                          endTime =
-                                              TimeOfDay(hour: 23, minute: 59);
-                                        } else {
-                                          startTime =
-                                              TimeOfDay(hour: 0, minute: 0);
-                                          endTime =
-                                              TimeOfDay(hour: 0, minute: 0);
-                                        }
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          LocaleKeys.Leave_Type.tr(),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        LeaveTypeCard(
+                            leaveType: 1,
+                            selectedLeaveType: selectedLeaveType,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedLeaveType = value;
+                                print(selectedLeaveType);
+                              });
+                            }),
+                        SizedBox(width: 2.0),
+                        LeaveTypeCard(
+                            leaveType: 2,
+                            selectedLeaveType: selectedLeaveType,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedLeaveType = value;
+                                print(selectedLeaveType);
+                              });
+                            }),
+                        SizedBox(width: 2.0),
+                        LeaveTypeCard(
+                            leaveType: 3,
+                            selectedLeaveType: selectedLeaveType,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedLeaveType = value;
+                                print(selectedLeaveType);
+                              });
+                            }),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          LocaleKeys.Date.tr(),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Container(
+                      color: Color.fromARGB(255, 233, 243, 252),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DatePicker(
+                          locale: context.locale.toString(),
+                          height: 100,
+                          DateTime.now(),
+                          initialSelectedDate: null,
+                          selectionColor: Colors.blue,
+                          selectedTextColor: Colors.white,
+                          onDateChange: (date) {
+                            // New date selected
+                            setState(() {
+                              selectedDate = date;
+                              print(selectedDate);
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(LocaleKeys.Full_Day_Leave.tr(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              )),
+                          Switch(
+                            value: isFullDay,
+                            onChanged: (value) {
+                              setState(() {
+                                isFullDay = value;
+                                if (isFullDay) {
+                                  startTime = TimeOfDay(hour: 0, minute: 0);
+                                  endTime = TimeOfDay(hour: 23, minute: 59);
+                                } else {
+                                  startTime = TimeOfDay(hour: 0, minute: 0);
+                                  endTime = TimeOfDay(hour: 0, minute: 0);
+                                }
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
 
-                            // Widget for Start Time and End Time Pickers
-                            if (!isFullDay)
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                                child: Column(
+                    // Widget for Start Time and End Time Pickers
+                    if (!isFullDay)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        LocaleKeys.Start_Time.tr(),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        TimeOfDay? selectedTime =
+                                            await showTimePicker(
+                                          context: context,
+                                          initialTime: startTime,
+                                        );
+                                        if (selectedTime != null &&
+                                            selectedTime != startTime) {
+                                          setState(() {
+                                            startTime = selectedTime;
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        width: 150,
+                                        height: 40,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 12.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          border:
+                                              Border.all(color: Colors.black),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                LocaleKeys.Start_Time.tr(),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10.0,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () async {
-                                                TimeOfDay? selectedTime =
-                                                    await showTimePicker(
-                                                  context: context,
-                                                  initialTime: startTime,
-                                                );
-                                                if (selectedTime != null &&
-                                                    selectedTime != startTime) {
-                                                  setState(() {
-                                                    startTime = selectedTime;
-                                                  });
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 150,
-                                                height: 40,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 12.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  border: Border.all(
-                                                      color: Colors.black),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(formatTime(startTime)),
-                                                    Icon(Icons.access_time),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
+                                            Text(formatTime(startTime)),
+                                            Icon(Icons.access_time),
                                           ],
                                         ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                LocaleKeys.End_Time.tr(),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10.0,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () async {
-                                                TimeOfDay? selectedTime =
-                                                    await showTimePicker(
-                                                  context: context,
-                                                  initialTime: endTime,
-                                                );
-                                                if (selectedTime != null &&
-                                                    selectedTime != endTime) {
-                                                  setState(() {
-                                                    endTime = selectedTime;
-                                                  });
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 150,
-                                                height: 40,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 12.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  border: Border.all(
-                                                      color: Colors.black),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(formatTime(endTime)),
-                                                    Icon(Icons.access_time),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  LocaleKeys.Reason.tr(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        LocaleKeys.End_Time.tr(),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        TimeOfDay? selectedTime =
+                                            await showTimePicker(
+                                          context: context,
+                                          initialTime: endTime,
+                                        );
+                                        if (selectedTime != null &&
+                                            selectedTime != endTime) {
+                                          setState(() {
+                                            endTime = selectedTime;
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        width: 150,
+                                        height: 40,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 12.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          border:
+                                              Border.all(color: Colors.black),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(formatTime(endTime)),
+                                            Icon(Icons.access_time),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+                              ],
                             ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextField(
-                                controller: _reasonController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _validateReasonInput = value.isEmpty;
-                                  });
-                                },
-                                maxLines: 3,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText:
-                                      LocaleKeys.Please_enter_your_reason.tr(),
-                                  errorText: _validateReasonInput
-                                      ? LocaleKeys.Please_enter_a_valid_reason
-                                          .tr()
-                                      : null,
-                                ),
-                              ),
-                            )
                           ],
-                        );
-                      })),
+                        ),
+                      ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          LocaleKeys.Reason.tr(),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: _reasonController,
+                        onChanged: (value) {
+                          setState(() {
+                            _validateReasonInput = value.isEmpty;
+                          });
+                        },
+                        maxLines: 3,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: LocaleKeys.Please_enter_your_reason.tr(),
+                          errorText: _validateReasonInput
+                              ? LocaleKeys.Please_enter_a_valid_reason.tr()
+                              : null,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 45),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                          TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                          TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                          TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                          TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                      child: customButton(
+                          context,
+                          LocaleKeys.Apply.tr(),
+                          ColorConstant.BLUE_BUTTON_TEXT,
+                          ColorConstant.BLUE_BUTTON_UNPRESSED,
+                          ColorConstant.BLUE_BUTTON_PRESSED, () {
+                        if (startTime == endTime ||
+                            !getTime(startTime, endTime)) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content:
+                                Text(LocaleKeys.Please_enter_a_valid_time.tr()),
+                            duration: Duration(seconds: 2),
+                          ));
+                        } else if (!_validateReasonInput &&
+                            selectedLeaveType != null &&
+                            selectedDate != null &&
+                            _reasonController.text.isNotEmpty &&
+                            (!(startTime == TimeOfDay(hour: 0, minute: 0) &&
+                                    endTime == TimeOfDay(hour: 0, minute: 0)) ||
+                                isFullDay)) {
+                          submitApplication();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                LocaleKeys.Please_fill_in_all_the_fields.tr()),
+                            duration: Duration(seconds: 2),
+                          ));
+                        }
+                      }),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 45),
             ],
           )),
       Positioned(
@@ -462,44 +483,6 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-      ),
-      Positioned(
-        bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-        left: 0,
-        right: 0,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-              TextConstant.CUSTOM_BUTTON_TB_PADDING,
-              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-              TextConstant.CUSTOM_BUTTON_TB_PADDING),
-          child: customButton(
-              context,
-              LocaleKeys.Apply.tr(),
-              ColorConstant.BLUE_BUTTON_TEXT,
-              ColorConstant.BLUE_BUTTON_UNPRESSED,
-              ColorConstant.BLUE_BUTTON_PRESSED, () {
-            if (startTime == endTime || !getTime(startTime, endTime)) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(LocaleKeys.Please_enter_a_valid_time.tr()),
-                duration: Duration(seconds: 2),
-              ));
-            } else if (!_validateReasonInput &&
-                selectedLeaveType != null &&
-                selectedDate != null &&
-                _reasonController.text.isNotEmpty &&
-                (!(startTime == TimeOfDay(hour: 0, minute: 0) &&
-                        endTime == TimeOfDay(hour: 0, minute: 0)) ||
-                    isFullDay)) {
-              submitApplication();
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(LocaleKeys.Please_fill_in_all_the_fields.tr()),
-                duration: Duration(seconds: 2),
-              ));
-            }
-          }),
         ),
       ),
     ]));

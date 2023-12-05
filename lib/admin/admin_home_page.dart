@@ -23,8 +23,8 @@ class _AdminHomePageState extends State<AdminHomePage>
     AdminHomeScreen(),
     AppointmentAdminNavPage(),
     QuestionListNavPage(),
-    UserManagementPage(),
     AdminActivityManagementScreen(),
+    UserManagementPage(),
     ProfileScreen(),
   ];
 
@@ -79,12 +79,12 @@ class _AdminHomePageState extends State<AdminHomePage>
         label: 'Screening Test',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.person_outline),
-        label: 'Manage Account',
+        icon: Icon(Icons.directions_run_outlined),
+        label: 'Activity Management',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.directions_run_outlined),
-        label: 'Settings',
+        icon: Icon(Icons.person_outline),
+        label: 'Manage Account',
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.settings_outlined),

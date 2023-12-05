@@ -182,6 +182,27 @@ class _TestPhysiotherapistRequestScreenState
                                   ),
                               ],
                             ),
+                          ),
+                          SizedBox(height: 180),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                                //TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                0,
+                                TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                                //TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                0,
+                                TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                            child: customButton(
+                              context,
+                              LocaleKeys.Next.tr(),
+                              ColorConstant.BLUE_BUTTON_TEXT,
+                              ColorConstant.BLUE_BUTTON_UNPRESSED,
+                              ColorConstant.BLUE_BUTTON_PRESSED,
+                              () {
+                                addPhysioToUser(userId, selectedUser);
+                              },
+                              // isDisabled: selectedUser == null,
+                            ),
                           )
                         ],
                       ),
@@ -189,30 +210,9 @@ class _TestPhysiotherapistRequestScreenState
                   ),
                 ),
               ),
+              SizedBox(height: 45),
             ],
           ),
-          Positioned(
-              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                    TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                    TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                child: customButton(
-                  context,
-                  LocaleKeys.Next.tr(),
-                  ColorConstant.BLUE_BUTTON_TEXT,
-                  ColorConstant.BLUE_BUTTON_UNPRESSED,
-                  ColorConstant.BLUE_BUTTON_PRESSED,
-                  () {
-                    addPhysioToUser(userId, selectedUser);
-                  },
-                  // isDisabled: selectedUser == null,
-                ),
-              ))
         ],
       ),
     );

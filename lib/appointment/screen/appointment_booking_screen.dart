@@ -447,6 +447,60 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                           ],
                         ),
                       ),
+                      SizedBox(height: 15),
+                      Visibility(
+                        visible: !isFullDayLeave,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                              TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                              TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                          child: customButton(
+                            context,
+                            LocaleKeys.Book_Now.tr(),
+                            ColorConstant.BLUE_BUTTON_TEXT,
+                            ColorConstant.BLUE_BUTTON_UNPRESSED,
+                            ColorConstant.BLUE_BUTTON_PRESSED,
+                            () {
+                              if (selectedHour == null) {
+                                // No hour selected, display a snackbar
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(LocaleKeys
+                                            .Please_select_an_appointment_time
+                                        .tr()),
+                                  ),
+                                );
+                                return; // Do not proceed further
+                              }
+
+                              appointmentInPendingService
+                                  .addPendingAppointmentRecordByDetails(
+                                      '[Appointment] ${patientData['username']} with ${physioData['username']}',
+                                      DateTime(
+                                          _selectedValue.year,
+                                          _selectedValue.month,
+                                          _selectedValue.day),
+                                      DateTime(
+                                          _selectedValue.year,
+                                          _selectedValue.month,
+                                          _selectedValue.day,
+                                          selectedHour!),
+                                      DateTime(
+                                          _selectedValue.year,
+                                          _selectedValue.month,
+                                          _selectedValue.day,
+                                          selectedHour! + 1),
+                                      Duration(hours: 1).inSeconds,
+                                      patientData['id'],
+                                      physioData['id']);
+                              Navigator.pop(context, true);
+                            },
+                          ),
+                        ),
+                      ),
+               
                     ],
                   ),
                 ),
@@ -502,59 +556,6 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             left: 20,
             child: Text(patientData['physio'] ?? '',
                 style: TextStyle(fontSize: 15.0)),
-          ),
-          Visibility(
-            visible: !isFullDayLeave,
-            child: Positioned(
-                bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-                right: 0,
-                left: 0,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                  child: customButton(
-                    context,
-                    LocaleKeys.Book_Now.tr(),
-                    ColorConstant.BLUE_BUTTON_TEXT,
-                    ColorConstant.BLUE_BUTTON_UNPRESSED,
-                    ColorConstant.BLUE_BUTTON_PRESSED,
-                    () {
-                      if (selectedHour == null) {
-                        // No hour selected, display a snackbar
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(LocaleKeys
-                                .Please_select_an_appointment_time.tr()),
-                          ),
-                        );
-                        return; // Do not proceed further
-                      }
-
-                      appointmentInPendingService
-                          .addPendingAppointmentRecordByDetails(
-                              '[Appointment] ${patientData['username']} with ${physioData['username']}',
-                              DateTime(_selectedValue.year,
-                                  _selectedValue.month, _selectedValue.day),
-                              DateTime(
-                                  _selectedValue.year,
-                                  _selectedValue.month,
-                                  _selectedValue.day,
-                                  selectedHour!),
-                              DateTime(
-                                  _selectedValue.year,
-                                  _selectedValue.month,
-                                  _selectedValue.day,
-                                  selectedHour! + 1),
-                              Duration(hours: 1).inSeconds,
-                              patientData['id'],
-                              physioData['id']);
-                      Navigator.pop(context, true);
-                    },
-                  ),
-                )),
           ),
         ],
       ),

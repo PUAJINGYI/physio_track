@@ -92,7 +92,8 @@ class _TestPart2ScreenState extends State<TestPart2Screen> {
       // Show snackbar alerting the user to answer all questions
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
+          content: Text(
+              LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
         ),
       );
       return; // Stop the submission process
@@ -205,22 +206,23 @@ class _TestPart2ScreenState extends State<TestPart2Screen> {
                           );
                         },
                       ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      child: customButton(
+                          context,
+                          LocaleKeys.Next.tr(),
+                          ColorConstant.BLUE_BUTTON_TEXT,
+                          ColorConstant.BLUE_BUTTON_UNPRESSED,
+                          ColorConstant.BLUE_BUTTON_PRESSED, () {
+                        submitResponses();
+                      }),
+                    )
                   ],
                 ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-            child: customButton(
-                context,
-                LocaleKeys.Next.tr(),
-                ColorConstant.BLUE_BUTTON_TEXT,
-                ColorConstant.BLUE_BUTTON_UNPRESSED,
-                ColorConstant.BLUE_BUTTON_PRESSED, () {
-              submitResponses();
-            }),
-          )
+          SizedBox(height: 45),
         ],
       ),
     );

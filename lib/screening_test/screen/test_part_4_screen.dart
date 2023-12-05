@@ -206,22 +206,23 @@ class _TestPart4ScreenState extends State<TestPart4Screen> {
                           );
                         },
                       ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      child: customButton(
+                          context,
+                          LocaleKeys.Next.tr(),
+                          ColorConstant.BLUE_BUTTON_TEXT,
+                          ColorConstant.BLUE_BUTTON_UNPRESSED,
+                          ColorConstant.BLUE_BUTTON_PRESSED, () {
+                        submitResponses();
+                      }),
+                    )
                   ],
                 ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-            child: customButton(
-                context,
-                LocaleKeys.Next.tr(),
-                ColorConstant.BLUE_BUTTON_TEXT,
-                ColorConstant.BLUE_BUTTON_UNPRESSED,
-                ColorConstant.BLUE_BUTTON_PRESSED, () {
-              submitResponses();
-            }),
-          )
+          SizedBox(height: 45),
         ],
       ),
     );

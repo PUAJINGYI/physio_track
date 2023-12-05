@@ -42,82 +42,102 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 200,
-            left: 0,
-            right: 0,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                        labelText: LocaleKeys.Title.tr(),
+          Column(
+            children: [
+              SizedBox(height: 250),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      TextField(
+                        controller: _titleController,
+                        decoration: InputDecoration(
+                          labelText: LocaleKeys.Title.tr(),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    TextField(
-                      controller: _descriptionController,
-                      decoration: InputDecoration(
-                        labelText: LocaleKeys.Description.tr(),
+                      SizedBox(height: 16.0),
+                      TextField(
+                        controller: _descriptionController,
+                        decoration: InputDecoration(
+                          labelText: LocaleKeys.Description.tr(),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    // Replace the TextField with the NumberPicker
-                    GestureDetector(
-                      onTap: () {
-                        _showDurationPicker(context);
-                      },
-                      child: AbsorbPointer(
-                        child: TextField(
-                          controller: _durationController,
-                          decoration: InputDecoration(
-                            labelText: LocaleKeys.Duration.tr(),
+                      SizedBox(height: 16.0),
+                      // Replace the TextField with the NumberPicker
+                      GestureDetector(
+                        onTap: () {
+                          _showDurationPicker(context);
+                        },
+                        child: AbsorbPointer(
+                          child: TextField(
+                            controller: _durationController,
+                            decoration: InputDecoration(
+                              labelText: LocaleKeys.Duration.tr(),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    GestureDetector(
-                      onTap: () {
-                        _showLevelPicker(context);
-                      },
-                      child: AbsorbPointer(
-                        child: TextField(
-                          controller: _levelController,
-                          decoration: InputDecoration(
-                            labelText: LocaleKeys.Level.tr(),
+                      SizedBox(height: 16.0),
+                      GestureDetector(
+                        onTap: () {
+                          _showLevelPicker(context);
+                        },
+                        child: AbsorbPointer(
+                          child: TextField(
+                            controller: _levelController,
+                            decoration: InputDecoration(
+                              labelText: LocaleKeys.Level.tr(),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    GestureDetector(
-                      onTap: () {
-                        _showCatPicker(context);
-                      },
-                      child: AbsorbPointer(
-                        child: TextField(
-                          controller: _catController,
-                          decoration: InputDecoration(
-                            labelText: LocaleKeys.Category.tr(),
+                      SizedBox(height: 16.0),
+                      GestureDetector(
+                        onTap: () {
+                          _showCatPicker(context);
+                        },
+                        child: AbsorbPointer(
+                          child: TextField(
+                            controller: _catController,
+                            decoration: InputDecoration(
+                              labelText: LocaleKeys.Category.tr(),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    TextField(
-                      controller: _videoUrlController,
-                      decoration: InputDecoration(
-                        labelText: LocaleKeys.Video_URL.tr(),
+                      SizedBox(height: 16.0),
+                      TextField(
+                        controller: _videoUrlController,
+                        decoration: InputDecoration(
+                          labelText: LocaleKeys.Video_URL.tr(),
+                        ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 40),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                            0,
+                            TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                            0,
+                            TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                        child: customButton(
+                          context,
+                          LocaleKeys.Add.tr(),
+                          ColorConstant.GREEN_BUTTON_TEXT,
+                          ColorConstant.GREEN_BUTTON_UNPRESSED,
+                          ColorConstant.GREEN_BUTTON_PRESSED,
+                          () {
+                            _addPTActivityLibrary();
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
+              SizedBox(height: 45),
+            ],
           ),
           Positioned(
             top: 25,
@@ -149,36 +169,17 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
             ),
           ),
           Positioned(
-            top: 60,
+            top: 90,
             right: 0,
             left: 0,
-            child: Image.asset(
-              ImageConstant.PT,
-              width: 271.0,
-              height: 170.0,
+            child: Center(
+              child: Image.asset(
+                ImageConstant.PT,
+                height: 150.0,
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
-          Positioned(
-              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                    TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                    TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                    TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                child: customButton(
-                  context,
-                  LocaleKeys.Add.tr(),
-                  ColorConstant.GREEN_BUTTON_TEXT,
-                  ColorConstant.GREEN_BUTTON_UNPRESSED,
-                  ColorConstant.GREEN_BUTTON_PRESSED,
-                  () {
-                    _addPTActivityLibrary();
-                  },
-                ),
-              ))
         ],
       ),
     );
@@ -270,7 +271,8 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
           },
           child: Container(
             height: MediaQuery.of(context).copyWith().size.height / 3,
-            child: Column(
+            child: ListView(
+              padding: EdgeInsets.zero,
               children: [
                 Container(
                   alignment: Alignment.topCenter,

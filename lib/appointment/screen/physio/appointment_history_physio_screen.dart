@@ -83,7 +83,9 @@ class _AppointmentHistoryPhysioScreenState
                     return Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+                    return Center(
+                        child: Text(
+                            '${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                   }
                   if (snapshot.hasData) {
                     List<Appointment> appointments = snapshot.data!;
@@ -217,7 +219,9 @@ class _AppointmentHistoryPhysioScreenState
                                                               25.0),
                                                       child: TextButton(
                                                         onPressed: () async {
-                                                         final needUpdate =  await Navigator.push(
+                                                          final needUpdate =
+                                                              await Navigator
+                                                                  .push(
                                                             context,
                                                             MaterialPageRoute(
                                                               builder: (context) =>
@@ -228,16 +232,24 @@ class _AppointmentHistoryPhysioScreenState
                                                               ),
                                                             ),
                                                           );
-                                                          if(needUpdate != null && needUpdate){
+                                                          if (needUpdate !=
+                                                                  null &&
+                                                              needUpdate) {
                                                             setState(() {
-                                                              _appointmentList = _fetchAppointmentList(uid);
+                                                              _appointmentList =
+                                                                  _fetchAppointmentList(
+                                                                      uid);
                                                             });
-                                                        }
+                                                          }
                                                         },
                                                         style: TextButton
                                                             .styleFrom(
                                                           backgroundColor:
-                                                              Color.fromARGB(255, 250, 224, 191),
+                                                              Color.fromARGB(
+                                                                  255,
+                                                                  250,
+                                                                  224,
+                                                                  191),
                                                           primary: Colors.white,
                                                         ),
                                                         child: Row(
@@ -246,10 +258,17 @@ class _AppointmentHistoryPhysioScreenState
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              LocaleKeys.View_Report.tr(),
+                                                              LocaleKeys
+                                                                      .View_Report
+                                                                  .tr(),
                                                               style: TextStyle(
                                                                 fontSize: 15.0,
-                                                                color: Color.fromARGB(255, 255, 147, 47),
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        255,
+                                                                        147,
+                                                                        47),
                                                               ),
                                                             ),
                                                           ],
@@ -267,8 +286,10 @@ class _AppointmentHistoryPhysioScreenState
                                                           BorderRadius.circular(
                                                               25.0),
                                                       child: TextButton(
-                                                        onPressed: () async{
-                                                         final needUpdate = await Navigator.push(
+                                                        onPressed: () async {
+                                                          final needUpdate =
+                                                              await Navigator
+                                                                  .push(
                                                             context,
                                                             MaterialPageRoute(
                                                               builder: (context) =>
@@ -280,9 +301,13 @@ class _AppointmentHistoryPhysioScreenState
                                                             ),
                                                           );
 
-                                                          if(needUpdate != null && needUpdate){
+                                                          if (needUpdate !=
+                                                                  null &&
+                                                              needUpdate) {
                                                             setState(() {
-                                                              _appointmentList = _fetchAppointmentList(uid);
+                                                              _appointmentList =
+                                                                  _fetchAppointmentList(
+                                                                      uid);
                                                             });
                                                           }
                                                         },
@@ -302,7 +327,9 @@ class _AppointmentHistoryPhysioScreenState
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              LocaleKeys.Create_Report.tr(),
+                                                              LocaleKeys
+                                                                      .Create_Report
+                                                                  .tr(),
                                                               style: TextStyle(
                                                                 fontSize: 15.0,
                                                                 color: Colors
@@ -334,7 +361,8 @@ class _AppointmentHistoryPhysioScreenState
                   return Container();
                 },
               ),
-            )
+            ),
+            SizedBox(height: 70),
           ],
         ),
         Positioned(

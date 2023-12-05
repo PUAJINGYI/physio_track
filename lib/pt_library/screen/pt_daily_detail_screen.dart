@@ -835,12 +835,35 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                             }
                                           },
                                         ),
-                                        SizedBox(height: 250.0),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                              child: Container(
+                                height: kToolbarHeight,
+                                alignment: Alignment.center,
+                                child: customButton(
+                                  context,
+                                  LocaleKeys.Mark_as_Completed.tr(),
+                                  ColorConstant.GREEN_BUTTON_TEXT,
+                                  ColorConstant.GREEN_BUTTON_UNPRESSED,
+                                  ColorConstant.GREEN_BUTTON_PRESSED,
+                                  () {
+                                    _markAsCompleted();
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 45,
                             ),
                           ],
                         );
@@ -873,32 +896,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                             fontSize: TextConstant.TITLE_FONT_SIZE,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-                      left: 0,
-                      right: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                            TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                            TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                            TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                            TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                        child: Container(
-                          height: kToolbarHeight,
-                          alignment: Alignment.center,
-                          child: customButton(
-                            context,
-                            LocaleKeys.Mark_as_Completed.tr(),
-                            ColorConstant.GREEN_BUTTON_TEXT,
-                            ColorConstant.GREEN_BUTTON_UNPRESSED,
-                            ColorConstant.GREEN_BUTTON_PRESSED,
-                            () {
-                              _markAsCompleted();
-                            },
                           ),
                         ),
                       ),

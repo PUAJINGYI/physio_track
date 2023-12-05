@@ -232,9 +232,11 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                               children: [
                                 // SizedBox(height: kToolbarHeight),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
                                   child: SizedBox(
-                                      width: MediaQuery.of(context).size.width * 0.5,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
                                       child: Text(
                                         journal != null ? journal!.title : '',
                                         style: TextStyle(
@@ -245,13 +247,16 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                 ),
                                 SizedBox(height: 100.0),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                   child: Stack(
                                     children: [
                                       Card(
-                                        color: Color.fromRGBO(131, 183, 200, 0.8),
+                                        color:
+                                            Color.fromRGBO(131, 183, 200, 0.8),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15.0),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.fromLTRB(
@@ -275,22 +280,28 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                               Card(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(15.0),
+                                                      BorderRadius.circular(
+                                                          15.0),
                                                 ),
-                                                color:
-                                                    Color.fromRGBO(241, 243, 250, 1),
+                                                color: Color.fromRGBO(
+                                                    241, 243, 250, 1),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.fromLTRB(
-                                                      20, 10, 20, 10),
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          20, 10, 20, 10),
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
-                                                        LocaleKeys.Weather_Today.tr(),
-                                                        textAlign: TextAlign.left,
+                                                        LocaleKeys.Weather_Today
+                                                            .tr(),
+                                                        textAlign:
+                                                            TextAlign.left,
                                                         style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           color: Color.fromRGBO(
                                                               1, 101, 134, 1),
                                                           fontSize: 18.0,
@@ -306,11 +317,14 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                                             children: [
                                                               Icon(
                                                                 _getWeatherIcon(),
-                                                                color: Colors.blue,
+                                                                color:
+                                                                    Colors.blue,
                                                                 size: 40.0,
                                                               ),
-                                                              Text(journal != null
-                                                                  ? journal!.weather
+                                                              Text(journal !=
+                                                                      null
+                                                                  ? journal!
+                                                                      .weather
                                                                   : ''),
                                                             ],
                                                           ),
@@ -323,22 +337,28 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                               Card(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(15.0),
+                                                      BorderRadius.circular(
+                                                          15.0),
                                                 ),
-                                                color:
-                                                    Color.fromRGBO(241, 243, 250, 1),
+                                                color: Color.fromRGBO(
+                                                    241, 243, 250, 1),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.fromLTRB(
-                                                      20, 10, 20, 10),
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          20, 10, 20, 10),
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
-                                                        LocaleKeys.Feeling_Today.tr(),
-                                                        textAlign: TextAlign.left,
+                                                        LocaleKeys.Feeling_Today
+                                                            .tr(),
+                                                        textAlign:
+                                                            TextAlign.left,
                                                         style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           color: Color.fromRGBO(
                                                               1, 101, 134, 1),
                                                           fontSize: 18.0,
@@ -354,11 +374,14 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                                             children: [
                                                               Icon(
                                                                 _getFeelingIcon(),
-                                                                color: Colors.blue,
+                                                                color:
+                                                                    Colors.blue,
                                                                 size: 40.0,
                                                               ),
-                                                              Text(journal != null
-                                                                  ? journal!.feeling
+                                                              Text(journal !=
+                                                                      null
+                                                                  ? journal!
+                                                                      .feeling
                                                                   : ''),
                                                             ],
                                                           ),
@@ -371,23 +394,29 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                               Card(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(15.0),
+                                                      BorderRadius.circular(
+                                                          15.0),
                                                 ),
-                                                color:
-                                                    Color.fromRGBO(241, 243, 250, 1),
+                                                color: Color.fromRGBO(
+                                                    241, 243, 250, 1),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.fromLTRB(
-                                                      20, 10, 20, 10),
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          20, 10, 20, 10),
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
-                                                        LocaleKeys.Health_Condition
+                                                        LocaleKeys
+                                                                .Health_Condition
                                                             .tr(),
-                                                        textAlign: TextAlign.left,
+                                                        textAlign:
+                                                            TextAlign.left,
                                                         style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           color: Color.fromRGBO(
                                                               1, 101, 134, 1),
                                                           fontSize: 18.0,
@@ -404,7 +433,8 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                                               Text(
                                                                 _getHealthCondition(),
                                                                 style: TextStyle(
-                                                                    fontSize: 20.0,
+                                                                    fontSize:
+                                                                        20.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold),
@@ -421,23 +451,29 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                               Card(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(15.0),
+                                                      BorderRadius.circular(
+                                                          15.0),
                                                 ),
-                                                color:
-                                                    Color.fromRGBO(241, 243, 250, 1),
+                                                color: Color.fromRGBO(
+                                                    241, 243, 250, 1),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.fromLTRB(
-                                                      20, 10, 20, 10),
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          20, 10, 20, 10),
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
-                                                        LocaleKeys.Comment_of_Day
+                                                        LocaleKeys
+                                                                .Comment_of_Day
                                                             .tr(),
-                                                        textAlign: TextAlign.left,
+                                                        textAlign:
+                                                            TextAlign.left,
                                                         style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           color: Color.fromRGBO(
                                                               1, 101, 134, 1),
                                                           fontSize: 18.0,
@@ -446,16 +482,19 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                                       SizedBox(height: 10.0),
                                                       Row(
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment.start,
+                                                            MainAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Column(
                                                             children: [
                                                               Text(
                                                                 journal != null
-                                                                    ? journal!.comment
+                                                                    ? journal!
+                                                                        .comment
                                                                     : '',
                                                                 style: TextStyle(
-                                                                    fontSize: 20.0,
+                                                                    fontSize:
+                                                                        20.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold),
@@ -476,7 +515,23 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                                     ],
                                   ),
                                 ),
-                                // SizedBox(height: 16.0),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                                  child: customButton(
+                                      context,
+                                      LocaleKeys.Back.tr(),
+                                      ColorConstant.BLUE_BUTTON_TEXT,
+                                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                                      ColorConstant.BLUE_BUTTON_PRESSED,
+                                      () async {
+                                    await back();
+                                  }),
+                                ),
+                                SizedBox(height: 50.0),
                               ],
                             ),
                             Positioned(
@@ -486,7 +541,8 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                               child: SizedBox(
                                 height: 160.0,
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(60, 0, 60, 0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Container(
@@ -571,26 +627,6 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                        TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                        TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                    child: customButton(
-                        context,
-                        LocaleKeys.Back.tr(),
-                        ColorConstant.BLUE_BUTTON_TEXT,
-                        ColorConstant.BLUE_BUTTON_UNPRESSED,
-                        ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                      await back();
-                    }),
-                  ),
-                )
               ]),
             );
           }

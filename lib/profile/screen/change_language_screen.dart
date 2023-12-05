@@ -88,8 +88,9 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                             ),
                                             Spacer(),
                                             Padding(
-                                              padding: const EdgeInsets.fromLTRB(
-                                                  0, 0, 10, 0),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 10, 0),
                                               child: Transform.scale(
                                                 scale: 1.5,
                                                 child: Radio<int>(
@@ -146,8 +147,9 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                             ),
                                             Spacer(),
                                             Padding(
-                                              padding: const EdgeInsets.fromLTRB(
-                                                  0, 0, 10, 0),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 10, 0),
                                               child: Transform.scale(
                                                 scale: 1.5,
                                                 child: Radio<int>(
@@ -204,8 +206,9 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                             ),
                                             Spacer(),
                                             Padding(
-                                              padding: const EdgeInsets.fromLTRB(
-                                                  0, 0, 10, 0),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 10, 0),
                                               child: Transform.scale(
                                                 scale: 1.5,
                                                 child: Radio<int>(
@@ -228,6 +231,35 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            height: 75,
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                              child: customButton(
+                                  context,
+                                  LocaleKeys.Change.tr(),
+                                  ColorConstant.BLUE_BUTTON_TEXT,
+                                  ColorConstant.BLUE_BUTTON_UNPRESSED,
+                                  ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                                if (selectedLanguage == 1) {
+                                  //await context.setLocale(Locale('en'));
+                                  await EasyLocalization.of(context)!
+                                      .setLocale(Locale('en'));
+                                } else if (selectedLanguage == 2) {
+                                  //await context.setLocale(Locale('my'));
+                                  await EasyLocalization.of(context)!
+                                      .setLocale(Locale('ms'));
+                                } else if (selectedLanguage == 3) {
+                                  //await context.setLocale(Locale('zh'));
+                                  await EasyLocalization.of(context)!
+                                      .setLocale(Locale('zh'));
+                                }
+                              }))
                         ],
                       ),
                     )
@@ -271,36 +303,6 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
               height: 200.0,
             ),
           ),
-          Positioned(
-              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-              left: 0,
-              right: 0,
-              child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                  child: customButton(
-                      context,
-                      LocaleKeys.Change.tr(),
-                      ColorConstant.BLUE_BUTTON_TEXT,
-                      ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                    if (selectedLanguage == 1) {
-                      //await context.setLocale(Locale('en'));
-                      await EasyLocalization.of(context)!
-                          .setLocale(Locale('en'));
-                    } else if (selectedLanguage == 2) {
-                      //await context.setLocale(Locale('my'));
-                      await EasyLocalization.of(context)!
-                          .setLocale(Locale('ms'));
-                    } else if (selectedLanguage == 3) {
-                      //await context.setLocale(Locale('zh'));
-                      await EasyLocalization.of(context)!
-                          .setLocale(Locale('zh'));
-                    }
-                  }))),
         ],
       )),
     );

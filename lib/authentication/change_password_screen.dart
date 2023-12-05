@@ -76,11 +76,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 60,
+                  ),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            20, 0, 20, 0),
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         child: Column(
                           children: [
                             SizedBox(
@@ -100,7 +102,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             ),
                             reusableTextField(
                                 LocaleKeys.Enter_Confirmed_Password.tr(),
-                                LocaleKeys.Please_insert_confirmed_password.tr(),
+                                LocaleKeys.Please_insert_confirmed_password
+                                    .tr(),
                                 Icons.lock_outline,
                                 true,
                                 _confirmPasswordTextController,
@@ -122,6 +125,42 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           ],
                         ),
                       )),
+                  SizedBox(height: 110),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                        TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                        TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                    child: customButton(
+                      context,
+                      LocaleKeys.Reset_Password.tr(),
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED,
+                      () {
+                        setState(() {
+                          _passwordTextController.text.isEmpty
+                              ? _validatePasswordInput = true
+                              : _validatePasswordInput = false;
+                          _confirmPasswordTextController.text.isEmpty
+                              ? _validateConfirmPasswordInput = true
+                              : _validateConfirmPasswordInput = false;
+                          _newPasswordTextController.text.isEmpty
+                              ? _validateNewPasswordInput = true
+                              : _validateNewPasswordInput = false;
+                        });
+                        if (_validatePasswordInput == false &&
+                            _validateConfirmPasswordInput == false &&
+                            _validateNewPasswordInput == false) {
+                          changePassword(
+                              _passwordTextController.text,
+                              _confirmPasswordTextController.text,
+                              _newPasswordTextController.text);
+                        }
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -156,46 +195,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
           ),
         ),
-        Positioned(
-          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING),
-            child: customButton(
-              context,
-              LocaleKeys.Reset_Password.tr(),
-              ColorConstant.BLUE_BUTTON_TEXT,
-              ColorConstant.BLUE_BUTTON_UNPRESSED,
-              ColorConstant.BLUE_BUTTON_PRESSED,
-              () {
-                setState(() {
-                  _passwordTextController.text.isEmpty
-                      ? _validatePasswordInput = true
-                      : _validatePasswordInput = false;
-                  _confirmPasswordTextController.text.isEmpty
-                      ? _validateConfirmPasswordInput = true
-                      : _validateConfirmPasswordInput = false;
-                  _newPasswordTextController.text.isEmpty
-                      ? _validateNewPasswordInput = true
-                      : _validateNewPasswordInput = false;
-                });
-                if (_validatePasswordInput == false &&
-                    _validateConfirmPasswordInput == false &&
-                    _validateNewPasswordInput == false) {
-                  changePassword(
-                      _passwordTextController.text,
-                      _confirmPasswordTextController.text,
-                      _newPasswordTextController.text);
-                }
-              },
-            ),
-          ),
-        )
       ]),
     );
   }

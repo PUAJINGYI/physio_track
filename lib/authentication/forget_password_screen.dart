@@ -87,6 +87,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 60,
+                  ),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
@@ -108,6 +111,32 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           ],
                         ),
                       )),
+                  SizedBox(height: 110),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                        TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                        TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                        TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                    child: customButton(
+                      context,
+                      LocaleKeys.Reset_Password.tr(),
+                      ColorConstant.BLUE_BUTTON_TEXT,
+                      ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ColorConstant.BLUE_BUTTON_PRESSED,
+                      () {
+                        setState(() {
+                          _emailTextController.text.isEmpty ||
+                                  !_emailTextController.text.contains("@")
+                              ? _validateEmailInput = true
+                              : _validateEmailInput = false;
+                        });
+                        if (_validateEmailInput == false) {
+                          _sendPasswordResetEmail();
+                        }
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -142,36 +171,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             ),
           ),
         ),
-        Positioned(
-          bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                TextConstant.CUSTOM_BUTTON_TB_PADDING),
-            child: customButton(
-              context,
-              LocaleKeys.Reset_Password.tr(),
-              ColorConstant.BLUE_BUTTON_TEXT,
-              ColorConstant.BLUE_BUTTON_UNPRESSED,
-              ColorConstant.BLUE_BUTTON_PRESSED,
-              () {
-                setState(() {
-                  _emailTextController.text.isEmpty ||
-                          !_emailTextController.text.contains("@")
-                      ? _validateEmailInput = true
-                      : _validateEmailInput = false;
-                });
-                if (_validateEmailInput == false) {
-                  _sendPasswordResetEmail();
-                }
-              },
-            ),
-          ),
-        )
       ]),
     );
   }

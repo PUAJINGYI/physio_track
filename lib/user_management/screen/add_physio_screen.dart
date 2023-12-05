@@ -194,91 +194,126 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                 height: 70,
               ),
               Expanded(
-                  child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                ImageConstant.PHYSIO,
-                                width: 300.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      Image.asset(
+                        ImageConstant.PHYSIO,
+                        width: 300.0,
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      reusableTextField(
+                          LocaleKeys.Enter_username.tr(),
+                          LocaleKeys.Please_Insert_Username.tr(),
+                          Icons.person_outline,
+                          false,
+                          _usernameController,
+                          _validateUsernameInput,
+                          _isObscure,
+                          toggleObscure),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      reusableTextField(
+                          LocaleKeys.Enter_Email.tr(),
+                          LocaleKeys.Please_Insert_Valid_Email.tr(),
+                          Icons.mail_outline,
+                          false,
+                          _emailTextController,
+                          _validateEmailInput,
+                          _isObscure,
+                          toggleObscure),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      reusableTextField(
+                          LocaleKeys.Enter_Password.tr(),
+                          LocaleKeys.Please_Insert_Password.tr(),
+                          Icons.lock_outline,
+                          true,
+                          _passwordTextController,
+                          _validatePasswordInput,
+                          _isObscure,
+                          toggleObscure),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _showGenderPicker(context);
+                        },
+                        child: AbsorbPointer(
+                          child: TextField(
+                            controller: _genderController,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.male_outlined,
+                                color: Colors.black,
                               ),
-                              SizedBox(
-                                height: 50,
-                              ),
-                              reusableTextField(
-                                  LocaleKeys.Enter_username.tr(),
-                                  LocaleKeys.Please_Insert_Username.tr(),
-                                  Icons.person_outline,
-                                  false,
-                                  _usernameController,
-                                  _validateUsernameInput,
-                                  _isObscure,
-                                  toggleObscure),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              reusableTextField(
-                                  LocaleKeys.Enter_Email.tr(),
-                                  LocaleKeys.Please_Insert_Valid_Email.tr(),
-                                  Icons.mail_outline,
-                                  false,
-                                  _emailTextController,
-                                  _validateEmailInput,
-                                  _isObscure,
-                                  toggleObscure),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              reusableTextField(
-                                  LocaleKeys.Enter_Password.tr(),
-                                  LocaleKeys.Please_Insert_Password.tr(),
-                                  Icons.lock_outline,
-                                  true,
-                                  _passwordTextController,
-                                  _validatePasswordInput,
-                                  _isObscure,
-                                  toggleObscure),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _showGenderPicker(context);
-                                },
-                                child: AbsorbPointer(
-                                  child: TextField(
-                                    controller: _genderController,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.male_outlined,
-                                        color: Colors.black,
-                                      ),
-                                      labelText: LocaleKeys.Select_Gender.tr(),
-                                      errorText: _validateGender
-                                          ? LocaleKeys.Please_Select_Gender.tr()
-                                          : null,
-                                      labelStyle: TextStyle(
-                                          color: Colors.black.withOpacity(0.5)),
-                                      filled: true,
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.never,
-                                      fillColor: Colors.white,
-                                      border: UnderlineInputBorder(),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 100,
-                              ),
-                            ],
+                              labelText: LocaleKeys.Select_Gender.tr(),
+                              errorText: _validateGender
+                                  ? LocaleKeys.Please_Select_Gender.tr()
+                                  : null,
+                              labelStyle: TextStyle(
+                                  color: Colors.black.withOpacity(0.5)),
+                              filled: true,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              fillColor: Colors.white,
+                              border: UnderlineInputBorder(),
+                            ),
                           ),
-                        );
-                      })),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 100,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                            0,
+                            TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                            0,
+                            TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                        child: customButton(
+                            context,
+                            LocaleKeys.Add.tr(),
+                            ColorConstant.BLUE_BUTTON_TEXT,
+                            ColorConstant.BLUE_BUTTON_UNPRESSED,
+                            ColorConstant.BLUE_BUTTON_PRESSED, () async {
+                          setState(() {
+                            _usernameController.text.isEmpty
+                                ? _validateUsernameInput = true
+                                : _validateUsernameInput = false;
+                            _emailTextController.text.isEmpty ||
+                                    !_emailTextController.text.contains("@")
+                                ? _validateEmailInput = true
+                                : _validateEmailInput = false;
+                            _passwordTextController.text.isEmpty
+                                ? _validatePasswordInput = true
+                                : _validatePasswordInput = false;
+                            _genderController.text.isEmpty
+                                ? _validateGender = true
+                                : _validateGender = false;
+                          });
+                          if (_validateUsernameInput == false &&
+                              _validateEmailInput == false &&
+                              _validatePasswordInput == false &&
+                              _validateGender == false) {
+                            await _createPhysioAccWithEmailAndPassword();
+                          }
+                        }),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 45,
+              ),
             ],
           ),
         ),
@@ -311,45 +346,6 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
             ),
           ),
         ),
-        Positioned(
-            bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                  TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                  TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                  TextConstant.CUSTOM_BUTTON_TB_PADDING),
-              child: customButton(
-                  context,
-                  LocaleKeys.Add.tr(),
-                  ColorConstant.BLUE_BUTTON_TEXT,
-                  ColorConstant.BLUE_BUTTON_UNPRESSED,
-                  ColorConstant.BLUE_BUTTON_PRESSED, () async {
-                setState(() {
-                  _usernameController.text.isEmpty
-                      ? _validateUsernameInput = true
-                      : _validateUsernameInput = false;
-                  _emailTextController.text.isEmpty ||
-                          !_emailTextController.text.contains("@")
-                      ? _validateEmailInput = true
-                      : _validateEmailInput = false;
-                  _passwordTextController.text.isEmpty
-                      ? _validatePasswordInput = true
-                      : _validatePasswordInput = false;
-                  _genderController.text.isEmpty
-                      ? _validateGender = true
-                      : _validateGender = false;
-                });
-                if (_validateUsernameInput == false &&
-                    _validateEmailInput == false &&
-                    _validatePasswordInput == false &&
-                    _validateGender == false) {
-                  await _createPhysioAccWithEmailAndPassword();
-                }
-              }),
-            ))
       ],
     ));
   }

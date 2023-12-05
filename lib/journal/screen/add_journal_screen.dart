@@ -432,6 +432,22 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                             ],
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                              TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                              TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                          child: customButton(
+                              context,
+                              LocaleKeys.Complete.tr(),
+                              ColorConstant.BLUE_BUTTON_TEXT,
+                              ColorConstant.BLUE_BUTTON_UNPRESSED,
+                              ColorConstant.BLUE_BUTTON_PRESSED, () {
+                            createJournal();
+                          }),
+                        ),
+                        SizedBox(height: 50.0),
                       ],
                     ),
                     Positioned(
@@ -481,25 +497,6 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                         },
                       ),
                     ),
-                    Positioned(
-                        bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-                        left: 0,
-                        right: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                              TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                              TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                              TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                          child: customButton(
-                              context,
-                              LocaleKeys.Complete.tr(),
-                              ColorConstant.BLUE_BUTTON_TEXT,
-                              ColorConstant.BLUE_BUTTON_UNPRESSED,
-                              ColorConstant.BLUE_BUTTON_PRESSED, () {
-                            createJournal();
-                          }),
-                        )),
                   ],
                 ),
               ),

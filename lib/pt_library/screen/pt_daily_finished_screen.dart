@@ -111,7 +111,7 @@ class _PTDailyFinishedScreenState extends State<PTDailyFinishedScreen> {
             ),
           ),
           Positioned(
-              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
+              bottom: TextConstant.CUSTOM_BUTTON_BOTTOM+15,
               left: 0,
               right: 0,
               child: Padding(

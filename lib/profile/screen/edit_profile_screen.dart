@@ -239,6 +239,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           'Please insert address !',
                           _validateAddressInput,
                           _addressController),
+                           SizedBox(height: 80),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                            TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                            TextConstant.CUSTOM_BUTTON_TB_PADDING,
+                            TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
+                            TextConstant.CUSTOM_BUTTON_TB_PADDING),
+                        child: customButton(
+                            context,
+                            LocaleKeys.Update_Profile.tr(),
+                            ColorConstant.GREEN_BUTTON_TEXT,
+                            ColorConstant.GREEN_BUTTON_UNPRESSED,
+                            ColorConstant.GREEN_BUTTON_PRESSED, () {
+                          setState(() {
+                            _usernameController.text.isEmpty
+                                ? _validateUsernameInput = true
+                                : _validateUsernameInput = false;
+                            _phoneController.text.isEmpty
+                                ? _validatePhoneInput = true
+                                : _validatePhoneInput = false;
+                            _emailController.text.isEmpty ||
+                                    !_emailController.text.contains("@")
+                                ? _validateEmailInput = true
+                                : _validateEmailInput = false;
+                            _addressController.text.isEmpty
+                                ? _validateAddressInput = true
+                                : _validateAddressInput = false;
+                          });
+                          if (_validateUsernameInput == false &&
+                              _validatePhoneInput == false &&
+                              _validateEmailInput == false &&
+                              _validateAddressInput == false) {
+                            updateProfile(
+                                _usernameController.text,
+                                _phoneController.text,
+                                _emailController.text,
+                                _addressController.text);
+                          }
+                        }),
+                      )
                     ],
                   ),
                 ),
@@ -273,49 +313,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
             ),
-            Positioned(
-                bottom: TextConstant.CUSTOM_BUTTON_BOTTOM,
-                left: 0,
-                right: 0,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                      TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                      TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
-                      TextConstant.CUSTOM_BUTTON_TB_PADDING),
-                  child: customButton(
-                      context,
-                      LocaleKeys.Update_Profile.tr(),
-                      ColorConstant.GREEN_BUTTON_TEXT,
-                      ColorConstant.GREEN_BUTTON_UNPRESSED,
-                      ColorConstant.GREEN_BUTTON_PRESSED, () {
-                    setState(() {
-                      _usernameController.text.isEmpty
-                          ? _validateUsernameInput = true
-                          : _validateUsernameInput = false;
-                      _phoneController.text.isEmpty
-                          ? _validatePhoneInput = true
-                          : _validatePhoneInput = false;
-                      _emailController.text.isEmpty ||
-                              !_emailController.text.contains("@")
-                          ? _validateEmailInput = true
-                          : _validateEmailInput = false;
-                      _addressController.text.isEmpty
-                          ? _validateAddressInput = true
-                          : _validateAddressInput = false;
-                    });
-                    if (_validateUsernameInput == false &&
-                        _validatePhoneInput == false &&
-                        _validateEmailInput == false &&
-                        _validateAddressInput == false) {
-                      updateProfile(
-                          _usernameController.text,
-                          _phoneController.text,
-                          _emailController.text,
-                          _addressController.text);
-                    }
-                  }),
-                ))
           ],
         ),
       );
