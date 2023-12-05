@@ -280,4 +280,13 @@ class UserManagementService {
     int physioId = await fetchUserIdByUid(physioUid);
     return physioId;
   }
+
+  Future<String> getRoleByUid(String uid) async {
+    String role = '';
+    DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
+    if (documentSnapshot.exists) {
+      role = documentSnapshot['role'];
+    }
+    return role;
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -13,6 +14,7 @@ import '../../constant/TextConstant.dart';
 import '../../ot_library/model/ot_activity_model.dart';
 import '../../pt_library/screen/pt_daily_list_screen.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../user_management/service/user_management_service.dart';
 
 class WeeklyAnalsisDetailScreen extends StatefulWidget {
   final String uid;
@@ -27,7 +29,21 @@ class WeeklyAnalsisDetailScreen extends StatefulWidget {
 }
 
 class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
+  String userId = FirebaseAuth.instance.currentUser!.uid;
   DateTime today = DateTime.now();
+  UserManagementService userManagementService = UserManagementService();
+  late String role = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getUserRole();
+  }
+
+  Future<void> getUserRole() async {
+    String role = await userManagementService.getRoleByUid(userId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +51,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
                 height: 250,
@@ -55,16 +72,32 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                                   15.0), // Adjust the radius as needed
                               child: GestureDetector(
                                 onTap: () {
-                                  today =
-                                      DateTime(today.year, today.month, today.day);
-                                  if (widget.ot.date == Timestamp.fromDate(today)) {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                  today = DateTime(
+                                      today.year, today.month, today.day);
+                                  if (widget.ot.date ==
+                                          Timestamp.fromDate(today) &&
+                                      role == 'patient') {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (context) => PTDailyListScreen(
                                         uid: widget.uid,
                                       ),
                                     ));
+                                  } else if (widget.ot.date ==
+                                          Timestamp.fromDate(today) &&
+                                      role == 'physio') {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          WeeklyAnalysisPTActivityDetailScreen(
+                                        id: widget.pt.id,
+                                        uid: widget.uid,
+                                        isPatientView: false,
+                                      ),
+                                    ));
                                   } else {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (context) =>
                                           WeeklyAnalysisPTActivityDetailScreen(
                                         id: widget.pt.id,
@@ -98,7 +131,8 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                                               lineWidth: 15.0,
                                               percent: widget.pt.progress,
                                               progressColor: Colors.blue,
-                                              backgroundColor: Colors.blue.shade100,
+                                              backgroundColor:
+                                                  Colors.blue.shade100,
                                               circularStrokeCap:
                                                   CircularStrokeCap.round,
                                               center: Text(
@@ -126,15 +160,31 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                                   15.0), // Adjust the radius as needed
                               child: GestureDetector(
                                 onTap: () {
-                                  today =
-                                      DateTime(today.year, today.month, today.day);
-                                  if (widget.ot.date == Timestamp.fromDate(today)) {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                  today = DateTime(
+                                      today.year, today.month, today.day);
+                                  if (widget.ot.date ==
+                                          Timestamp.fromDate(today) &&
+                                      role == 'patient') {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (context) =>
                                           OTDailyListScreen(uid: widget.uid),
                                     ));
+                                  } else if (widget.ot.date ==
+                                          Timestamp.fromDate(today) &&
+                                      role == 'physio') {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          WeeklyAnalysisOTActivityDetailScreen(
+                                        id: widget.ot.id,
+                                        uid: widget.uid,
+                                        isPatientView: false,
+                                      ),
+                                    ));
                                   } else {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (context) =>
                                           WeeklyAnalysisOTActivityDetailScreen(
                                         id: widget.ot.id,
@@ -168,7 +218,8 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                                               lineWidth: 15.0,
                                               percent: widget.ot.progress,
                                               progressColor: Colors.blue,
-                                              backgroundColor: Colors.blue.shade100,
+                                              backgroundColor:
+                                                  Colors.blue.shade100,
                                               circularStrokeCap:
                                                   CircularStrokeCap.round,
                                               center: Text(
