@@ -24,6 +24,7 @@ import 'package:physio_track/physio/physio_home_page.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/change_language_screen.dart';
 import 'package:physio_track/profile/screen/edit_profile_screen.dart';
+import 'package:physio_track/provider/user_state.dart';
 import 'package:physio_track/pt_library/screen/add_pt_activity_library_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_finished_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
@@ -70,6 +71,7 @@ import 'ot_library/screen/ot_library_list_screen.dart';
 import 'ot_library/screen/ot_library_list_screen.dart';
 import 'ot_library/screen/add_ot_activity_library_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   await dotenv.load();
@@ -87,12 +89,19 @@ void main() async {
   //runApp(MyApp());
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(EasyLocalization(
-        child: MyApp(),
+    runApp(
+      EasyLocalization(
+        child: ChangeNotifierProvider(
+          create: (context) =>
+              UserState(), // Assuming UserState is a ChangeNotifier
+          child: MyApp(),
+        ),
         supportedLocales: [Locale('en'), Locale('ms'), Locale('zh')],
         fallbackLocale: Locale('en'),
         assetLoader: CodegenLoader(),
-        path: 'assets/translations'));
+        path: 'assets/translations',
+      ),
+    );
   });
   initBackgroundFetch();
   // runApp(MaterialApp(

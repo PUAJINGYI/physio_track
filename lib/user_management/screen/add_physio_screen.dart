@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:physio_track/provider/user_state.dart';
+import 'package:provider/provider.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
@@ -47,7 +49,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
       final gender = _genderController.text;
       UserModel user;
       // Sign in with email and password
-      final userCredential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
             email: email,
             password: password,
@@ -77,6 +79,16 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                 print("New physio account created successfully"),
                 Navigator.pop(context, true),
               });
+      await FirebaseAuth.instance.signOut();
+
+      UserState userState = Provider.of<UserState>(context, listen: false);
+      if (userState.userEmail != '' && userState.userPassword != '') {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: userState.userEmail, password: userState.userPassword);
+      } else {
+        await FirebaseAuth.instance
+            .signInWithCredential(userState.userCredential);
+      }
     } on FirebaseAuthException catch (e) {
       String message;
 

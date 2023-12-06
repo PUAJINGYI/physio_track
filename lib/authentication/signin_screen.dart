@@ -12,8 +12,10 @@ import 'package:physio_track/patient/patient_home_screen.dart';
 import 'package:physio_track/physio/physio_home_page.dart';
 import 'package:physio_track/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/change_language_screen.dart';
+import 'package:physio_track/provider/user_state.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/screening_test/screen/test_start_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../admin/admin_home_screen.dart';
 import '../constant/ColorConstant.dart';
@@ -85,13 +87,16 @@ class _SignInScreenState extends State<SignInScreen> {
       if (gUser != null) {
         final GoogleSignInAuthentication gAuth = await gUser.authentication;
 
-        final credential = GoogleAuthProvider.credential(
+        AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: gAuth.accessToken,
           idToken: gAuth.idToken,
         );
 
         final userCredential =
             await FirebaseAuth.instance.signInWithCredential(credential);
+
+        UserState userState = Provider.of<UserState>(context, listen: false);
+        userState.setUserCredentials(credential);
 
         _authManager.login();
         checkUserRoleAndRedirect(context);
@@ -259,6 +264,13 @@ class _SignInScreenState extends State<SignInScreen> {
                               if (_validateEmailInput == false &&
                                   _validatePasswordInput == false) {
                                 loginWithEmailPassword(
+                                  _emailTextController.text,
+                                  _passwordTextController.text,
+                                );
+                                UserState userState = Provider.of<UserState>(
+                                    context,
+                                    listen: false);
+                                userState.setUserEmailPassword(
                                   _emailTextController.text,
                                   _passwordTextController.text,
                                 );
