@@ -224,16 +224,129 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         Navigator.pop(context);
       } else {
         // Show error message to the user
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(LocaleKeys.Both_Password_Must_Same
-                  .tr())), // Replace with the actual user name
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //       content: Text(LocaleKeys.Both_Password_Must_Same
+        //           .tr())), // Replace with the actual user name
+        // );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.zero, // Remove content padding
+              titlePadding:
+                  EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(LocaleKeys.Error.tr()),
+                  IconButton(
+                    icon:
+                        Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                  ),
+                ],
+              ),
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  LocaleKeys.Both_Password_Must_Same.tr(),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              actions: [
+                Center(
+                  // Wrap actions in Center widget
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ),
+                        child: Text(LocaleKeys.OK.tr(),
+                            style: TextStyle(
+                                color: ColorConstant.BLUE_BUTTON_TEXT)),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
         );
       }
     } catch (e) {
       // Show error message to the user
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(LocaleKeys.Wrong_password.tr())),
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(LocaleKeys.Wrong_password.tr())),
+      // );
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.zero, // Remove content padding
+            titlePadding:
+                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(LocaleKeys.Error.tr()),
+                IconButton(
+                  icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                ),
+              ],
+            ),
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                LocaleKeys.Wrong_password.tr(),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            actions: [
+              Center(
+                // Wrap actions in Center widget
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ),
+                      child: Text(LocaleKeys.OK.tr(),
+                          style:
+                              TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       );
     }
   }

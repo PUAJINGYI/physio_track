@@ -196,9 +196,11 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
       );
     } catch (error) {
       print('Error deleting journal: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(LocaleKeys.Journal_could_not_be_deleted.tr())),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(LocaleKeys.Journal_could_not_be_deleted.tr())),
+      // );
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          LocaleKeys.Journal_could_not_be_deleted.tr());
     }
     Navigator.pop(context, true);
   }

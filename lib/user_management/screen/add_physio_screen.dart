@@ -103,9 +103,10 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
       }
 
       // Show Snackbar with error message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(message)),
+      // );
+      reusableDialog(context, LocaleKeys.Error.tr(), message);
 
       // Refresh the page
       setState(() {});

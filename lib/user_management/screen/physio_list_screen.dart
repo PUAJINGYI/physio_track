@@ -4,6 +4,7 @@ import 'package:physio_track/constant/ColorConstant.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
+import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../service/user_management_service.dart';
 import 'add_physio_screen.dart';
@@ -120,10 +121,12 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
         SnackBar(content: Text(LocaleKeys.Physio_deleted.tr())),
       );
     } catch (error) {
-      print('Error deleting physiotherapist: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(LocaleKeys.Physio_could_not_be_deleted.tr())),
-      );
+      // print('Error deleting physiotherapist: $error');
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(LocaleKeys.Physio_could_not_be_deleted.tr())),
+      // );
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          LocaleKeys.Physio_could_not_be_deleted.tr());
     }
   }
 

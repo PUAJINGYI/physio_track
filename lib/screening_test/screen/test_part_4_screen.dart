@@ -90,12 +90,14 @@ class _TestPart4ScreenState extends State<TestPart4Screen> {
 
     if (!allQuestionsAnswered) {
       // Show snackbar alerting the user to answer all questions
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
-        ),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text(
+      //         LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
+      //   ),
+      // );
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          LocaleKeys.Please_answer_all_questions_before_proceeding.tr());
       return; // Stop the submission process
     }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
+import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../service/user_management_service.dart';
 import 'user_management_page.dart';
@@ -119,10 +120,12 @@ class _PatientListScreenState extends State<PatientListScreen> {
         SnackBar(content: Text(LocaleKeys.Patient_deleted.tr())),
       );
     } catch (error) {
-      print('Error deleting patient: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(LocaleKeys.Patient_could_not_be_deleted.tr())),
-      );
+      // print('Error deleting patient: $error');
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(LocaleKeys.Patient_could_not_be_deleted.tr())),
+      // );
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          LocaleKeys.Patient_could_not_be_deleted.tr());
     }
   }
 
@@ -135,7 +138,8 @@ class _PatientListScreenState extends State<PatientListScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+          return Center(
+              child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
         }
         if (snapshot.hasData) {
           List<UserModel> patients = snapshot.data!;
@@ -178,13 +182,14 @@ class _PatientListScreenState extends State<PatientListScreen> {
                           width: 50,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color:
-                                Colors.white, // Replace with desired button color
+                            color: Colors
+                                .white, // Replace with desired button color
                           ),
                           child: IconButton(
                             icon: Icon(Icons
                                 .delete_outline), // Replace with desired icon
-                            color: Colors.blue, // Replace with desired icon color
+                            color:
+                                Colors.blue, // Replace with desired icon color
                             onPressed: () {
                               showDeleteConfirmationDialog(context, user.id);
                             },

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
 import '../translations/locale_keys.g.dart';
 
@@ -657,4 +658,63 @@ GestureDetector exerciseCard(BuildContext context, double progress,
       ),
     ),
   );
+}
+
+Future<dynamic> reusableDialog(context, String title, String subTitle){
+  return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.zero, // Remove content padding
+            titlePadding:
+                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title),
+                IconButton(
+                  icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                ),
+              ],
+            ),
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                subTitle,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            actions: [
+              Center(
+                // Wrap actions in Center widget
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
+                      ),
+                      child: Text(LocaleKeys.OK.tr(),
+                          style:
+                              TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      );
 }

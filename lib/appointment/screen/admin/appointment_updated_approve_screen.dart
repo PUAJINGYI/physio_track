@@ -171,18 +171,83 @@ class _AppointmentUpdatedApproveScreenState
                       bool isApproved = await appointmentInPendingService
                           .checkIfUpdateAppointmentSlotExist(appointmentId);
                       if (!isApproved) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                LocaleKeys.Appointment_slot_not_available.tr()),
-                            duration: Duration(seconds: 3),
-                          ),
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text(
+                        //         LocaleKeys.Appointment_slot_not_available.tr()),
+                        //     duration: Duration(seconds: 3),
+                        //   ),
+                        // );
+
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              contentPadding:
+                                  EdgeInsets.zero, // Remove content padding
+                              titlePadding: EdgeInsets.fromLTRB(
+                                  16, 0, 16, 0), // Adjust title padding
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(LocaleKeys.Error.tr()),
+                                  IconButton(
+                                    icon: Icon(Icons.close,
+                                        color: ColorConstant.RED_BUTTON_TEXT),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                  ),
+                                ],
+                              ),
+                              content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  LocaleKeys.Appointment_slot_not_available
+                                      .tr(),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              actions: [
+                                Center(
+                                  // Wrap actions in Center widget
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          backgroundColor: ColorConstant
+                                              .BLUE_BUTTON_UNPRESSED,
+                                        ),
+                                        child: Text(LocaleKeys.OK.tr(),
+                                            style: TextStyle(
+                                                color: ColorConstant
+                                                    .BLUE_BUTTON_TEXT)),
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content:
-                                Text(LocaleKeys.Appointment_has_been_approved.tr()),
+                            content: Text(
+                                LocaleKeys.Appointment_has_been_approved.tr()),
                             duration: Duration(seconds: 3),
                           ),
                         );
@@ -202,8 +267,7 @@ class _AppointmentUpdatedApproveScreenState
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text(LocaleKeys.No.tr(),
-                        style:
-                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
+                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -235,7 +299,8 @@ class _AppointmentUpdatedApproveScreenState
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+            return Center(
+                child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           }
           if (snapshot.hasData && snapshot.data!.isEmpty) {
             return Center(
@@ -400,7 +465,8 @@ class _AppointmentUpdatedApproveScreenState
                                                   context, appointment.id);
                                             },
                                             style: TextButton.styleFrom(
-                                              backgroundColor: ColorConstant.GREEN_BUTTON_UNPRESSED, // Background color of the button
+                                              backgroundColor: ColorConstant
+                                                  .GREEN_BUTTON_UNPRESSED, // Background color of the button
                                               primary:
                                                   Colors.white, // Text color
                                             ),
@@ -411,15 +477,17 @@ class _AppointmentUpdatedApproveScreenState
                                                 Icon(
                                                   Icons
                                                       .check_circle_outlined, // Your icon here
-                                                  color: ColorConstant.GREEN_BUTTON_TEXT, // Icon color
+                                                  color: ColorConstant
+                                                      .GREEN_BUTTON_TEXT, // Icon color
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
-                                                 LocaleKeys.Approve.tr(),
+                                                  LocaleKeys.Approve.tr(),
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: ColorConstant.GREEN_BUTTON_TEXT,
+                                                    color: ColorConstant
+                                                        .GREEN_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],
@@ -440,7 +508,8 @@ class _AppointmentUpdatedApproveScreenState
                                                   context, appointment.id);
                                             },
                                             style: TextButton.styleFrom(
-                                              backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED, // Background color of the button
+                                              backgroundColor: ColorConstant
+                                                  .RED_BUTTON_UNPRESSED, // Background color of the button
                                               primary:
                                                   Colors.white, // Text color
                                             ),
@@ -451,8 +520,8 @@ class _AppointmentUpdatedApproveScreenState
                                                 Icon(
                                                   Icons
                                                       .cancel_outlined, // Your icon here
-                                                  color:
-                                                      ColorConstant.RED_BUTTON_TEXT, // Icon colorF
+                                                  color: ColorConstant
+                                                      .RED_BUTTON_TEXT, // Icon colorF
                                                 ),
                                                 SizedBox(
                                                     width:
@@ -462,7 +531,8 @@ class _AppointmentUpdatedApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: ColorConstant.RED_BUTTON_TEXT,
+                                                    color: ColorConstant
+                                                        .RED_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],

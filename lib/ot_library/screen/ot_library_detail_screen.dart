@@ -9,6 +9,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
+import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
@@ -561,11 +562,13 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
       //Navigator.of(context).pop();
     } catch (error) {
       print('Error deleting occupational therapy activity: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                LocaleKeys.Occupational_therapy_activity_could_not_be_deleted)),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //       content: Text(
+      //           LocaleKeys.Occupational_therapy_activity_could_not_be_deleted)),
+      // );
+       reusableDialog(context, LocaleKeys.Error.tr(),
+                             LocaleKeys.Occupational_therapy_activity_could_not_be_deleted.tr());
     }
     Navigator.pop(context, true);
     Navigator.pop(context, true);

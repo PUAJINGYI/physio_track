@@ -7,6 +7,7 @@ import 'package:physio_track/screening_test/service/question_service.dart';
 import '../../../constant/ColorConstant.dart';
 import '../../../notification/service/notification_service.dart';
 import '../../../notification/widget/shimmering_text_list_widget.dart';
+import '../../../reusable_widget/reusable_widget.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../../model/question_model.dart';
 
@@ -126,9 +127,11 @@ class _DailyQuestionListScreenState extends State<DailyQuestionListScreen> {
       );
     } catch (error) {
       print('Error deleting question: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(LocaleKeys.Question_could_not_be_deleted.tr())),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(LocaleKeys.Question_could_not_be_deleted.tr())),
+      // );
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          LocaleKeys.Question_could_not_be_deleted.tr());
     }
   }
 
@@ -150,9 +153,11 @@ class _DailyQuestionListScreenState extends State<DailyQuestionListScreen> {
       });
     } catch (error) {
       print('Error adding question: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(LocaleKeys.Question_could_not_be_added.tr())),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(LocaleKeys.Question_could_not_be_added.tr())),
+      // );
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          LocaleKeys.Question_could_not_be_added.tr());
     }
   }
 
@@ -167,9 +172,11 @@ class _DailyQuestionListScreenState extends State<DailyQuestionListScreen> {
       });
     } catch (error) {
       print('Error editing question: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(LocaleKeys.Question_could_not_be_updated.tr())),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(LocaleKeys.Question_could_not_be_updated.tr())),
+      // );
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          LocaleKeys.Question_could_not_be_updated.tr());
     }
   }
 
@@ -294,11 +301,13 @@ class _DailyQuestionListScreenState extends State<DailyQuestionListScreen> {
                           });
                           Navigator.of(context).pop(); // Close the dialog
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    LocaleKeys.Question_cannot_be_empty.tr())),
-                          );
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(
+                          //       content: Text(
+                          //           LocaleKeys.Question_cannot_be_empty.tr())),
+                          // );
+                          reusableDialog(context, LocaleKeys.Error.tr(),
+                              LocaleKeys.Question_cannot_be_empty.tr());
                         }
                       },
                       child: Text(LocaleKeys.Add_Question.tr()),
@@ -370,11 +379,13 @@ class _DailyQuestionListScreenState extends State<DailyQuestionListScreen> {
                           });
                           Navigator.of(context).pop();
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    LocaleKeys.Question_cannot_be_empty.tr())),
-                          );
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(
+                          //       content: Text(
+                          //           LocaleKeys.Question_cannot_be_empty.tr())),
+                          // );
+                          reusableDialog(context, LocaleKeys.Error.tr(),
+                              LocaleKeys.Question_cannot_be_empty.tr());
                         }
                       },
                       child: Text(LocaleKeys.Save.tr()),

@@ -76,13 +76,20 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
       if (existingLeaves.isNotEmpty) {
         for (Leave leave in existingLeaves) {
           if (leave.isFullDay) {
-            showSnackBar(
+            // showSnackBar(
+            //     LocaleKeys.You_have_already_applied_for_a_full_day_leave.tr());
+            reusableDialog(context, LocaleKeys.Error.tr(),
                 LocaleKeys.You_have_already_applied_for_a_full_day_leave.tr());
             return;
           } else if (leave.startTime.hour == startTime.hour &&
               leave.endTime.hour == endTime.hour) {
-            showSnackBar(LocaleKeys
-                .You_have_already_applied_for_a_leave_at_this_time.tr());
+            // showSnackBar(LocaleKeys
+            //     .You_have_already_applied_for_a_leave_at_this_time.tr());
+            reusableDialog(
+                context,
+                LocaleKeys.Error.tr(),
+                LocaleKeys.You_have_already_applied_for_a_leave_at_this_time
+                    .tr());
             return;
           }
         }
@@ -428,11 +435,13 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                           ColorConstant.BLUE_BUTTON_PRESSED, () {
                         if (startTime == endTime ||
                             !getTime(startTime, endTime)) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content:
-                                Text(LocaleKeys.Please_enter_a_valid_time.tr()),
-                            duration: Duration(seconds: 2),
-                          ));
+                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //   content:
+                          //       Text(LocaleKeys.Please_enter_a_valid_time.tr()),
+                          //   duration: Duration(seconds: 2),
+                          // ));
+                          reusableDialog(context, LocaleKeys.Error.tr(),
+                              LocaleKeys.Please_enter_a_valid_time.tr());
                         } else if (!_validateReasonInput &&
                             selectedLeaveType != null &&
                             selectedDate != null &&
@@ -442,11 +451,13 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                 isFullDay)) {
                           submitApplication();
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                LocaleKeys.Please_fill_in_all_the_fields.tr()),
-                            duration: Duration(seconds: 2),
-                          ));
+                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //   content: Text(
+                          //       LocaleKeys.Please_fill_in_all_the_fields.tr()),
+                          //   duration: Duration(seconds: 2),
+                          // ));
+                          reusableDialog(context, LocaleKeys.Error.tr(),
+                              LocaleKeys.Please_fill_in_all_the_fields.tr());
                         }
                       }),
                     ),
