@@ -520,6 +520,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
 
                             appointmentInPendingService
                                 .updatePendingAppointmentRecordByDetails(
+                                    context,
                                     widget.appointmentId!,
                                     _selectedValue,
                                     DateTime(

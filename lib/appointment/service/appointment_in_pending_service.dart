@@ -1,15 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
 import 'package:physio_track/appointment/model/appointment_in_pending_model.dart';
 import 'package:physio_track/appointment/model/appointment_model.dart';
 import 'package:physio_track/appointment/model/user_appointment_model.dart';
 import 'package:physio_track/appointment/service/appointment_service.dart';
+import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:sendgrid_mailer/sendgrid_mailer.dart';
 
 import '../../constant/TextConstant.dart';
 import '../../leave/service/leave_service.dart';
 import '../../notification/service/notification_service.dart';
+import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
 
 class AppointmentInPendingService {
@@ -47,6 +51,7 @@ class AppointmentInPendingService {
   }
 
   Future<void> addPendingAppointmentRecordByDetails(
+      BuildContext context,
       String title,
       DateTime date,
       DateTime startTime,
@@ -83,12 +88,20 @@ class AppointmentInPendingService {
       await notificationService.addAppointmentRequestNotiToAdmin(
           TextConstant.NEW, patientName);
       print("Pending Appointment Added");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content:
+                Text("New appointment request is sent to admin successfully")),
+      );
     }).catchError((error) {
       print("Failed to add pending appointment: $error");
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          "Failed to send appointment request to admin");
     });
   }
 
-  Future<void> removeNewPendingAppointment(int appointmentId) async {
+  Future<void> removeNewPendingAppointment(
+      int appointmentId, BuildContext context) async {
     AppointmentInPending? appointment =
         await fetchPendingAppointmentById(appointmentId);
     await appointmentInPendingCollection
@@ -96,6 +109,13 @@ class AppointmentInPendingService {
         .get()
         .then((snapshot) {
       snapshot.docs.first.reference.delete();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Pending Appointment Removed")),
+      );
+    }).catchError((error) {
+      print("Failed to remove pending appointment: $error");
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          "Failed to remove pending appointment");
     });
   }
 
@@ -111,6 +131,7 @@ class AppointmentInPendingService {
   }
 
   Future<void> updatePendingAppointmentRecordByDetails(
+      BuildContext context,
       int appointmentId,
       DateTime date,
       DateTime startTime,
@@ -129,7 +150,16 @@ class AppointmentInPendingService {
         'durationInSecond': durationInSecond,
         'status': TextConstant.UPDATED,
         'isApproved': false,
-      });
+      }).then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  "Update appointment request is sent to admin successfully")),
+        );
+      }).catchError((error) {
+      reusableDialog(context, LocaleKeys.Error.tr(),
+          "Failed to send update appointment request to admin");
+    });
       int patientId = querySnapshot.docs.first['patientId'];
       String patientName =
           await userManagementService.getUsernameById(patientId);

@@ -78,7 +78,8 @@ class ProgressScreenState extends State<ProgressScreen> {
     if (userSnapshot.exists) {
       // Retrieve the existing experience and level from the document snapshot
       level = userSnapshot.get('level') ?? 0;
-      progressToNextLevel = userSnapshot.get('progressToNextLevel').toDouble() ?? 0.0;
+      progressToNextLevel =
+          userSnapshot.get('progressToNextLevel').toDouble() ?? 0.0;
     }
     final CollectionReference ptCollection =
         userCollection.doc(uid).collection('pt_activities');
@@ -111,6 +112,19 @@ class ProgressScreenState extends State<ProgressScreen> {
                   isDone: false,
                   date: Timestamp.fromDate(monday.add(Duration(days: i))),
                   progress: 0.0));
+        }
+      } else if (daysToAdd < 0) {
+        // Change condition to check for a gap before Monday
+        for (int i = daysToAdd; i < 0; i++) {
+          ptList.insert(
+            0,
+            PTActivity(
+              id: 0,
+              isDone: false,
+              date: Timestamp.fromDate(monday.add(Duration(days: i))),
+              progress: 0.0,
+            ),
+          );
         }
       }
     }
@@ -155,6 +169,19 @@ class ProgressScreenState extends State<ProgressScreen> {
                   isDone: false,
                   date: Timestamp.fromDate(monday.add(Duration(days: i))),
                   progress: 0.0));
+        }
+      } else if (daysToAdd < 0) {
+        // Change condition to check for a gap before Monday
+        for (int i = daysToAdd; i < 0; i++) {
+          otList.insert(
+            0,
+            OTActivity(
+              id: 0,
+              isDone: false,
+              date: Timestamp.fromDate(monday.add(Duration(days: i))),
+              progress: 0.0,
+            ),
+          );
         }
       }
     }

@@ -147,7 +147,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
             content: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                LocaleKeys.Journal_failed_be_added.tr(),
+                LocaleKeys.Please_fill_in_all_the_fields.tr(),
                 textAlign: TextAlign.center,
               ),
             ),

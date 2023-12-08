@@ -545,6 +545,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
 
                               appointmentInPendingService
                                   .addPendingAppointmentRecordByDetails(
+                                    context,
                                       '[Appointment] ${patientData['username']} with ${physioData['username']}',
                                       DateTime(
                                           _selectedValue.year,

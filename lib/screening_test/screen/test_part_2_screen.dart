@@ -224,7 +224,7 @@ class _TestPart2ScreenState extends State<TestPart2Screen> {
               ),
             ),
           ),
-          SizedBox(height: 45),
+          
         ],
       ),
     );

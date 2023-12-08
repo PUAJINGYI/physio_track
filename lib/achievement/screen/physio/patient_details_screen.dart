@@ -96,7 +96,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   Future<void> fetchData() async {
     patientInfo = await userManagementService.fecthUserById(widget.patientId);
     uid = await userManagementService.fetchUidByUserId(widget.patientId);
-    sharedJournal = patientInfo.sharedJournal;
     DateTime today = DateTime.now();
     DateTime todayWithoutTime = DateTime(today.year, today.month, today.day);
 
@@ -149,19 +148,18 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                   date: Timestamp.fromDate(monday.add(Duration(days: i))),
                   progress: 0.0));
         }
-      }
-    } else {
-      await userPTListService.suggestPTActivityList(userRef, uid);
-      QuerySnapshot ptSnapshot = await ptCollection
-          .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(monday))
-          .where('date', isLessThanOrEqualTo: Timestamp.fromDate(sunday))
-          .get();
-      ptList =
-          ptSnapshot.docs.map((doc) => PTActivity.fromSnapshot(doc)).toList();
-
-      for (var pt in ptList) {
-        if (pt.date.toDate().day == todayWithoutTime.day) {
-          todayPT = pt;
+      } else if (daysToAdd < 0) {
+        // Change condition to check for a gap before Monday
+        for (int i = daysToAdd; i < 0; i++) {
+          ptList.insert(
+            0,
+            PTActivity(
+              id: 0,
+              isDone: false,
+              date: Timestamp.fromDate(monday.add(Duration(days: i))),
+              progress: 0.0,
+            ),
+          );
         }
       }
     }
@@ -207,19 +205,18 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                   date: Timestamp.fromDate(monday.add(Duration(days: i))),
                   progress: 0.0));
         }
-      }
-    } else {
-      await userOTListService.suggestOTActivityList(userRef, uid);
-      QuerySnapshot otSnapshot = await otCollection
-          .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(monday))
-          .where('date', isLessThanOrEqualTo: Timestamp.fromDate(sunday))
-          .get();
-      otList =
-          otSnapshot.docs.map((doc) => OTActivity.fromSnapshot(doc)).toList();
-
-      for (var ot in otList) {
-        if (ot.date.toDate().day == todayWithoutTime.day) {
-          todayOT = ot;
+      } else if (daysToAdd < 0) {
+        // Change condition to check for a gap before Monday
+        for (int i = daysToAdd; i < 0; i++) {
+          otList.insert(
+            0,
+            OTActivity(
+              id: 0,
+              isDone: false,
+              date: Timestamp.fromDate(monday.add(Duration(days: i))),
+              progress: 0.0,
+            ),
+          );
         }
       }
     }
@@ -235,9 +232,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       j++;
     }
     print("ptlength :${ptList.length}");
-    for (PTActivity pt in ptList) {
-      print(pt.date.toDate());
-    }
     print("otlength :${otList.length}");
     mondayThisWeek = DateFormat('dd/MM').format(monday);
     sundayThisWeek = DateFormat('dd/MM').format(sunday);
@@ -248,10 +242,10 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         imageUrls.add(ach[i].imageUrl);
       }
     }
-    createBarGroups(); // After fetching data, create bar groups
+    await createBarGroups(); // After fetching data, create bar groups
   }
 
-  void createBarGroups() {
+  Future<void> createBarGroups() async {
     final List<BarChartGroupData> barGroups = [];
 
     for (int i = 0; i < ptList.length; i++) {

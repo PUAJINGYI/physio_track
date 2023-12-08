@@ -217,7 +217,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
       message = LocaleKeys.are_you_sure_cancel_appointment.tr();
       onConfirm = () async {
         await appointmentInPendingService
-            .removeNewPendingAppointment(latestPendingAppointment.id);
+            .removeNewPendingAppointment(latestPendingAppointment.id, context);
         setState(() {});
       };
     } else if (status == TextConstant.UPDATED) {

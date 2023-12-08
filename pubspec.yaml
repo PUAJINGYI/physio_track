@@ -59,11 +59,11 @@ dependencies:
   firebase_messaging: ^14.6.6
   app_settings: ^5.0.0
   provider: ^5.0.0
-  shared_preferences: ^2.0.10
+  # shared_preferences: ^2.0.10
   percent_indicator: ^4.2.3
   workmanager: ^0.5.0
   confetti: ^0.7.0
-  flutter_youtube_view: ^2.0.4
+  # flutter_youtube_view: ^2.0.4
   fl_chart: ^0.62.0
   carousel_slider: ^4.2.1
   googleapis: ^11.3.0

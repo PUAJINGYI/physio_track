@@ -263,6 +263,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ],
         ),
+        Positioned(
+          top: 25,
+          left: 0,
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 35.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        Positioned(
+          top: 25,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: kToolbarHeight,
+            alignment: Alignment.center,
+            child: Text(
+              LocaleKeys.Sign_Up.tr(),
+              style: TextStyle(
+                fontSize: TextConstant.TITLE_FONT_SIZE,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       ]),
     );
   }

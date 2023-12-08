@@ -260,7 +260,7 @@ class NotificationServices {
       }
     } catch (e, stackTrace) {
       print('Exception: $e');
-      print('Stack Trace: $stackTrace');
+    print('Stack Trace: $stackTrace');
     }
   }
 

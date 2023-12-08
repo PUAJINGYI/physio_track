@@ -96,7 +96,7 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
       //         LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
       //   ),
       // );
-       reusableDialog(context, LocaleKeys.Error.tr(),
+      reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Please_answer_all_questions_before_proceeding.tr());
       return; // Stop the submission process
     }
@@ -224,7 +224,6 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
               ),
             ),
           ),
-          SizedBox(height: 45),
         ],
       ),
     );
