@@ -439,7 +439,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                           ColorConstant.BLUE_BUTTON_TEXT,
                           ColorConstant.BLUE_BUTTON_UNPRESSED,
                           ColorConstant.BLUE_BUTTON_PRESSED,
-                          () {
+                          () async {
                             if (selectedHour == null) {
                               // No hour selected, display a snackbar
                               // ScaffoldMessenger.of(context).showSnackBar(
@@ -518,7 +518,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                               return; // Do not proceed further
                             }
 
-                            appointmentInPendingService
+                            await appointmentInPendingService
                                 .updatePendingAppointmentRecordByDetails(
                                     context,
                                     widget.appointmentId!,

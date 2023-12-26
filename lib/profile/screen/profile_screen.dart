@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     FirebaseAuth.instance.signOut().then((value) {
       GoogleSignIn().signOut();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Signed out")),
+        SnackBar(content: Text(LocaleKeys.Signed_out.tr())),
       );
       print("Signed out");
       _authManager.logout();
@@ -384,27 +384,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: 5),
                               infoCard(
                                   Icons.phone_outlined,
                                   userData['phone'] != ''
                                       ? userData['phone']
                                       : 'N/A'),
-                              SizedBox(height: 10),
+                              SizedBox(height: 5),
                               infoCard(
                                   Icons.email_outlined,
                                   userData['email'] != ''
                                       ? userData['email']
                                       : 'N/A'),
-                              SizedBox(height: 10),
+                              SizedBox(height: 5),
                               infoCard(
                                   Icons.pin_drop_outlined,
                                   userData['address'] != ''
                                       ? userData['address']
                                       : 'N/A'),
-                              SizedBox(height: 5),
+                              //SizedBox(height: 5),
                               changePassword(),
-                              SizedBox(height: 20),
+                              //SizedBox(height: 5),
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -534,26 +534,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: () async {
-              final needUpdate = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChangePasswordScreen()));
-              if (needUpdate != null && needUpdate) {
-                setState(() {
-                  getUserData();
-                });
-              }
-            },
-            child: Text(
-              LocaleKeys.Change_Password.tr(),
-              style: TextStyle(
-                color: Colors.black,
+          TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                splashFactory: NoSplash.splashFactory,
               ),
-              textAlign: TextAlign.end,
-            ),
-          )
+              onPressed: () async {
+                final needUpdate = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChangePasswordScreen()));
+                if (needUpdate != null && needUpdate) {
+                  setState(() {
+                    getUserData();
+                  });
+                }
+              },
+              child: Text(
+                LocaleKeys.Change_Password.tr(),
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.end,
+              ))
         ],
       ),
     );

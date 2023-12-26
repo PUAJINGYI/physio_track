@@ -136,7 +136,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 45),
+             // SizedBox(height: 45),
             ],
           ),
           Positioned(
@@ -271,8 +271,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
           },
           child: Container(
             height: MediaQuery.of(context).copyWith().size.height / 3,
-            child: ListView(
-              padding: EdgeInsets.zero,
+            child: Column(
               children: [
                 Container(
                   alignment: Alignment.topCenter,
@@ -300,7 +299,8 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                   ),
                 ),
                 Expanded(
-                  child: Column(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
                     children: [
                       ListTile(
                         title: Text(

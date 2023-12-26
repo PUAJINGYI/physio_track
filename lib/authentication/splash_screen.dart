@@ -1,15 +1,18 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:physio_track/authentication/redirect_screen.dart';
 import 'package:physio_track/authentication/service/auth_manager.dart';
 import 'package:physio_track/authentication/signin_screen.dart';
 
 import '../constant/ImageConstant.dart';
+import '../main.dart';
 import '../notification/notification_services.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,28 +27,32 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
-  NotificationServices notificationServices = NotificationServices();
+  // NotificationServices notificationServices = NotificationServices();
   //AuthManager authManager = AuthManager();
   var auth = FirebaseAuth.instance;
   var isLogin = false;
+  bool _notificationsEnabled = false;
 
   @override
   void initState() {
     checkIfLogin();
     super.initState();
 
-    notificationServices.requestNotificationPermission();
-    notificationServices.forgroundMessage();
-    notificationServices.firebaseInit(context);
-    notificationServices.setupInteractMessage(context);
-    notificationServices.isTokenRefresh();
+    // notificationServices.requestNotificationPermission();
+    // notificationServices.forgroundMessage();
+    // notificationServices.firebaseInit(context);
+    // notificationServices.setupInteractMessage(context);
+    // notificationServices.isTokenRefresh();
 
-    notificationServices.getDeviceToken().then((value) {
-      if (kDebugMode) {
-        print('device token');
-        print(value);
-      }
-    });
+    // notificationServices.getDeviceToken().then((value) {
+    //   if (kDebugMode) {
+    //     print('device token');
+    //     print(value);
+    //   }
+    // });
+
+    _isAndroidPermissionGranted();
+    _requestPermissions();
 
     _animationController = AnimationController(
       vsync: this,
@@ -68,6 +75,51 @@ class _SplashScreenState extends State<SplashScreen>
             builder: (context) => isLogin ? RedirectScreen() : SignInScreen()),
       );
     });
+  }
+
+  Future<void> _isAndroidPermissionGranted() async {
+    if (Platform.isAndroid) {
+      final bool granted = await flutterLocalNotificationsPlugin
+              .resolvePlatformSpecificImplementation<
+                  AndroidFlutterLocalNotificationsPlugin>()
+              ?.areNotificationsEnabled() ??
+          false;
+
+      setState(() {
+        _notificationsEnabled = granted;
+      });
+    }
+  }
+
+  Future<void> _requestPermissions() async {
+    if (Platform.isIOS || Platform.isMacOS) {
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              MacOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+    } else if (Platform.isAndroid) {
+      final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+          flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>();
+
+      final bool? grantedNotificationPermission =
+          await androidImplementation?.requestNotificationsPermission();
+      setState(() {
+        _notificationsEnabled = grantedNotificationPermission ?? false;
+      });
+    }
   }
 
   checkIfLogin() async {

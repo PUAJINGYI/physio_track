@@ -108,74 +108,92 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                         Journal journal = Journal.fromSnapshot(document);
                         return Padding(
                           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                          child: Card(
-                            color: Color.fromRGBO(241, 243, 250, 1),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: ListTile(
-                                    leading: Container(
-                                      width: 80.0,
-                                      padding: EdgeInsets.zero,
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        child: Image.network(
-                                          journal
-                                              .imageUrl, // Replace with the actual image URL
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return Image.asset(
-                                              ImageConstant
-                                                  .DEFAULT_JOURNAL, // Replace with the default image path
-                                              fit: BoxFit.cover,
-                                            );
-                                          },
+                          child: GestureDetector(
+                            onTap: () async {
+                              final needUpdate = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewJournalScreen(
+                                    journalId: journal.id,
+                                  ), // Replace NextPage with your desired page
+                                ),
+                              );
+
+                              if (needUpdate != null && needUpdate) {
+                                setState(() {});
+                              }
+                            },
+                            child: Card(
+                              color: Color.fromRGBO(241, 243, 250, 1),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: ListTile(
+                                      leading: Container(
+                                        width: 80.0,
+                                        padding: EdgeInsets.zero,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Image.network(
+                                            journal
+                                                .imageUrl, // Replace with the actual image URL
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Image.asset(
+                                                ImageConstant
+                                                    .DEFAULT_JOURNAL, // Replace with the default image path
+                                                fit: BoxFit.cover,
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
+                                      title: Text(journal.title,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      subtitle:
+                                          Text(dateFormat.format(journal.date)),
                                     ),
-                                    title: Text(journal.title,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    subtitle:
-                                        Text(dateFormat.format(journal.date)),
                                   ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                  child: Container(
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors
-                                          .white, // Replace with desired button color
-                                    ),
-                                    child: IconButton(
-                                      icon: Icon(Icons
-                                          .arrow_forward), // Replace with desired icon
-                                      color: Colors
-                                          .blue, // Replace with desired icon color
-                                      onPressed: () async {
-                                        final needUpdate = await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ViewJournalScreen(
-                                              journalId: journal.id,
-                                            ), // Replace NextPage with your desired page
-                                          ),
-                                        );
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                    child: Container(
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors
+                                            .white, // Replace with desired button color
+                                      ),
+                                      child: IconButton(
+                                        icon: Icon(Icons
+                                            .arrow_forward), // Replace with desired icon
+                                        color: Colors
+                                            .blue, // Replace with desired icon color
+                                        onPressed: () async {
+                                          final needUpdate =
+                                              await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ViewJournalScreen(
+                                                journalId: journal.id,
+                                              ), // Replace NextPage with your desired page
+                                            ),
+                                          );
 
-                                        if (needUpdate != null && needUpdate) {
-                                          setState(() {});
-                                        }
-                                      },
+                                          if (needUpdate != null &&
+                                              needUpdate) {
+                                            setState(() {});
+                                          }
+                                        },
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );

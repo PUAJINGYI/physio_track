@@ -134,7 +134,7 @@
   "Enter_Confirmed_Password": "Masukkan Kata Laluan Disahkan",
   "Enter_New_Password": "Masukkan Kata Laluan Baru",
   "Password_updated_successfully": "Kata Laluan berjaya dikemaskini",
-  "Both_Password_Must_Same": "Kata laluan sedia ada dan kata laluan pengesahan mesti sama!",
+  "Both_Password_Must_Same": "Kata laluan baru dan kata laluan pengesahan mesti sama!",
   "Wrong_password": "Kata laluan yang salah diberikan untuk pengguna semasa.",
   "Please_insert_new_password": "Sila masukkan kata laluan baru anda",
   "Please_insert_confirmed_password": "Sila masukkan kata laluan pengesahan anda",
@@ -368,5 +368,16 @@
   "Nov": "Nov",
   "Dec": "Dis",
   "Gender": "Jantina",
-  "Full_Day_Text": "Sehari"
+  "Full_Day_Text": "Sehari",
+  "Failed_to_send_update_appointment_request_to_admin": "Gagal menghantar permintaan kemaskini janji temu kepada pentadbir",
+  "Update_appointment_request_is_sent_to_admin_successfully": "Permintaan kemaskini janji temu berjaya dihantar kepada pentadbir",
+  "New_appointment_request_is_sent_to_admin_successfully": "Permintaan janji temu baru berjaya dihantar kepada pentadbir",
+  "Failed_to_send_appointment_request_to_admin": "Gagal menghantar permintaan janji temu kepada pentadbir",
+  "New_phsyio_account_created_successfully": "Akaun fisioterapi baru dicipta dengan berjaya",
+  "Pending_Appointment_Removed": "Janji temu tertunda telah dikeluarkan",
+  "Failed_to_remove_pending_appointment": "Gagal mengeluarkan janji temu tertunda",
+  "OT_Activity_updated": "Aktiviti TP dikemaskini",
+  "Profile_updated_successfully": "Profil dikemaskini dengan berjaya!",
+  "Signed_out": "Log keluar",
+  "Treatment_report_added_successfully": "Laporan rawatan ditambah dengan berjaya!"
 }

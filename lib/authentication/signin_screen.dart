@@ -20,6 +20,8 @@ import 'package:provider/provider.dart';
 import '../admin/admin_home_screen.dart';
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
+import '../profile/model/user_model.dart';
+import '../profile/service/user_service.dart';
 import '../translations/locale_keys.g.dart';
 import 'service/auth_manager.dart';
 import '../patient/patient_home_page.dart';
@@ -33,12 +35,14 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  UserService _userService = UserService();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   bool _validateEmailInput = false;
   bool _validatePasswordInput = false;
   bool _isObscure = true;
   AuthManager _authManager = AuthManager();
+  bool _isLoading = false;
 
   void toggleObscure() {
     setState(() {
@@ -51,6 +55,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   loginWithEmailPassword(String email, String password) async {
     try {
+      setState(() {
+        _isLoading = true;
+      });
       final userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -134,9 +141,114 @@ class _SignInScreenState extends State<SignInScreen> {
 
       // Refresh the page
       setState(() {});
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
+  // loginWithGoogle() async {
+  //   try {
+  //     setState(() {
+  //       _isLoading = true;
+  //     });
+
+  //     final GoogleSignInAccount? gUser = await _googleSignIn.signIn();
+
+  //     if (gUser != null) {
+  //       final GoogleSignInAuthentication gAuth = await gUser.authentication;
+
+  //       AuthCredential credential = GoogleAuthProvider.credential(
+  //         accessToken: gAuth.accessToken,
+  //         idToken: gAuth.idToken,
+  //       );
+
+  //       final userCredential =
+  //           await FirebaseAuth.instance.signInWithCredential(credential);
+
+  //       UserState userState = Provider.of<UserState>(context, listen: false);
+  //       userState.setUserCredentials(credential);
+
+  //       _authManager.login();
+  //       checkUserRoleAndRedirect(context);
+  //     } else {
+  //       // Handle when the Google Sign In window is closed without logging in
+  //       print("Google Sign In canceled");
+  //     }
+  //   } catch (e) {
+  //     // Handle any other errors that may occur
+  //     String message = LocaleKeys.An_Error_Occurred.tr();
+  //     print("Google Sign In Errortr");
+  //     print(message);
+  //     print(e.toString());
+
+  //     // ScaffoldMessenger.of(context).showSnackBar(
+  //     //   SnackBar(content: Text(message)),
+  //     // );
+  //     showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           contentPadding: EdgeInsets.zero, // Remove content padding
+  //           titlePadding:
+  //               EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(10),
+  //           ),
+  //           title: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Text(LocaleKeys.Error.tr()),
+  //               IconButton(
+  //                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
+  //                 onPressed: () {
+  //                   Navigator.of(context).pop(); // Close the dialog
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //           content: Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Text(
+  //               message,
+  //               textAlign: TextAlign.center,
+  //             ),
+  //           ),
+  //           actions: [
+  //             Center(
+  //               // Wrap actions in Center widget
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       shape: RoundedRectangleBorder(
+  //                         borderRadius: BorderRadius.circular(5),
+  //                       ),
+  //                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
+  //                     ),
+  //                     child: Text(LocaleKeys.OK.tr(),
+  //                         style:
+  //                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
+  //                     onPressed: () async {
+  //                       Navigator.pop(context);
+  //                     },
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         );
+  //       },
+  //     );
+  //     setState(() {});
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
   loginWithGoogle() async {
     try {
       final GoogleSignInAccount? gUser = await _googleSignIn.signIn();
@@ -156,10 +268,46 @@ class _SignInScreenState extends State<SignInScreen> {
         userState.setUserCredentials(credential);
 
         _authManager.login();
-        checkUserRoleAndRedirect(context);
+
+        // Check if it's the user's first login
+        if (userCredential.additionalUserInfo?.isNewUser == true) {
+          // Perform additional tasks for the first login
+          String displayName = userCredential.user?.displayName ?? "-";
+          String email = userCredential.user?.email ?? "-";
+          print(displayName);
+          print(email);
+          // You can use displayName and email to customize your registration process
+          // For example, create a user document in Firestore with additional information
+          // Firestore.instance.collection('users').doc(userCredential.user?.uid).set({
+          //   'displayName': displayName,
+          //   'email': email,
+          //   // Other user details...
+          // });
+          String uid = FirebaseAuth.instance.currentUser!.uid;
+          UserModel userModel = UserModel(
+            id: 0,
+            username: displayName,
+            email: email,
+            role: "patient",
+            createTime: Timestamp.now(),
+            isTakenTest: false,
+            address: '',
+            phone: '',
+            profileImageUrl: '',
+            level: 1,
+            totalExp: 0,
+            progressToNextLevel: 0.0,
+            sharedJournal: false,
+            gender: '',
+          );
+
+          await _userService.addNewUserToFirestore(userModel, uid);
+        }
+
+         checkUserRoleAndRedirect(context);
       } else {
-        // Handle when the Google Sign In window is closed without logging in
-        print("Google Sign In canceled");
+        // Handle when the Google Sign-In window is closed without logging in
+        print("Google Sign-In canceled");
       }
     } catch (e) {
       // Handle any other errors that may occur
@@ -167,66 +315,11 @@ class _SignInScreenState extends State<SignInScreen> {
       print(message);
       print(e.toString());
 
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(message)),
-      // );
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
-            titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(LocaleKeys.Error.tr()),
-                IconButton(
-                  icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                ),
-              ],
-            ),
-            content: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                message,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            actions: [
-              Center(
-                // Wrap actions in Center widget
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ),
-                      child: Text(LocaleKeys.OK.tr(),
-                          style:
-                              TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      );
-      setState(() {});
+      // Existing error handling code...
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -342,61 +435,63 @@ class _SignInScreenState extends State<SignInScreen> {
           //   SnackBar(content: Text(LocaleKeys.Handle_null_user_data.tr())),
           // );
           showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
-            titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(LocaleKeys.Error.tr()),
-                IconButton(
-                  icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.zero, // Remove content padding
+                titlePadding:
+                    EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ],
-            ),
-            content: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                LocaleKeys.Handle_null_user_data.tr(),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            actions: [
-              Center(
-                // Wrap actions in Center widget
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ),
-                      child: Text(LocaleKeys.OK.tr(),
-                          style:
-                              TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
-                      onPressed: () async {
-                        Navigator.pop(context);
+                    Text(LocaleKeys.Error.tr()),
+                    IconButton(
+                      icon: Icon(Icons.close,
+                          color: ColorConstant.RED_BUTTON_TEXT),
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
                       },
                     ),
                   ],
                 ),
-              ),
-            ],
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    LocaleKeys.Handle_null_user_data.tr(),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                actions: [
+                  Center(
+                    // Wrap actions in Center widget
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            backgroundColor:
+                                ColorConstant.BLUE_BUTTON_UNPRESSED,
+                          ),
+                          child: Text(LocaleKeys.OK.tr(),
+                              style: TextStyle(
+                                  color: ColorConstant.BLUE_BUTTON_TEXT)),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
           );
-        },
-      );
         }
       } else {
         // User document does not exist, handle as needed
@@ -405,63 +500,65 @@ class _SignInScreenState extends State<SignInScreen> {
         //   SnackBar(content: Text(LocaleKeys.User_document_not_exist.tr())),
         // );
         showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
-            titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(LocaleKeys.Error.tr()),
-                IconButton(
-                  icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.zero, // Remove content padding
+              titlePadding:
+                  EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(LocaleKeys.Error.tr()),
+                  IconButton(
+                    icon:
+                        Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                  ),
+                ],
+              ),
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  LocaleKeys.User_document_not_exist.tr(),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              actions: [
+                Center(
+                  // Wrap actions in Center widget
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
+                        ),
+                        child: Text(LocaleKeys.OK.tr(),
+                            style: TextStyle(
+                                color: ColorConstant.BLUE_BUTTON_TEXT)),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
-            ),
-            content: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                LocaleKeys.User_document_not_exist.tr(),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            actions: [
-              Center(
-                // Wrap actions in Center widget
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
-                      ),
-                      child: Text(LocaleKeys.OK.tr(),
-                          style:
-                              TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      );
+            );
+          },
+        );
       }
     } else {
+      signOutGoogle();
       print("User does not exist");
     }
   }
@@ -534,28 +631,31 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ColorConstant.BLUE_BUTTON_TEXT,
                                 ColorConstant.BLUE_BUTTON_UNPRESSED,
                                 ColorConstant.BLUE_BUTTON_PRESSED, () {
-                              setState(() {
-                                _emailTextController.text.isEmpty ||
-                                        !_emailTextController.text.contains("@")
-                                    ? _validateEmailInput = true
-                                    : _validateEmailInput = false;
-                                _passwordTextController.text.isEmpty
-                                    ? _validatePasswordInput = true
-                                    : _validatePasswordInput = false;
-                              });
-                              if (_validateEmailInput == false &&
-                                  _validatePasswordInput == false) {
-                                loginWithEmailPassword(
-                                  _emailTextController.text,
-                                  _passwordTextController.text,
-                                );
-                                UserState userState = Provider.of<UserState>(
-                                    context,
-                                    listen: false);
-                                userState.setUserEmailPassword(
-                                  _emailTextController.text,
-                                  _passwordTextController.text,
-                                );
+                              if (!_isLoading) {
+                                setState(() {
+                                  _emailTextController.text.isEmpty ||
+                                          !_emailTextController.text
+                                              .contains("@")
+                                      ? _validateEmailInput = true
+                                      : _validateEmailInput = false;
+                                  _passwordTextController.text.isEmpty
+                                      ? _validatePasswordInput = true
+                                      : _validatePasswordInput = false;
+                                });
+                                if (_validateEmailInput == false &&
+                                    _validatePasswordInput == false) {
+                                  loginWithEmailPassword(
+                                    _emailTextController.text,
+                                    _passwordTextController.text,
+                                  );
+                                  UserState userState = Provider.of<UserState>(
+                                      context,
+                                      listen: false);
+                                  userState.setUserEmailPassword(
+                                    _emailTextController.text,
+                                    _passwordTextController.text,
+                                  );
+                                }
                               }
                             }),
                             signInGmailButton(context, () async {

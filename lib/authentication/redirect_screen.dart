@@ -101,7 +101,7 @@ class _RedirectScreenState extends State<RedirectScreen> {
                   content: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Handle null role value",
+                      LocaleKeys.Handle_null_role_value.tr(),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -166,7 +166,7 @@ class _RedirectScreenState extends State<RedirectScreen> {
                 content: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Handle null user data",
+                    LocaleKeys.Handle_null_user_data.tr(),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -237,7 +237,7 @@ class _RedirectScreenState extends State<RedirectScreen> {
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "User document does not exist, handle as needed",
+                  LocaleKeys.User_document_not_exist.tr(),
                   textAlign: TextAlign.center,
                 ),
               ),

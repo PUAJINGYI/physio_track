@@ -248,7 +248,7 @@ class NotificationService {
     }
   }
 
-  void sendWhatsAppMessage(int userId, String message) async {
+  Future<void> sendWhatsAppMessage(int userId, String message) async {
     try {
       String? phoneNumber =
           await userManagementService.fetchPhoneNumberByUserId(userId);

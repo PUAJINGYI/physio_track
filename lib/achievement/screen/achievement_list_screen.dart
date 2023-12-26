@@ -169,92 +169,96 @@ class AchievementCard extends StatelessWidget {
           ),
         );
       },
-      child: Card(
-        margin: EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(8, 15, 8, 0),
-              child: Container(
-                height: 30,
-                child: FutureBuilder(
-                  future: notificationService.translateText(ach.title, context),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<String> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          ShimmeringTextListWidget(width: 100, numOfLines: 1),
-                        ],
-                      ); // or any loading indicator
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      String title = snapshot.data!;
-                      return Text(
-                        title,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                        ),
-                        textAlign: TextAlign.center,
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
-            Expanded(
-              child: Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: Card(
+          color: Colors.yellow[50],
+          margin: EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(8, 15, 8, 0),
                 child: Container(
-                  width: 100.0, // Set the fixed width
-                  height: 150.0, // Set the fixed height
-                  child: Image.network(
-                    ach.imageUrl,
-                    fit: BoxFit
-                        .fitHeight, // You can specify the BoxFit as needed
+                  height: 30,
+                  child: FutureBuilder(
+                    future: notificationService.translateText(ach.title, context),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ShimmeringTextListWidget(width: 100, numOfLines: 1),
+                          ],
+                        ); // or any loading indicator
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        String title = snapshot.data!;
+                        return Text(
+                          title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.0,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      }
+                    },
                   ),
                 ),
               ),
-            ),
-            Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
-                  child: achievement.isTaken
-                      ? Text(
-                          LocaleKeys.Completed.tr(),
-                          style: TextStyle(
-                              fontSize: 14.0, fontWeight: FontWeight.bold),
-                        )
-                      : LinearPercentIndicator(
-                          animation: true,
-                          lineHeight: 10.0,
-                          animationDuration: 2000,
-                          percent: achievement.progress,
-                          barRadius: Radius.circular(10.0),
-                          progressColor: Colors.greenAccent,
-                        ),
-                ),
-                if (!achievement.isTaken)
-                  Positioned(
-                    top: -10,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '${(achievement.progress * 100).toStringAsFixed(1)}%',
-                        style: TextStyle(
-                            fontSize: 14.0, fontWeight: FontWeight.bold),
-                      ),
+              Expanded(
+                child: Center(
+                  child: Container(
+                    width: 100.0, // Set the fixed width
+                    height: 150.0, // Set the fixed height
+                    child: Image.network(
+                      ach.imageUrl,
+                      fit: BoxFit
+                          .fitHeight, // You can specify the BoxFit as needed
                     ),
                   ),
-              ],
-            )
-          ],
+                ),
+              ),
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
+                    child: achievement.isTaken
+                        ? Text(
+                            LocaleKeys.Completed.tr(),
+                            style: TextStyle(
+                                fontSize: 14.0, fontWeight: FontWeight.bold),
+                          )
+                        : LinearPercentIndicator(
+                            animation: true,
+                            lineHeight: 10.0,
+                            animationDuration: 2000,
+                            percent: achievement.progress,
+                            barRadius: Radius.circular(10.0),
+                            progressColor: Colors.greenAccent,
+                          ),
+                  ),
+                  if (!achievement.isTaken)
+                    Positioned(
+                      top: -10,
+                      right: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '${(achievement.progress * 100).toStringAsFixed(1)}%',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

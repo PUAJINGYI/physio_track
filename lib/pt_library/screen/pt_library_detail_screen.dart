@@ -43,22 +43,34 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
     super.initState();
   }
 
+  // String extractVideoIdFromUrl(String url) {
+  //   // Check if the URL contains 'v='
+  //   final startIndex = url.indexOf('v=');
+  //   if (startIndex != -1) {
+  //     // Find the '&' character or the end of the string, whichever comes first
+  //     final endIndex = url.indexOf('&', startIndex);
+  //     if (endIndex != -1) {
+  //       // Extract the substring between 'v=' and '&' (or end of string)
+  //       return url.substring(startIndex + 2, endIndex);
+  //     } else {
+  //       // If there's no '&', return the substring from 'v=' to the end of the string
+  //       return url.substring(startIndex + 2);
+  //     }
+  //   }
+  //   // If 'v=' is not found in the URL, return an empty string or handle it as needed
+  //   return '';
+  // }
   String extractVideoIdFromUrl(String url) {
-    // Check if the URL contains 'v='
-    final startIndex = url.indexOf('v=');
-    if (startIndex != -1) {
-      // Find the '&' character or the end of the string, whichever comes first
-      final endIndex = url.indexOf('&', startIndex);
-      if (endIndex != -1) {
-        // Extract the substring between 'v=' and '&' (or end of string)
-        return url.substring(startIndex + 2, endIndex);
-      } else {
-        // If there's no '&', return the substring from 'v=' to the end of the string
-        return url.substring(startIndex + 2);
-      }
+    RegExp regExp = RegExp(
+      r"(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})",
+    );
+    RegExpMatch? match = regExp.firstMatch(url);
+
+    if (match != null && match.groupCount >= 1) {
+      return match.group(1)!; // Use the non-nullable assertion operator
     }
-    // If 'v=' is not found in the URL, return an empty string or handle it as needed
-    return '';
+
+    return ""; // If no match is found
   }
 
   @override

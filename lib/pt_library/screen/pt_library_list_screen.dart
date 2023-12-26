@@ -21,7 +21,7 @@ class PTLibraryListScreen extends StatefulWidget {
 class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
   final YoutubeExplode _ytExplode = YoutubeExplode();
   NotificationService notificationService = NotificationService();
-  
+
   @override
   void initState() {
     super.initState();
@@ -76,98 +76,116 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                       children:
                           snapshot.data!.docs.map((DocumentSnapshot document) {
                         PTLibrary ptLibrary = PTLibrary.fromSnapshot(document);
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                          child: Card(
-                            color: Color.fromRGBO(241, 243, 250, 1),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: ListTile(
-                                    leading: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                      child: Container(
-                                        width: 80,
-                                        height: 56,
+                        return GestureDetector(
+                          onTap: () async {
+                            final needUpdate = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PTLibraryDetailScreen(
+                                  recordId: ptLibrary.id,
+                                ), // Replace NextPage with your desired page
+                              ),
+                            );
+
+                            if (needUpdate != null && needUpdate) {
+                              setState(() {});
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            child: Card(
+                              color: Color.fromRGBO(241, 243, 250, 1),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: ListTile(
+                                      leading: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 5, 0, 5),
+                                        child: Container(
+                                          width: 80,
+                                          height: 56,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image:
+                                                  ptLibrary.thumbnailUrl != null
+                                                      ? NetworkImage(ptLibrary
+                                                              .thumbnailUrl)
+                                                          as ImageProvider
+                                                      : AssetImage(ImageConstant
+                                                              .DATA_NOT_FOUND)
+                                                          as ImageProvider,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      title: FutureBuilder(
+                                        future:
+                                            notificationService.translateText(
+                                                ptLibrary.title, context),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                ShimmeringTextListWidget(
+                                                    width: 300, numOfLines: 2),
+                                              ],
+                                            ); // or any loading indicator
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            String title = snapshot.data!;
+                                            return Text(title,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w500));
+                                          }
+                                        },
+                                      ),
+                                      trailing: Container(
+                                        width: 40,
+                                        height: 40,
                                         decoration: BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: ptLibrary.thumbnailUrl !=
-                                                    null
-                                                ? NetworkImage(
-                                                        ptLibrary.thumbnailUrl)
-                                                    as ImageProvider
-                                                : AssetImage(ImageConstant
-                                                        .DATA_NOT_FOUND)
-                                                    as ImageProvider,
+                                          shape: BoxShape.circle,
+                                          color: Colors.blue,
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () async {
+                                            final needUpdate =
+                                                await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PTLibraryDetailScreen(
+                                                  recordId: ptLibrary.id,
+                                                ), // Replace NextPage with your desired page
+                                              ),
+                                            );
+
+                                            if (needUpdate != null &&
+                                                needUpdate) {
+                                              setState(() {});
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.play_arrow_outlined,
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
                                     ),
-                                    title: FutureBuilder(
-                                      future: notificationService.translateText(
-                                          ptLibrary.title, context),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<String> snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              ShimmeringTextListWidget(
-                                                  width: 300, numOfLines: 2),
-                                            ],
-                                          ); // or any loading indicator
-                                        } else if (snapshot.hasError) {
-                                          return Text(
-                                              'Error: ${snapshot.error}');
-                                        } else {
-                                          String title = snapshot.data!;
-                                          return Text(title,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w500));
-                                        }
-                                      },
-                                    ),
-                                    trailing: Container(
-                                      width: 40,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.blue,
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () async {
-                                          final needUpdate =
-                                              await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PTLibraryDetailScreen(
-                                                recordId: ptLibrary.id,
-                                              ), // Replace NextPage with your desired page
-                                            ),
-                                          );
-
-                                          if (needUpdate != null &&
-                                              needUpdate) {
-                                            setState(() {});
-                                          }
-                                        },
-                                        icon: Icon(
-                                          Icons.play_arrow_outlined,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -177,7 +195,7 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                 ),
               ),
               SizedBox(
-                height: 90.0,
+                height: 120.0,
               )
             ],
           ),

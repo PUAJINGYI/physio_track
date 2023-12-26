@@ -35,8 +35,22 @@ class _TestPart3ScreenState extends State<TestPart3Screen> {
     List<Question> fetchedQuestions =
         await questionService.fetchQuestionsByTopic('lower');
 
+    List<QuestionResponse> defaultResponses = [];
+    for (Question question in fetchedQuestions) {
+      if (question.questionType == "short" || question.questionType == "date") {
+        continue;
+      }
+      defaultResponses.add(QuestionResponse(
+        id: question.id,
+        question: question.question,
+        topic: question.topic,
+        questionType: question.questionType,
+        response: '1.0', // Set a default response of 1.0 for all questions
+      ));
+    }
     setState(() {
       questions = fetchedQuestions;
+      responses = defaultResponses;
     });
   }
 

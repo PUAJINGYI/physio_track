@@ -35,8 +35,21 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
     List<Question> fetchedQuestions =
         await questionService.fetchQuestionsByTopic('general');
 
+    List<QuestionResponse> defaultResponses = [];
+    for (Question question in fetchedQuestions) {
+      defaultResponses.add(QuestionResponse(
+        id: question.id,
+        question: question.question,
+        topic: question.topic,
+        questionType: question.questionType,
+        response: '1.0', // Set a default response of 1.0 for all questions
+      ));
+    }
+    print("fetchQuestions");
+    print(defaultResponses.length);
     setState(() {
       questions = fetchedQuestions;
+      responses = defaultResponses;
     });
   }
 
@@ -86,16 +99,9 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
 
   void submitResponses() {
     // Check if all questions are answered
-    bool allQuestionsAnswered = responses.length == questions.length;
-
+    bool allQuestionsAnswered = (responses.length == questions.length) &&
+        (responses[0].response != '1.0' && responses[2].response != '1.0');
     if (!allQuestionsAnswered) {
-      // Show snackbar alerting the user to answer all questions
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     content: Text(
-      //         LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
-      //   ),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Please_answer_all_questions_before_proceeding.tr());
       return; // Stop the submission process
@@ -224,7 +230,6 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
               ),
             ),
           ),
-         
         ],
       ),
     );

@@ -101,6 +101,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               height: 10,
                             ),
                             reusableTextField(
+                                LocaleKeys.Enter_New_Password.tr(),
+                                LocaleKeys.Please_insert_new_password.tr(),
+                                Icons.lock_outline,
+                                true,
+                                _newPasswordTextController,
+                                _validateNewPasswordInput,
+                                _isObscure2,
+                                toggleObscure2),
+                            reusableTextField(
                                 LocaleKeys.Enter_Confirmed_Password.tr(),
                                 LocaleKeys.Please_insert_confirmed_password
                                     .tr(),
@@ -108,20 +117,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 true,
                                 _confirmPasswordTextController,
                                 _validateConfirmPasswordInput,
-                                _isObscure2,
-                                toggleObscure2),
+                                _isObscure3,
+                                toggleObscure3),
                             SizedBox(
                               height: 10,
                             ),
-                            reusableTextField(
-                                LocaleKeys.Enter_New_Password.tr(),
-                                LocaleKeys.Please_insert_new_password.tr(),
-                                Icons.lock_outline,
-                                true,
-                                _newPasswordTextController,
-                                _validateNewPasswordInput,
-                                _isObscure3,
-                                toggleObscure3),
                           ],
                         ),
                       )),
@@ -200,11 +200,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }
 
   void changePassword(
-      String oldPassword, String confirmedPassword, String newPassword) async {
+      String oldPassword, String newPassword, String confirmedPassword) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
 
-      if (oldPassword == confirmedPassword && user != null) {
+      if (newPassword == confirmedPassword && user != null) {
         // Re-authenticate the user by verifying their current password
         final credential = EmailAuthProvider.credential(
           email: user.email!,

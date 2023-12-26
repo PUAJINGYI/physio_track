@@ -34,9 +34,22 @@ class _TestPart4ScreenState extends State<TestPart4Screen> {
   Future<void> fetchQuestions() async {
     List<Question> fetchedQuestions =
         await questionService.fetchQuestionsByTopic('daily');
-
+    List<QuestionResponse> defaultResponses = [];
+    for (Question question in fetchedQuestions) {
+      if (question.questionType == "short" || question.questionType == "date") {
+        continue;
+      }
+      defaultResponses.add(QuestionResponse(
+        id: question.id,
+        question: question.question,
+        topic: question.topic,
+        questionType: question.questionType,
+        response: '1.0', // Set a default response of 1.0 for all questions
+      ));
+    }
     setState(() {
       questions = fetchedQuestions;
+      responses = defaultResponses;
     });
   }
 

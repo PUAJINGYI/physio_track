@@ -414,7 +414,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
             _durationController.text = '${updatedOTActivity.duration} minutes';
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("OT Activity updated")),
+            SnackBar(content: Text(LocaleKeys.OT_Activity_updated.tr())),
           );
           Navigator.pop(context, true);
         }

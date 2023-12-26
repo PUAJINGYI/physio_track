@@ -163,7 +163,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 45),
+              //SizedBox(height: 45),
             ],
           ),
         ],

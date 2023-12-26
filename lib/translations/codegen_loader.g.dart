@@ -73,7 +73,7 @@ class CodegenLoader extends AssetLoader{
   "Delete_Physiotherapist": "Delete Physiotherapist",
   "Delete_Question": "Delete Question",
   "Description": "Description",
-  "Duration": "Duration (minutues)",
+  "Duration": "Duration (mins)",
   "OT_Activity_Library": "OT Activity Library",
   "PT_Activity_Library": "PT Activity Library",
   "are_you_sure_delete_question": "Are you sure to delete this question?",
@@ -150,7 +150,7 @@ class CodegenLoader extends AssetLoader{
   "Enter_Confirmed_Password": "Enter Confirmed Password",
   "Enter_New_Password": "Enter New Password",
   "Password_updated_successfully": "Password updated successfully",
-  "Both_Password_Must_Same": "Both existing password and confirmation password must be the same!",
+  "Both_Password_Must_Same": "Both new password and confirmation password must be the same!",
   "Wrong_password": "Wrong password provided for the current user.",
   "Please_insert_new_password": "Please insert your new password",
   "Please_insert_confirmed_password": "Please insert your confirmed password",
@@ -384,7 +384,18 @@ class CodegenLoader extends AssetLoader{
   "Nov": "Nov",
   "Dec": "Dec",
   "Gender": "Gender",
-  "Full_Day_Text": "Full Day"
+  "Full_Day_Text": "Full Day",
+  "Failed_to_send_update_appointment_request_to_admin": "Failed to send update appointment request to admin",
+  "Update_appointment_request_is_sent_to_admin_successfully": "Update appointment request is sent to admin successfully",
+  "New_appointment_request_is_sent_to_admin_successfully": "New appointment request is sent to admin successfully",
+  "Failed_to_send_appointment_request_to_admin": "Failed to send appointment request to admin",
+  "New_phsyio_account_created_successfully": "New phsyio account created successfully",
+  "Pending_Appointment_Removed": "Pending Appointment Removed",
+  "Failed_to_remove_pending_appointment": "Failed to remove pending appointment",
+  "OT_Activity_updated": "OT Activity updated",
+  "Profile_updated_successfully": "Profile updated successfully!",
+  "Signed_out": "Signed out",
+  "Treatment_report_added_successfully": "Treatment report added successfully!"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -522,7 +533,7 @@ static const Map<String,dynamic> ms = {
   "Enter_Confirmed_Password": "Masukkan Kata Laluan Disahkan",
   "Enter_New_Password": "Masukkan Kata Laluan Baru",
   "Password_updated_successfully": "Kata Laluan berjaya dikemaskini",
-  "Both_Password_Must_Same": "Kata laluan sedia ada dan kata laluan pengesahan mesti sama!",
+  "Both_Password_Must_Same": "Kata laluan baru dan kata laluan pengesahan mesti sama!",
   "Wrong_password": "Kata laluan yang salah diberikan untuk pengguna semasa.",
   "Please_insert_new_password": "Sila masukkan kata laluan baru anda",
   "Please_insert_confirmed_password": "Sila masukkan kata laluan pengesahan anda",
@@ -756,7 +767,18 @@ static const Map<String,dynamic> ms = {
   "Nov": "Nov",
   "Dec": "Dis",
   "Gender": "Jantina",
-  "Full_Day_Text": "Sehari"
+  "Full_Day_Text": "Sehari",
+  "Failed_to_send_update_appointment_request_to_admin": "Gagal menghantar permintaan kemaskini janji temu kepada pentadbir",
+  "Update_appointment_request_is_sent_to_admin_successfully": "Permintaan kemaskini janji temu berjaya dihantar kepada pentadbir",
+  "New_appointment_request_is_sent_to_admin_successfully": "Permintaan janji temu baru berjaya dihantar kepada pentadbir",
+  "Failed_to_send_appointment_request_to_admin": "Gagal menghantar permintaan janji temu kepada pentadbir",
+  "New_phsyio_account_created_successfully": "Akaun fisioterapi baru dicipta dengan berjaya",
+  "Pending_Appointment_Removed": "Janji temu tertunda telah dikeluarkan",
+  "Failed_to_remove_pending_appointment": "Gagal mengeluarkan janji temu tertunda",
+  "OT_Activity_updated": "Aktiviti TP dikemaskini",
+  "Profile_updated_successfully": "Profil dikemaskini dengan berjaya!",
+  "Signed_out": "Log keluar",
+  "Treatment_report_added_successfully": "Laporan rawatan ditambah dengan berjaya!"
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -894,7 +916,7 @@ static const Map<String,dynamic> zh = {
   "Enter_Confirmed_Password": "输入确认密码",
   "Enter_New_Password": "输入新密码",
   "Password_updated_successfully": "密码已成功更新",
-  "Both_Password_Must_Same": "现有密码和确认密码必须相同！",
+  "Both_Password_Must_Same": "新密码和确认密码必须相同！",
   "Wrong_password": "当前用户提供的密码错误。",
   "Please_insert_new_password": "请输入新密码",
   "Please_insert_confirmed_password": "请输入确认密码",
@@ -1128,7 +1150,18 @@ static const Map<String,dynamic> zh = {
   "Nov": "十一",
   "Dec": "十二",
   "Gender": "性别",
-  "Full_Day_Text": "全天"
+  "Full_Day_Text": "全天",
+  "Failed_to_send_update_appointment_request_to_admin": "未能成功向管理员发送更新预约请求",
+  "Update_appointment_request_is_sent_to_admin_successfully": "更新预约请求已成功发送给管理员",
+  "New_appointment_request_is_sent_to_admin_successfully": "成功向管理员发送新的预约请求",
+  "Failed_to_send_appointment_request_to_admin": "未能成功向管理员发送预约请求",
+  "New_phsyio_account_created_successfully": "新物理治疗账户已成功创建",
+  "Pending_Appointment_Removed": "成功删除等待批准的预约",
+  "Failed_to_remove_pending_appointment": "未能删除等待批准的预约",
+  "OT_Activity_updated": "职疗活动已更新",
+  "Profile_updated_successfully": "个人资料成功更新！",
+  "Signed_out": "已退出登录",
+  "Treatment_report_added_successfully": "成功添加治疗报告！"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

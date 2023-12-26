@@ -63,11 +63,13 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                     child: FutureBuilder<List<Notifications>>(
                       future: notificationList,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Center(child: CircularProgressIndicator());
                         }
                         if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
                         }
                         if (snapshot.hasData && snapshot.data!.isEmpty) {
                           return Center(
@@ -96,85 +98,114 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                               final isRead = notification.isRead;
                               final titleColor =
                                   isRead ? Colors.grey : Colors.black;
-    
+
                               return Padding(
-                                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Card(
-                                  color: Color.fromRGBO(241, 243, 250, 1),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: ListTile(
-                                          title:
-                                              FutureBuilder(
-                                            future:
-                                                notificationService.translateText(
-                                                    notification.title, context),
-                                            builder: (BuildContext context,
-                                                AsyncSnapshot<String> snapshot) {
-                                              if (snapshot.connectionState ==
-                                                  ConnectionState.waiting) {
-                                                return ShimmeringMessageWidget(); // or any loading indicator
-                                              } else if (snapshot.hasError) {
-                                                return Text(
-                                                    'Error: ${snapshot.error}');
-                                              } else {
-                                                String title = snapshot.data!;
-                                                return Text(
-                                                  title,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: titleColor,
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final needUpdate = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            NotificationDetailsScreen(
+                                                notificationId:
+                                                    notification.id),
+                                      ),
+                                    );
+                                    if (needUpdate != null && needUpdate) {
+                                      _refreshIndicatorKey.currentState?.show();
+                                      loadUserNotification();
+                                    }
+                                    await notificationService
+                                        .updateNotificationStatus(
+                                            uid, notification.id);
+                                    _refreshIndicatorKey.currentState?.show();
+                                  },
+                                  child: Card(
+                                    color: Color.fromRGBO(241, 243, 250, 1),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: ListTile(
+                                            title: FutureBuilder(
+                                              future: notificationService
+                                                  .translateText(
+                                                      notification.title,
+                                                      context),
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot<String>
+                                                      snapshot) {
+                                                if (snapshot.connectionState ==
+                                                    ConnectionState.waiting) {
+                                                  return ShimmeringMessageWidget(); // or any loading indicator
+                                                } else if (snapshot.hasError) {
+                                                  return Text(
+                                                      'Error: ${snapshot.error}');
+                                                } else {
+                                                  String title = snapshot.data!;
+                                                  return Text(
+                                                    title,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: titleColor,
+                                                    ),
+                                                  );
+                                                }
+                                              },
+                                            ),
+                                            subtitle: Text(
+                                              dateFormat
+                                                  .format(notification.date),
+                                              style:
+                                                  TextStyle(color: titleColor),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 0, 10, 0),
+                                          child: Container(
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                            ),
+                                            child: IconButton(
+                                              icon: Icon(Icons.arrow_forward),
+                                              color: Colors.blue,
+                                              onPressed: () async {
+                                                final needUpdate =
+                                                    await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        NotificationDetailsScreen(
+                                                            notificationId:
+                                                                notification
+                                                                    .id),
                                                   ),
                                                 );
-                                              }
-                                            },
-                                          ),
-                                          subtitle: Text(
-                                            dateFormat.format(notification.date),
-                                            style: TextStyle(color: titleColor),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            0, 0, 10, 0),
-                                        child: Container(
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white,
-                                          ),
-                                          child: IconButton(
-                                            icon: Icon(Icons.arrow_forward),
-                                            color: Colors.blue,
-                                            onPressed: () async {
-                                              final needUpdate =
-                                                  await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      NotificationDetailsScreen(
-                                                          notificationId:
-                                                              notification.id),
-                                                ),
-                                              );
-                                              if (needUpdate != null &&
-                                                  needUpdate) {
-                                                _refreshIndicatorKey.currentState
+                                                if (needUpdate != null &&
+                                                    needUpdate) {
+                                                  _refreshIndicatorKey
+                                                      .currentState
+                                                      ?.show();
+                                                  loadUserNotification();
+                                                }
+                                                await notificationService
+                                                    .updateNotificationStatus(
+                                                        uid, notification.id);
+                                                _refreshIndicatorKey
+                                                    .currentState
                                                     ?.show();
-                                                loadUserNotification();
-                                              }
-                                              await notificationService
-                                                  .updateNotificationStatus(
-                                                      uid, notification.id);
-                                              _refreshIndicatorKey.currentState
-                                                  ?.show();
-                                            },
+                                              },
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

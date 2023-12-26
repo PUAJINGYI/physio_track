@@ -91,12 +91,12 @@ class AppointmentInPendingService {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             content:
-                Text("New appointment request is sent to admin successfully")),
+                Text(LocaleKeys.New_appointment_request_is_sent_to_admin_successfully.tr())),
       );
     }).catchError((error) {
       print("Failed to add pending appointment: $error");
       reusableDialog(context, LocaleKeys.Error.tr(),
-          "Failed to send appointment request to admin");
+          LocaleKeys.Failed_to_send_appointment_request_to_admin.tr());
     });
   }
 
@@ -110,12 +110,12 @@ class AppointmentInPendingService {
         .then((snapshot) {
       snapshot.docs.first.reference.delete();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Pending Appointment Removed")),
+        SnackBar(content: Text(LocaleKeys.Pending_Appointment_Removed.tr())),
       );
     }).catchError((error) {
       print("Failed to remove pending appointment: $error");
       reusableDialog(context, LocaleKeys.Error.tr(),
-          "Failed to remove pending appointment");
+          LocaleKeys.Failed_to_remove_pending_appointment.tr());
     });
   }
 
@@ -150,16 +150,17 @@ class AppointmentInPendingService {
         'durationInSecond': durationInSecond,
         'status': TextConstant.UPDATED,
         'isApproved': false,
-      }).then((value) {
+      }).then((value) async {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text(
-                  "Update appointment request is sent to admin successfully")),
+                  LocaleKeys.Update_appointment_request_is_sent_to_admin_successfully.tr())),
         );
       }).catchError((error) {
-      reusableDialog(context, LocaleKeys.Error.tr(),
-          "Failed to send update appointment request to admin");
-    });
+        print("error: ${error}");
+        reusableDialog(context, LocaleKeys.Error.tr(),
+            LocaleKeys.Failed_to_send_update_appointment_request_to_admin.tr());
+      });
       int patientId = querySnapshot.docs.first['patientId'];
       String patientName =
           await userManagementService.getUsernameById(patientId);
@@ -197,8 +198,8 @@ class AppointmentInPendingService {
     AppointmentInPending? appointment =
         await fetchPendingAppointmentById(appointmentId);
     if (appointment != null) {
-      appointmentService.addAppointmentRecord(appointment);
-      sendEmailToNotifyApprove(appointment, TextConstant.NEW);
+      await appointmentService.addAppointmentRecord(appointment);
+      await sendEmailToNotifyApprove(appointment, TextConstant.NEW);
       String patientUid =
           await userManagementService.fetchUidByUserId(appointment.patientId);
       String physioUid =
@@ -213,7 +214,7 @@ class AppointmentInPendingService {
           patientUid, title, patientMsg);
       await notificationService.addNotificationFromAdmin(
           physioUid, title, physioMsg);
-      notificationService.sendWhatsAppMessage(
+      await notificationService.sendWhatsAppMessage(
           appointment.patientId, patientMsg);
       isApproved = true;
     }
@@ -328,7 +329,7 @@ class AppointmentInPendingService {
       Appointment? oriAppointment =
           await appointmentService.fetchAppointmentById(appointmentId);
       await appointmentService.updateAppointmentRecord(appointment);
-      sendEmailToNotifyApprove(appointment, TextConstant.UPDATED);
+      await sendEmailToNotifyApprove(appointment, TextConstant.UPDATED);
 
       if (oriAppointment != null) {
         String patientUid =
@@ -340,11 +341,11 @@ class AppointmentInPendingService {
             'Dear patient, your recent appointment update request from ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}.';
         String physioMsg =
             'Dear physio, there is an appointment originally on ${DateFormat('hh:mm a').format(oriAppointment.startTime)}, ${DateFormat('dd MMM yyyy').format(oriAppointment.startTime)} has been changed to ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}';
-        notificationService.addNotificationFromAdmin(
+        await notificationService.addNotificationFromAdmin(
             patientUid, title, patientMsg);
-        notificationService.addNotificationFromAdmin(
+        await notificationService.addNotificationFromAdmin(
             physioUid, title, physioMsg);
-        notificationService.sendWhatsAppMessage(
+        await notificationService.sendWhatsAppMessage(
             appointment.patientId, patientMsg);
       }
     }
@@ -362,7 +363,7 @@ class AppointmentInPendingService {
 
     appointmentService.removeAppointmentRecord(appointmentId);
     if (appointment != null) {
-      sendEmailToNotifyApprove(appointment, TextConstant.CANCELLED);
+      await sendEmailToNotifyApprove(appointment, TextConstant.CANCELLED);
       String patientUid =
           await userManagementService.fetchUidByUserId(appointment.patientId);
       String physioUid =
@@ -373,15 +374,16 @@ class AppointmentInPendingService {
           'Dear patient, your recent appointment cancellation request for ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)} has been approved. Thank you.';
       String physioMsg =
           'Dear physio, the appointment on ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)} has been cancelled. Thank you.';
-      notificationService.addNotificationFromAdmin(
+      await notificationService.addNotificationFromAdmin(
           patientUid, title, patientMsg);
-      notificationService.addNotificationFromAdmin(physioUid, title, physioMsg);
-      notificationService.sendWhatsAppMessage(
-          appointment.patientId, patientMsg);
-      appointmentService.deleteAppointmentReferenceFromUserById(
+      await notificationService.addNotificationFromAdmin(
+          physioUid, title, physioMsg);
+      await appointmentService.deleteAppointmentReferenceFromUserById(
           appointment.patientId, appointmentId);
-      appointmentService.deleteAppointmentReferenceFromUserById(
+      await appointmentService.deleteAppointmentReferenceFromUserById(
           appointment.physioId, appointmentId);
+      await notificationService.sendWhatsAppMessage(
+          appointment.patientId, patientMsg);
     }
   }
 
@@ -414,12 +416,12 @@ class AppointmentInPendingService {
       String userId = await userManagementService
           .fetchUidByUserId(appointmentInPending.patientId);
 
-      notificationService.addNotificationFromAdmin(
+      await notificationService.addNotificationFromAdmin(
           userId,
           'Cancellation Appointment Update Request',
           "Dear patient, your recent appointment update for ${DateFormat('hh:mm a').format(startTime)}, ${DateFormat('dd MMM yyyy').format(startTime)} has been cancelled by your own. Therefore, your appointment time will still remain at ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)}. Thank you.");
 
-      sendEmailToNotifyRemoveUpdatePending(
+      await sendEmailToNotifyRemoveUpdatePending(
           appointmentInPending, true, date, startTime, endTime);
     }
   }
@@ -451,11 +453,11 @@ class AppointmentInPendingService {
 
       String userId = await userManagementService
           .fetchUidByUserId(appointmentInPending.patientId);
-      notificationService.addNotificationFromAdmin(
+      await notificationService.addNotificationFromAdmin(
           userId,
           "Remove Appointment Cancellation Request",
           "Dear patient, the appointment cancellation request at ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been removed. Therefore, your appointment time will still remain at the same time. Thank you.");
-      sendEmailToNotifyRemoveUpdatePending(
+      await sendEmailToNotifyRemoveUpdatePending(
           appointmentInPending, false, date, startTime, endTime);
     }
   }
@@ -478,12 +480,12 @@ class AppointmentInPendingService {
       if (appointment != null) {
         String userId = await userManagementService
             .fetchUidByUserId(appointmentInPending.patientId);
-        notificationService.addNotificationFromAdmin(
+        await notificationService.addNotificationFromAdmin(
             userId,
             "Appointment Update Rejection",
             'Dear patient, your recent appointment update for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. The appointment time will remain at  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}. Please cancel the current appointment and plan a new appointment at your earliest convenience in PhysioTrack app if you wish to reschedule your appointment. Thank you.');
       }
-      sendEmailToNotifyRejection(appointmentInPending, false);
+      await sendEmailToNotifyRejection(appointmentInPending, false);
     }
   }
 
@@ -499,10 +501,10 @@ class AppointmentInPendingService {
     });
 
     if (appointmentInPending != null) {
-      sendEmailToNotifyRejection(appointmentInPending, true);
+      await sendEmailToNotifyRejection(appointmentInPending, true);
       String userId = await userManagementService
           .fetchUidByUserId(appointmentInPending.patientId);
-      notificationService.addNotificationFromAdmin(
+      await notificationService.addNotificationFromAdmin(
           userId,
           "Appointment Booking Rejection",
           'Dear patient, your recent appointment booking for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. Please reschedule your appointment slot again. Thank you.');
@@ -510,7 +512,8 @@ class AppointmentInPendingService {
   }
 
   // send email to notify user
-  void sendEmailToNotifyRejection(AppointmentInPending appointmentInPending,
+  Future<void> sendEmailToNotifyRejection(
+      AppointmentInPending appointmentInPending,
       bool isRejectNewAppointment) async {
     String patientName = await userManagementService
         .getUsernameById(appointmentInPending.patientId);
@@ -573,7 +576,7 @@ class AppointmentInPendingService {
     }
   }
 
-  void sendEmailToNotifyApprove(
+  Future<void> sendEmailToNotifyApprove(
       AppointmentInPending appointmentInPending, String approveType) async {
     String patientName = await userManagementService
         .getUsernameById(appointmentInPending.patientId);
@@ -620,7 +623,7 @@ class AppointmentInPendingService {
     }
   }
 
-  void sendEmailToNotifyRemoveUpdatePending(
+  Future<void> sendEmailToNotifyRemoveUpdatePending(
       AppointmentInPending appointmentInPending,
       bool isRemoveUpdatePending,
       DateTime updateDate,
@@ -711,6 +714,7 @@ class AppointmentInPendingService {
   Future<List<AppointmentInPending>>
       fetchAllNewAddedPendingAppointmentRecord() async {
     List<AppointmentInPending> appointmentList = [];
+    DateTime now = DateTime.now();
     QuerySnapshot querySnapshot = await appointmentInPendingCollection
         .where('status', isEqualTo: TextConstant.NEW)
         .where('isApproved', isEqualTo: false)
@@ -718,6 +722,9 @@ class AppointmentInPendingService {
     querySnapshot.docs.forEach((snapshot) {
       appointmentList.add(AppointmentInPending.fromSnapshot(snapshot));
     });
+    appointmentList = appointmentList
+        .where((appointment) => appointment.startTime.isAfter(now))
+        .toList();
     return appointmentList;
   }
 
@@ -732,6 +739,9 @@ class AppointmentInPendingService {
     querySnapshot.docs.forEach((snapshot) {
       appointmentList.add(AppointmentInPending.fromSnapshot(snapshot));
     });
+    appointmentList = appointmentList
+        .where((appointment) => appointment.startTime.isAfter(DateTime.now()))
+        .toList();
     return appointmentList;
   }
 
@@ -746,6 +756,9 @@ class AppointmentInPendingService {
     querySnapshot.docs.forEach((snapshot) {
       appointmentList.add(AppointmentInPending.fromSnapshot(snapshot));
     });
+    appointmentList = appointmentList
+        .where((appointment) => appointment.startTime.isAfter(DateTime.now()))
+        .toList();
     return appointmentList;
   }
 
@@ -807,6 +820,10 @@ class AppointmentInPendingService {
     querySnapshot.docs.forEach((snapshot) {
       appointmentList.add(AppointmentInPending.fromSnapshot(snapshot));
     });
+    appointmentList = appointmentList.where((appointment) {
+      DateTime now = DateTime.now();
+      return appointment.startTime.isAfter(now);
+    }).toList();
     return appointmentList;
   }
 }

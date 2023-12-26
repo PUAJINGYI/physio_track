@@ -304,171 +304,196 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                   ),
                                 );
                               } else {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                  child: Card(
-                                    color: Color.fromRGBO(241, 243, 250, 1),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: ListTile(
-                                              leading: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        0, 5, 0, 5),
-                                                child: Container(
-                                                  width: 90,
-                                                  height: 56,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.rectangle,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: ptLibrary
-                                                                  .thumbnailUrl !=
-                                                              null
-                                                          ? NetworkImage(ptLibrary
-                                                                  .thumbnailUrl)
-                                                              as ImageProvider
-                                                          : AssetImage(ImageConstant
-                                                                  .DATA_NOT_FOUND)
-                                                              as ImageProvider,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              title: Column(
-                                                // Use a Column for title and the new Container
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  FutureBuilder(
-                                                    future: notificationService
-                                                        .translateText(
-                                                            ptLibrary.title,
-                                                            context),
-                                                    builder: (BuildContext
-                                                            context,
-                                                        AsyncSnapshot<String>
-                                                            snapshot) {
-                                                      if (snapshot
-                                                              .connectionState ==
-                                                          ConnectionState
-                                                              .waiting) {
-                                                        return ShimmeringTextListWidget(
-                                                          width: 300,
-                                                          numOfLines: 2,
-                                                        ); // or any loading indicator
-                                                      } else if (snapshot
-                                                          .hasError) {
-                                                        return Text(
-                                                            'Error: ${snapshot.error}');
-                                                      } else {
-                                                        String title =
-                                                            snapshot.data!;
-                                                        return Text(
-                                                          title,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize: 14.0),
-                                                        );
-                                                      }
-                                                    },
-                                                  ),
-                                                  SizedBox(height: 5),
-                                                  Container(
-                                                    // This is your new Container
-                                                    width:
-                                                        90, // Customize width
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
+                                return GestureDetector(
+                                  onTap: () async {
+                                    final needUpdate = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PTDailyDetailScreen(
+                                          ptLibraryId: ptLibrary.id,
+                                          activityId: activityId,
+                                        ), // Replace NextPage with your desired page
+                                      ),
+                                    );
+
+                                    if (needUpdate != null && needUpdate) {
+                                      setState(() {
+                                        _loadPTActivitiesRecord();
+                                      });
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                    child: Card(
+                                      color: Color.fromRGBO(241, 243, 250, 1),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 5, 0, 5),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: ListTile(
+                                                leading: Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 5, 0, 5),
+                                                  child: Container(
+                                                    width: 90,
+                                                    height: 56,
                                                     decoration: BoxDecoration(
+                                                      shape: BoxShape.rectangle,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
-                                                      border: Border.all(
-                                                        color: _getLevelColor(
-                                                            ptLibrary.level),
-                                                        width: 2.0,
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: ptLibrary
+                                                                    .thumbnailUrl !=
+                                                                null
+                                                            ? NetworkImage(ptLibrary
+                                                                    .thumbnailUrl)
+                                                                as ImageProvider
+                                                            : AssetImage(
+                                                                    ImageConstant
+                                                                        .DATA_NOT_FOUND)
+                                                                as ImageProvider,
                                                       ),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center, // Center the text horizontally
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center, // Center the text vertically
-                                                      children: [
-                                                        Text(
-                                                          _getLevelText(
-                                                              ptLibrary.level),
-                                                          style: TextStyle(
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                _getLevelColor(
-                                                                    ptLibrary
-                                                                        .level),
-                                                          ),
-                                                        ),
-                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                              trailing: Container(
-                                                width: 40,
-                                                // height: 40,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.blue,
                                                 ),
-                                                child: IconButton(
-                                                  onPressed: () async {
-                                                    final needUpdate =
-                                                        await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            PTDailyDetailScreen(
-                                                          ptLibraryId:
-                                                              ptLibrary.id,
-                                                          activityId:
-                                                              activityId,
-                                                        ), // Replace NextPage with your desired page
+                                                title: Column(
+                                                  // Use a Column for title and the new Container
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    FutureBuilder(
+                                                      future:
+                                                          notificationService
+                                                              .translateText(
+                                                                  ptLibrary
+                                                                      .title,
+                                                                  context),
+                                                      builder: (BuildContext
+                                                              context,
+                                                          AsyncSnapshot<String>
+                                                              snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return ShimmeringTextListWidget(
+                                                            width: 300,
+                                                            numOfLines: 2,
+                                                          ); // or any loading indicator
+                                                        } else if (snapshot
+                                                            .hasError) {
+                                                          return Text(
+                                                              'Error: ${snapshot.error}');
+                                                        } else {
+                                                          String title =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            title,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14.0),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
+                                                    SizedBox(height: 5),
+                                                    Container(
+                                                      // This is your new Container
+                                                      width:
+                                                          90, // Customize width
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        border: Border.all(
+                                                          color: _getLevelColor(
+                                                              ptLibrary.level),
+                                                          width: 2.0,
+                                                        ),
                                                       ),
-                                                    );
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center, // Center the text horizontally
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center, // Center the text vertically
+                                                        children: [
+                                                          Text(
+                                                            _getLevelText(
+                                                                ptLibrary
+                                                                    .level),
+                                                            style: TextStyle(
+                                                              fontSize: 12.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  _getLevelColor(
+                                                                      ptLibrary
+                                                                          .level),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                trailing: Container(
+                                                  width: 40,
+                                                  // height: 40,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.blue,
+                                                  ),
+                                                  child: IconButton(
+                                                    onPressed: () async {
+                                                      final needUpdate =
+                                                          await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PTDailyDetailScreen(
+                                                            ptLibraryId:
+                                                                ptLibrary.id,
+                                                            activityId:
+                                                                activityId,
+                                                          ), // Replace NextPage with your desired page
+                                                        ),
+                                                      );
 
-                                                    if (needUpdate != null &&
-                                                        needUpdate) {
-                                                      setState(() {
-                                                        _loadPTActivitiesRecord();
-                                                      });
-                                                    }
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.play_arrow_outlined,
-                                                    color: Colors.white,
+                                                      if (needUpdate != null &&
+                                                          needUpdate) {
+                                                        setState(() {
+                                                          _loadPTActivitiesRecord();
+                                                        });
+                                                      }
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.play_arrow_outlined,
+                                                      color: Colors.white,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

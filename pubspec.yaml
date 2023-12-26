@@ -55,7 +55,9 @@ dependencies:
   youtube_player_flutter: ^8.0.0
   youtube_explode_dart: ^1.12.4
   background_fetch: '^1.2.1'
-  flutter_local_notifications: ^15.1.0+1
+  #flutter_local_notifications: ^15.1.0+1
+  #flutter_local_notifications: ^6.1.0
+  flutter_local_notifications: ^16.2.0
   firebase_messaging: ^14.6.6
   app_settings: ^5.0.0
   provider: ^5.0.0
@@ -79,6 +81,9 @@ dependencies:
   avatar_glow: ^2.0.2
   easy_localization: ^3.0.3
   shimmer: ^2.0.0
+  rxdart: ^0.27.1
+  flutter_native_timezone: ^1.1.0
+  flutter_timezone: ^1.0.8
 
 dev_dependencies:
   flutter_test:

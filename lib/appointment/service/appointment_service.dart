@@ -375,6 +375,27 @@ class AppointmentService {
     return appointmentList;
   }
 
+  Future<Appointment> fetchLatestAppointmentByPatientId(int id) async {
+    List<Appointment> appointmentList = [];
+    Appointment appointment = Appointment(
+        id: -1,
+        title: '',
+        date: DateTime.now(),
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        durationInSecond: 0,
+        patientId: -1,
+        physioId: -1,
+        eventId: '');
+    QuerySnapshot querySnapshot =
+        await appointmentCollection.where('patientId', isEqualTo: id).get();
+    querySnapshot.docs.forEach((snapshot) {
+      appointmentList.add(Appointment.fromSnapshot(snapshot));
+    });
+    appointmentList.sort((a, b) => b.startTime.compareTo(a.startTime));
+    return appointmentList.first;
+  }
+
   // fetch by physiotherapist to check their appointments
   Future<List<Appointment>> fetchAppointmentListByPhysioId(int id) async {
     List<Appointment> appointmentList = [];
@@ -382,6 +403,26 @@ class AppointmentService {
         await appointmentCollection.where('physioId', isEqualTo: id).get();
     querySnapshot.docs.forEach((snapshot) {
       appointmentList.add(Appointment.fromSnapshot(snapshot));
+    });
+    appointmentList.sort((a, b) => b.startTime.compareTo(a.startTime));
+    return appointmentList;
+  }
+
+  // fetch appointment by physioId in today
+  Future<List<Appointment>> fetchAppointmentListByPhysioIdInToday(
+      int id) async {
+    List<Appointment> appointmentList = [];
+    DateTime todayDateWithoutTime =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    QuerySnapshot querySnapshot =
+        await appointmentCollection.where('physioId', isEqualTo: id).get();
+    querySnapshot.docs.forEach((snapshot) {
+      Appointment appointment = Appointment.fromSnapshot(snapshot);
+      if (appointment.startTime.isAfter(todayDateWithoutTime) &&
+          appointment.startTime
+              .isBefore(todayDateWithoutTime.add(Duration(days: 1)))) {
+        appointmentList.add(appointment);
+      }
     });
     appointmentList.sort((a, b) => b.startTime.compareTo(a.startTime));
     return appointmentList;

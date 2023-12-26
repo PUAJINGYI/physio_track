@@ -195,9 +195,6 @@ class _PatientDetailsJournalDetailScreenState
       );
     } catch (error) {
       print('Error deleting journal: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Journal_could_not_be_deleted.tr())),
-      // );
       showDialog(
         context: context,
         builder: (BuildContext context) {

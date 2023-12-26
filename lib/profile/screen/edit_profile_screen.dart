@@ -340,7 +340,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       // Display a success message or perform any other necessary actions
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Profile updated successfully!")),
+        SnackBar(content: Text(LocaleKeys.Profile_updated_successfully.tr())),
       );
       // Navigator.pushReplacement(
       //     context, MaterialPageRoute(builder: (context) => ProfileScreen()));

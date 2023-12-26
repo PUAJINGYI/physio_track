@@ -74,7 +74,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                 await _userService.addNewUserToFirestore(user, value.user!.uid),
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                      content: Text("New phsyio account created successfully")),
+                      content: Text(LocaleKeys.New_phsyio_account_created_successfully.tr())),
                 ),
                 print("New physio account created successfully"),
                 Navigator.pop(context, true),

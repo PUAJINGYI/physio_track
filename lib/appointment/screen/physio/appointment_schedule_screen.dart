@@ -33,10 +33,12 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
 
   Future<List<Appointment>> getAllAppointmentByPhysio() async {
     int physioId = await userManagementService.fetchUserIdByUid(uid);
-    return appointmentService.fetchAppointmentListByPhysioId(physioId);
+    print(physioId);
+    return await appointmentService.fetchAppointmentListByPhysioId(physioId);
   }
 
   List<Appointment> getAppointmentForSelectedDate(DateTime date) {
+    //date = DateTime(2023, 12, 22);
     List<Appointment> selectedDateEvents = [];
     for (var appointment in allAppointment) {
       if (appointment.date.year == date.year &&
@@ -45,6 +47,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
         selectedDateEvents.add(appointment);
       }
     }
+    print(selectedDateEvents.length);
     return selectedDateEvents;
   }
 
@@ -84,6 +87,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                 child: FutureBuilder<List<Appointment>>(
                   future: getAllAppointmentByPhysio(),
                   builder: (context, snapshot) {
+                    print(snapshot);
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       // While the future is still loading, you can show a loading indicator
                       return Center(child: CircularProgressIndicator());
@@ -95,43 +99,55 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                     } else if (snapshot.hasData) {
                       // If data is available, populate the allAppointment list
                       allAppointment = snapshot.data!;
-
+                      //  return Center(
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Container(
+                      //         width: 100.0,
+                      //         height: 100.0,
+                      //         child: Image.asset(ImageConstant.DATA_NOT_FOUND),
+                      //       ),
+                      //       Text(LocaleKeys.No_Record_Found.tr(),
+                      //           style: TextStyle(
+                      //               fontSize: 20.0,
+                      //               fontWeight: FontWeight.bold)),
+                      //     ],
+                      //   ),
+                      // );
                       return Column(
                         children: [
                           Container(
                             height: MediaQuery.of(context).size.height * 0.42,
-                            child: Expanded(
-                              child: ListView(
-                                padding: EdgeInsets.zero,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                                    child: TableCalendar(
-                                      calendarFormat: calendarFormat,
-                                      focusedDay: selectedDate,
-                                      locale: context.locale.toString(),
-                                      selectedDayPredicate: (day) =>
-                                          isSameDay(selectedDate, day),
-                                      firstDay: DateTime(2023),
-                                      lastDay: DateTime(2030),
-                                      startingDayOfWeek:
-                                          StartingDayOfWeek.monday,
-                                      eventLoader:
-                                          getAppointmentForSelectedDate,
-                                      headerStyle: HeaderStyle(
-                                        formatButtonShowsNext: false,
-                                      ),
-                                      onPageChanged: _onPageChanged,
-                                      onDaySelected: (date, events) {
-                                        setState(() {
-                                          selectedDate = date;
-                                        });
-                                      },
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                                  child: TableCalendar(
+                                    calendarFormat: calendarFormat,
+                                    focusedDay: selectedDate,
+                                    locale: context.locale.toString(),
+                                    selectedDayPredicate: (day) =>
+                                        isSameDay(selectedDate, day),
+                                    firstDay: DateTime.utc(2020,1,1),
+                                    lastDay: DateTime.utc(2030,12,31),
+                                    startingDayOfWeek:
+                                        StartingDayOfWeek.monday,
+                                    eventLoader:
+                                        getAppointmentForSelectedDate,
+                                    headerStyle: HeaderStyle(
+                                      formatButtonShowsNext: false,
                                     ),
+                                    onPageChanged: _onPageChanged,
+                                    onDaySelected: (date, events) {
+                                      setState(() {
+                                        selectedDate = date;
+                                      });
+                                    },
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                           Expanded(
@@ -181,20 +197,17 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                                                                     .startTime),
                                                             style: TextStyle(
                                                               fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
+                                                                  FontWeight.w500,
                                                               fontSize: 20,
                                                             ),
                                                           ),
                                                           Text(
-                                                            DateFormat(
-                                                                    'hh:mm a')
+                                                            DateFormat('hh:mm a')
                                                                 .format(appointment
                                                                     .startTime),
                                                             style: TextStyle(
                                                               fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
+                                                                  FontWeight.bold,
                                                               fontSize: 30,
                                                             ),
                                                           ),
@@ -211,8 +224,8 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                                                             children: [
                                                               Icon(
                                                                 Icons.person,
-                                                                color: Colors
-                                                                    .black,
+                                                                color:
+                                                                    Colors.black,
                                                                 size: 20.0,
                                                               ),
                                                               SizedBox(
@@ -266,7 +279,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                                 }),
                               ],
                             ),
-                          ),
+                          )
                         ],
                       );
                     } else {

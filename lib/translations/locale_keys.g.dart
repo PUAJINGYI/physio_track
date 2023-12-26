@@ -371,5 +371,16 @@ abstract class  LocaleKeys {
   static const Dec = 'Dec';
   static const Gender = 'Gender';
   static const Full_Day_Text = 'Full_Day_Text';
+  static const Failed_to_send_update_appointment_request_to_admin = 'Failed_to_send_update_appointment_request_to_admin';
+  static const Update_appointment_request_is_sent_to_admin_successfully = 'Update_appointment_request_is_sent_to_admin_successfully';
+  static const New_appointment_request_is_sent_to_admin_successfully = 'New_appointment_request_is_sent_to_admin_successfully';
+  static const Failed_to_send_appointment_request_to_admin = 'Failed_to_send_appointment_request_to_admin';
+  static const New_phsyio_account_created_successfully = 'New_phsyio_account_created_successfully';
+  static const Pending_Appointment_Removed = 'Pending_Appointment_Removed';
+  static const Failed_to_remove_pending_appointment = 'Failed_to_remove_pending_appointment';
+  static const OT_Activity_updated = 'OT_Activity_updated';
+  static const Profile_updated_successfully = 'Profile_updated_successfully';
+  static const Signed_out = 'Signed_out';
+  static const Treatment_report_added_successfully = 'Treatment_report_added_successfully';
 
 }

@@ -4,6 +4,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
+import '../main.dart';
 import '../translations/locale_keys.g.dart';
 
 Image logoWidget(String imageName) {
@@ -662,7 +663,7 @@ GestureDetector exerciseCard(BuildContext context, double progress,
 
 Future<dynamic> reusableDialog(context, String title, String subTitle){
   return showDialog(
-        context: context,
+    context: NavigatorKey.currentState!.overlay!.context,
         builder: (BuildContext context) {
           return AlertDialog(
             contentPadding: EdgeInsets.zero, // Remove content padding

@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:background_fetch/background_fetch.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -15,6 +19,7 @@ import 'package:physio_track/authentication/signin_screen.dart';
 import 'package:physio_track/authentication/signup_screen.dart';
 import 'package:physio_track/journal/screen/add_journal_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
+import 'package:physio_track/notification/api/noti_demo_screen.dart';
 import 'package:physio_track/notification/detail.dart';
 import 'package:physio_track/notification/home_screen.dart';
 import 'package:physio_track/notification/notification_services.dart';
@@ -62,6 +67,7 @@ import 'authentication/service/auth_manager.dart';
 import 'authentication/splash_screen.dart';
 import 'leave/screen/leave_apply_screen.dart';
 import 'leave/screen/leave_list_screen.dart';
+import 'notification/model/received_notification_model.dart';
 import 'notification/noti.dart';
 import 'notification/screen/notification_list_screen.dart';
 import 'ot_library/screen/edit_ot_activity_library.dart';
@@ -72,23 +78,166 @@ import 'ot_library/screen/ot_library_list_screen.dart';
 import 'ot_library/screen/add_ot_activity_library_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
+final StreamController<String?> selectNotificationStream =
+    StreamController<String?>.broadcast();
+int id = 0;
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+/// Streams are created so that app can respond to notification-related events
+/// since the plugin is initialised in the `main` function
+final StreamController<ReceivedNotification> didReceiveLocalNotificationStream =
+    StreamController<ReceivedNotification>.broadcast();
+
+const MethodChannel platform =
+    MethodChannel('dexterx.dev/flutter_local_notifications_example');
+
+// A notification action which triggers a url launch event
+const String urlLaunchActionId = 'id_1';
+
+/// A notification action which triggers a App navigation event
+const String navigationActionId = 'id_3';
+
+/// Defines a iOS/MacOS notification category for text input actions.
+const String darwinNotificationCategoryText = 'textCategory';
+
+/// Defines a iOS/MacOS notification category for plain actions.
+const String darwinNotificationCategoryPlain = 'plainCategory';
+
+String? selectedNotificationPayload;
+final GlobalKey<NavigatorState> NavigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
+  await _configureLocalTimeZone();
+
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  final AuthManager authManager = AuthManager();
-  // runApp(MyApp(authManager));
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  Workmanager().cancelByUniqueName("firstTask");
-  Workmanager().cancelByUniqueName("secondTask");
-  Workmanager().cancelByUniqueName("thirdTask");
-  Workmanager().cancelByUniqueName("updateActivityList");
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // final AuthManager authManager = AuthManager();
+  // // runApp(MyApp(authManager));
+  // Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  // Workmanager().cancelByUniqueName("firstTask");
+  // Workmanager().cancelByUniqueName("secondTask");
+  // Workmanager().cancelByUniqueName("thirdTask");
+  // Workmanager().cancelByUniqueName("updateActivityList");
   //runApp(MyApp());
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
+      .then((_) async {
+    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+        !kIsWeb && Platform.isLinux
+            ? null
+            : await flutterLocalNotificationsPlugin
+                .getNotificationAppLaunchDetails();
+    // String initialRoute = HomePage.routeName;
+    // if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+    //   selectedNotificationPayload = notificationAppLaunchDetails!.notificationResponse?.payload;
+    //   initialRoute = SecondPage.routeName;
+    // }
+
+    // const AndroidInitializationSettings initializationSettingsAndroid =
+    //     AndroidInitializationSettings('app_icon');
+
+    // final List<DarwinNotificationCategory> darwinNotificationCategories =
+    //     <DarwinNotificationCategory>[
+    //   DarwinNotificationCategory(
+    //     darwinNotificationCategoryText,
+    //     actions: <DarwinNotificationAction>[
+    //       DarwinNotificationAction.text(
+    //         'text_1',
+    //         'Action 1',
+    //         buttonTitle: 'Send',
+    //         placeholder: 'Placeholder',
+    //       ),
+    //     ],
+    //   ),
+    //   DarwinNotificationCategory(
+    //     darwinNotificationCategoryPlain,
+    //     actions: <DarwinNotificationAction>[
+    //       DarwinNotificationAction.plain('id_1', 'Action 1'),
+    //       DarwinNotificationAction.plain(
+    //         'id_2',
+    //         'Action 2 (destructive)',
+    //         options: <DarwinNotificationActionOption>{
+    //           DarwinNotificationActionOption.destructive,
+    //         },
+    //       ),
+    //       DarwinNotificationAction.plain(
+    //         navigationActionId,
+    //         'Action 3 (foreground)',
+    //         options: <DarwinNotificationActionOption>{
+    //           DarwinNotificationActionOption.foreground,
+    //         },
+    //       ),
+    //       DarwinNotificationAction.plain(
+    //         'id_4',
+    //         'Action 4 (auth required)',
+    //         options: <DarwinNotificationActionOption>{
+    //           DarwinNotificationActionOption.authenticationRequired,
+    //         },
+    //       ),
+    //     ],
+    //     options: <DarwinNotificationCategoryOption>{
+    //       DarwinNotificationCategoryOption.hiddenPreviewShowTitle,
+    //     },
+    //   )
+    // ];
+
+    // /// Note: permissions aren't requested here just to demonstrate that can be
+    // /// done later
+    // final DarwinInitializationSettings initializationSettingsDarwin =
+    //     DarwinInitializationSettings(
+    //   requestAlertPermission: false,
+    //   requestBadgePermission: false,
+    //   requestSoundPermission: false,
+    //   onDidReceiveLocalNotification:
+    //       (int id, String? title, String? body, String? payload) async {
+    //     didReceiveLocalNotificationStream.add(
+    //       ReceivedNotification(
+    //         id: id,
+    //         title: title,
+    //         body: body,
+    //         payload: payload,
+    //       ),
+    //     );
+    //   },
+    //   notificationCategories: darwinNotificationCategories,
+    // );
+    // final LinuxInitializationSettings initializationSettingsLinux =
+    //     LinuxInitializationSettings(
+    //   defaultActionName: 'Open notification',
+    //   defaultIcon: AssetsLinuxIcon('icons/app_icon.png'),
+    // );
+    // final InitializationSettings initializationSettings =
+    //     InitializationSettings(
+    //   android: initializationSettingsAndroid,
+    //   iOS: initializationSettingsDarwin,
+    //   macOS: initializationSettingsDarwin,
+    //   linux: initializationSettingsLinux,
+    // );
+    // await flutterLocalNotificationsPlugin.initialize(
+    //   initializationSettings,
+    //   onDidReceiveNotificationResponse:
+    //       (NotificationResponse notificationResponse) {
+    //     switch (notificationResponse.notificationResponseType) {
+    //       case NotificationResponseType.selectedNotification:
+    //         selectNotificationStream.add(notificationResponse.payload);
+    //         break;
+    //       case NotificationResponseType.selectedNotificationAction:
+    //         if (notificationResponse.actionId == navigationActionId) {
+    //           selectNotificationStream.add(notificationResponse.payload);
+    //         }
+    //         break;
+    //     }
+    //   },
+    //   onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
+    // );
+
     runApp(
       EasyLocalization(
         child: ChangeNotifierProvider(
@@ -103,7 +252,7 @@ void main() async {
       ),
     );
   });
-  initBackgroundFetch();
+  //initBackgroundFetch();
   // runApp(MaterialApp(
   //   title: 'Calendar App',
   //   debugShowCheckedModeBanner: false,
@@ -111,26 +260,47 @@ void main() async {
   // ));
 }
 
-void callbackDispatcher() {
-  Workmanager().executeTask((taskName, inputData) {
-    switch (taskName) {
-      case "firstTask":
-        break;
-      case "secondTask":
-        break;
-      case "thirdTask":
-        break;
-      case "updateActivityList":
-        break;
-      default:
-    }
-    return Future.value(true);
-  });
+@pragma('vm:entry-point')
+void notificationTapBackground(NotificationResponse notificationResponse) {
+  // ignore: avoid_print
+  print('notification(${notificationResponse.id}) action tapped: '
+      '${notificationResponse.actionId} with'
+      ' payload: ${notificationResponse.payload}');
+  if (notificationResponse.input?.isNotEmpty ?? false) {
+    // ignore: avoid_print
+    print(
+        'notification action tapped with input: ${notificationResponse.input}');
+  }
 }
+
+Future<void> _configureLocalTimeZone() async {
+  if (kIsWeb || Platform.isLinux) {
+    return;
+  }
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('Asia/Singapore'));
+}
+
+// void callbackDispatcher() {
+//   Workmanager().executeTask((taskName, inputData) {
+//     switch (taskName) {
+//       case "firstTask":
+//         break;
+//       case "secondTask":
+//         break;
+//       case "thirdTask":
+//         break;
+//       case "updateActivityList":
+//         break;
+//       default:
+//     }
+//     return Future.value(true);
+//   });
+// }
 
 class MyApp extends StatelessWidget {
   final AuthManager authManager = AuthManager();
-  final Noti noti = Noti();
+  // final Noti noti = Noti();
   //const MyApp(this.authManager, this.noti, {Key? key}) : super(key: key);
 
   @override
@@ -140,6 +310,7 @@ class MyApp extends StatelessWidget {
     //   DeviceOrientation.portraitDown,
     // ]);
     return MaterialApp(
+      navigatorKey: NavigatorKey,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
@@ -148,14 +319,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routes: {
-        '/details': (context) => Details(),
-        '/patient_home': (context) => PatientHomePage(),
-        '/admin_home': (context) => AdminHomePage(),
-        '/physio_home': (context) => PhysioHomePage(),
-        '/test_start': (context) => TestStartScreen(),
-        // Add more routes as needed.
-      },
       home:
           //OTLibraryDetailScreen(recordId: 1),
           //EditOTActivityScreen(recordId: 1),
@@ -178,6 +341,7 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
+      //  NotiDemoScreen(),
       //LeaveApplyScreen(physioId: 6,),
       //LeaveListScreen(physioId: 6),
       //ChangeLanguageScreen(),
@@ -215,29 +379,29 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void initBackgroundFetch() {
-  print('Enter initBackgroundFetch');
-  BackgroundFetch.configure(
-    BackgroundFetchConfig(
-      minimumFetchInterval:
-          15, // Minimum interval between background fetches (in minutes)
-      stopOnTerminate:
-          false, // Continue background fetch even if the app is terminated
-      enableHeadless: true, // Run task in a headless state (no UI)
-      requiresBatteryNotLow: false,
-      requiresCharging: false,
-      requiresStorageNotLow: false,
-      startOnBoot: true,
-    ),
-    (taskId) async {
-      // Perform your background task here
-      //await _performBackgroundTask();
-      BackgroundFetch.finish(taskId);
-      print('Task completed');
-    },
-  );
-  BackgroundFetch.start();
-}
+// void initBackgroundFetch() {
+//   print('Enter initBackgroundFetch');
+//   BackgroundFetch.configure(
+//     BackgroundFetchConfig(
+//       minimumFetchInterval:
+//           15, // Minimum interval between background fetches (in minutes)
+//       stopOnTerminate:
+//           false, // Continue background fetch even if the app is terminated
+//       enableHeadless: true, // Run task in a headless state (no UI)
+//       requiresBatteryNotLow: false,
+//       requiresCharging: false,
+//       requiresStorageNotLow: false,
+//       startOnBoot: true,
+//     ),
+//     (taskId) async {
+//       // Perform your background task here
+//       //await _performBackgroundTask();
+//       BackgroundFetch.finish(taskId);
+//       print('Task completed');
+//     },
+//   );
+//   BackgroundFetch.start();
+// }
 
 // Future<void> _performBackgroundTask() async {
 //   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -307,8 +471,8 @@ void initBackgroundFetch() {
 //       fln: flutterLocalNotificationsPlugin);
 // }
 
-@pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print('notification title ${message.notification!.title.toString()}');
-}
+// @pragma('vm:entry-point')
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   print('notification title ${message.notification!.title.toString()}');
+// }

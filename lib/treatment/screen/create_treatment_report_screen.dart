@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,6 +13,7 @@ import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../model/treatment_model.dart';
 import '../service/treatment_service.dart';
 
@@ -180,7 +182,7 @@ class _CreateTreatmentReportScreenState
           .addTreatmentReport(widget.appointmentId, treatment)
           .then((value) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Treatment report added successfully!")),
+          SnackBar(content: Text(LocaleKeys.Treatment_report_added_successfully.tr())),
         );
         Navigator.pop(context, true);
       });

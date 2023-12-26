@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:physio_track/appointment/screen/admin/appointment_admin_nav_page.dart';
 import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.dart';
 
+import '../notification/api/notification_api.dart';
 import '../profile/screen/profile_screen.dart';
 import '../user_management/screen/user_management_page.dart';
 import 'admin_activity_management_screen.dart';
@@ -32,6 +34,14 @@ class _AdminHomePageState extends State<AdminHomePage>
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0, keepPage: true);
+    cancelPatientNotification();
+  }
+
+  void cancelPatientNotification() async {
+    final ptNotiId = dotenv.env['PT_REMINDER'];
+    final otNotiId = dotenv.env['OT_REMINDER'];
+    NotificationApi.cancelNoti(id: int.parse(ptNotiId!));
+    NotificationApi.cancelNoti(id: int.parse(otNotiId!));
   }
 
   @override

@@ -34,9 +34,22 @@ class _TestPart2ScreenState extends State<TestPart2Screen> {
   Future<void> fetchQuestions() async {
     List<Question> fetchedQuestions =
         await questionService.fetchQuestionsByTopic('upper');
-
+    List<QuestionResponse> defaultResponses = [];
+    for (Question question in fetchedQuestions) {
+      if (question.questionType == "short" || question.questionType == "date") {
+        continue;
+      }
+      defaultResponses.add(QuestionResponse(
+        id: question.id,
+        question: question.question,
+        topic: question.topic,
+        questionType: question.questionType,
+        response: '1.0', // Set a default response of 1.0 for all questions
+      ));
+    }
     setState(() {
       questions = fetchedQuestions;
+      responses = defaultResponses;      
     });
   }
 
@@ -96,7 +109,7 @@ class _TestPart2ScreenState extends State<TestPart2Screen> {
       //         LocaleKeys.Please_answer_all_questions_before_proceeding.tr()),
       //   ),
       // );
-       reusableDialog(context, LocaleKeys.Error.tr(),
+      reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Please_answer_all_questions_before_proceeding.tr());
       return; // Stop the submission process
     }
@@ -224,7 +237,6 @@ class _TestPart2ScreenState extends State<TestPart2Screen> {
               ),
             ),
           ),
-          
         ],
       ),
     );

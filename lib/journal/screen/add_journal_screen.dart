@@ -526,7 +526,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                 child: _imageUploaded
                                     ? Image.file(
                                         _imageFile!,
-                                        fit: BoxFit.fill,
+                                        fit: BoxFit.cover,
                                       )
                                     : Image.asset(
                                         ImageConstant.DEFAULT_JOURNAL,

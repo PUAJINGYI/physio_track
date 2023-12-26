@@ -363,12 +363,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         throw 'Could not launch $url';
       }
     } else {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     content: Text(LocaleKeys.User_No_HP.tr()),
-      //     duration: Duration(seconds: 3),
-      //   ),
-      // );
       showDialog(
         context: context,
         builder: (BuildContext context) {
