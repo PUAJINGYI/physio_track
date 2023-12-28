@@ -906,18 +906,66 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                 10, 15, 10, 10),
                                             child: Column(
                                               children: [
-                                                Align(
-                                                  alignment: Alignment
-                                                      .centerLeft, // Align left
-                                                  child: Text(
-                                                    mondayThisWeek +
-                                                        " - " +
-                                                        sundayThisWeek,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment
+                                                          .centerLeft, // Align left
+                                                      child: Text(
+                                                        mondayThisWeek +
+                                                            " - " +
+                                                            sundayThisWeek,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerRight,
+                                                        child: Row(
+                                                          children: <Widget>[
+                                                            Container(
+                                                              width: 10,
+                                                              height: 10,
+                                                              color: Color.fromARGB(
+                                                                  255,
+                                                                  129,
+                                                                  238,
+                                                                  143), // PT color
+                                                            ),
+                                                            SizedBox(width: 5),
+                                                            Text(
+                                                                LocaleKeys.PT
+                                                                    .tr(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black)),
+                                                            SizedBox(width: 10),
+                                                            Container(
+                                                              width: 10,
+                                                              height: 10,
+                                                              color: Color.fromARGB(
+                                                                  255,
+                                                                  243,
+                                                                  124,
+                                                                  116), // OT color
+                                                            ),
+                                                            SizedBox(width: 5),
+                                                            Text(
+                                                                LocaleKeys.OT
+                                                                    .tr(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black))
+                                                          ],
+                                                        )),
+                                                  ],
                                                 ),
                                                 SizedBox(
                                                   height: 20,
