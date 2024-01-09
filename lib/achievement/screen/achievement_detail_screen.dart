@@ -10,6 +10,7 @@ import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/achievement_model.dart';
 import '../model/user_achievement_model.dart';
 
@@ -26,8 +27,7 @@ class AchievementDetailScreen extends StatefulWidget {
 }
 
 class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
-  NotificationService notificationService = NotificationService();
-
+  TranslateService translateeServcie = TranslateService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +56,7 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(16, 32, 16, 8),
                             child: FutureBuilder(
-                              future: notificationService.translateText(
+                              future: translateeServcie.translateText(
                                   widget.achievement.title, context),
                               builder: (BuildContext context,
                                   AsyncSnapshot<String> snapshot) {
@@ -89,7 +89,7 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
                             child: FutureBuilder(
-                              future: notificationService.translateText(
+                              future: translateeServcie.translateText(
                                   widget.achievement.description, context),
                               builder: (BuildContext context,
                                   AsyncSnapshot<String> snapshot) {

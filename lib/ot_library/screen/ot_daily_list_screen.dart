@@ -6,14 +6,10 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:physio_track/ot_library/model/ot_activity_detail_model.dart';
 import 'package:physio_track/ot_library/model/ot_activity_model.dart';
 import 'package:physio_track/ot_library/model/ot_library_model.dart';
-import 'package:physio_track/ot_library/screen/ot_library_detail_screen.dart';
-
 import '../../constant/ImageConstant.dart';
-import '../../notification/service/notification_service.dart';
-import '../../notification/widget/shimmering_message_widget.dart';
-import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import 'ot_daily_detail_screen.dart';
 
 class OTDailyListScreen extends StatefulWidget {
@@ -30,7 +26,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
   late List<OTLibrary> otLibraryList = [];
   late int activityId = 0;
   late double progress = 0.0;
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
 
   @override
   void initState() {
@@ -206,7 +202,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                    future: notificationService
+                                                    future: translateService
                                                         .translateText(
                                                             otLibrary.title,
                                                             context),
@@ -375,7 +371,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                   children: [
                                                     FutureBuilder(
                                                       future:
-                                                          notificationService
+                                                          translateService
                                                               .translateText(
                                                                   otLibrary
                                                                       .title,

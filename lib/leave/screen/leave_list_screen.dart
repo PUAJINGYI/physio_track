@@ -1,16 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/leave/screen/leave_apply_screen.dart';
-import 'package:physio_track/leave/widget/leave_type_card.dart';
-
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/leave_model.dart';
 import '../service/leave_service.dart';
 import '../widget/calendar_tile.dart';
@@ -30,8 +26,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
       GlobalKey<RefreshIndicatorState>();
   bool isOnCall = true;
   bool isOfficeHour = true;
-  NotificationService notificationService = NotificationService();
-
+  TranslateService translateService = TranslateService();
   @override
   void initState() {
     super.initState();
@@ -198,7 +193,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                                           date: snapshot.data![index].date),
                                     ),
                                     title: FutureBuilder(
-                                      future: notificationService.translateText(
+                                      future: translateService.translateText(
                                           snapshot.data![index].reason,
                                           context),
                                       builder: (BuildContext context,

@@ -12,16 +12,15 @@ import '../../achievement/service/achievement_service.dart';
 import '../../constant/AchievementConstant.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/ot_activity_model.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
 import '../../achievement/widget/achievement_dialog_widget.dart';
 import 'ot_daily_finished_screen.dart';
-import 'ot_daily_list_screen.dart';
 
 class OTDailyDetailScreen extends StatefulWidget {
   final int otLibraryId;
@@ -40,7 +39,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
   late OTLibrary _otLibraryRecord;
   final OTLibraryService _otLibraryService = OTLibraryService();
   final AchievementService _achievementService = AchievementService();
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
   late YoutubePlayerController _controller;
 
   @override
@@ -430,7 +429,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                       alignment: Alignment.topLeft,
                                       child: FutureBuilder(
                                         future:
-                                            notificationService.translateText(
+                                            translateService.translateText(
                                                 _otLibraryRecord.title,
                                                 context),
                                         builder: (BuildContext context,
@@ -524,7 +523,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                       height: 340,
                                       child: FutureBuilder(
                                         future:
-                                            notificationService.translateText(
+                                            translateService.translateText(
                                                 _otLibraryRecord.description,
                                                 context),
                                         builder: (BuildContext context,
@@ -573,7 +572,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                         Align(
                                           alignment: Alignment.topLeft,
                                           child: FutureBuilder(
-                                            future: notificationService
+                                            future: translateService
                                                 .translateText(
                                                     _otLibraryRecord.title,
                                                     context),
@@ -670,7 +669,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                         Container(
                                           height: 310,
                                           child: FutureBuilder(
-                                            future: notificationService
+                                            future: translateService
                                                 .translateText(
                                                     _otLibraryRecord
                                                         .description,

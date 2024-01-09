@@ -8,6 +8,7 @@ import 'package:physio_track/translations/locale_keys.g.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/notification_model.dart';
 import '../widget/shimmering_message_widget.dart';
 
@@ -21,6 +22,7 @@ class NotificationListScreen extends StatefulWidget {
 class _NotificationListScreenState extends State<NotificationListScreen> {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
   late Future<List<Notifications>> notificationList;
   final dateFormat = DateFormat('dd/MM/yyyy');
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -129,7 +131,7 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                         Expanded(
                                           child: ListTile(
                                             title: FutureBuilder(
-                                              future: notificationService
+                                              future: translateService
                                                   .translateText(
                                                       notification.title,
                                                       context),

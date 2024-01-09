@@ -137,7 +137,7 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
     // Show a snackbar to confirm the addition
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('New Achievement Record Added'),
+        content: Text(LocaleKeys.New_Achievement_Record_Added.tr()),
         duration: Duration(seconds: 3),
       ),
     );

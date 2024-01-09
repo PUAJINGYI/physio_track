@@ -253,6 +253,15 @@ class _AppointmentEditInChargePhysioOnLeaveScreenState
 
                                               if (needUpdate != null &&
                                                   needUpdate) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      LocaleKeys.Appointment_conflict_has_been_solved.tr()),
+                                                    duration:
+                                                        Duration(seconds: 3),
+                                                  ),
+                                                );
                                                 setState(() {
                                                   _appointmentEditList =
                                                       _fetchConlicAppointmentList();

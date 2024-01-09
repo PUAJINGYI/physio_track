@@ -15,6 +15,7 @@ import '../../ot_library/model/ot_activity_detail_model.dart';
 import '../../ot_library/model/ot_activity_model.dart';
 import '../../ot_library/model/ot_library_model.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 
 class WeeklyAnalysisOTActivityDetailScreen extends StatefulWidget {
   final int id;
@@ -38,7 +39,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
   late List<OTLibrary> otLibraryList = [];
   late double progress = 0.0;
   late bool afterToday = false;
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
 
   @override
   void initState() {
@@ -215,7 +216,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                     // ),
                                                     FutureBuilder(
                                                       future:
-                                                          notificationService
+                                                          translateService
                                                               .translateText(
                                                                   otLibrary
                                                                       .title,
@@ -376,7 +377,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                   children: [
                                                     FutureBuilder(
                                                       future:
-                                                          notificationService
+                                                          translateService
                                                               .translateText(
                                                                   otLibrary
                                                                       .title,
@@ -535,7 +536,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                    future: notificationService
+                                                    future: translateService
                                                         .translateText(
                                                             otLibrary.title,
                                                             context),
@@ -678,7 +679,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                    future: notificationService
+                                                    future: translateService
                                                         .translateText(
                                                             otLibrary.title,
                                                             context),
@@ -832,7 +833,7 @@ class _WeeklyAnalysisOTActivityDetailScreenState
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                    future: notificationService
+                                                    future: translateService
                                                         .translateText(
                                                             otLibrary.title,
                                                             context),

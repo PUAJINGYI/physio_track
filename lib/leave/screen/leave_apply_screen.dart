@@ -464,7 +464,6 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 45),
             ],
           )),
       Positioned(

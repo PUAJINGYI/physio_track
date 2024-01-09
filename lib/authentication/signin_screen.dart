@@ -6,25 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:physio_track/admin/admin_home_page.dart';
+import 'package:physio_track/user_sceen/admin/admin_home_page.dart';
 import 'package:physio_track/authentication/signup_screen.dart';
-import 'package:physio_track/patient/patient_home_screen.dart';
-import 'package:physio_track/physio/physio_home_page.dart';
-import 'package:physio_track/physio/physio_home_screen.dart';
+import 'package:physio_track/user_sceen/patient/patient_home_screen.dart';
+import 'package:physio_track/user_sceen/physio/physio_home_page.dart';
+import 'package:physio_track/user_sceen/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/change_language_screen.dart';
 import 'package:physio_track/provider/user_state.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../admin/admin_home_screen.dart';
+import '../user_sceen/admin/admin_home_screen.dart';
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
 import '../profile/model/user_model.dart';
 import '../profile/service/user_service.dart';
 import '../translations/locale_keys.g.dart';
 import 'service/auth_manager.dart';
-import '../patient/patient_home_page.dart';
+import '../user_sceen/patient/patient_home_page.dart';
 import 'forget_password_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
   bool _validateEmailInput = false;
   bool _validatePasswordInput = false;
   bool _isObscure = true;
-  AuthManager _authManager = AuthManager();
+  // AuthManager _authManager = AuthManager();
   bool _isLoading = false;
 
   void toggleObscure() {
@@ -64,7 +64,7 @@ class _SignInScreenState extends State<SignInScreen> {
         password: password,
       );
 
-      _authManager.login();
+      // _authManager.login();
       checkUserRoleAndRedirect(context);
     } catch (e) {
       String message = LocaleKeys.An_Error_Occurred.tr();
@@ -267,7 +267,7 @@ class _SignInScreenState extends State<SignInScreen> {
         UserState userState = Provider.of<UserState>(context, listen: false);
         userState.setUserCredentials(credential);
 
-        _authManager.login();
+        // _authManager.login();
 
         // Check if it's the user's first login
         if (userCredential.additionalUserInfo?.isNewUser == true) {

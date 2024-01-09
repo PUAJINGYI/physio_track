@@ -4,10 +4,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 
-import '../constant/ImageConstant.dart';
-import '../constant/TextConstant.dart';
-import '../ot_library/screen/ot_library_list_screen.dart';
-import '../translations/locale_keys.g.dart';
+import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
+import '../../ot_library/screen/ot_library_list_screen.dart';
+import '../../translations/locale_keys.g.dart';
 
 class AdminActivityManagementScreen extends StatefulWidget {
   const AdminActivityManagementScreen({super.key});

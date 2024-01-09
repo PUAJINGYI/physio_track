@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   late Map<String, dynamic> userData = {};
   String? profileImageUrl;
-  AuthManager _authManager = AuthManager();
+  // AuthManager _authManager = AuthManager();
   NotificationService notificationService = NotificationService();
   bool hasUnreadNotifications = false;
 
@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SnackBar(content: Text(LocaleKeys.Signed_out.tr())),
       );
       print("Signed out");
-      _authManager.logout();
+      // _authManager.logout();
       Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (BuildContext context) {

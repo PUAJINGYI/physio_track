@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
-import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/pt_library_model.dart';
 import 'add_pt_activity_library_screen.dart';
 
@@ -20,7 +19,7 @@ class PTLibraryListScreen extends StatefulWidget {
 
 class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
   final YoutubeExplode _ytExplode = YoutubeExplode();
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
 
   @override
   void initState() {
@@ -125,7 +124,7 @@ class _PTLibraryListScreenState extends State<PTLibraryListScreen> {
                                       ),
                                       title: FutureBuilder(
                                         future:
-                                            notificationService.translateText(
+                                            translateService.translateText(
                                                 ptLibrary.title, context),
                                         builder: (BuildContext context,
                                             AsyncSnapshot<String> snapshot) {

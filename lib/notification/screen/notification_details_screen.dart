@@ -10,6 +10,7 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/notification_model.dart';
 import '../service/notification_service.dart';
 import '../widget/shimmering_message_widget.dart';
@@ -27,6 +28,7 @@ class NotificationDetailsScreen extends StatefulWidget {
 class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
   late Future<Notifications?> notification;
   final dateFormat = DateFormat('dd/MM/yyyy');
 
@@ -97,7 +99,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                     children: [
                                       FutureBuilder(
                                         future:
-                                            notificationService.translateText(
+                                            translateService.translateText(
                                                 notification.title, context),
                                         builder: (BuildContext context,
                                             AsyncSnapshot<String> snapshot) {
@@ -129,7 +131,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                       ),
                                       FutureBuilder(
                                         future:
-                                            notificationService.translateText(
+                                            translateService.translateText(
                                                 notification.message, context),
                                         builder: (BuildContext context,
                                             AsyncSnapshot<String> snapshot) {

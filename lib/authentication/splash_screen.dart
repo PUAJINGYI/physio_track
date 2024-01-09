@@ -13,7 +13,6 @@ import 'package:physio_track/authentication/signin_screen.dart';
 
 import '../constant/ImageConstant.dart';
 import '../main.dart';
-import '../notification/notification_services.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onFinish;

@@ -23,7 +23,7 @@ class _AppointmentCancelApproveScreenState
     extends State<AppointmentCancelApproveScreen> {
   AppointmentInPendingService appointmentInPendingService =
       AppointmentInPendingService();
-      UserManagementService userManagementService = UserManagementService();
+  UserManagementService userManagementService = UserManagementService();
   late Future<List<AppointmentInPending>> _newAppointmentList;
   late String patientName;
   late String physioName;
@@ -92,6 +92,13 @@ class _AppointmentCancelApproveScreenState
                     onPressed: () async {
                       await appointmentInPendingService
                           .approveCancelledAppointmentRecord(appointmentId);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              LocaleKeys.Appointment_has_been_cancelled.tr()),
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
                       Navigator.pop(context);
                       setState(() {
                         _newAppointmentList = _fetchAppointmentList();
@@ -107,8 +114,7 @@ class _AppointmentCancelApproveScreenState
                       backgroundColor: ColorConstant.RED_BUTTON_UNPRESSED,
                     ),
                     child: Text(LocaleKeys.No.tr(),
-                        style:
-                            TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
+                        style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
                       Navigator.of(context).pop(); // Close the dialog
                     },
@@ -140,7 +146,8 @@ class _AppointmentCancelApproveScreenState
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
+            return Center(
+                child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           }
           if (snapshot.hasData && snapshot.data!.isEmpty) {
             return Center(
@@ -304,7 +311,8 @@ class _AppointmentCancelApproveScreenState
                                                   context, appointment.id);
                                             },
                                             style: TextButton.styleFrom(
-                                              backgroundColor: ColorConstant.GREEN_BUTTON_UNPRESSED, // Background color of the button
+                                              backgroundColor: ColorConstant
+                                                  .GREEN_BUTTON_UNPRESSED, // Background color of the button
                                               primary:
                                                   Colors.white, // Text color
                                             ),
@@ -315,8 +323,8 @@ class _AppointmentCancelApproveScreenState
                                                 Icon(
                                                   Icons
                                                       .check_circle_outlined, // Your icon here
-                                                  color: ColorConstant.GREEN_BUTTON_TEXT
-                                                      , // Icon color
+                                                  color: ColorConstant
+                                                      .GREEN_BUTTON_TEXT, // Icon color
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
@@ -324,7 +332,8 @@ class _AppointmentCancelApproveScreenState
                                                   style: TextStyle(
                                                     fontSize:
                                                         15.0, // Text font size
-                                                    color: ColorConstant.GREEN_BUTTON_TEXT,
+                                                    color: ColorConstant
+                                                        .GREEN_BUTTON_TEXT,
                                                   ),
                                                 ),
                                               ],

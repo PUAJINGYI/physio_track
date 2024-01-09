@@ -9,7 +9,7 @@ import 'package:physio_track/journal/screen/view_journal_screen.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../patient/patient_home_screen.dart';
+import '../../user_sceen/patient/patient_home_screen.dart';
 import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/journal_model.dart';

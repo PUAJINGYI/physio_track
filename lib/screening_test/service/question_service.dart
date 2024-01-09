@@ -163,14 +163,14 @@ class QuestionService {
         await fetchQuestionResponseByTopic(userRef, topic);
     print(topicResponse);
 
-    double topicScore = 0.0; // Initialize as double
+    double topicScore = 0.0; 
     topicResponse.forEach((response) {
       print("response: ${response.response}");
-      topicScore += double.parse(response.response); // Parse as double
+      topicScore += double.parse(response.response); 
     });
 
     double topicStatusScore =
-        topicScore / (topicResponse.length * 5); // Use double division
+        topicScore / (topicResponse.length * 5); 
     if (topicStatusScore <= 0.4) {
       userRef.update({'${topic}Status': 'beginner'});
     } else if (topicStatusScore <= 0.8) {

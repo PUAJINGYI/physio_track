@@ -307,7 +307,6 @@ class _EditAppointmentDetailScreenState
                       ],
                     ),
                   ),
-                  SizedBox(height: 40),
                 ],
               )),
           Positioned(

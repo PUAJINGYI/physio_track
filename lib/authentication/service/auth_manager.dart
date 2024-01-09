@@ -1,11 +1,11 @@
-class AuthManager {
-  bool isLoggedIn = false;
+// class AuthManager {
+//   bool isLoggedIn = false;
 
-  void login() {
-    isLoggedIn = true;
-  }
+//   void login() {
+//     isLoggedIn = true;
+//   }
 
-  void logout() {
-    isLoggedIn = false;
-  }
-}
+//   void logout() {
+//     isLoggedIn = false;
+//   }
+// }

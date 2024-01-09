@@ -15,6 +15,7 @@ import '../../pt_library/model/pt_activity_detail_model.dart';
 import '../../pt_library/model/pt_activity_model.dart';
 import '../../pt_library/model/pt_library_model.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 
 class WeeklyAnalysisPTActivityDetailScreen extends StatefulWidget {
   final int id;
@@ -38,7 +39,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
   late List<PTLibrary> ptLibraryList = [];
   late double progress = 0.0;
   late bool afterToday = false;
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
 
   @override
   void initState() {
@@ -208,7 +209,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   children: [
                                                     FutureBuilder(
                                                       future:
-                                                          notificationService
+                                                          translateService
                                                               .translateText(
                                                                   ptLibrary
                                                                       .title,
@@ -368,7 +369,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   children: [
                                                     FutureBuilder(
                                                       future:
-                                                          notificationService
+                                                          translateService
                                                               .translateText(
                                                                   ptLibrary
                                                                       .title,
@@ -527,7 +528,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                    future: notificationService
+                                                    future: translateService
                                                         .translateText(
                                                             ptLibrary.title,
                                                             context),
@@ -670,7 +671,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                    future: notificationService
+                                                    future: translateService
                                                         .translateText(
                                                             ptLibrary.title,
                                                             context),
@@ -823,7 +824,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                    future: notificationService
+                                                    future: translateService
                                                         .translateText(
                                                             ptLibrary.title,
                                                             context),

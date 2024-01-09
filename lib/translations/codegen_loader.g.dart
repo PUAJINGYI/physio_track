@@ -395,7 +395,15 @@ class CodegenLoader extends AssetLoader{
   "OT_Activity_updated": "OT Activity updated",
   "Profile_updated_successfully": "Profile updated successfully!",
   "Signed_out": "Signed out",
-  "Treatment_report_added_successfully": "Treatment report added successfully!"
+  "Treatment_report_added_successfully": "Treatment report added successfully!",
+  "New_Achievement_Record_Added": "New Achievement Record Added",
+  "Pending_appointment_is_rejected": "Pending appointment is rejected",
+  "Update_appointment_request_is_rejected": "Update appointment request is rejected",
+  "Appointment_has_been_cancelled": "Appointment has been cancelled.",
+  "Appointment_conflict_has_been_solved": "Appointment conflict has been solved",
+  "Pending_Update_Appointment_Removed": "Pending Update Appointment Removed",
+  "Pending_appointment_cancellation_request_is_removed": "Pending appointment cancellation request is removed",
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "Cancel appointment request is sent to admin successfully"
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -778,7 +786,15 @@ static const Map<String,dynamic> ms = {
   "OT_Activity_updated": "Aktiviti TP dikemaskini",
   "Profile_updated_successfully": "Profil dikemaskini dengan berjaya!",
   "Signed_out": "Log keluar",
-  "Treatment_report_added_successfully": "Laporan rawatan ditambah dengan berjaya!"
+  "Treatment_report_added_successfully": "Laporan rawatan ditambah dengan berjaya!",
+  "New_Achievement_Record_Added": "Rekod Pencapaian Baharu Ditambah",
+  "Pending_appointment_is_rejected": "Permohonan Temu Janji Tertunda Ditolak",
+  "Update_appointment_request_is_rejected": "Permohonan Kemaskini Temu Janji Ditolak",
+  "Appointment_has_been_cancelled": "Temu Janji Telah Dibatalkan",
+  "Appointment_conflict_has_been_solved": "Konflik Temu Janji Telah Diselesaikan",
+  "Pending_Update_Appointment_Removed": "Kemaskini yang tertangguh pada temujanji telah dikeluarkan.",
+  "Pending_appointment_cancellation_request_is_removed": "Permintaan pembatalan temujanji yang tertangguh telah dikeluarkan.",
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "Permintaan pembatalan temujanji telah berjaya dihantar kepada pentadbir."
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -1161,7 +1177,15 @@ static const Map<String,dynamic> zh = {
   "OT_Activity_updated": "职疗活动已更新",
   "Profile_updated_successfully": "个人资料成功更新！",
   "Signed_out": "已退出登录",
-  "Treatment_report_added_successfully": "成功添加治疗报告！"
+  "Treatment_report_added_successfully": "成功添加治疗报告！",
+  "New_Achievement_Record_Added": "新成就记录已添加",
+  "Pending_appointment_is_rejected": "待处理的预约请求已被拒绝",
+  "Update_appointment_request_is_rejected": "更新预约请求已被拒绝",
+  "Appointment_has_been_cancelled": "预约已取消",
+  "Appointment_conflict_has_been_solved": "预约冲突已解决",
+  "Pending_Update_Appointment_Removed": "待办预约更新已移除。",
+  "Pending_appointment_cancellation_request_is_removed": "待办预约取消请求已移除。",
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "取消预约请求已成功发送给管理员。"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

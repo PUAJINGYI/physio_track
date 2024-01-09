@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:physio_track/authentication/signin_screen.dart';
 import 'package:physio_track/screening_test/screen/test_start_screen.dart';
 
-import '../admin/admin_home_page.dart';
+import '../user_sceen/admin/admin_home_page.dart';
 import '../constant/ColorConstant.dart';
-import '../patient/patient_home_page.dart';
-import '../physio/physio_home_page.dart';
+import '../user_sceen/patient/patient_home_page.dart';
+import '../user_sceen/physio/physio_home_page.dart';
 import '../translations/locale_keys.g.dart';
 
 class RedirectScreen extends StatefulWidget {

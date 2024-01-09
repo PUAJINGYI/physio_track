@@ -10,11 +10,11 @@ import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.dart';
 import 'package:physio_track/user_management/screen/user_management_page.dart';
 
-import '../authentication/signin_screen.dart';
-import '../constant/ImageConstant.dart';
-import '../constant/TextConstant.dart';
-import '../translations/locale_keys.g.dart';
-import '../user_management/service/user_management_service.dart';
+import '../../authentication/signin_screen.dart';
+import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
+import '../../translations/locale_keys.g.dart';
+import '../../user_management/service/user_management_service.dart';
 import 'admin_activity_management_screen.dart';
 
 class AdminHomeScreen extends StatefulWidget {

@@ -6,7 +6,7 @@ import 'package:physio_track/translations/locale_keys.g.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../patient/patient_home_page.dart';
+import '../../user_sceen/patient/patient_home_page.dart';
 import '../../reusable_widget/reusable_widget.dart';
 
 class OTDailyFinishedScreen extends StatefulWidget {

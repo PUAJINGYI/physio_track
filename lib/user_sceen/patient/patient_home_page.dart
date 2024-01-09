@@ -10,23 +10,23 @@ import 'package:physio_track/achievement/screen/progress_screen.dart';
 import 'package:physio_track/authentication/redirect_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 import 'package:physio_track/ot_library/screen/ot_daily_list_screen.dart';
-import 'package:physio_track/patient/patient_home_screen.dart';
+import 'package:physio_track/user_sceen/patient/patient_home_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../appointment/model/appointment_model.dart';
-import '../appointment/screen/appointment_patient_screen.dart';
-import '../appointment/screen/physio/appointment_schedule_screen.dart';
-import '../appointment/service/appointment_service.dart';
-import '../main.dart';
-import '../notification/api/notification_api.dart';
-import '../notification/model/received_notification_model.dart';
+import '../../appointment/model/appointment_model.dart';
+import '../../appointment/screen/appointment_patient_screen.dart';
+import '../../appointment/screen/physio/appointment_schedule_screen.dart';
+import '../../appointment/service/appointment_service.dart';
+import '../../main.dart';
+import '../../notification/api/notification_api.dart';
+import '../../notification/model/received_notification_model.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import '../ot_library/service/user_ot_list_service.dart';
-import '../profile/screen/profile_screen.dart';
-import '../provider/user_state.dart';
-import '../pt_library/service/user_pt_list_service.dart';
-import '../user_management/service/user_management_service.dart';
+import '../../ot_library/service/user_ot_list_service.dart';
+import '../../profile/screen/profile_screen.dart';
+import '../../provider/user_state.dart';
+import '../../pt_library/service/user_pt_list_service.dart';
+import '../../user_management/service/user_management_service.dart';
 
 class PatientHomePage extends StatefulWidget {
   const PatientHomePage({Key? key}) : super(key: key);
@@ -215,7 +215,7 @@ class _PatientHomePageState extends State<PatientHomePage>
   void pushAppointmentNoti() async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     int patientId = await userManagementService.fetchUserIdByUid(uid);
-    Appointment appointment =
+    Appointment? appointment =
         await appointmentService.fetchLatestAppointmentByPatientId(patientId);
     if (appointment != null) {
       DateTime appointmentDate = appointment.startTime;

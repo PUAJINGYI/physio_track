@@ -8,11 +8,10 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import 'ot_library_detail_screen.dart';
-import 'ot_library_list_screen.dart';
 
 class OTLibraryListScreen extends StatefulWidget {
   @override
@@ -21,7 +20,7 @@ class OTLibraryListScreen extends StatefulWidget {
 
 class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
   final YoutubeExplode _ytExplode = YoutubeExplode();
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
 
   @override
   void initState() {
@@ -126,7 +125,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                       ),
                                       title: FutureBuilder(
                                         future:
-                                            notificationService.translateText(
+                                            translateService.translateText(
                                                 otLibrary.title, context),
                                         builder: (BuildContext context,
                                             AsyncSnapshot<String> snapshot) {

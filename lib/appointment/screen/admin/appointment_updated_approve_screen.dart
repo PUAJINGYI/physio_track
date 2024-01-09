@@ -92,6 +92,12 @@ class _AppointmentUpdatedApproveScreenState
                     onPressed: () async {
                       await appointmentInPendingService
                           .rejectUpdatePendingAppointmentRecord(appointmentId);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(LocaleKeys.Update_appointment_request_is_rejected.tr()),
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
                       Navigator.pop(context);
                       setState(() {
                         _newAppointmentList = _fetchAppointmentList();

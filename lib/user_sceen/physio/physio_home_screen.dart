@@ -10,16 +10,16 @@ import 'package:physio_track/appointment/screen/physio/appointment_history_physi
 import 'package:physio_track/appointment/screen/physio/appointment_schedule_screen.dart';
 import 'package:physio_track/user_management/screen/patient_list_screen.dart';
 
-import '../appointment/model/appointment_model.dart';
-import '../appointment/service/appointment_in_pending_service.dart';
-import '../appointment/service/appointment_service.dart';
-import '../authentication/signin_screen.dart';
-import '../constant/ImageConstant.dart';
-import '../constant/TextConstant.dart';
-import '../leave/screen/leave_list_screen.dart';
-import '../reusable_widget/reusable_widget.dart';
-import '../translations/locale_keys.g.dart';
-import '../user_management/service/user_management_service.dart';
+import '../../appointment/model/appointment_model.dart';
+import '../../appointment/service/appointment_in_pending_service.dart';
+import '../../appointment/service/appointment_service.dart';
+import '../../authentication/signin_screen.dart';
+import '../../constant/ImageConstant.dart';
+import '../../constant/TextConstant.dart';
+import '../../leave/screen/leave_list_screen.dart';
+import '../../reusable_widget/reusable_widget.dart';
+import '../../translations/locale_keys.g.dart';
+import '../../user_management/service/user_management_service.dart';
 
 class PhysioHomeScreen extends StatefulWidget {
   const PhysioHomeScreen({super.key});

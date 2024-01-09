@@ -210,14 +210,20 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
       onConfirm = () async {
         await appointmentInPendingService
             .cancelPendingAppointmentRecord(latestPendingAppointment.id);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(LocaleKeys
+                .Cancel_appointment_request_is_sent_to_admin_successfully.tr()),
+          ),
+        );
         setState(() {});
       };
     } else if (status == TextConstant.NEW) {
       title = LocaleKeys.Cancel_Appointment.tr();
       message = LocaleKeys.are_you_sure_cancel_appointment.tr();
       onConfirm = () async {
-        await appointmentInPendingService
-            .removeNewPendingAppointment(latestPendingAppointment.id, context);
+        await appointmentInPendingService.removeNewPendingAppointment(
+            latestPendingAppointment.id, context);
         setState(() {});
       };
     } else if (status == TextConstant.UPDATED) {
@@ -227,6 +233,11 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
         await appointmentInPendingService
             .removeUpdatedPendingAppointmentRecordByUser(
                 latestPendingAppointment.id);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(LocaleKeys.Pending_Update_Appointment_Removed.tr()),
+          ),
+        );
         setState(() {});
       };
     } else if (status == TextConstant.CANCELLED) {
@@ -236,6 +247,12 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
         await appointmentInPendingService
             .removeCancelPendingAppointmentRecordByUser(
                 latestPendingAppointment.id);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(LocaleKeys
+                .Pending_appointment_cancellation_request_is_removed.tr()),
+          ),
+        );
         setState(() {});
       };
     }

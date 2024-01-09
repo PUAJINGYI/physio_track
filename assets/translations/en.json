@@ -379,5 +379,13 @@
   "OT_Activity_updated": "OT Activity updated",
   "Profile_updated_successfully": "Profile updated successfully!",
   "Signed_out": "Signed out",
-  "Treatment_report_added_successfully": "Treatment report added successfully!"
+  "Treatment_report_added_successfully": "Treatment report added successfully!",
+  "New_Achievement_Record_Added": "New Achievement Record Added",
+  "Pending_appointment_is_rejected": "Pending appointment is rejected",
+  "Update_appointment_request_is_rejected": "Update appointment request is rejected",
+  "Appointment_has_been_cancelled": "Appointment has been cancelled.",
+  "Appointment_conflict_has_been_solved": "Appointment conflict has been solved",
+  "Pending_Update_Appointment_Removed": "Pending Update Appointment Removed",
+  "Pending_appointment_cancellation_request_is_removed": "Pending appointment cancellation request is removed",
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "Cancel appointment request is sent to admin successfully"
 }

@@ -324,9 +324,6 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 45,
-              ),
             ],
           ),
         ),

@@ -7,14 +7,13 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/ot_library_model.dart';
 import '../service/ot_library_service.dart';
 import 'edit_ot_activity_library.dart';
-import 'ot_library_list_screen.dart';
 
 class OTLibraryDetailScreen extends StatefulWidget {
   final int recordId;
@@ -28,7 +27,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
   late OTLibrary _otLibraryRecord;
   final OTLibraryService _otLibraryService = OTLibraryService();
   late YoutubePlayerController _controller;
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
 
   Future<void> _loadOTLibraryRecord() async {
     try {
@@ -132,7 +131,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                       alignment: Alignment.topLeft,
                                       child: FutureBuilder(
                                         future:
-                                            notificationService.translateText(
+                                            translateService.translateText(
                                                 _otLibraryRecord.title,
                                                 context),
                                         builder: (BuildContext context,
@@ -220,7 +219,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                     ),
                                     SizedBox(height: 8.0),
                                     FutureBuilder(
-                                      future: notificationService.translateText(
+                                      future: translateService.translateText(
                                           _otLibraryRecord.description,
                                           context),
                                       builder: (BuildContext context,
@@ -272,7 +271,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                         Align(
                                           alignment: Alignment.topLeft,
                                           child: FutureBuilder(
-                                            future: notificationService
+                                            future: translateService
                                                 .translateText(
                                                     _otLibraryRecord.title,
                                                     context),
@@ -366,7 +365,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                         SizedBox(height: 8.0),
                                         FutureBuilder(
                                           future:
-                                              notificationService.translateText(
+                                              translateService.translateText(
                                                   _otLibraryRecord.description,
                                                   context),
                                           builder: (BuildContext context,

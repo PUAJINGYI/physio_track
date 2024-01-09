@@ -1,14 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
 
 import '../../../constant/ColorConstant.dart';
-import '../../../notification/service/notification_service.dart';
 import '../../../notification/widget/shimmering_text_list_widget.dart';
 import '../../../reusable_widget/reusable_widget.dart';
 import '../../../translations/locale_keys.g.dart';
+import '../../../translations/service/translate_service.dart';
 import '../../model/question_model.dart';
 
 class UpperQuestionListScreen extends StatefulWidget {
@@ -21,7 +19,7 @@ class UpperQuestionListScreen extends StatefulWidget {
 
 class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
   QuestionService questionService = QuestionService();
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
   late Future<List<Question>> _upperQuestionListFuture;
   final TextEditingController _questionController = TextEditingController();
   String _questionType = 'scale';
@@ -433,7 +431,7 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
           return Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: questions.map((Question question) {
@@ -444,7 +442,7 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
                           Expanded(
                             child: ListTile(
                               title: FutureBuilder(
-                                future: notificationService.translateText(
+                                future: translateService.translateText(
                                     question.question, context),
                                 builder: (BuildContext context,
                                     AsyncSnapshot<String> snapshot) {
@@ -516,7 +514,7 @@ class _UpperQuestionListScreenState extends State<UpperQuestionListScreen> {
                 ),
               ),
               Positioned(
-                bottom: 5,
+                bottom: 50,
                 left: 0,
                 right: 0,
                 child: GestureDetector(

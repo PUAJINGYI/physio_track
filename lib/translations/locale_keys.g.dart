@@ -382,5 +382,13 @@ abstract class  LocaleKeys {
   static const Profile_updated_successfully = 'Profile_updated_successfully';
   static const Signed_out = 'Signed_out';
   static const Treatment_report_added_successfully = 'Treatment_report_added_successfully';
+  static const New_Achievement_Record_Added = 'New_Achievement_Record_Added';
+  static const Pending_appointment_is_rejected = 'Pending_appointment_is_rejected';
+  static const Update_appointment_request_is_rejected = 'Update_appointment_request_is_rejected';
+  static const Appointment_has_been_cancelled = 'Appointment_has_been_cancelled';
+  static const Appointment_conflict_has_been_solved = 'Appointment_conflict_has_been_solved';
+  static const Pending_Update_Appointment_Removed = 'Pending_Update_Appointment_Removed';
+  static const Pending_appointment_cancellation_request_is_removed = 'Pending_appointment_cancellation_request_is_removed';
+  static const Cancel_appointment_request_is_sent_to_admin_successfully = 'Cancel_appointment_request_is_sent_to_admin_successfully';
 
 }

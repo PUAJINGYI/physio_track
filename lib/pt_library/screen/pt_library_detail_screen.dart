@@ -3,14 +3,13 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/pt_library_model.dart';
 import '../service/pt_library_service.dart';
 import 'edit_pt_activity_library.dart';
@@ -27,8 +26,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
   late PTLibrary _ptLibraryRecord;
   final PTLibraryService _ptLibraryService = PTLibraryService();
   late YoutubePlayerController _controller;
-  NotificationService notificationService = NotificationService();
-
+  TranslateService translateService = TranslateService();
   Future<void> _loadPTLibraryRecord() async {
     try {
       _ptLibraryRecord =
@@ -130,7 +128,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                       alignment: Alignment.topLeft,
                                       child: FutureBuilder(
                                         future:
-                                            notificationService.translateText(
+                                            translateService.translateText(
                                                 _ptLibraryRecord.title,
                                                 context),
                                         builder: (BuildContext context,
@@ -251,7 +249,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                     ),
                                     SizedBox(height: 8.0),
                                     FutureBuilder(
-                                      future: notificationService.translateText(
+                                      future: translateService.translateText(
                                           _ptLibraryRecord.description,
                                           context),
                                       builder: (BuildContext context,
@@ -303,7 +301,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                         Align(
                                           alignment: Alignment.topLeft,
                                           child: FutureBuilder(
-                                            future: notificationService
+                                            future: translateService
                                                 .translateText(
                                                     _ptLibraryRecord.title,
                                                     context),
@@ -431,7 +429,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                         SizedBox(height: 8.0),
                                         FutureBuilder(
                                           future:
-                                              notificationService.translateText(
+                                              translateService.translateText(
                                                   _ptLibraryRecord.description,
                                                   context),
                                           builder: (BuildContext context,

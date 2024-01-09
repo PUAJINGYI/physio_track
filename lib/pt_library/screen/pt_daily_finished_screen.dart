@@ -5,7 +5,7 @@ import 'package:confetti/confetti.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../patient/patient_home_page.dart';
+import '../../user_sceen/patient/patient_home_page.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 

@@ -12,21 +12,17 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:physio_track/achievement/screen/achievement_list_screen.dart';
-import 'package:physio_track/admin/admin_home_page.dart';
+import 'package:physio_track/user_sceen/admin/admin_home_page.dart';
 import 'package:physio_track/authentication/forget_password_screen.dart';
 import 'package:physio_track/authentication/redirect_screen.dart';
 import 'package:physio_track/authentication/signin_screen.dart';
 import 'package:physio_track/authentication/signup_screen.dart';
 import 'package:physio_track/journal/screen/add_journal_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
-import 'package:physio_track/notification/api/noti_demo_screen.dart';
-import 'package:physio_track/notification/detail.dart';
-import 'package:physio_track/notification/home_screen.dart';
-import 'package:physio_track/notification/notification_services.dart';
-import 'package:physio_track/patient/patient_home_page.dart';
-import 'package:physio_track/patient/patient_home_screen.dart';
-import 'package:physio_track/physio/physio_home_page.dart';
-import 'package:physio_track/physio/physio_home_screen.dart';
+import 'package:physio_track/user_sceen/patient/patient_home_page.dart';
+import 'package:physio_track/user_sceen/patient/patient_home_screen.dart';
+import 'package:physio_track/user_sceen/physio/physio_home_page.dart';
+import 'package:physio_track/user_sceen/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/change_language_screen.dart';
 import 'package:physio_track/profile/screen/edit_profile_screen.dart';
 import 'package:physio_track/provider/user_state.dart';
@@ -55,7 +51,7 @@ import 'achievement/screen/bar_chart_sample1.dart';
 import 'achievement/screen/physio/patient_list_by_physio_screen.dart';
 import 'achievement/screen/progress_screen.dart';
 import 'achievement/screen/weekly_analysis_screen.dart';
-import 'admin/admin_activity_management_screen.dart';
+import 'user_sceen/admin/admin_activity_management_screen.dart';
 import 'appointment/screen/admin/appointment_admin_nav_page.dart';
 import 'appointment/screen/appointment_history_screen.dart';
 import 'appointment/screen/appointment_patient_screen.dart';
@@ -68,7 +64,6 @@ import 'authentication/splash_screen.dart';
 import 'leave/screen/leave_apply_screen.dart';
 import 'leave/screen/leave_list_screen.dart';
 import 'notification/model/received_notification_model.dart';
-import 'notification/noti.dart';
 import 'notification/screen/notification_list_screen.dart';
 import 'ot_library/screen/edit_ot_activity_library.dart';
 import 'ot_library/screen/ot_daily_list_screen.dart';
@@ -299,7 +294,7 @@ Future<void> _configureLocalTimeZone() async {
 // }
 
 class MyApp extends StatelessWidget {
-  final AuthManager authManager = AuthManager();
+  // final AuthManager authManager = AuthManager();
   // final Noti noti = Noti();
   //const MyApp(this.authManager, this.noti, {Key? key}) : super(key: key);
 
@@ -330,15 +325,18 @@ class MyApp extends StatelessWidget {
           //AddQuestionScreen(),
           SplashScreen(
         onFinish: () {
-          if (authManager.isLoggedIn) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => RedirectScreen()),
-            );
-          } else {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => SignInScreen()),
-            );
-          }
+          // if (authManager.isLoggedIn) {
+          //   Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (_) => RedirectScreen()),
+          //   );
+          // } else {
+          //   Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (_) => SignInScreen()),
+          //   );
+          // }
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => RedirectScreen()),
+          );
         },
       ),
       //  NotiDemoScreen(),

@@ -2,11 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/screening_test/model/question_model.dart';
 import 'package:physio_track/screening_test/model/question_response_model.dart';
-import 'package:intl/intl.dart';
-
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 
 class QuestionCard extends StatelessWidget {
   final Question question;
@@ -27,8 +25,7 @@ class QuestionCard extends StatelessWidget {
     final responseValue = responseIndex != -1
         ? double.tryParse(responses[responseIndex].response) ?? 1.0
         : 1.0;
-    NotificationService notificationService = NotificationService();
-
+    TranslateService translateService = TranslateService();
     return Card(
       child: Container(
         color: Colors.blue[50],
@@ -37,13 +34,8 @@ class QuestionCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Text(
-              //   question.question,
-              //   style:
-              //       const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              // ),
               FutureBuilder(
-                future: notificationService.translateText(
+                future: translateService.translateText(
                     question.question, context),
                 builder:
                     (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -155,7 +147,7 @@ class QuestionCard extends StatelessWidget {
     final firstDate = DateTime(2000);
     DateTime? newDate = selectedDate;
 
-    final dateFormat = DateFormat('ddMMMyyyy'); // Define the date format
+    final dateFormat = DateFormat('dd-MMM-yyyy'); // Define the date format
 
     return ListTile(
       title: Text(dateFormat.format(newDate)), // Format the date

@@ -375,26 +375,19 @@ class AppointmentService {
     return appointmentList;
   }
 
-  Future<Appointment> fetchLatestAppointmentByPatientId(int id) async {
-    List<Appointment> appointmentList = [];
-    Appointment appointment = Appointment(
-        id: -1,
-        title: '',
-        date: DateTime.now(),
-        startTime: DateTime.now(),
-        endTime: DateTime.now(),
-        durationInSecond: 0,
-        patientId: -1,
-        physioId: -1,
-        eventId: '');
-    QuerySnapshot querySnapshot =
-        await appointmentCollection.where('patientId', isEqualTo: id).get();
-    querySnapshot.docs.forEach((snapshot) {
-      appointmentList.add(Appointment.fromSnapshot(snapshot));
-    });
-    appointmentList.sort((a, b) => b.startTime.compareTo(a.startTime));
-    return appointmentList.first;
-  }
+ Future<Appointment?> fetchLatestAppointmentByPatientId(int id) async {
+  List<Appointment> appointmentList = [];
+  QuerySnapshot querySnapshot =
+      await appointmentCollection.where('patientId', isEqualTo: id).get();
+
+  querySnapshot.docs.forEach((snapshot) {
+    appointmentList.add(Appointment.fromSnapshot(snapshot));
+  });
+
+  appointmentList.sort((a, b) => b.startTime.compareTo(a.startTime));
+
+  return appointmentList.isNotEmpty ? appointmentList.first : null;
+}
 
   // fetch by physiotherapist to check their appointments
   Future<List<Appointment>> fetchAppointmentListByPhysioId(int id) async {

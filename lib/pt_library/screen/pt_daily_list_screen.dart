@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_detail_screen.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/pt_activity_detail_model.dart';
 import '../model/pt_activity_model.dart';
 import '../model/pt_library_model.dart';
@@ -28,8 +27,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
   late List<PTLibrary> ptLibraryList = [];
   late int activityId = 0;
   late double progress = 0.0;
-  NotificationService notificationService = NotificationService();
-
+  TranslateService translateService = TranslateService();
   @override
   void initState() {
     super.initState();
@@ -202,7 +200,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   FutureBuilder(
-                                                    future: notificationService
+                                                    future: translateService
                                                         .translateText(
                                                             ptLibrary.title,
                                                             context),
@@ -372,7 +370,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                   children: [
                                                     FutureBuilder(
                                                       future:
-                                                          notificationService
+                                                          translateService
                                                               .translateText(
                                                                   ptLibrary
                                                                       .title,

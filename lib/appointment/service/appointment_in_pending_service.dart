@@ -509,6 +509,7 @@ class AppointmentInPendingService {
           "Appointment Booking Rejection",
           'Dear patient, your recent appointment booking for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. Please reschedule your appointment slot again. Thank you.');
     }
+
   }
 
   // send email to notify user

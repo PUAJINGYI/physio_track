@@ -10,6 +10,7 @@ import '../../constant/TextConstant.dart';
 import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
+import '../../translations/service/translate_service.dart';
 import '../model/achievement_model.dart';
 import '../model/user_achievement_model.dart';
 import '../service/achievement_service.dart';
@@ -153,7 +154,7 @@ class AchievementCard extends StatelessWidget {
   final Achievement ach;
   AchievementCard({required this.achievement, required this.ach});
 
-  NotificationService notificationService = NotificationService();
+  TranslateService translateService = TranslateService();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -183,7 +184,7 @@ class AchievementCard extends StatelessWidget {
                 child: Container(
                   height: 30,
                   child: FutureBuilder(
-                    future: notificationService.translateText(ach.title, context),
+                    future: translateService.translateText(ach.title, context),
                     builder:
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
