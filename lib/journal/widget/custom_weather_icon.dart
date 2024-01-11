@@ -11,7 +11,6 @@ class CustomWeatherIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Replace with your custom weather icon widget
     return Icon(
       getWeatherIconData(weather),
       color: isSelected ? Colors.blue : Colors.grey,
@@ -20,7 +19,6 @@ class CustomWeatherIcon extends StatelessWidget {
   }
 
   IconData getWeatherIconData(String weather) {
-    // Add your custom logic to map weather strings to IconData
     switch (weather) {
       case 'Sunny':
         return Icons.wb_sunny;

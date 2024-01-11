@@ -1,8 +1,6 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
 import '../../constant/ColorConstant.dart';
@@ -70,21 +68,16 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
         physioId: widget.physioId,
         leaveType: selectedLeaveType!,
       );
-      // check existing fuil day leave
       List<Leave> existingLeaves = await leaveService
           .fetchLeaveByPhysioIdAndDate(widget.physioId, selectedDate!);
       if (existingLeaves.isNotEmpty) {
         for (Leave leave in existingLeaves) {
           if (leave.isFullDay) {
-            // showSnackBar(
-            //     LocaleKeys.You_have_already_applied_for_a_full_day_leave.tr());
             reusableDialog(context, LocaleKeys.Error.tr(),
                 LocaleKeys.You_have_already_applied_for_a_full_day_leave.tr());
             return;
           } else if (leave.startTime.hour == startTime.hour &&
               leave.endTime.hour == endTime.hour) {
-            // showSnackBar(LocaleKeys
-            //     .You_have_already_applied_for_a_leave_at_this_time.tr());
             reusableDialog(
                 context,
                 LocaleKeys.Error.tr(),
@@ -226,7 +219,6 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                           selectionColor: Colors.blue,
                           selectedTextColor: Colors.white,
                           onDateChange: (date) {
-                            // New date selected
                             setState(() {
                               selectedDate = date;
                               print(selectedDate);
@@ -267,7 +259,6 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                       ),
                     ),
 
-                    // Widget for Start Time and End Time Pickers
                     if (!isFullDay)
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
@@ -435,11 +426,6 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                           ColorConstant.BLUE_BUTTON_PRESSED, () {
                         if (startTime == endTime ||
                             !getTime(startTime, endTime)) {
-                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //   content:
-                          //       Text(LocaleKeys.Please_enter_a_valid_time.tr()),
-                          //   duration: Duration(seconds: 2),
-                          // ));
                           reusableDialog(context, LocaleKeys.Error.tr(),
                               LocaleKeys.Please_enter_a_valid_time.tr());
                         } else if (!_validateReasonInput &&
@@ -451,11 +437,6 @@ class _LeaveApplyScreenState extends State<LeaveApplyScreen> {
                                 isFullDay)) {
                           submitApplication();
                         } else {
-                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //   content: Text(
-                          //       LocaleKeys.Please_fill_in_all_the_fields.tr()),
-                          //   duration: Duration(seconds: 2),
-                          // ));
                           reusableDialog(context, LocaleKeys.Error.tr(),
                               LocaleKeys.Please_fill_in_all_the_fields.tr());
                         }

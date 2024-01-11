@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:physio_track/ot_library/screen/ot_library_list_screen.dart';
-import 'package:physio_track/ot_library/screen/ot_library_list_screen.dart';
 import 'package:physio_track/ot_library/service/ot_library_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
@@ -106,7 +104,6 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                         ),
                       ),
                       SizedBox(height: 16.0),
-                      // Replace the TextField with the NumberPicker
                       GestureDetector(
                         onTap: () {
                           _showDurationPicker(context);
@@ -163,7 +160,6 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                   ),
                 ),
               ),
-              //SizedBox(height: 45),
             ],
           ),
         ],
@@ -172,16 +168,14 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
   }
 
   Future<void> _showDurationPicker(BuildContext context) async {
-    int selectedDuration = 5; // Set the initial value here
+    int selectedDuration = 5; 
 
-    // Show the bottom sheet dialog
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (BuildContext builder) {
         return GestureDetector(
           onTap: () {
-            // Do nothing when tapped inside the dialog
           },
           child: Container(
             height: MediaQuery.of(context).copyWith().size.height / 3,
@@ -205,7 +199,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                       IconButton(
                         icon: Icon(Icons.check),
                         onPressed: () {
-                          Navigator.of(context).pop(); // Close the bottom sheet
+                          Navigator.of(context).pop(); 
                         },
                       ),
                     ],
@@ -215,7 +209,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                   child: CupertinoPicker(
                     scrollController: FixedExtentScrollController(
                         initialItem: selectedDuration -
-                            1), // Set initialItem to the selected duration
+                            1), 
                     itemExtent: 32.0,
                     onSelectedItemChanged: (int value) {
                       selectedDuration = value + 1;
@@ -246,14 +240,12 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
   Future<void> _showLevelPicker(BuildContext context) async {
     String selectedLevel = '';
 
-    // Show the bottom sheet dialog
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (BuildContext builder) {
         return GestureDetector(
           onTap: () {
-            // Do nothing when tapped inside the dialog
           },
           child: Container(
             height: MediaQuery.of(context).copyWith().size.height / 3,
@@ -278,7 +270,7 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
                         icon: Icon(Icons.check),
                         onPressed: () {
                           Navigator.of(context)
-                              .pop(); // Close the bottom s5heet
+                              .pop(); 
                         },
                       ),
                     ],
@@ -334,7 +326,6 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
       },
     );
 
-    // Update the level textfield value after selecting the level
     _levelController.text = selectedLevel;
   }
 
@@ -344,19 +335,17 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
     String level = _levelController.text;
     String videoUrl = _videoUrlController.text;
     int exp = 0;
-    // Check if all the controllers have non-empty values
     if (title.isNotEmpty &&
         desc.isNotEmpty &&
         level.isNotEmpty &&
         videoUrl.isNotEmpty) {
-      // Check the validity of the video URL
       if (_urlRegex.hasMatch(videoUrl)) {
         final videoId = YoutubePlayer.convertUrlToId(videoUrl);
         if (videoId != null) {
           final video = await _ytExplode.videos.get(videoId);
           final thumbnailUrl = video.thumbnails.highResUrl;
           int duration = int.parse(
-              _durationController.text.split(' ')[0]); // Extract minutes
+              _durationController.text.split(' ')[0]); 
 
           if (level == 'Beginner') {
             exp = 10;
@@ -376,7 +365,6 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
             exp: exp,
           );
         }
-        // Clear all the controllers after adding the OT library
         _titleController.clear();
         _descriptionController.clear();
         _durationController.clear();
@@ -388,7 +376,6 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
         );
         Navigator.pop(context, true);
       } else {
-        // Show an error message for invalid video URL
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -446,7 +433,6 @@ class _AddOTActivityScreenState extends State<AddOTActivityScreen> {
         );
       }
     } else {
-      // Show an error message or handle the case where any of the fields are empty
       showDialog(
         context: context,
         builder: (BuildContext context) {

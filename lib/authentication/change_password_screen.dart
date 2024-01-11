@@ -1,14 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../constant/ColorConstant.dart';
 import '../constant/ImageConstant.dart';
 import '../constant/TextConstant.dart';
-import '../profile/screen/profile_screen.dart';
 import '../reusable_widget/reusable_widget.dart';
 import '../translations/locale_keys.g.dart';
 
@@ -205,7 +201,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       final user = FirebaseAuth.instance.currentUser;
 
       if (newPassword == confirmedPassword && user != null) {
-        // Re-authenticate the user by verifying their current password
         final credential = EmailAuthProvider.credential(
           email: user.email!,
           password: oldPassword,
@@ -213,29 +208,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
         await user.reauthenticateWithCredential(credential);
 
-        // Change the password
         await user.updatePassword(newPassword);
 
-        // Show success message to the user
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text(LocaleKeys.Password_updated_successfully.tr())),
         );
         Navigator.pop(context);
       } else {
-        // Show error message to the user
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(
-        //       content: Text(LocaleKeys.Both_Password_Must_Same
-        //           .tr())), // Replace with the actual user name
-        // );
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              contentPadding: EdgeInsets.zero, // Remove content padding
+              contentPadding: EdgeInsets.zero,
               titlePadding:
-                  EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                  EdgeInsets.fromLTRB(16, 0, 16, 0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -247,7 +234,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     icon:
                         Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop(); 
                     },
                   ),
                 ],
@@ -261,7 +248,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
               actions: [
                 Center(
-                  // Wrap actions in Center widget
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -288,17 +274,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         );
       }
     } catch (e) {
-      // Show error message to the user
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Wrong_password.tr())),
-      // );
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
+            contentPadding: EdgeInsets.zero, 
             titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                EdgeInsets.fromLTRB(16, 0, 16, 0), 
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -309,7 +291,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -323,7 +305,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
             actions: [
               Center(
-                // Wrap actions in Center widget
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

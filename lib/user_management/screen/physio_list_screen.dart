@@ -8,7 +8,6 @@ import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../service/user_management_service.dart';
 import 'add_physio_screen.dart';
-import 'user_management_page.dart';
 
 class PhysioListScreen extends StatefulWidget {
   @override
@@ -18,13 +17,13 @@ class PhysioListScreen extends StatefulWidget {
 class _PhysioListScreenState extends State<PhysioListScreen> {
   UserManagementService userManagementService = UserManagementService();
   late Future<List<UserModel>>
-      _physioListFuture; // Add a member variable for the future
+      _physioListFuture; 
 
   @override
   void initState() {
     super.initState();
     _physioListFuture =
-        _fetchPhysioList(); // Initialize the future in initState
+        _fetchPhysioList(); 
   }
 
   Future<List<UserModel>> _fetchPhysioList() async {
@@ -36,9 +35,9 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
+          contentPadding: EdgeInsets.zero,
           titlePadding:
-              EdgeInsets.fromLTRB(24, 0, 24, 0), // Adjust title padding
+              EdgeInsets.fromLTRB(24, 0, 24, 0), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -49,7 +48,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop(); 
                 },
               ),
             ],
@@ -63,7 +62,6 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
           ),
           actions: [
             Center(
-              // Wrap actions in Center widget
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -80,10 +78,10 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                     ),
                     onPressed: () async {
                       await performDeleteLogic(
-                          id, context); // Wait for the deletion to complete
+                          id, context); 
                       setState(() {
                         _physioListFuture =
-                            _fetchPhysioList(); // Refresh the physio list
+                            _fetchPhysioList(); 
                       });
                       Navigator.pop(context);
                     },
@@ -101,7 +99,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                       style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop(); 
                     },
                   ),
                 ],
@@ -116,15 +114,11 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
   Future<void> performDeleteLogic(int id, context) async {
     try {
       await userManagementService
-          .deleteUser(id); // Wait for the deletion to complete
+          .deleteUser(id); 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Physio_deleted.tr())),
       );
     } catch (error) {
-      // print('Error deleting physiotherapist: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Physio_could_not_be_deleted.tr())),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Physio_could_not_be_deleted.tr());
     }
@@ -133,7 +127,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<UserModel>>(
-      future: _physioListFuture, // Use the member variable for the future
+      future: _physioListFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -167,7 +161,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                               child: user.profileImageUrl.isEmpty
                                   ? Image.asset(
                                       ImageConstant
-                                          .DEFAULT_USER, // Replace with the default image path
+                                          .DEFAULT_USER, 
                                       fit: BoxFit.cover,
                                     )
                                   : null,
@@ -175,7 +169,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                             title: Text(user.username,
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             subtitle: Text(user
-                                .email), // Replace with the actual user name
+                                .email), 
                           ),
                         ),
                         Padding(
@@ -185,13 +179,13 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors
-                                  .white, // Replace with desired button color
+                                  .white, 
                             ),
                             child: IconButton(
                               icon: Icon(Icons
-                                  .delete_outline), // Replace with desired icon
+                                  .delete_outline), 
                               color: Colors
-                                  .blue, // Replace with desired icon color
+                                  .blue, 
                               onPressed: () {
                                 showDeleteConfirmationDialog(context, user.id);
                               },
@@ -219,7 +213,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                   if (needUpdate != null && needUpdate) {
                     setState(() {
                       _physioListFuture =
-                          _fetchPhysioList(); // Refresh the physio list
+                          _fetchPhysioList(); 
                     });
                   }
                 },
@@ -241,7 +235,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
             ),
           ]);
         }
-        return Container(); // Return an empty container if no data is available
+        return Container(); 
       },
     );
   }

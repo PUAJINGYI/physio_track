@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 
 class TranslateService {
   Future<String> translateText(String text, BuildContext context) async {
-    // https://api.mymemory.translated.net/get?q=Hello%20World!&langpair=en|zh
     String locale = EasyLocalization.of(context)!.currentLocale!.languageCode;
     if (locale == 'en') {
       return text;

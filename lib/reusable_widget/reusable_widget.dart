@@ -13,7 +13,6 @@ Image logoWidget(String imageName) {
     fit: BoxFit.fitWidth,
     width: 150,
     height: 150,
-    //color: Colors.white,
   );
 }
 
@@ -501,7 +500,7 @@ GestureDetector customClickableCard(
     child: Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20), // Adjust the radius as desired
+        borderRadius: BorderRadius.circular(20), 
         child: Card(
           color: Color.fromARGB(255, 184, 216, 242),
           child: Container(
@@ -552,9 +551,9 @@ GestureDetector customHalfSizeCard(BuildContext context, String imagePath,
     },
     child: Container(
       width:
-          MediaQuery.of(context).size.width * 0.45, // Half of the screen width
+          MediaQuery.of(context).size.width * 0.45, 
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0), // Apply border radius of 15
+        borderRadius: BorderRadius.circular(20.0), 
         child: Card(
           elevation: 2.0,
           child: Container(
@@ -590,7 +589,7 @@ GestureDetector exerciseCard(BuildContext context, double progress,
     onTap: onTap,
     child: Container(
       width:
-          MediaQuery.of(context).size.width * 0.45, // Half of the screen width
+          MediaQuery.of(context).size.width * 0.45, 
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: Card(
@@ -599,7 +598,7 @@ GestureDetector exerciseCard(BuildContext context, double progress,
             color: Colors.blue[100],
             child: Stack(
               alignment:
-                  Alignment.topRight, // Align the progress bar to the top-right
+                  Alignment.topRight,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -616,11 +615,6 @@ GestureDetector exerciseCard(BuildContext context, double progress,
                             ),
                           ),
                         ),
-                        // Image.asset(
-                        //   imagePath1,
-                        //   width: 50,
-                        //   height: 50,
-                        // ),
                       ],
                     ),
                     Padding(
@@ -666,9 +660,9 @@ Future<dynamic> reusableDialog(context, String title, String subTitle){
     context: NavigatorKey.currentState!.overlay!.context,
         builder: (BuildContext context) {
           return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
+            contentPadding: EdgeInsets.zero,
             titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                EdgeInsets.fromLTRB(16, 0, 16, 0), 
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -679,7 +673,7 @@ Future<dynamic> reusableDialog(context, String title, String subTitle){
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop(); 
                   },
                 ),
               ],
@@ -693,7 +687,6 @@ Future<dynamic> reusableDialog(context, String title, String subTitle){
             ),
             actions: [
               Center(
-                // Wrap actions in Center widget
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

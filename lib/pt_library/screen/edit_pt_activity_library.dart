@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:physio_track/pt_library/screen/pt_library_detail_screen.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -589,7 +588,6 @@ class _EditPTActivityScreenState extends State<EditPTActivityScreen> {
           );
 
           setState(() {
-            // Update the state with the new or updated data
             _titleController.text = updatedPTActivity.title;
             _descriptionController.text = updatedPTActivity.description;
             _levelController.text = updatedPTActivity.level;

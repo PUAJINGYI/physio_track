@@ -21,7 +21,6 @@ class OTDailyListScreen extends StatefulWidget {
 }
 
 class _OTDailyListScreenState extends State<OTDailyListScreen> {
-  //String uId = FirebaseAuth.instance.currentUser!.uid;
   late List<OTActivityDetail> dailyOTList = [];
   late List<OTLibrary> otLibraryList = [];
   late int activityId = 0;
@@ -49,7 +48,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
         .firstWhere((otActivity) {
       Timestamp otActivityTimestamp = otActivity.date;
       DateTime otActivityDate = otActivityTimestamp.toDate();
-      // Compare the dates
       return otActivityDate.year == currentDateWithoutTime.year &&
           otActivityDate.month == currentDateWithoutTime.month &&
           otActivityDate.day == currentDateWithoutTime.day;
@@ -62,10 +60,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
       progress = otActivity.progress;
       DocumentSnapshot otActivityDoc = otActivitiesSnapshot.docs[0];
       DocumentReference otActivityDocumentRef = otActivityDoc.reference;
-      // if (progress == 1.0) {
-      //   otActivityDocumentRef.update({'isDone': true});
-      //   otActivityDocumentRef.update({'completeTime': Timestamp.now()});
-      // }
       CollectionReference activitiesCollection =
           otActivityDocumentRef.collection('activities');
 
@@ -103,7 +97,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 
@@ -197,7 +190,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                 ),
                                               ),
                                               title: Column(
-                                                // Use a Column for title and the new Container
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -217,7 +209,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                         return ShimmeringTextListWidget(
                                                             width: 300,
                                                             numOfLines:
-                                                                2); // or any loading indicator
+                                                                2); 
                                                       } else if (snapshot
                                                           .hasError) {
                                                         return Text(
@@ -237,9 +229,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                     },
                                                   ),
                                                   Container(
-                                                    // This is your new Container
                                                     width:
-                                                        90, // Customize width
+                                                        90, 
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
@@ -249,9 +240,9 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                       border: Border.all(
                                                         color: _getLevelColor(
                                                             otLibrary
-                                                                .level), // Set the border color to black
+                                                                .level), 
                                                         width:
-                                                            2.0, // Set the border width
+                                                            2.0, 
                                                       ),
                                                     ),
                                                     child: Row(
@@ -259,10 +250,10 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                           MainAxisSize.min,
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .center, // Center the text horizontally
+                                                              .center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .center, // Center the text vertically
+                                                              .center, 
                                                       children: [
                                                         Text(
                                                           _getLevelText(
@@ -312,7 +303,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                             OTDailyDetailScreen(
                                           otLibraryId: otLibrary.id,
                                           activityId: activityId,
-                                        ), // Replace NextPage with your desired page
+                                        ), 
                                       ),
                                     );
 
@@ -365,7 +356,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                   ),
                                                 ),
                                                 title: Column(
-                                                  // Use a Column for title and the new Container
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -387,7 +377,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                           return ShimmeringTextListWidget(
                                                             width: 300,
                                                             numOfLines: 2,
-                                                          ); // or any loading indicator
+                                                          ); 
                                                         } else if (snapshot
                                                             .hasError) {
                                                           return Text(
@@ -407,9 +397,8 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                       },
                                                     ),
                                                     Container(
-                                                      // This is your new Container
                                                       width:
-                                                          90, // Customize width
+                                                          90,
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       decoration: BoxDecoration(
@@ -419,9 +408,9 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                         border: Border.all(
                                                           color: _getLevelColor(
                                                               otLibrary
-                                                                  .level), // Set the border color to black
+                                                                  .level), 
                                                           width:
-                                                              2.0, // Set the border width
+                                                              2.0, 
                                                         ),
                                                       ),
                                                       child: Row(
@@ -429,10 +418,10 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                             MainAxisSize.min,
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .center, // Center the text horizontally
+                                                                .center, 
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .center, // Center the text vertically
+                                                                .center, 
                                                         children: [
                                                           Text(
                                                             _getLevelText(
@@ -456,7 +445,6 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                 ),
                                                 trailing: Container(
                                                   width: 40,
-                                                  // height: 40,
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     color: Colors.blue,
@@ -473,7 +461,7 @@ class _OTDailyListScreenState extends State<OTDailyListScreen> {
                                                                 otLibrary.id,
                                                             activityId:
                                                                 activityId,
-                                                          ), // Replace NextPage with your desired page
+                                                          ), 
                                                         ),
                                                       );
 

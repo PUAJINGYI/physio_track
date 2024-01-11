@@ -1,9 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/authentication/signin_screen.dart';
 
 import '../constant/ColorConstant.dart';
@@ -53,17 +50,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         message = LocaleKeys.An_Error_Occurred.tr();
       }
 
-      // Show Snackbar with error message
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(message)),
-      // );
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
+            contentPadding: EdgeInsets.zero, 
             titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                EdgeInsets.fromLTRB(16, 0, 16, 0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -74,7 +67,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -88,7 +81,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             ),
             actions: [
               Center(
-                // Wrap actions in Center widget
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -114,7 +106,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         },
       );
 
-      // Refresh the page
       setState(() {});
     }
   }

@@ -1,13 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:physio_track/treatment/screen/treatment_card.dart';
-
 import '../../appointment/model/appointment_model.dart';
-import '../../appointment/screen/physio/appointment_history_physio_screen.dart';
 import '../../appointment/service/appointment_service.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
@@ -56,7 +51,7 @@ class _CreateTreatmentReportScreenState
 
   Widget buildSlider(double value, ValueChanged<double> onChanged) {
     final roundedValue =
-        value.round(); // Round the value to the nearest integer
+        value.round(); 
 
     return Card(
       child: Container(
@@ -81,7 +76,7 @@ class _CreateTreatmentReportScreenState
                   ),
                   Slider(
                     value: roundedValue
-                        .toDouble(), // Use the rounded value for the slider
+                        .toDouble(), 
                     min: 1,
                     max: 5,
                     divisions: 4,
@@ -90,9 +85,9 @@ class _CreateTreatmentReportScreenState
                     },
                     onChangeEnd: (newValue) {
                       final roundedNewValue =
-                          newValue.round(); // Round the new value
+                          newValue.round(); 
                       onChanged(roundedNewValue
-                          .toDouble()); // Use the rounded new value
+                          .toDouble()); 
                     },
                   ),
                 ],
@@ -285,17 +280,16 @@ class _CreateTreatmentReportScreenState
                                 color: legLifting
                                     ? Colors.orange[100]
                                     : Colors.grey[
-                                        300], // Use different colors for active and inactive states
+                                        300], 
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
                                     children: [
-                                      // Left side with icon
                                       Icon(
                                         Icons.directions_walk_outlined,
                                         size: 48.0,
                                         color: Colors
-                                            .black, // Customize the icon color here
+                                            .black,
                                       ),
                                       SizedBox(width: 16.0),
 
@@ -325,11 +319,11 @@ class _CreateTreatmentReportScreenState
                                                           InputDecoration(),
                                                       enabled: legLifting,
                                                       keyboardType: TextInputType
-                                                          .number, // This sets the keyboard to numeric
+                                                          .number, 
                                                       inputFormatters: <
                                                           TextInputFormatter>[
                                                         FilteringTextInputFormatter
-                                                            .digitsOnly, // Allow only digits
+                                                            .digitsOnly, 
                                                       ],
                                                       onChanged: (value) {
                                                         legLiftingSets =
@@ -349,22 +343,21 @@ class _CreateTreatmentReportScreenState
                                                 ),
                                                 Expanded(
                                                   child: IgnorePointer(
-                                                    // Prevent user interaction when the card is inactive
                                                     ignoring: !legLifting,
                                                     child: TextField(
                                                       controller:
-                                                          _legLiftingRepsController, // Add the controller here
+                                                          _legLiftingRepsController, 
                                                       textAlign:
                                                           TextAlign.center,
                                                       decoration:
                                                           InputDecoration(),
                                                       enabled: legLifting,
                                                       keyboardType: TextInputType
-                                                          .number, // This sets the keyboard to numeric
+                                                          .number, 
                                                       inputFormatters: <
                                                           TextInputFormatter>[
                                                         FilteringTextInputFormatter
-                                                            .digitsOnly, // Allow only digits
+                                                            .digitsOnly, 
                                                       ],
                                                       onChanged: (value) {
                                                         legLiftingReps =
@@ -389,7 +382,6 @@ class _CreateTreatmentReportScreenState
                                       ),
 
                                       SizedBox(width: 16.0),
-                                      // Right side with Checkbox
                                       Checkbox(
                                         value: legLifting,
                                         onChanged: (bool? value) {
@@ -416,17 +408,16 @@ class _CreateTreatmentReportScreenState
                                 color: standing
                                     ? Colors.orange[100]
                                     : Colors.grey[
-                                        300], // Use different colors for active and inactive states
+                                        300], 
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
                                     children: [
-                                      // Left side with icon
                                       Icon(
                                         Icons.directions_walk_outlined,
                                         size: 48.0,
                                         color: Colors
-                                            .black, // Customize the icon color here
+                                            .black, 
                                       ),
                                       SizedBox(width: 16.0),
 
@@ -456,11 +447,11 @@ class _CreateTreatmentReportScreenState
                                                           InputDecoration(),
                                                       enabled: standing,
                                                       keyboardType: TextInputType
-                                                          .number, // This sets the keyboard to numeric
+                                                          .number, 
                                                       inputFormatters: <
                                                           TextInputFormatter>[
                                                         FilteringTextInputFormatter
-                                                            .digitsOnly, // Allow only digits
+                                                            .digitsOnly, 
                                                       ],
                                                       onChanged: (value) {
                                                         standingSets =
@@ -480,22 +471,21 @@ class _CreateTreatmentReportScreenState
                                                 ),
                                                 Expanded(
                                                   child: IgnorePointer(
-                                                    // Prevent user interaction when the card is inactive
                                                     ignoring: !standing,
                                                     child: TextField(
                                                       controller:
-                                                          _standingRepsController, // Add the controller here
+                                                          _standingRepsController,
                                                       textAlign:
                                                           TextAlign.center,
                                                       decoration:
                                                           InputDecoration(),
                                                       enabled: standing,
                                                       keyboardType: TextInputType
-                                                          .number, // This sets the keyboard to numeric
+                                                          .number, 
                                                       inputFormatters: <
                                                           TextInputFormatter>[
                                                         FilteringTextInputFormatter
-                                                            .digitsOnly, // Allow only digits
+                                                            .digitsOnly, 
                                                       ],
                                                       onChanged: (value) {
                                                         standingReps =
@@ -520,7 +510,6 @@ class _CreateTreatmentReportScreenState
                                       ),
 
                                       SizedBox(width: 16.0),
-                                      // Right side with Checkbox
                                       Checkbox(
                                         value: standing,
                                         onChanged: (bool? value) {
@@ -547,17 +536,16 @@ class _CreateTreatmentReportScreenState
                                 color: armLifting
                                     ? Colors.orange[100]
                                     : Colors.grey[
-                                        300], // Use different colors for active and inactive states
+                                        300], 
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
                                     children: [
-                                      // Left side with icon
                                       Icon(
                                         FontAwesomeIcons.dumbbell,
                                         size: 48.0,
                                         color: Colors
-                                            .black, // Customize the icon color here
+                                            .black, 
                                       ),
                                       SizedBox(width: 16.0),
 
@@ -587,11 +575,11 @@ class _CreateTreatmentReportScreenState
                                                           InputDecoration(),
                                                       enabled: armLifting,
                                                       keyboardType: TextInputType
-                                                          .number, // This sets the keyboard to numeric
+                                                          .number, 
                                                       inputFormatters: <
                                                           TextInputFormatter>[
                                                         FilteringTextInputFormatter
-                                                            .digitsOnly, // Allow only digits
+                                                            .digitsOnly, 
                                                       ],
                                                       onChanged: (value) {
                                                         armLiftingSets =
@@ -611,22 +599,21 @@ class _CreateTreatmentReportScreenState
                                                 ),
                                                 Expanded(
                                                   child: IgnorePointer(
-                                                    // Prevent user interaction when the card is inactive
                                                     ignoring: !armLifting,
                                                     child: TextField(
                                                       controller:
-                                                          _armLiftingRepsController, // Add the controller here
+                                                          _armLiftingRepsController, 
                                                       textAlign:
                                                           TextAlign.center,
                                                       decoration:
                                                           InputDecoration(),
                                                       enabled: armLifting,
                                                       keyboardType: TextInputType
-                                                          .number, // This sets the keyboard to numeric
+                                                          .number,
                                                       inputFormatters: <
                                                           TextInputFormatter>[
                                                         FilteringTextInputFormatter
-                                                            .digitsOnly, // Allow only digits
+                                                            .digitsOnly, 
                                                       ],
                                                       onChanged: (value) {
                                                         armLiftingReps =
@@ -651,7 +638,6 @@ class _CreateTreatmentReportScreenState
                                       ),
 
                                       SizedBox(width: 16.0),
-                                      // Right side with Checkbox
                                       Checkbox(
                                         value: armLifting,
                                         onChanged: (bool? value) {
@@ -678,17 +664,16 @@ class _CreateTreatmentReportScreenState
                                 color: footStepping
                                     ? Colors.orange[100]
                                     : Colors.grey[
-                                        300], // Use different colors for active and inactive states
+                                        300], 
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
                                     children: [
-                                      // Left side with icon
                                       Icon(
                                         FontAwesomeIcons.shoePrints,
                                         size: 48.0,
                                         color: Colors
-                                            .black, // Customize the icon color here
+                                            .black, 
                                       ),
                                       SizedBox(width: 16.0),
 
@@ -718,11 +703,11 @@ class _CreateTreatmentReportScreenState
                                                           InputDecoration(),
                                                       enabled: footStepping,
                                                       keyboardType: TextInputType
-                                                          .number, // This sets the keyboard to numeric
+                                                          .number,
                                                       inputFormatters: <
                                                           TextInputFormatter>[
                                                         FilteringTextInputFormatter
-                                                            .digitsOnly, // Allow only digits
+                                                            .digitsOnly, 
                                                       ],
                                                       onChanged: (value) {
                                                         footSteppingSets =
@@ -742,22 +727,21 @@ class _CreateTreatmentReportScreenState
                                                 ),
                                                 Expanded(
                                                   child: IgnorePointer(
-                                                    // Prevent user interaction when the card is inactive
                                                     ignoring: !footStepping,
                                                     child: TextField(
                                                       controller:
-                                                          _footSteppingRepsController, // Add the controller here
+                                                          _footSteppingRepsController, 
                                                       textAlign:
                                                           TextAlign.center,
                                                       decoration:
                                                           InputDecoration(),
                                                       enabled: footStepping,
                                                       keyboardType: TextInputType
-                                                          .number, // This sets the keyboard to numeric
+                                                          .number, 
                                                       inputFormatters: <
                                                           TextInputFormatter>[
                                                         FilteringTextInputFormatter
-                                                            .digitsOnly, // Allow only digits
+                                                            .digitsOnly, 
                                                       ],
                                                       onChanged: (value) {
                                                         footSteppingReps =
@@ -781,7 +765,6 @@ class _CreateTreatmentReportScreenState
                                         ),
                                       ),
                                       SizedBox(width: 16.0),
-                                      // Right side with Checkbox
                                       Checkbox(
                                         value: footStepping,
                                         onChanged: (bool? value) {
@@ -822,7 +805,7 @@ class _CreateTreatmentReportScreenState
                     (newValue) {
                       setState(() {
                         performance = newValue
-                            .toDouble(); // Update the value when the slider changes
+                            .toDouble(); 
                       });
                     },
                   ),
@@ -910,7 +893,7 @@ class _CreateTreatmentReportScreenState
             height: kToolbarHeight,
             alignment: Alignment.center,
             child: Text(
-              'Treatment Report',
+              LocaleKeys.Treatment_Report.tr(),
               style: TextStyle(
                 fontSize: TextConstant.TITLE_FONT_SIZE,
                 fontWeight: FontWeight.bold,

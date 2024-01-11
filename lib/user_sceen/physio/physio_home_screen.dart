@@ -1,23 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:intl/intl.dart';
-import 'package:physio_track/achievement/screen/physio/patient_list_by_physio_screen.dart';
 import 'package:physio_track/appointment/screen/physio/appointment_history_physio_screen.dart';
-import 'package:physio_track/appointment/screen/physio/appointment_schedule_screen.dart';
-import 'package:physio_track/user_management/screen/patient_list_screen.dart';
-
 import '../../appointment/model/appointment_model.dart';
 import '../../appointment/service/appointment_in_pending_service.dart';
 import '../../appointment/service/appointment_service.dart';
-import '../../authentication/signin_screen.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../leave/screen/leave_list_screen.dart';
-import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
 
@@ -84,10 +74,8 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
           future: getPhysioUsername(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              // Return a loading indicator or placeholder while data is loading.
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              // Handle the error.
               return Center(
                   child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
             } else {
@@ -125,16 +113,13 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                       builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          // While the future is still running, show a loading indicator or text
                                           return CircularProgressIndicator(); // You can replace this with your preferred loading widget
                                         } else if (snapshot.hasError) {
-                                          // If there was an error, display an error message
                                           return Center(
                                               child: Text(
                                                   '${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                                         } else if (!snapshot.hasData ||
                                             snapshot.data == null) {
-                                          // If there is no next appointment found, return the "No Record" widget
                                           return Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 20, 10, 20, 0),
@@ -176,15 +161,14 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                             ),
                                           );
                                         } else {
-                                          // If data is available, build the appointment widget
                                           Appointment nextAppointment =
                                               snapshot.data!;
                                           return Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 20, 10, 20, 0),
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(
-                                                  15.0), // Adjust the radius as needed
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
                                               child: Container(
                                                 height: 120,
                                                 child: Card(
@@ -215,7 +199,6 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                           children: [
                                                             Row(
                                                               children: [
-                                                                // date and time column
                                                                 Column(
                                                                   crossAxisAlignment:
                                                                       CrossAxisAlignment
@@ -251,7 +234,6 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                                                 ),
                                                                 SizedBox(
                                                                     width: 10),
-                                                                // patient and physio column
                                                                 Column(
                                                                   crossAxisAlignment:
                                                                       CrossAxisAlignment
@@ -356,15 +338,13 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
                                             child: Container(
-                                              height:
-                                                  150.0, // Adjust the height as needed
+                                              height: 150.0,
                                               width: double.infinity,
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Image.asset(
                                                   ImageConstant.LEAVE,
-                                                  // fit: BoxFit.cover,
                                                 ),
                                               ),
                                             ),
@@ -411,13 +391,11 @@ class _PhysioHomeScreenState extends State<PhysioHomeScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
                                             child: Container(
-                                              height:
-                                                  150.0, // Adjust the height as needed
+                                              height: 150.0,
                                               width: double.infinity,
                                               child: Image.asset(
                                                 ImageConstant
                                                     .APPOINTMENT_HISTORY,
-                                                // fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),

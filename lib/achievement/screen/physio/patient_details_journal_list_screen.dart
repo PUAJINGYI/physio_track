@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/achievement/screen/physio/patient_details_journal_detail_screen.dart';
-import 'package:physio_track/journal/screen/add_journal_screen.dart';
-import 'package:physio_track/journal/screen/view_journal_screen.dart';
 
 import '../../../constant/ImageConstant.dart';
 import '../../../constant/TextConstant.dart';
@@ -42,7 +38,7 @@ class _PatientDetailsJournalListScreenState
         isSwitched = status;
       });
     } catch (error) {
-      print('Error fetching status: $error'); // Handle any errors here
+      print('Error fetching status: $error');
     }
   }
 
@@ -50,10 +46,9 @@ class _PatientDetailsJournalListScreenState
     try {
       await userManagementService.updateSharedJournalStatus(
           widget.userId, newValue);
-      print(
-          'Update successful'); // You can add appropriate success handling here
+      print('Update successful');
     } catch (error) {
-      print('Error updating status: $error'); // Handle any errors here
+      print('Error updating status: $error');
     }
   }
 
@@ -92,8 +87,7 @@ class _PatientDetailsJournalListScreenState
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(ImageConstant
-                                .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
+                            Image.asset(ImageConstant.DATA_NOT_FOUND),
                             Text(LocaleKeys.No_Journal_Found.tr(),
                                 style: TextStyle(
                                     fontSize: 20.0,
@@ -123,14 +117,12 @@ class _PatientDetailsJournalListScreenState
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                         child: Image.network(
-                                          journal
-                                              .imageUrl, // Replace with the actual image URL
+                                          journal.imageUrl,
                                           fit: BoxFit.cover,
                                           errorBuilder:
                                               (context, error, stackTrace) {
                                             return Image.asset(
-                                              ImageConstant
-                                                  .DEFAULT_JOURNAL, // Replace with the default image path
+                                              ImageConstant.DEFAULT_JOURNAL,
                                               fit: BoxFit.cover,
                                             );
                                           },
@@ -151,14 +143,11 @@ class _PatientDetailsJournalListScreenState
                                     width: 50,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Colors
-                                          .white, // Replace with desired button color
+                                      color: Colors.white,
                                     ),
                                     child: IconButton(
-                                      icon: Icon(Icons
-                                          .arrow_forward), // Replace with desired icon
-                                      color: Colors
-                                          .blue, // Replace with desired icon color
+                                      icon: Icon(Icons.arrow_forward),
+                                      color: Colors.blue,
                                       onPressed: () async {
                                         final needUpdate = await Navigator.push(
                                           context,

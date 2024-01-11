@@ -3,14 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:physio_track/achievement/screen/physio/patient_details_journal_detail_screen.dart';
 import 'package:physio_track/achievement/screen/physio/patient_details_journal_list_screen.dart';
 import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,7 +18,6 @@ import '../../../ot_library/model/ot_activity_model.dart';
 import '../../../ot_library/service/user_ot_list_service.dart';
 import '../../../profile/model/user_model.dart';
 import '../../../pt_library/model/pt_activity_model.dart';
-import '../../../pt_library/screen/pt_daily_list_screen.dart';
 import '../../../pt_library/service/user_pt_list_service.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../../../user_management/service/user_management_service.dart';
@@ -90,7 +85,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    // fetchData();
   }
 
   Future<void> fetchData() async {
@@ -111,7 +105,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     DocumentSnapshot userSnapshot = await userRef.get();
 
     if (userSnapshot.exists) {
-      // Retrieve the existing experience and level from the document snapshot
       level = userSnapshot.get('level') ?? 0;
       progressToNextLevel =
           userSnapshot.get('progressToNextLevel').toDouble() ?? 0.0;
@@ -119,7 +112,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     final CollectionReference ptCollection =
         userCollection.doc(uid).collection('pt_activities');
 
-    // Query for documents between Monday and Sunday of this week
     final QuerySnapshot ptSnapshot = await ptCollection
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(monday))
         .where('date', isLessThanOrEqualTo: Timestamp.fromDate(sunday))
@@ -132,12 +124,10 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         todayPT = pt;
       }
     }
-    // Check the first date in ptList
     if (ptList.isNotEmpty) {
       DateTime firstDate = ptList[0].date.toDate();
       int daysToAdd = monday.difference(firstDate).inDays;
 
-      // Add PTActivity objects at the beginning or end based on the first date
       if (daysToAdd > 0) {
         for (int i = 0; i < daysToAdd; i++) {
           ptList.insert(
@@ -149,7 +139,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                   progress: 0.0));
         }
       } else if (daysToAdd < 0) {
-        // Change condition to check for a gap before Monday
         for (int i = daysToAdd; i < 0; i++) {
           ptList.insert(
             0,
@@ -165,7 +154,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     }
     DateTime lastDatePTList = ptList[ptList.length - 1].date.toDate();
     int i = 1;
-    // Ensure both lists have a length of 7
     while (ptList.length < 7) {
       ptList.add(PTActivity(
           id: 0,
@@ -178,7 +166,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     final CollectionReference otCollection =
         userCollection.doc(uid).collection('ot_activities');
 
-    // Query for documents between Monday and Sunday of this week
     final QuerySnapshot otSnapshot = await otCollection
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(monday))
         .where('date', isLessThanOrEqualTo: Timestamp.fromDate(sunday))
@@ -194,7 +181,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       DateTime firstDate = otList[0].date.toDate();
       int daysToAdd = monday.difference(firstDate).inDays;
 
-      // Add PTActivity objects at the beginning or end based on the first date
       if (daysToAdd > 0) {
         for (int i = 0; i < daysToAdd; i++) {
           otList.insert(
@@ -206,7 +192,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                   progress: 0.0));
         }
       } else if (daysToAdd < 0) {
-        // Change condition to check for a gap before Monday
         for (int i = daysToAdd; i < 0; i++) {
           otList.insert(
             0,
@@ -242,7 +227,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         imageUrls.add(ach[i].imageUrl);
       }
     }
-    await createBarGroups(); // After fetching data, create bar groups
+    await createBarGroups(); 
   }
 
   Future<void> createBarGroups() async {
@@ -257,9 +242,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       barGroups.add(barGroup);
     }
 
-    //setState(() {
     rawBarGroups = barGroups;
-    //});
   }
 
   BarChartGroupData makeGroupData(int x, double y1, double y2) {
@@ -273,7 +256,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            //background bar percentage
             toY: 100,
             color: Colors.grey.shade300,
           ),
@@ -284,7 +266,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            //background bar percentage
             toY: 100,
             color: Colors.grey.shade300,
           ),
@@ -338,7 +319,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 16, //margin top
+      space: 16, 
       child: text,
     );
   }
@@ -348,10 +329,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       String number = formatPhoneNumber(phoneNumber);
 
       final message =
-          LocaleKeys.Hello_this_is_my_message.tr(); // Replace with your message
+          LocaleKeys.Hello_this_is_my_message.tr(); 
 
-      // Construct the WhatsApp URL
-      //final url = 'https://wa.me/$number/?text=${Uri.parse(message)}';
       final url = dotenv.get('WHATSAPP_API_KEY', fallback: '') +
           number +
           dotenv.get('WHATSAPP_WITH_TEXT', fallback: '') +
@@ -367,9 +346,9 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
+            contentPadding: EdgeInsets.zero,
             titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                EdgeInsets.fromLTRB(16, 0, 16, 0), 
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -380,7 +359,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop(); 
                   },
                 ),
               ],
@@ -394,7 +373,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
             ),
             actions: [
               Center(
-                // Wrap actions in Center widget
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -423,10 +401,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   }
 
   String formatPhoneNumber(String phoneNumber) {
-    // Remove any '-' or spaces within the phone number
     phoneNumber = phoneNumber.replaceAll(RegExp(r'[-\s]'), '');
 
-    // Check if the phone number starts with '0', and if not, add '60' in front
     if (phoneNumber.startsWith('60')) {
       phoneNumber = phoneNumber;
     } else if (!phoneNumber.startsWith('0')) {
@@ -479,14 +455,12 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                 future: fetchData(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    // Display a loading indicator while waiting for data
                     return Expanded(
                       child: Center(
                         child: CircularProgressIndicator(),
                       ),
                     );
                   } else if (snapshot.hasError) {
-                    // Display an error message if there's an error during data fetching
                     return Expanded(
                       child: Center(
                         child: Text('Error loading data'),
@@ -521,7 +495,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(
-                                        15.0), // Adjust the radius as needed
+                                        15.0),
                                     child: Card(
                                       color: Color.fromARGB(255, 255, 231, 196),
                                       elevation: 5.0,
@@ -537,7 +511,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                 alignment: Alignment.center,
                                                 child: Image.asset(
                                                   ImageConstant
-                                                      .LEVEL, // Replace with your image path
+                                                      .LEVEL,
                                                   width: 60.0,
                                                   height: 60.0,
                                                 ),
@@ -628,7 +602,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                       const EdgeInsets.fromLTRB(8, 0, 15, 0),
                                   child: GestureDetector(
                                     onTap: () async {
-                                      // Navigate to the new page here
                                       String uid = await userManagementService
                                           .fetchUidByUserId(widget.patientId);
                                       Navigator.push(
@@ -637,7 +610,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                             builder: (context) =>
                                                 AchievementListScreen(
                                                     uid:
-                                                        uid)), // Replace DetailsPage() with your actual page
+                                                        uid)),
                                       );
                                     },
                                     child: Align(
@@ -647,8 +620,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                         style: TextStyle(
                                           fontSize: 13,
                                           color: Colors
-                                              .black, // You can change the text color to indicate it's clickable
-                                          // Add underline to indicate it's clickable
+                                              .black, 
                                         ),
                                       ),
                                     ),
@@ -747,10 +719,9 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                       Expanded(
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(
-                                              15.0), // Adjust the radius as needed
+                                              15.0), 
                                           child: GestureDetector(
                                             onTap: () {
-                                              // Navigate to the other page when the card is tapped
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
@@ -808,10 +779,9 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                       Expanded(
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(
-                                              15.0), // Adjust the radius as needed
+                                              15.0), 
                                           child: GestureDetector(
                                             onTap: () {
-                                              // Navigate to the other page when the card is tapped
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
@@ -887,7 +857,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                      // Navigate to the other page when the card is tapped
                                       Navigator.of(context)
                                           .push(MaterialPageRoute(
                                         builder: (context) =>
@@ -896,7 +865,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                     },
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(
-                                          15.0), // Adjust the radius as needed
+                                          15.0), 
                                       child: Card(
                                         elevation: 5.0,
                                         child: Container(
@@ -913,7 +882,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                   children: [
                                                     Align(
                                                       alignment: Alignment
-                                                          .centerLeft, // Align left
+                                                          .centerLeft, 
                                                       child: Text(
                                                         mondayThisWeek +
                                                             " - " +
@@ -937,7 +906,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                                   255,
                                                                   129,
                                                                   238,
-                                                                  143), // PT color
+                                                                  143), 
                                                             ),
                                                             SizedBox(width: 5),
                                                             Text(
@@ -954,7 +923,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                                   255,
                                                                   243,
                                                                   124,
-                                                                  116), // OT color
+                                                                  116), 
                                                             ),
                                                             SizedBox(width: 5),
                                                             Text(
@@ -1068,11 +1037,10 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                             BorderRadius.circular(15.0),
                                         child: Container(
                                           height:
-                                              150.0, // Adjust the height as needed
+                                              150.0, 
                                           width: double.infinity,
                                           child: Image.asset(
                                             ImageConstant.PATIENT_LIST,
-                                            // fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
@@ -1121,11 +1089,10 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                   BorderRadius.circular(15.0),
                                               child: Container(
                                                 height:
-                                                    150.0, // Adjust the height as needed
+                                                    150.0, 
                                                 width: double.infinity,
                                                 child: Image.asset(
                                                   ImageConstant.JOURNAL_IMAGE,
-                                                  //fit: BoxFit.contain,
                                                 ),
                                               ),
                                             ),
@@ -1138,12 +1105,12 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
                                                   contentPadding: EdgeInsets
-                                                      .zero, // Remove content padding
+                                                      .zero, 
                                                   titlePadding: EdgeInsets.fromLTRB(
                                                       16,
                                                       0,
                                                       16,
-                                                      0), // Adjust title padding
+                                                      0),
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -1162,7 +1129,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                                 .RED_BUTTON_TEXT),
                                                         onPressed: () {
                                                           Navigator.of(context)
-                                                              .pop(); // Close the dialog
+                                                              .pop(); 
                                                         },
                                                       ),
                                                     ],
@@ -1181,7 +1148,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                   ),
                                                   actions: [
                                                     Center(
-                                                      // Wrap actions in Center widget
                                                       child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
@@ -1234,12 +1200,11 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                   BorderRadius.circular(15.0),
                                               child: Container(
                                                 height:
-                                                    150.0, // Adjust the height as needed
+                                                    150.0, 
                                                 width: double.infinity,
                                                 child: Image.asset(
                                                   ImageConstant
                                                       .JOURNAL_IMAGE_GREY,
-                                                  //fit: BoxFit.contain,
                                                 ),
                                               ),
                                             ),

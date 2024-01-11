@@ -2,22 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:physio_track/appointment/model/appointment_in_pending_model.dart';
 import 'package:physio_track/appointment/model/appointment_model.dart';
-import 'package:physio_track/appointment/model/user_appointment_model.dart';
 import 'package:physio_track/appointment/service/appointment_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
-// import 'package:sendgrid_mailer/sendgrid_mailer.dart';
 
 import '../../constant/TextConstant.dart';
 import '../../leave/service/leave_service.dart';
 import '../../notification/service/notification_service.dart';
 import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
-// import 'package:mailer/mailer.dart';
-// import 'package:mailer/smtp_server.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class AppointmentInPendingService {
   CollectionReference appointmentInPendingCollection =
@@ -299,9 +294,7 @@ class AppointmentInPendingService {
 
   Future<void> handleConflictUpdateAppointmentSlotExist(
       AppointmentInPending appointmentInPending, int oriPhysio) async {
-    // update ori pending appointment record to new physio and new title
     await updatePendingAppointmentRecord(appointmentInPending);
-    // update ori appointment record to new physio and new title
     await appointmentService.deleteAppointmentReferenceFromUserById(
         appointmentInPending.patientId, appointmentInPending.id);
     await appointmentService.deleteAppointmentReferenceFromUserById(
@@ -309,8 +302,6 @@ class AppointmentInPendingService {
     await appointmentService.removeAppointmentRecord(appointmentInPending.id);
 
     await appointmentService.addAppointmentRecord(appointmentInPending);
-    // notify patient and physio
-    //
   }
 
   Future<bool> checkPhysioAvailability(AppointmentInPending appointment) async {
@@ -631,7 +622,6 @@ class AppointmentInPendingService {
       DateTime updateDate,
       DateTime updateStartTime,
       DateTime updateEndTime) async {
-    // try {
     String patientName = await userManagementService
         .getUsernameById(appointmentInPending.patientId);
     String patientEmail = await userManagementService
@@ -789,7 +779,6 @@ class AppointmentInPendingService {
     documents.sort((a, b) => b['id'].compareTo(a['id']));
 
     if (documents.isEmpty) {
-      // throw Exception('No pending appointment records found for the user.');
       return AppointmentInPending(
           id: -1,
           title: '',

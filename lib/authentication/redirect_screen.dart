@@ -26,26 +26,20 @@ class _RedirectScreenState extends State<RedirectScreen> {
   }
 
   void checkUserRoleAndRedirect() async {
-    // Get the current user's ID
     String? uid = FirebaseAuth.instance.currentUser!.uid;
 
-    // Retrieve the user document from Firestore
     DocumentSnapshot userSnapshot =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
     if (userSnapshot.exists) {
-      // User document exists
       Map<String, dynamic>? userData =
           userSnapshot.data() as Map<String, dynamic>?;
 
       if (userData != null) {
-        // Retrieve the role from the user data
         String? role = userData['role'];
         bool? isTakenTest = userData['isTakenTest'];
         if (role != null) {
-          // Redirect based on user role
           if (role == 'patient') {
-            // Redirect to patient home page
             if (isTakenTest == false) {
               Navigator.pushReplacement(
                 context,
@@ -58,30 +52,23 @@ class _RedirectScreenState extends State<RedirectScreen> {
               );
             }
           } else if (role == 'admin') {
-            // Redirect to admin home page
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => AdminHomePage()),
             );
           } else if (role == 'physio') {
-            // Redirect to admin home page
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => PhysioHomePage()),
             );
           } else {
-            // Handle null role value
-            // print("Handle null role value");
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   SnackBar(content: Text("Handle null role value")),
-            // );
             showDialog(
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  contentPadding: EdgeInsets.zero, // Remove content padding
+                  contentPadding: EdgeInsets.zero, 
                   titlePadding:
-                      EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                      EdgeInsets.fromLTRB(16, 0, 16, 0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -93,7 +80,7 @@ class _RedirectScreenState extends State<RedirectScreen> {
                         icon: Icon(Icons.close,
                             color: ColorConstant.RED_BUTTON_TEXT),
                         onPressed: () {
-                          Navigator.of(context).pop(); // Close the dialog
+                          Navigator.of(context).pop(); 
                         },
                       ),
                     ],
@@ -107,7 +94,6 @@ class _RedirectScreenState extends State<RedirectScreen> {
                   ),
                   actions: [
                     Center(
-                      // Wrap actions in Center widget
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -135,18 +121,13 @@ class _RedirectScreenState extends State<RedirectScreen> {
             );
           }
         } else {
-          // Handle null user data
-          // print("Handle null user data");
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(content: Text("Handle null user data")),
-          // );
           showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                contentPadding: EdgeInsets.zero, // Remove content padding
+                contentPadding: EdgeInsets.zero,
                 titlePadding:
-                    EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                    EdgeInsets.fromLTRB(16, 0, 16, 0), 
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -158,7 +139,7 @@ class _RedirectScreenState extends State<RedirectScreen> {
                       icon: Icon(Icons.close,
                           color: ColorConstant.RED_BUTTON_TEXT),
                       onPressed: () {
-                        Navigator.of(context).pop(); // Close the dialog
+                        Navigator.of(context).pop(); 
                       },
                     ),
                   ],
@@ -172,7 +153,6 @@ class _RedirectScreenState extends State<RedirectScreen> {
                 ),
                 actions: [
                   Center(
-                    // Wrap actions in Center widget
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -204,20 +184,13 @@ class _RedirectScreenState extends State<RedirectScreen> {
           );
         }
       } else {
-        // User document does not exist, handle as needed
-        // print("User document does not exist, handle as needed");
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(
-        //       content: Text("User document does not exist, handle as needed")),
-        // );
-
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              contentPadding: EdgeInsets.zero, // Remove content padding
+              contentPadding: EdgeInsets.zero, 
               titlePadding:
-                  EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                  EdgeInsets.fromLTRB(16, 0, 16, 0), 
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -229,7 +202,7 @@ class _RedirectScreenState extends State<RedirectScreen> {
                     icon:
                         Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],
@@ -243,7 +216,6 @@ class _RedirectScreenState extends State<RedirectScreen> {
               ),
               actions: [
                 Center(
-                  // Wrap actions in Center widget
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

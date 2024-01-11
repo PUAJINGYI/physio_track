@@ -1,8 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:physio_track/screening_test/screen/test_part_1_screen.dart';
 import 'package:physio_track/screening_test/screen/test_physiotherapist_request_screen.dart';
 
 import '../../constant/ColorConstant.dart';

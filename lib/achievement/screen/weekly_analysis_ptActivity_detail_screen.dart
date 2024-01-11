@@ -1,15 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../pt_library/model/pt_activity_detail_model.dart';
 import '../../pt_library/model/pt_activity_model.dart';
@@ -34,7 +30,6 @@ class WeeklyAnalysisPTActivityDetailScreen extends StatefulWidget {
 
 class _WeeklyAnalysisPTActivityDetailScreenState
     extends State<WeeklyAnalysisPTActivityDetailScreen> {
-  //String uId = FirebaseAuth.instance.currentUser!.uid;
   late List<PTActivityDetail> dailyPTList = [];
   late List<PTLibrary> ptLibraryList = [];
   late double progress = 0.0;
@@ -113,7 +108,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 
@@ -125,7 +119,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
     } else if (level == 'Beginner') {
       return LocaleKeys.Beginner.tr();
     }
-    // Default text if the level doesn't match the conditions
     return LocaleKeys.Beginner.tr();
   }
 
@@ -203,7 +196,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   ),
                                                 ),
                                                 title: Column(
-                                                  // Use a Column for title and the new Container
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -232,7 +224,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                   numOfLines:
                                                                       2),
                                                             ],
-                                                          ); // or any loading indicator
+                                                          ); 
                                                         } else if (snapshot
                                                             .hasError) {
                                                           return Text(
@@ -252,9 +244,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                       },
                                                     ),
                                                     Container(
-                                                      // This is your new Container
                                                       width:
-                                                          90, // Customize width
+                                                          90, 
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       decoration: BoxDecoration(
@@ -264,9 +255,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                         border: Border.all(
                                                           color: _getLevelColor(
                                                               ptLibrary
-                                                                  .level), // Set the border color to black
+                                                                  .level), 
                                                           width:
-                                                              2.0, // Set the border width
+                                                              2.0, 
                                                         ),
                                                       ),
                                                       child: Row(
@@ -274,10 +265,10 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                             MainAxisSize.min,
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .center, // Center the text horizontally
+                                                                .center,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .center, // Center the text vertically
+                                                                .center,
                                                         children: [
                                                           Text(
                                                             _getLevelText(
@@ -363,7 +354,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                   ),
                                                 ),
                                                 title: Column(
-                                                  // Use a Column for title and the new Container
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -392,7 +382,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                   numOfLines:
                                                                       2),
                                                             ],
-                                                          ); // or any loading indicator
+                                                          ); 
                                                         } else if (snapshot
                                                             .hasError) {
                                                           return Text(
@@ -412,9 +402,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                       },
                                                     ),
                                                     Container(
-                                                      // This is your new Container
                                                       width:
-                                                          90, // Customize width
+                                                          90,
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       decoration: BoxDecoration(
@@ -424,9 +413,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                         border: Border.all(
                                                           color: _getLevelColor(
                                                               ptLibrary
-                                                                  .level), // Set the border color to black
+                                                                  .level),
                                                           width:
-                                                              2.0, // Set the border width
+                                                              2.0,
                                                         ),
                                                       ),
                                                       child: Row(
@@ -434,10 +423,10 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                             MainAxisSize.min,
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .center, // Center the text horizontally
+                                                                .center,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .center, // Center the text vertically
+                                                                .center,
                                                         children: [
                                                           Text(
                                                             _getLevelText(
@@ -523,7 +512,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 ),
                                               ),
                                               title: Column(
-                                                // Use a Column for title and the new Container
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -549,7 +537,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                 width: 300,
                                                                 numOfLines: 2),
                                                           ],
-                                                        ); // or any loading indicator
+                                                        ); 
                                                       } else if (snapshot
                                                           .hasError) {
                                                         return Text(
@@ -569,9 +557,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     },
                                                   ),
                                                   Container(
-                                                    // This is your new Container
                                                     width:
-                                                        90, // Customize width
+                                                        90, 
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
@@ -581,9 +568,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                       border: Border.all(
                                                         color: _getLevelColor(
                                                             ptLibrary
-                                                                .level), // Set the border color to black
+                                                                .level),
                                                         width:
-                                                            2.0, // Set the border width
+                                                            2.0, 
                                                       ),
                                                     ),
                                                     child: Row(
@@ -591,10 +578,10 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                           MainAxisSize.min,
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .center, // Center the text horizontally
+                                                              .center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .center, // Center the text vertically
+                                                              .center, 
                                                       children: [
                                                         Text(
                                                           _getLevelText(
@@ -666,7 +653,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 ),
                                               ),
                                               title: Column(
-                                                // Use a Column for title and the new Container
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -692,7 +678,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                 width: 300,
                                                                 numOfLines: 2),
                                                           ],
-                                                        ); // or any loading indicator
+                                                        ); 
                                                       } else if (snapshot
                                                           .hasError) {
                                                         return Text(
@@ -712,9 +698,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     },
                                                   ),
                                                   Container(
-                                                    // This is your new Container
                                                     width:
-                                                        90, // Customize width
+                                                        90, 
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
@@ -724,9 +709,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                       border: Border.all(
                                                         color: _getLevelColor(
                                                             ptLibrary
-                                                                .level), // Set the border color to black
+                                                                .level),  
                                                         width:
-                                                            2.0, // Set the border width
+                                                            2.0, 
                                                       ),
                                                     ),
                                                     child: Row(
@@ -734,10 +719,10 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                           MainAxisSize.min,
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .center, // Center the text horizontally
+                                                              .center, 
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .center, // Center the text vertically
+                                                              .center,
                                                       children: [
                                                         Text(
                                                           ptLibrary.level,
@@ -819,7 +804,6 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                 ),
                                               ),
                                               title: Column(
-                                                // Use a Column for title and the new Container
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -845,7 +829,7 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                                 width: 300,
                                                                 numOfLines: 2),
                                                           ],
-                                                        ); // or any loading indicator
+                                                        ); 
                                                       } else if (snapshot
                                                           .hasError) {
                                                         return Text(
@@ -865,9 +849,8 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                     },
                                                   ),
                                                   Container(
-                                                    // This is your new Container
                                                     width:
-                                                        90, // Customize width
+                                                        90, 
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
@@ -877,9 +860,9 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                       border: Border.all(
                                                         color: _getLevelColor(
                                                             ptLibrary
-                                                                .level), // Set the border color to black
+                                                                .level),
                                                         width:
-                                                            2.0, // Set the border width
+                                                            2.0,
                                                       ),
                                                     ),
                                                     child: Row(
@@ -887,10 +870,10 @@ class _WeeklyAnalysisPTActivityDetailScreenState
                                                           MainAxisSize.min,
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .center, // Center the text horizontally
+                                                              .center, 
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .center, // Center the text vertically
+                                                              .center, 
                                                       children: [
                                                         Text(
                                                           _getLevelText(

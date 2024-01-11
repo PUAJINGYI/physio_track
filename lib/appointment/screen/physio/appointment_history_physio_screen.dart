@@ -1,9 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/appointment/service/appointment_service.dart';
 
 import '../../../constant/ImageConstant.dart';
@@ -31,7 +28,6 @@ class _AppointmentHistoryPhysioScreenState
   TreatmentService treatmentService = TreatmentService();
   UserManagementService userManagementService = UserManagementService();
   late Future<List<Appointment>> _appointmentList;
-  //bool reportExists = false;
 
   @override
   void initState() {
@@ -115,7 +111,6 @@ class _AppointmentHistoryPhysioScreenState
                                     children: [
                                       Row(
                                         children: [
-                                          // date and time column
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -140,7 +135,6 @@ class _AppointmentHistoryPhysioScreenState
                                             ],
                                           ),
                                           SizedBox(width: 10),
-                                          // patient and physio column
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -297,7 +291,7 @@ class _AppointmentHistoryPhysioScreenState
                                                                 appointmentId:
                                                                     appointment
                                                                         .id,
-                                                              ), // Replace NextPage with your desired page
+                                                              ),
                                                             ),
                                                           );
 

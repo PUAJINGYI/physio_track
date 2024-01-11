@@ -1,8 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
 import '../../../constant/ColorConstant.dart';
@@ -138,7 +135,7 @@ class _EditAppointmentDetailScreenState
                                 Text(
                                   DateFormat('dd MMM yyyy').format(
                                       appointmentInPending
-                                          .date), // Display the date
+                                          .date), 
                                   style: TextStyle(
                                     fontSize: 20,
                                   ),
@@ -163,7 +160,7 @@ class _EditAppointmentDetailScreenState
                                   Text(
                                     DateFormat('hh:mm a').format(
                                         appointmentInPending
-                                            .startTime), // Display the start time
+                                            .startTime), 
                                     style: TextStyle(
                                       fontSize: 20,
                                     ),
@@ -236,17 +233,14 @@ class _EditAppointmentDetailScreenState
                                       AsyncSnapshot<String> snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      // While the Future is still running, show a loading indicator.
                                       return CircularProgressIndicator();
                                     } else if (snapshot.hasError) {
-                                      // If an error occurred, you can handle it here.
                                       return Text(
                                           '${LocaleKeys.Error.tr()}: ${snapshot.error}');
                                     } else {
-                                      // When the Future is complete, display the patient's name.
                                       return Text(
                                         snapshot.data ??
-                                            'N/A', // Display the patient name or 'N/A' if not available
+                                            'N/A',
                                         style: TextStyle(
                                           fontSize: 20,
                                         ),

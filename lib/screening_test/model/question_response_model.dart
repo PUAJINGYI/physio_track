@@ -13,7 +13,6 @@ class QuestionResponse {
       required this.topic,
       required this.questionType,
       required this.response});
-  // Create a factory constructor to parse the Firestore document snapshot
   factory QuestionResponse.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
     return QuestionResponse(

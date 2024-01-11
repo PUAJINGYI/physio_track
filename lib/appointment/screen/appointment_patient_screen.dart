@@ -1,17 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/appointment/screen/appointment_booking_screen.dart';
-import 'package:physio_track/notification/screen/notification_list_screen.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../translations/locale_keys.g.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../service/appointment_in_pending_service.dart';
@@ -71,7 +65,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
         return ColorConstant.GREEN_BUTTON_UNPRESSED;
       default:
         return Colors
-            .white; // Default color if the status doesn't match any of the cases
+            .white; 
     }
   }
 
@@ -83,7 +77,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
         return ColorConstant.GREEN_BUTTON_TEXT;
       default:
         return Colors
-            .white; // Default color if the status doesn't match any of the cases
+            .white;
     }
   }
 
@@ -317,7 +311,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                         const EdgeInsets.fromLTRB(8, 0, 8, 0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(
-                                          15.0), // Adjust the radius as needed
+                                          15.0), 
                                       child: Container(
                                         height: 120,
                                         child: Card(
@@ -387,11 +381,10 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                                     BorderRadius.circular(15.0),
                                                 child: Container(
                                                   height:
-                                                      150.0, // Adjust the height as needed
+                                                      150.0, 
                                                   width: double.infinity,
                                                   child: Image.asset(
                                                     ImageConstant.APPOINTMENT,
-                                                    // fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
@@ -425,11 +418,10 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                                     BorderRadius.circular(15.0),
                                                 child: Container(
                                                   height:
-                                                      150.0, // Adjust the height as needed
+                                                      150.0, 
                                                   width: double.infinity,
                                                   child: Image.asset(
                                                     ImageConstant.APPOINTMENT,
-                                                    // fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
@@ -476,11 +468,10 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                               BorderRadius.circular(15.0),
                                           child: Container(
                                             height:
-                                                150.0, // Adjust the height as needed
+                                                150.0, 
                                             width: double.infinity,
                                             child: Image.asset(
                                               ImageConstant.APPOINTMENT_HISTORY,
-                                              // fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
@@ -578,7 +569,7 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(
-                                    15.0), // Adjust the radius as needed
+                                    15.0),
                                 child: Card(
                                   color: _getCardBackgroundColor(
                                       latestPendingAppointment.isApproved),
@@ -644,7 +635,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                         ),
                                       ),
                                       Visibility(
-                                        // Conditionally show the "Update" button
                                         visible:
                                             latestPendingAppointment.isApproved,
                                         child: Padding(
@@ -766,7 +756,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                         ),
                                       ),
                                       Visibility(
-                                        // Conditionally show the "Update" button
                                         visible: !latestPendingAppointment
                                             .isApproved,
                                         child: Padding(
@@ -856,7 +845,6 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                       ignoring: true,
                                       child: Card(
                                         color: Colors.grey.shade400,
-                                        //elevation: 5.0,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(15.0),
@@ -866,11 +854,10 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                               BorderRadius.circular(15.0),
                                           child: Container(
                                             height:
-                                                150.0, // Adjust the height as needed
+                                                150.0, 
                                             width: double.infinity,
                                             child: Image.asset(
                                               ImageConstant.APPOINTMENT_GREY,
-                                              // fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
@@ -902,11 +889,10 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                               BorderRadius.circular(15.0),
                                           child: Container(
                                             height:
-                                                150.0, // Adjust the height as needed
+                                                150.0,
                                             width: double.infinity,
                                             child: Image.asset(
                                               ImageConstant.APPOINTMENT,
-                                              // fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
@@ -949,11 +935,10 @@ class _AppointmentPatientScreenState extends State<AppointmentPatientScreen> {
                                     borderRadius: BorderRadius.circular(15.0),
                                     child: Container(
                                       height:
-                                          150.0, // Adjust the height as needed
+                                          150.0,
                                       width: double.infinity,
                                       child: Image.asset(
                                         ImageConstant.APPOINTMENT_HISTORY,
-                                        // fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),

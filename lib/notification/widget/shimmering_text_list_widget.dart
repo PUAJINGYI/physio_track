@@ -10,7 +10,7 @@ class ShimmeringTextListWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: List.generate(
-        numOfLines, // Number of lines of text
+        numOfLines, 
         (index) {
           return Shimmer.fromColors(
             baseColor: Color.fromARGB(255, 224, 224, 224),
@@ -20,8 +20,8 @@ class ShimmeringTextListWidget extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.symmetric(vertical: 5.0),
                 color: Colors.white,
-                width: width, // Set the desired width
-                height: 15, // Set the desired height
+                width: width, 
+                height: 15, 
               ),
             ),
           );

@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/achievement/screen/physio/patient_details_screen.dart';
 import 'package:physio_track/user_management/service/user_management_service.dart';
 
@@ -47,13 +45,10 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
                   future: getPatientList(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      // While the future is loading, display a loading indicator
                       return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      // If there's an error, display an error message
                       return Center(child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                     } else if (snapshot.hasData) {
-                      // If data is available, build the grid of patients
                       List<UserModel> patients = snapshot.data!;
 
                       return Padding(
@@ -62,7 +57,7 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
                           padding: EdgeInsets.zero,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, // Two columns
+                            crossAxisCount: 2, 
                             crossAxisSpacing: 16.0,
                             mainAxisSpacing: 16.0,
                           ),
@@ -117,7 +112,6 @@ class _PatientListByPhysioScreenState extends State<PatientListByPhysioScreen> {
                         ),
                       );
                     } else {
-                      // If there's no data, display a message
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

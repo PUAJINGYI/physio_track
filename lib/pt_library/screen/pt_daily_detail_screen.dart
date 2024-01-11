@@ -63,7 +63,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 
@@ -75,7 +74,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     } else if (level == 'Beginner') {
       return LocaleKeys.Beginner.tr();
     }
-    // Default background color if the level doesn't match the conditions
     return '';
   }
 
@@ -99,7 +97,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     } else if (cat == 'Active Assisted Movement') {
       return Icons.directions_walk_outlined;
     }
-    // Default background color if the level doesn't match the conditions
     return Icons.question_mark_outlined;
   }
 
@@ -146,12 +143,10 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
     } else if (cat == 'Active Assisted Movement') {
       return Colors.yellow[600]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 
   Future<void> _markAsCompleted() async {
-    // try {
     _controller.pauseVideo();
     final CollectionReference ptCollection = FirebaseFirestore.instance
         .collection('users')
@@ -323,7 +318,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
         ),
       );
 
-      // update level and progress
       await _updateLevelAndProgress();
 
       if (progress + 0.20 == 1.0) {
@@ -337,32 +331,18 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
         Navigator.pop(context, true);
       }
     }
-    // } catch (e) {
-    //   print('Error marking activity as completed: $e');
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(
-    //       content: Text('Error marking activity as completed'),
-    //       backgroundColor: Colors.red[500],
-    //     ),
-    //   );
-    // }
   }
 
   String extractVideoIdFromUrl(String url) {
-    // Check if the URL contains 'v='
     final startIndex = url.indexOf('v=');
     if (startIndex != -1) {
-      // Find the '&' character or the end of the string, whichever comes first
       final endIndex = url.indexOf('&', startIndex);
       if (endIndex != -1) {
-        // Extract the substring between 'v=' and '&' (or end of string)
         return url.substring(startIndex + 2, endIndex);
       } else {
-        // If there's no '&', return the substring from 'v=' to the end of the string
         return url.substring(startIndex + 2);
       }
     }
-    // If 'v=' is not found in the URL, return an empty string or handle it as needed
     return '';
   }
 
@@ -373,15 +353,10 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
       DocumentSnapshot userSnapshot = await userRef.get();
 
       if (userSnapshot.exists) {
-        // Retrieve the existing experience and level from the document snapshot
         int existingExperience = userSnapshot.get('totalExp') ?? 0;
-        //int existingLevel = userSnapshot.get('level') ?? 1;
         int updatedExperience = _ptLibraryRecord.exp + existingExperience;
-        // Calculate the new level and progress using the provided method
-        //int level = calculateLevelAndProgress(existingExperience);
         Map<int, double> levelInfo =
             calculateLevelAndProgress(updatedExperience);
-        // Update the user document with the new level and progress
         int levelUpdated = levelInfo.keys.first;
         double progressToNextLevel = levelInfo.values.first;
 
@@ -456,7 +431,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
       future: _loadPTLibraryRecord(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // Ensure that the PTLibrary record is loaded
           final videoUrl = _ptLibraryRecord.videoUrl;
           final id = extractVideoIdFromUrl(videoUrl);
           print('videoUrl: ${videoUrl}');
@@ -517,7 +491,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                             return ShimmeringTextListWidget(
                                               width: 300,
                                               numOfLines: 2,
-                                            ); // or any loading indicator
+                                            ); 
                                           } else if (snapshot.hasError) {
                                             return Text(
                                                 'Error: ${snapshot.error}');
@@ -641,7 +615,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                           return ShimmeringTextListWidget(
                                             width: 400,
                                             numOfLines: 4,
-                                          ); // or any loading indicator
+                                          ); 
                                         } else if (snapshot.hasError) {
                                           return Text(
                                               'Error: ${snapshot.error}');
@@ -691,7 +665,7 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
                                                 return ShimmeringTextListWidget(
                                                   width: 300,
                                                   numOfLines: 2,
-                                                ); // or any loading indicator
+                                                ); 
                                               } else if (snapshot.hasError) {
                                                 return Text(
                                                     'Error: ${snapshot.error}');
@@ -905,7 +879,6 @@ class _PTDailyDetailScreenState extends State<PTDailyDetailScreen> {
             },
           );
         } else {
-          // While loading, you can show a loading indicator or other widgets
           return Center(child: CircularProgressIndicator());
         }
       },

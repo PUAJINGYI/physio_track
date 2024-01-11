@@ -2,13 +2,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:physio_track/authentication/redirect_screen.dart';
-import 'package:physio_track/authentication/service/auth_manager.dart';
 import 'package:physio_track/authentication/signin_screen.dart';
 
 import '../constant/ImageConstant.dart';
@@ -26,8 +22,6 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
-  // NotificationServices notificationServices = NotificationServices();
-  //AuthManager authManager = AuthManager();
   var auth = FirebaseAuth.instance;
   var isLogin = false;
   bool _notificationsEnabled = false;
@@ -36,19 +30,6 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     checkIfLogin();
     super.initState();
-
-    // notificationServices.requestNotificationPermission();
-    // notificationServices.forgroundMessage();
-    // notificationServices.firebaseInit(context);
-    // notificationServices.setupInteractMessage(context);
-    // notificationServices.isTokenRefresh();
-
-    // notificationServices.getDeviceToken().then((value) {
-    //   if (kDebugMode) {
-    //     print('device token');
-    //     print(value);
-    //   }
-    // });
 
     _isAndroidPermissionGranted();
     _requestPermissions();
@@ -63,8 +44,6 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeInOut,
     );
 
-    // Simulate an asynchronous operation (e.g., loading data) here
-    //bool loginStatus = authManager.isLoggedIn;
     checkIfLogin();
     print('loginStatus: ${isLogin}');
     Future.delayed(Duration(seconds: 3), () async {

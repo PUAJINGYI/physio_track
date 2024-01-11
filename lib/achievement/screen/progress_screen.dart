@@ -4,7 +4,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:physio_track/achievement/screen/weekly_analysis_screen.dart';
@@ -57,7 +56,6 @@ class ProgressScreenState extends State<ProgressScreen> {
   @override
   void initState() {
     super.initState();
-    //fetchData();
   }
 
   Future<void> fetchData() async {
@@ -76,7 +74,6 @@ class ProgressScreenState extends State<ProgressScreen> {
     DocumentSnapshot userSnapshot = await userRef.get();
 
     if (userSnapshot.exists) {
-      // Retrieve the existing experience and level from the document snapshot
       level = userSnapshot.get('level') ?? 0;
       progressToNextLevel =
           userSnapshot.get('progressToNextLevel').toDouble() ?? 0.0;
@@ -84,7 +81,6 @@ class ProgressScreenState extends State<ProgressScreen> {
     final CollectionReference ptCollection =
         userCollection.doc(uid).collection('pt_activities');
 
-    // Query for documents between Monday and Sunday of this week
     final QuerySnapshot ptSnapshot = await ptCollection
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(monday))
         .where('date', isLessThanOrEqualTo: Timestamp.fromDate(sunday))
@@ -97,12 +93,10 @@ class ProgressScreenState extends State<ProgressScreen> {
         todayPT = pt;
       }
     }
-    // Check the first date in ptList
     if (ptList.isNotEmpty) {
       DateTime firstDate = ptList[0].date.toDate();
       int daysToAdd = monday.difference(firstDate).inDays;
 
-      // Add PTActivity objects at the beginning or end based on the first date
       if (daysToAdd > 0) {
         for (int i = 0; i < daysToAdd; i++) {
           ptList.insert(
@@ -114,7 +108,6 @@ class ProgressScreenState extends State<ProgressScreen> {
                   progress: 0.0));
         }
       } else if (daysToAdd < 0) {
-        // Change condition to check for a gap before Monday
         for (int i = daysToAdd; i < 0; i++) {
           ptList.insert(
             0,
@@ -130,7 +123,6 @@ class ProgressScreenState extends State<ProgressScreen> {
     }
     DateTime lastDatePTList = ptList[ptList.length - 1].date.toDate();
     int i = 1;
-    // Ensure both lists have a length of 7
     while (ptList.length < 7) {
       ptList.add(PTActivity(
           id: 0,
@@ -143,7 +135,6 @@ class ProgressScreenState extends State<ProgressScreen> {
     final CollectionReference otCollection =
         userCollection.doc(uid).collection('ot_activities');
 
-    // Query for documents between Monday and Sunday of this week
     final QuerySnapshot otSnapshot = await otCollection
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(monday))
         .where('date', isLessThanOrEqualTo: Timestamp.fromDate(sunday))
@@ -159,7 +150,6 @@ class ProgressScreenState extends State<ProgressScreen> {
       DateTime firstDate = otList[0].date.toDate();
       int daysToAdd = monday.difference(firstDate).inDays;
 
-      // Add PTActivity objects at the beginning or end based on the first date
       if (daysToAdd > 0) {
         for (int i = 0; i < daysToAdd; i++) {
           otList.insert(
@@ -171,7 +161,6 @@ class ProgressScreenState extends State<ProgressScreen> {
                   progress: 0.0));
         }
       } else if (daysToAdd < 0) {
-        // Change condition to check for a gap before Monday
         for (int i = daysToAdd; i < 0; i++) {
           otList.insert(
             0,
@@ -207,7 +196,7 @@ class ProgressScreenState extends State<ProgressScreen> {
         imageUrls.add(ach[i].imageUrl);
       }
     }
-    await createBarGroups(); // After fetching data, create bar groups
+    await createBarGroups();
   }
 
   Future<void> createBarGroups() async {
@@ -236,7 +225,6 @@ class ProgressScreenState extends State<ProgressScreen> {
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            //background bar percentage
             toY: 100,
             color: Colors.grey.shade300,
           ),
@@ -247,7 +235,6 @@ class ProgressScreenState extends State<ProgressScreen> {
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            //background bar percentage
             toY: 100,
             color: Colors.grey.shade300,
           ),
@@ -298,8 +285,8 @@ class ProgressScreenState extends State<ProgressScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              15.0), // Adjust the radius as needed
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                           child: Card(
                                             color: Color.fromARGB(
                                                 255, 255, 231, 196),
@@ -316,8 +303,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                       alignment:
                                                           Alignment.center,
                                                       child: Image.asset(
-                                                        ImageConstant
-                                                            .LEVEL, // Replace with your image path
+                                                        ImageConstant.LEVEL,
                                                         width: 60.0,
                                                         height: 60.0,
                                                       ),
@@ -422,21 +408,17 @@ class ProgressScreenState extends State<ProgressScreen> {
                                             8, 0, 15, 0),
                                         child: GestureDetector(
                                           onTap: () async {
-                                            // Navigate to the new page here
                                             final needUpdate =
                                                 await Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       AchievementListScreen(
-                                                          uid:
-                                                              uid)), // Replace DetailsPage() with your actual page
+                                                          uid: uid)),
                                             );
                                             if (needUpdate != null &&
                                                 needUpdate == true) {
-                                              setState(() {
-                                                //fetchData();
-                                              });
+                                              setState(() {});
                                             }
                                           },
                                           child: Align(
@@ -445,54 +427,12 @@ class ProgressScreenState extends State<ProgressScreen> {
                                               '${LocaleKeys.More_Details.tr()} >',
                                               style: TextStyle(
                                                 fontSize: 13,
-                                                color: Colors
-                                                    .black, // You can change the text color to indicate it's clickable
-                                                // Add underline to indicate it's clickable
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                                      //   child: Card(
-                                      //     elevation: 2.0,
-                                      //     color: Colors.blue[50],
-                                      //     child: CarouselSlider(
-                                      //       options: CarouselOptions(
-                                      //         height: 100.0,
-                                      //         autoPlay: true,
-                                      //         autoPlayInterval: Duration(
-                                      //             seconds:
-                                      //                 3), // Set the auto-play interval
-                                      //         enlargeCenterPage:
-                                      //             true, // Enable center enlargement
-                                      //         viewportFraction: 0.3,
-                                      //       ),
-                                      //       items: imageUrls.map((imageUrl) {
-                                      //         return Builder(
-                                      //           builder: (BuildContext context) {
-                                      //             return Container(
-                                      //               width:
-                                      //                   MediaQuery.of(context).size.width,
-                                      //               margin: EdgeInsets.symmetric(
-                                      //                   horizontal: 5.0),
-                                      //               decoration: BoxDecoration(
-                                      //                 color: Colors.transparent,
-                                      //                 borderRadius:
-                                      //                     BorderRadius.circular(8.0),
-                                      //                 image: DecorationImage(
-                                      //                   image: NetworkImage(imageUrl),
-                                      //                   fit: BoxFit.fitHeight,
-                                      //                 ),
-                                      //               ),
-                                      //             );
-                                      //           },
-                                      //         );
-                                      //       }).toList(),
-                                      //     ),
-                                      //   ),
-                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             8, 0, 8, 8),
@@ -596,11 +536,10 @@ class ProgressScreenState extends State<ProgressScreen> {
                                           children: [
                                             Expanded(
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(
-                                                    15.0), // Adjust the radius as needed
+                                                borderRadius:
+                                                    BorderRadius.circular(15.0),
                                                 child: GestureDetector(
                                                   onTap: () async {
-                                                    // Navigate to the other page when the card is tapped
                                                     final needUpdate =
                                                         await Navigator.of(
                                                                 context)
@@ -613,9 +552,7 @@ class ProgressScreenState extends State<ProgressScreen> {
 
                                                     if (needUpdate != null &&
                                                         needUpdate == true) {
-                                                      setState(() {
-                                                        //fetchData();
-                                                      });
+                                                      setState(() {});
                                                     }
                                                   },
                                                   child: Card(
@@ -673,11 +610,10 @@ class ProgressScreenState extends State<ProgressScreen> {
                                             ),
                                             Expanded(
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(
-                                                    15.0), // Adjust the radius as needed
+                                                borderRadius:
+                                                    BorderRadius.circular(15.0),
                                                 child: GestureDetector(
                                                   onTap: () async {
-                                                    // Navigate to the other page when the card is tapped
                                                     final needUpdate =
                                                         await Navigator.of(
                                                                 context)
@@ -689,9 +625,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                     ));
                                                     if (needUpdate != null &&
                                                         needUpdate == true) {
-                                                      setState(() {
-                                                        //fetchData();
-                                                      });
+                                                      setState(() {});
                                                     }
                                                   },
                                                   child: Card(
@@ -769,7 +703,6 @@ class ProgressScreenState extends State<ProgressScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: GestureDetector(
                                           onTap: () async {
-                                            // Navigate to the other page when the card is tapped
                                             final needUpdate =
                                                 await Navigator.of(context)
                                                     .push(MaterialPageRoute(
@@ -779,14 +712,12 @@ class ProgressScreenState extends State<ProgressScreen> {
                                             ));
                                             if (needUpdate != null &&
                                                 needUpdate == true) {
-                                              setState(() {
-                                                //fetchData();
-                                              });
+                                              setState(() {});
                                             }
                                           },
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                15.0), // Adjust the radius as needed
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
                                             child: Card(
                                               elevation: 5.0,
                                               child: Container(
@@ -804,7 +735,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                         children: [
                                                           Align(
                                                             alignment: Alignment
-                                                                .centerLeft, // Align left
+                                                                .centerLeft,
                                                             child: Text(
                                                               mondayThisWeek +
                                                                   " - " +
@@ -830,7 +761,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                                             255,
                                                                             129,
                                                                             238,
-                                                                            143), // PT color
+                                                                            143),
                                                                   ),
                                                                   SizedBox(
                                                                       width: 5),
@@ -852,7 +783,7 @@ class ProgressScreenState extends State<ProgressScreen> {
                                                                             255,
                                                                             243,
                                                                             124,
-                                                                            116), // OT color
+                                                                            116),
                                                                   ),
                                                                   SizedBox(
                                                                       width: 5),
@@ -1038,7 +969,7 @@ class ProgressScreenState extends State<ProgressScreen> {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 16, //margin top
+      space: 16,
       child: text,
     );
   }

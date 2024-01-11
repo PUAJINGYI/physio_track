@@ -29,23 +29,20 @@ class JournalService {
           .collection('users')
           .doc(userId)
           .collection('journals')
-          .where('id', isEqualTo: journalId) // Query based on the id field
+          .where('id', isEqualTo: journalId) 
           .limit(1)
           .get();
 
       if (journalSnapshot.size > 0) {
-        // Journal record found, create a Journal object
         Journal journal = Journal.fromSnapshot(journalSnapshot.docs[0]);
 
         print('Journal Record: $journal');
         return journal;
       } else {
-        // Journal record not found
         print('Journal Record not found');
         throw Exception('Journal Record not found');
       }
     } catch (error) {
-      // Handle any errors that occur during the fetch operation
       print('Error fetching journal record: $error');
       throw Exception('Error fetching journal record');
     }
@@ -57,7 +54,6 @@ class JournalService {
           await usersCollection.doc(userId).collection('journals').get();
 
       if (journalQuerySnapshot.docs.isNotEmpty) {
-        // Journal records found, create a list of Journal objects
         List<Journal> journalList = journalQuerySnapshot.docs
             .map((doc) => Journal.fromSnapshot(doc))
             .toList();
@@ -65,12 +61,10 @@ class JournalService {
         print('Journal List: $journalList');
         return journalList;
       } else {
-        // Journal records not found, return an empty list
         print('Journal List not found');
         return [];
       }
     } catch (error) {
-      // Handle any errors that occur during the fetch operation
       print('Error fetching journal list: $error');
       throw Exception('Error fetching journal list');
     }
@@ -100,14 +94,12 @@ class JournalService {
           .where('id', isEqualTo: journalId)
           .get();
 
-      // Delete each document matching the query
       for (final document in querySnapshot.docs) {
         await document.reference.delete();
       }
 
       print('Journal deleted successfully');
     } catch (error) {
-      // Handle any errors that occur during the delete operation
       print('Error deleting journal: $error');
       throw Exception('Error deleting journal');
     }

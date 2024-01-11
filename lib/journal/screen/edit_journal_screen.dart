@@ -3,16 +3,9 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import '../../translations/locale_keys.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
-import 'package:physio_track/journal/screen/view_journal_screen.dart';
 import 'package:physio_track/journal/service/journal_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
@@ -104,10 +97,9 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      String _url = ''; // Initialize imageUrl with an empty string
+      String _url = ''; 
 
       if (_imageFile != null) {
-        // Upload the image to Firestorage
         _url = await uploadImageToFirestorage();
       }
 
@@ -119,10 +111,9 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
         feeling: _feeling,
         healthCondition: _healthCondition.round().toString(),
         comment: _comment,
-        imageUrl: _url, // Assign the uploaded imageUrl to the journal
+        imageUrl: _url,
       );
 
-      // TODO: Handle saving the journal object
       await journalService.updateJournal(userId, widget.journalId, journal);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Journal_updated_successfully.tr())),
@@ -130,9 +121,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
       Navigator.pop(context, true);
       print('${LocaleKeys.Journal.tr()}: $journal');
     }
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(content: Text("No changes made!")),
-    // );
+
   }
 
   Future<String> uploadImageToFirestorage() async {
@@ -228,7 +217,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                     SizedBox(height: 60.0),
                                     Center(
                                       child: Text(
-                                        formattedDate, // Add the formatted date here
+                                        formattedDate,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Color.fromRGBO(5, 117, 155, 1),
@@ -329,7 +318,6 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                                   },
                                                   child: Column(
                                                     children: [
-                                                      // Replace with your custom feeling icon
                                                       CustomFeelingIcon(
                                                         feeling: option,
                                                         isSelected:
@@ -486,11 +474,11 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                           borderRadius: BorderRadius.circular(10.0),
                           child: Container(
                             color: Colors
-                                .grey, // Replace with your desired container color
+                                .grey, 
                             child: Opacity(
                                 opacity: _imageUploaded
                                     ? 1.0
-                                    : 0.5, // Adjust the opacity value as needed
+                                    : 0.5,
                                 child: _getImage(
                                     _imageUploaded, _imageUrl, _imageFile)),
                           ),
@@ -528,8 +516,6 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
             size: 35.0,
           ),
           onPressed: () {
-            // Perform your desired action here
-            // For example, navigate to the previous screen
             Navigator.pop(context, true);
           },
         ),

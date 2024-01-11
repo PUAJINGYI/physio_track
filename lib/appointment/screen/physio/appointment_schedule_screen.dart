@@ -1,10 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
-import 'package:physio_track/appointment/model/appointment_in_pending_model.dart';
 import 'package:physio_track/user_management/service/user_management_service.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -12,7 +8,6 @@ import '../../../constant/ImageConstant.dart';
 import '../../../constant/TextConstant.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../../model/appointment_model.dart';
-import '../../service/appointment_in_pending_service.dart';
 import '../../service/appointment_service.dart';
 
 class AppointmentScheduleScreen extends StatefulWidget {
@@ -25,7 +20,7 @@ class AppointmentScheduleScreen extends StatefulWidget {
 
 class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
   String uid = FirebaseAuth.instance.currentUser!.uid;
-  DateTime selectedDate = DateTime.now(); // Initialize with the current date
+  DateTime selectedDate = DateTime.now();
   CalendarFormat calendarFormat = CalendarFormat.month;
   AppointmentService appointmentService = AppointmentService();
   UserManagementService userManagementService = UserManagementService();
@@ -38,7 +33,6 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
   }
 
   List<Appointment> getAppointmentForSelectedDate(DateTime date) {
-    //date = DateTime(2023, 12, 22);
     List<Appointment> selectedDateEvents = [];
     for (var appointment in allAppointment) {
       if (appointment.date.year == date.year &&
@@ -89,32 +83,13 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                   builder: (context, snapshot) {
                     print(snapshot);
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      // While the future is still loading, you can show a loading indicator
                       return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      // If there's an error, display an error message
                       return Center(
                           child: Text(
                               '${LocaleKeys.Error.tr()}: ${snapshot.error}'));
                     } else if (snapshot.hasData) {
-                      // If data is available, populate the allAppointment list
                       allAppointment = snapshot.data!;
-                      //  return Center(
-                      //   child: Column(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: [
-                      //       Container(
-                      //         width: 100.0,
-                      //         height: 100.0,
-                      //         child: Image.asset(ImageConstant.DATA_NOT_FOUND),
-                      //       ),
-                      //       Text(LocaleKeys.No_Record_Found.tr(),
-                      //           style: TextStyle(
-                      //               fontSize: 20.0,
-                      //               fontWeight: FontWeight.bold)),
-                      //     ],
-                      //   ),
-                      // );
                       return Column(
                         children: [
                           Container(
@@ -161,7 +136,7 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                                         const EdgeInsets.fromLTRB(20, 2, 20, 0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(
-                                          15.0), // Adjust the radius as needed
+                                          15.0),
                                       child: Card(
                                         color: Color.fromRGBO(241, 243, 250, 1),
                                         child: Padding(
@@ -184,7 +159,6 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      // date and time column
                                                       Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -214,7 +188,6 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                                                         ],
                                                       ),
                                                       SizedBox(width: 10),
-                                                      // patient and physio column
                                                       Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment

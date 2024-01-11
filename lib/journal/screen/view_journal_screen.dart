@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/journal/model/journal_model.dart';
-import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
@@ -196,9 +194,6 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
       );
     } catch (error) {
       print('Error deleting journal: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Journal_could_not_be_deleted.tr())),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Journal_could_not_be_deleted.tr());
     }
@@ -232,7 +227,6 @@ class _ViewJournalScreenState extends State<ViewJournalScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // SizedBox(height: kToolbarHeight),
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(20, 10, 20, 10),

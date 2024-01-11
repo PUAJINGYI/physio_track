@@ -1,9 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 
 import '../../appointment/service/appointment_service.dart';
 import '../../constant/ColorConstant.dart';
@@ -163,7 +160,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                         .format(treatmentReport
                                                             .dateTime),
                                                     textAlign: TextAlign
-                                                        .right, // Right-align the date text
+                                                        .right, 
                                                     style: TextStyle(
                                                       fontSize: 16.0,
                                                     ),
@@ -203,7 +200,7 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                                         .format(treatmentReport
                                                             .dateTime),
                                                     textAlign: TextAlign
-                                                        .right, // Right-align the date text
+                                                        .right, 
                                                     style: TextStyle(
                                                       fontSize: 16.0,
                                                     ),
@@ -336,17 +333,16 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                             BorderRadius.circular(20.0),
                                       ),
                                       color: Colors.grey[
-                                          300], // Use different colors for active and inactive states
+                                          300], 
                                       child: Padding(
                                         padding: const EdgeInsets.all(16.0),
                                         child: Row(
                                           children: [
-                                            // Left side with icon
                                             Icon(
                                               Icons.directions_walk_outlined,
                                               size: 30.0,
                                               color: Colors
-                                                  .black, // Customize the icon color here
+                                                  .black, 
                                             ),
                                             SizedBox(width: 16.0),
 
@@ -386,17 +382,16 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                             BorderRadius.circular(20.0),
                                       ),
                                       color: Colors.grey[
-                                          300], // Use different colors for active and inactive states
+                                          300], 
                                       child: Padding(
                                         padding: const EdgeInsets.all(16.0),
                                         child: Row(
                                           children: [
-                                            // Left side with icon
                                             Icon(
                                               Icons.directions_walk_outlined,
                                               size: 30.0,
                                               color: Colors
-                                                  .black, // Customize the icon color here
+                                                  .black,
                                             ),
                                             SizedBox(width: 16.0),
 
@@ -436,17 +431,16 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                             BorderRadius.circular(20.0),
                                       ),
                                       color: Colors.grey[
-                                          300], // Use different colors for active and inactive states
+                                          300], 
                                       child: Padding(
                                         padding: const EdgeInsets.all(16.0),
                                         child: Row(
                                           children: [
-                                            // Left side with icon
                                             Icon(
                                               FontAwesomeIcons.dumbbell,
                                               size: 30.0,
                                               color: Colors
-                                                  .black, // Customize the icon color here
+                                                  .black, 
                                             ),
                                             SizedBox(width: 16.0),
 
@@ -486,17 +480,16 @@ class _ViewTreatmentReportScreenState extends State<ViewTreatmentReportScreen> {
                                             BorderRadius.circular(20.0),
                                       ),
                                       color: Colors.grey[
-                                          300], // Use different colors for active and inactive states
+                                          300], 
                                       child: Padding(
                                         padding: const EdgeInsets.all(16.0),
                                         child: Row(
                                           children: [
-                                            // Left side with icon
                                             Icon(
                                               FontAwesomeIcons.shoePrints,
                                               size: 30.0,
                                               color: Colors
-                                                  .black, // Customize the icon color here
+                                                  .black, 
                                             ),
                                             SizedBox(width: 16.0),
 

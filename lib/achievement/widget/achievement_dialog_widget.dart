@@ -36,7 +36,7 @@ class AchievementDialogWidget extends StatelessWidget {
                       radius: 50.0,
                       child: Image(
                         image: NetworkImage(ach.imageUrl),
-                        fit: BoxFit.fill, // Set the fit type here
+                        fit: BoxFit.fill, 
                       ),
                     ),
                   )),

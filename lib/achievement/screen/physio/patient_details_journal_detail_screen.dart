@@ -199,9 +199,9 @@ class _PatientDetailsJournalDetailScreenState
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
+            contentPadding: EdgeInsets.zero, 
             titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                EdgeInsets.fromLTRB(16, 0, 16, 0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -212,7 +212,7 @@ class _PatientDetailsJournalDetailScreenState
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -226,7 +226,6 @@ class _PatientDetailsJournalDetailScreenState
             ),
             actions: [
               Center(
-                // Wrap actions in Center widget
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

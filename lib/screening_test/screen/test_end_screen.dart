@@ -1,14 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:physio_track/user_sceen/patient/patient_home_page.dart';
 import 'package:physio_track/screening_test/service/question_service.dart';
-
-import '../../constant/ColorConstant.dart';
-import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 
 class TestFinishScreen extends StatefulWidget {
@@ -34,7 +29,6 @@ class _TestFinishScreenState extends State<TestFinishScreen> {
             future: finishTest(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                // The future has completed, navigate to PatientHomePage
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.pushReplacement(
                     context,

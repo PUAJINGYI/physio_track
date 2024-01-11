@@ -4,9 +4,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
-import '../../constant/ImageConstant.dart';
+
 
 class NotificationApi {
   static final _notifications = FlutterLocalNotificationsPlugin();
@@ -33,33 +32,11 @@ class NotificationApi {
         AndroidInitializationSettings('@mipmap/ic_launcher');
     final settings = InitializationSettings(android: androidSettings);
 
-    // when app is closed
     final details = await _notifications.getNotificationAppLaunchDetails();
     if (details != null && details.didNotificationLaunchApp) {
       final payload = details.notificationResponse!.payload;
       onNotifications.add(payload);
     }
-
-    // await _notifications.initialize(
-    //   settings,
-    //   //     onMessageOpenedApp: (payload) async {
-    //   //   onNotifications.add(payload);
-    //   // }
-    //   onDidReceiveNotificationResponse:
-    //       (NotificationResponse notificationResponse) {
-    //     switch (notificationResponse.notificationResponseType) {
-    //       case NotificationResponseType.selectedNotification:
-    //         selectNotificationStream.add(notificationResponse.payload);
-    //         break;
-    //       case NotificationResponseType.selectedNotificationAction:
-    //         if (notificationResponse.actionId == navigationActionId) {
-    //           selectNotificationStream.add(notificationResponse.payload);
-    //         }
-    //         break;
-    //     }
-    //   },
-    //   onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
-    // );
 
     _notifications.initialize(settings).then((_) async {
       final details = await _notifications.getNotificationAppLaunchDetails();
@@ -106,13 +83,6 @@ class NotificationApi {
   }
 
   static Future _notificationDetails() async {
-    // final styleInformation = BigPictureStyleInformation(
-    //     FilePathAndroidBitmap(
-    //         "assets/images/logo.png"),
-    //     largeIcon: FilePathAndroidBitmap(
-    //         "assets/images/logo.png"),
-    //     contentTitle: "title",
-    //     summaryText: "summaryText");
 
     return NotificationDetails(
         android: AndroidNotificationDetails("channelId", "channelName",
@@ -160,26 +130,6 @@ class NotificationApi {
     );
     print('periodic notification scheduled');
   }
-
-  // static Future<void> _showScheduledNotification(
-  //   int id,
-  //   String? title,
-  //   String? body,
-  //   String? payload,
-  // ) async {
-  //   await _notifications.zonedSchedule(
-  //     id,
-  //     title,
-  //     body,
-  //     _scheduleEvery5Seconds(),
-  //     await _notificationDetails(),
-  //     payload: payload,
-  //     androidAllowWhileIdle: true,
-  //     uiLocalNotificationDateInterpretation:
-  //         UILocalNotificationDateInterpretation.absoluteTime,
-  //     matchDateTimeComponents: DateTimeComponents.time,
-  //   );
-  // }
 
   static void cancelNoti({required id}) async {
     await _notifications.cancel(id);

@@ -34,14 +34,12 @@ class _TreatmentCardState extends State<TreatmentCard> {
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
-              // Left side with icon
               Icon(
                 widget.icon,
                 size: 48.0,
-                color: Colors.black, // Customize the icon color here
+                color: Colors.black,
               ),
               SizedBox(width: 16.0),
-              // Middle with title and TextField
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +56,6 @@ class _TreatmentCardState extends State<TreatmentCard> {
                         Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                              //hintText: 'Enter sets',
                             ),
                           ),
                         ),
@@ -72,7 +69,6 @@ class _TreatmentCardState extends State<TreatmentCard> {
                         Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                              //hintText: 'Enter reps',
                             ),
                           ),
                         ),
@@ -90,7 +86,6 @@ class _TreatmentCardState extends State<TreatmentCard> {
               ),
     
               SizedBox(width: 16.0),
-              // Right side with Checkbox
               Checkbox(
                 value: isChecked,
                 onChanged: (bool? value) {

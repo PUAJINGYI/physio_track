@@ -41,23 +41,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
     super.initState();
   }
 
-  // String extractVideoIdFromUrl(String url) {
-  //   // Check if the URL contains 'v='
-  //   final startIndex = url.indexOf('v=');
-  //   if (startIndex != -1) {
-  //     // Find the '&' character or the end of the string, whichever comes first
-  //     final endIndex = url.indexOf('&', startIndex);
-  //     if (endIndex != -1) {
-  //       // Extract the substring between 'v=' and '&' (or end of string)
-  //       return url.substring(startIndex + 2, endIndex);
-  //     } else {
-  //       // If there's no '&', return the substring from 'v=' to the end of the string
-  //       return url.substring(startIndex + 2);
-  //     }
-  //   }
-  //   // If 'v=' is not found in the URL, return an empty string or handle it as needed
-  //   return '';
-  // }
   String extractVideoIdFromUrl(String url) {
     RegExp regExp = RegExp(
       r"(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})",
@@ -65,10 +48,10 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
     RegExpMatch? match = regExp.firstMatch(url);
 
     if (match != null && match.groupCount >= 1) {
-      return match.group(1)!; // Use the non-nullable assertion operator
+      return match.group(1)!; 
     }
 
-    return ""; // If no match is found
+    return ""; 
   }
 
   @override
@@ -77,7 +60,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
       future: _loadPTLibraryRecord(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // Ensure that the PTLibrary record is loaded
           final videoUrl = _ptLibraryRecord.videoUrl;
           final id = extractVideoIdFromUrl(videoUrl);
           print('videoUrl: ${videoUrl}');
@@ -263,7 +245,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                               ShimmeringTextListWidget(
                                                   width: 400, numOfLines: 4),
                                             ],
-                                          ); // or any loading indicator
+                                          ); 
                                         } else if (snapshot.hasError) {
                                           return Text(
                                               'Error: ${snapshot.error}');
@@ -444,7 +426,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                                                       width: 400,
                                                       numOfLines: 4),
                                                 ],
-                                              ); // or any loading indicator
+                                              ); 
                                             } else if (snapshot.hasError) {
                                               return Text(
                                                   'Error: ${snapshot.error}');
@@ -479,14 +461,13 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                           size: 35.0,
                         ),
                         onPressed: () async {
-                          //deactivate();
                           _controller.pauseVideo();
                           final needUpdate = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditPTActivityScreen(
                                 recordId: widget.recordId,
-                              ), // Replace NextPage with your desired page
+                              ), 
                             ),
                           );
 
@@ -507,7 +488,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                           size: 35.0,
                         ),
                         onPressed: () {
-                          //deactivate();
                           _controller.pauseVideo();
                           showDeleteConfirmationDialog(context);
                         },
@@ -523,7 +503,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                         ),
                         onPressed: () async {
                           await _controller.stopVideo();
-                          //await _controller.close();
                           Navigator.pop(context, true);
                         },
                       ),
@@ -551,7 +530,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
             },
           );
         } else {
-          // While loading, you can show a loading indicator or other widgets
           return Center(child: CircularProgressIndicator());
         }
       },
@@ -563,9 +541,9 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
+          contentPadding: EdgeInsets.zero, 
           titlePadding:
-              EdgeInsets.fromLTRB(24, 0, 24, 0), // Adjust title padding
+              EdgeInsets.fromLTRB(24, 0, 24, 0), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -576,7 +554,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
               IconButton(
                 icon: Icon(Icons.close, color: Colors.red),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop(); 
                 },
               ),
             ],
@@ -587,7 +565,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
           ),
           actions: [
             Center(
-              // Wrap actions in Center widget
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -618,7 +595,7 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
                         style:
                             TextStyle(color: Color.fromARGB(255, 217, 24, 10))),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop(); 
                     },
                   ),
                 ],
@@ -636,14 +613,8 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Delete_PT_Activity.tr())),
       );
-      //Navigator.of(context).pop();
     } catch (error) {
       print('Error deleting occupational therapy activity: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //       content:
-      //           Text(LocaleKeys.Physiotherapy_activity_could_not_be_deleted)),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Physiotherapy_activity_could_not_be_deleted.tr());
     }
@@ -659,7 +630,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 
@@ -683,7 +653,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
     } else if (cat == 'Active Assisted Movement') {
       return Colors.yellow[600]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 
@@ -707,7 +676,6 @@ class _PTLibraryDetailScreenState extends State<PTLibraryDetailScreen> {
     } else if (cat == 'Active Assisted Movement') {
       return Icons.directions_walk_outlined;
     }
-    // Default background color if the level doesn't match the conditions
     return Icons.question_mark_outlined;
   }
 

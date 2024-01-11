@@ -10,7 +10,6 @@ import 'appointment_edit_incharge_physio_onleave_screen.dart';
 import 'appointment_new_approve_screen.dart';
 import 'appointment_updated_approve_screen.dart';
 
-// hello
 class AppointmentAdminNavPage extends StatefulWidget {
   const AppointmentAdminNavPage({super.key});
 
@@ -98,7 +97,7 @@ class _AppointmentAdminNavPageState extends State<AppointmentAdminNavPage> {
                       ),
                     ],
                   ),
-                ), // Adds spacing between text and underline
+                ),  
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -168,7 +167,7 @@ class TestNavigationBarItem extends StatelessWidget {
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
-          SizedBox(height: 4), // Adds spacing between text and underline
+          SizedBox(height: 4),
           Container(
             height: 2,
             width: isSelected ? 150 : 0,

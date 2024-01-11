@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/user_management/screen/patient_list_screen.dart';
 import 'package:physio_track/user_management/screen/physio_list_screen.dart';
-import 'package:physio_track/user_management/service/user_management_service.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../profile/model/user_model.dart';
 import '../../translations/locale_keys.g.dart';
 
 class UserManagementPage extends StatefulWidget {
@@ -68,7 +65,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
                       ),
                     ],
                   ),
-                ), // Adds spacing between text and underline
+                ), 
                 Expanded(
                   child: Padding(
                      padding: EdgeInsets.zero,
@@ -138,7 +135,7 @@ class NavigationBarItem extends StatelessWidget {
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
-          SizedBox(height: 4), // Adds spacing between text and underline
+          SizedBox(height: 4),
           Container(
             height: 2,
             width: isSelected ? 150 : 0,

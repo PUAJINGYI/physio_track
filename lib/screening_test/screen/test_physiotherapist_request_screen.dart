@@ -3,10 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/screening_test/screen/test_part_1_screen.dart';
-import 'package:physio_track/screening_test/screen/test_part_2_screen.dart';
-import 'package:physio_track/screening_test/model/question_model.dart';
-import 'package:physio_track/screening_test/model/question_response_model.dart';
-import 'package:physio_track/screening_test/service/question_service.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
@@ -186,10 +182,8 @@ class _TestPhysiotherapistRequestScreenState
                           SizedBox(height: 180),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(
-                                //TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
                                 0,
                                 TextConstant.CUSTOM_BUTTON_TB_PADDING,
-                                //TextConstant.CUSTOM_BUTTON_SIDE_PADDING,
                                 0,
                                 TextConstant.CUSTOM_BUTTON_TB_PADDING),
                             child: customButton(
@@ -201,7 +195,6 @@ class _TestPhysiotherapistRequestScreenState
                               () {
                                 addPhysioToUser(userId, selectedUser);
                               },
-                              // isDisabled: selectedUser == null,
                             ),
                           )
                         ],

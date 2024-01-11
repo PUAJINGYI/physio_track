@@ -153,13 +153,12 @@ class UserPTListService {
             currentDateWithoutTime.difference(latestLibraryDate);
         int daysDifference = difference.inDays;
         int id = latestLibrarySnapshot.get('id');
-        // add until today date and 1 week after
         if (daysDifference > 0) {
           daysDifference = daysDifference + 7;
           for (int i = 1; i <= daysDifference; i++) {
             DateTime activityDate = latestLibraryDate.add(Duration(days: i));
             PTActivity newActivity = PTActivity(
-                id: id + i, // Incremental ID starting from 1
+                id: id + i, 
                 isDone: false,
                 date: Timestamp.fromDate(activityDate),
                 progress: 0.0);
@@ -182,7 +181,7 @@ class UserPTListService {
           for (int i = 1; i <= 6; i++) {
             DateTime activityDate = latestLibraryDate.add(Duration(days: i));
             PTActivity newActivity = PTActivity(
-                id: id + i, // Incremental ID starting from 1
+                id: id + i, 
                 isDone: false,
                 date: Timestamp.fromDate(activityDate),
                 progress: 0.0);
@@ -203,7 +202,6 @@ class UserPTListService {
           }
         }
       } else {
-        // Calculate the current date and time
         DateTime currentDate = DateTime.now();
         DateTime currentDateWithoutTime =
             DateTime(currentDate.year, currentDate.month, currentDate.day);
@@ -213,7 +211,7 @@ class UserPTListService {
         for (int i = 0; i < 8; i++) {
           DateTime activityDate = newRecordDate.add(Duration(days: i));
           PTActivity newActivity = PTActivity(
-              id: id + i, // Incremental ID starting from 1
+              id: id + i, 
               isDone: false,
               date: Timestamp.fromDate(activityDate),
               progress: 0.0);

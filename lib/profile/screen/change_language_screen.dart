@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/constant/ColorConstant.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
@@ -247,15 +245,12 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                   ColorConstant.BLUE_BUTTON_UNPRESSED,
                                   ColorConstant.BLUE_BUTTON_PRESSED, () async {
                                 if (selectedLanguage == 1) {
-                                  //await context.setLocale(Locale('en'));
                                   await EasyLocalization.of(context)!
                                       .setLocale(Locale('en'));
                                 } else if (selectedLanguage == 2) {
-                                  //await context.setLocale(Locale('my'));
                                   await EasyLocalization.of(context)!
                                       .setLocale(Locale('ms'));
                                 } else if (selectedLanguage == 3) {
-                                  //await context.setLocale(Locale('zh'));
                                   await EasyLocalization.of(context)!
                                       .setLocale(Locale('zh'));
                                 }

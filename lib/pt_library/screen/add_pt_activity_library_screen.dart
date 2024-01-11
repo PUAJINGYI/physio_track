@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:physio_track/pt_library/screen/pt_library_list_screen.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -28,7 +27,6 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
   final TextEditingController _durationController = TextEditingController();
   final YoutubeExplode _ytExplode = YoutubeExplode();
 
-  // Regular expression to validate URL
   final _urlRegex = RegExp(
     r'^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?'
     r'[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}'
@@ -65,7 +63,6 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         ),
                       ),
                       SizedBox(height: 16.0),
-                      // Replace the TextField with the NumberPicker
                       GestureDetector(
                         onTap: () {
                           _showDurationPicker(context);
@@ -136,7 +133,6 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                   ),
                 ),
               ),
-             // SizedBox(height: 45),
             ],
           ),
           Positioned(
@@ -186,16 +182,14 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
   }
 
   Future<void> _showDurationPicker(BuildContext context) async {
-    int selectedDuration = 5; // Set the initial value here
+    int selectedDuration = 5; 
 
-    // Show the bottom sheet dialog
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (BuildContext builder) {
         return GestureDetector(
           onTap: () {
-            // Do nothing when tapped inside the dialog
           },
           child: Container(
             height: MediaQuery.of(context).copyWith().size.height / 3,
@@ -219,7 +213,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                       IconButton(
                         icon: Icon(Icons.check),
                         onPressed: () {
-                          Navigator.of(context).pop(); // Close the bottom sheet
+                          Navigator.of(context).pop(); 
                         },
                       ),
                     ],
@@ -229,7 +223,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                   child: CupertinoPicker(
                     scrollController: FixedExtentScrollController(
                         initialItem: selectedDuration -
-                            1), // Set initialItem to the selected duration
+                            1), 
                     itemExtent: 32.0,
                     onSelectedItemChanged: (int value) {
                       selectedDuration = value + 1;
@@ -260,14 +254,12 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
   Future<void> _showLevelPicker(BuildContext context) async {
     String selectedLevel = '';
 
-    // Show the bottom sheet dialog
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (BuildContext builder) {
         return GestureDetector(
           onTap: () {
-            // Do nothing when tapped inside the dialog
           },
           child: Container(
             height: MediaQuery.of(context).copyWith().size.height / 3,
@@ -292,7 +284,7 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
                         icon: Icon(Icons.check),
                         onPressed: () {
                           Navigator.of(context)
-                              .pop(); // Close the bottom s5heet
+                              .pop(); 
                         },
                       ),
                     ],
@@ -348,7 +340,6 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
       },
     );
 
-    // Update the level textfield value after selecting the level
     _levelController.text = selectedLevel;
   }
 
@@ -522,19 +513,17 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
     String cat = _catController.text;
     String videoUrl = _videoUrlController.text;
     int exp = 0;
-    // Check if all the controllers have non-empty values
     if (title.isNotEmpty &&
         desc.isNotEmpty &&
         level.isNotEmpty &&
         videoUrl.isNotEmpty) {
-      // Check the validity of the video URL
       if (_urlRegex.hasMatch(videoUrl)) {
         final videoId = YoutubePlayer.convertUrlToId(videoUrl);
         if (videoId != null) {
           final video = await _ytExplode.videos.get(videoId);
           final thumbnailUrl = video.thumbnails.highResUrl;
           int duration = int.parse(
-              _durationController.text.split(' ')[0]); // Extract minutes
+              _durationController.text.split(' ')[0]); 
 
           if (level == 'Beginner') {
             exp = 10;
@@ -555,7 +544,6 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
             exp: exp,
           );
         }
-        // Clear all the controllers after adding the PT library
         _titleController.clear();
         _descriptionController.clear();
         _durationController.clear();
@@ -568,7 +556,6 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
         );
         Navigator.pop(context, true);
       } else {
-        // Show an error message for invalid video URL
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -626,7 +613,6 @@ class _AddPTActivityScreenState extends State<AddPTActivityScreen> {
         );
       }
     } else {
-      // Show an error message or handle the case where any of the fields are empty
       showDialog(
         context: context,
         builder: (BuildContext context) {

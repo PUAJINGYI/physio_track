@@ -178,12 +178,11 @@ class AchievementService {
       if (ach.isTaken == false) {
         DateTime todayDate = DateTime.now();
         todayDate = DateTime(todayDate.year, todayDate.month,
-            todayDate.day); // Reset milliseconds to zero
+            todayDate.day); 
 
         final CollectionReference ptCollection =
             userCollection.doc(uid).collection('pt_activities');
 
-        //empty snapshot
         final QuerySnapshot ptSnapshot = await ptCollection
             .where('date', isEqualTo: Timestamp.fromDate(todayDate))
             .limit(1)
@@ -218,7 +217,6 @@ class AchievementService {
   }
 
   // check complete 30 pt activities
-  // call when every time complete a pt activity to update progress
   Future<bool> check30PTActivities(String uid) async {
     bool isCompleted = false;
     final CollectionReference userAchievementCollection =
@@ -387,7 +385,6 @@ class AchievementService {
       DateTime yesterdayDate = todayDate.subtract(Duration(days: 1));
       DateTime twoDaysAgoDate = todayDate.subtract(Duration(days: 2));
 
-      // Fetch PT activities for the last three days
       final QuerySnapshot ptSnapshot =
           await ptCollection.where('date', whereIn: [
         Timestamp.fromDate(todayDate),
@@ -395,7 +392,6 @@ class AchievementService {
         Timestamp.fromDate(twoDaysAgoDate)
       ]).get();
 
-      // Calculate progress based on the number of days completed
       double progress = 0.0;
 
       for (QueryDocumentSnapshot doc in ptSnapshot.docs) {
@@ -446,7 +442,6 @@ class AchievementService {
       todayDate = DateTime(todayDate.year, todayDate.month, todayDate.day);
       DateTime sevenDaysAgoDate = todayDate.subtract(Duration(days: 7));
 
-      // Fetch PT activities for the last seven days
       final QuerySnapshot ptSnapshot = await ptCollection
           .where('date',
               isGreaterThanOrEqualTo: Timestamp.fromDate(sevenDaysAgoDate))
@@ -758,7 +753,6 @@ class AchievementService {
       DateTime yesterdayDate = todayDate.subtract(Duration(days: 1));
       DateTime twoDaysAgoDate = todayDate.subtract(Duration(days: 2));
 
-      // Fetch OT activities for the last three days
       final QuerySnapshot otSnapshot =
           await otCollection.where('date', whereIn: [
         Timestamp.fromDate(todayDate),
@@ -766,7 +760,6 @@ class AchievementService {
         Timestamp.fromDate(twoDaysAgoDate)
       ]).get();
 
-      // Calculate progress based on the number of days completed
       double progress = 0.0;
 
       for (QueryDocumentSnapshot doc in otSnapshot.docs) {
@@ -817,14 +810,11 @@ class AchievementService {
       todayDate = DateTime(todayDate.year, todayDate.month, todayDate.day);
       DateTime sevenDaysAgoDate = todayDate.subtract(Duration(days: 7));
 
-      // Fetch OT activities for the last seven days
       final QuerySnapshot otSnapshot = await otCollection
           .where('date',
               isGreaterThanOrEqualTo: Timestamp.fromDate(sevenDaysAgoDate))
           .where('date', isLessThanOrEqualTo: Timestamp.fromDate(todayDate))
           .get();
-      //^^^^
-      //fetch 7 days after today record
       double progress = 0.0;
       if (otSnapshot.size > 0) {
         for (QueryDocumentSnapshot doc in otSnapshot.docs) {
@@ -849,7 +839,6 @@ class AchievementService {
     return isCompleted;
   }
 
-// need check whether achievement is done?
   // check first complete pt and ot activities of the day
   Future<bool> checkAndHandleDailyActivities(String uid) async {
     bool isCompleted = false;
@@ -878,7 +867,6 @@ class AchievementService {
       DateTime todayDate = DateTime.now();
       todayDate = DateTime(todayDate.year, todayDate.month, todayDate.day);
 
-      // Check PT activity
       final CollectionReference ptCollection =
           userCollection.doc(uid).collection('pt_activities');
       final QuerySnapshot ptSnapshot = await ptCollection
@@ -886,7 +874,6 @@ class AchievementService {
           .limit(1)
           .get();
 
-      // Check OT activity
       final CollectionReference otCollection =
           userCollection.doc(uid).collection('ot_activities');
       final QuerySnapshot otSnapshot = await otCollection
@@ -903,12 +890,10 @@ class AchievementService {
           : false;
 
       if (ptDone && otDone) {
-        // Both PT and OT are done on the same day
         await updateAchievement(
             userAchievementCollection, 15, true, 1.0, DateTime.now());
         isCompleted = true;
       } else if (ptDone || otDone) {
-        // Either PT or OT is done on the same day
         await updateAchievement(
             userAchievementCollection, 15, false, 0.5, DateTime(2000, 1, 1));
       } else {
@@ -977,15 +962,12 @@ class AchievementService {
       DateTime todayDate = DateTime.now();
       todayDate = DateTime(todayDate.year, todayDate.month, todayDate.day);
 
-      // Calculate the start date for the past month
       final DateTime lastMonthStartDate =
           DateTime(todayDate.year, todayDate.month - 1, todayDate.day);
 
-      // Calculate the end date for the past month (today)
       final DateTime dayBeforeEndDate =
           DateTime(todayDate.year, todayDate.month, todayDate.day - 1);
 
-      // Check PT activity for the past month
       final CollectionReference ptCollection =
           userCollection.doc(uid).collection('pt_activities');
       final QuerySnapshot ptSnapshot = await ptCollection
@@ -997,7 +979,6 @@ class AchievementService {
       List<PTActivity> ptList =
           ptSnapshot.docs.map((doc) => PTActivity.fromSnapshot(doc)).toList();
 
-      // Check OT activity for the past month
       final CollectionReference otCollection =
           userCollection.doc(uid).collection('ot_activities');
       final QuerySnapshot otSnapshot = await otCollection
@@ -1009,9 +990,7 @@ class AchievementService {
           otSnapshot.docs.map((doc) => OTActivity.fromSnapshot(doc)).toList();
 
       double progress = 0.0;
-      //nt cumulativeDay = 0;
       if (ptList.isNotEmpty && otList.isNotEmpty) {
-        //<= change to <
         for (int i = 0; i < ptList.length; i++) {
           if (ptList[i].isDone == true && otList[i].isDone == true) {
             progress += (1 / 30);

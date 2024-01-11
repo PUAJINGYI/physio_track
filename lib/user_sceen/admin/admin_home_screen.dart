@@ -2,15 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:physio_track/appointment/screen/admin/appointment_admin_nav_page.dart';
-import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:physio_track/screening_test/screen/admin/question_list_nav_page.dart';
-import 'package:physio_track/user_management/screen/user_management_page.dart';
-
-import '../../authentication/signin_screen.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../translations/locale_keys.g.dart';
@@ -46,10 +39,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 future: fetchAdminUsername(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    // Return a loading indicator or placeholder while data is loading.
                     return Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    // Handle the error.
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
                     return Stack(
@@ -110,12 +101,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                                       BorderRadius.circular(
                                                           15.0),
                                                   child: Container(
-                                                    height:
-                                                        150.0, // Adjust the height as needed
+                                                    height: 150.0,
                                                     width: double.infinity,
                                                     child: Image.asset(
                                                       ImageConstant.APPOINTMENT,
-                                                      // fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                 ),
@@ -163,13 +152,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                                       BorderRadius.circular(
                                                           15.0),
                                                   child: Container(
-                                                    height:
-                                                        150.0, // Adjust the height as needed
+                                                    height: 150.0,
                                                     width: double.infinity,
                                                     child: Image.asset(
                                                       ImageConstant
                                                           .SCREENING_TEST_ADMIN,
-                                                      // fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                 ),
@@ -218,12 +205,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                                       BorderRadius.circular(
                                                           15.0),
                                                   child: Container(
-                                                    height:
-                                                        150.0, // Adjust the height as needed
+                                                    height: 150.0,
                                                     width: double.infinity,
                                                     child: Image.asset(
                                                       ImageConstant.PHYSIO_HOME,
-                                                      // fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                 ),

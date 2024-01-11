@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/achievement/screen/weekly_analysis_detail_screen.dart';
 
 import '../../constant/ColorConstant.dart';
@@ -14,8 +12,6 @@ import '../../pt_library/service/user_pt_list_service.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 
-// Import other necessary packages and classes
-
 class WeeklyAnalysisScreen extends StatefulWidget {
   final String uid;
   const WeeklyAnalysisScreen({Key? key, required this.uid}) : super(key: key);
@@ -25,8 +21,6 @@ class WeeklyAnalysisScreen extends StatefulWidget {
 }
 
 class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
-  // Define your member variables
-  //String uId = FirebaseAuth.instance.currentUser!.uid;
   UserOTListService _userOTListService = UserOTListService();
   UserPTListService _userPTListService = UserPTListService();
   List<OTActivity> otList = [];
@@ -37,7 +31,6 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
   @override
   void initState() {
     super.initState();
-    // Set default fromDate and toDate for the current week (Monday to Sunday)
     fromDate = DateTime.now();
     while (fromDate.weekday != DateTime.monday) {
       fromDate = fromDate.subtract(Duration(days: 1));
@@ -60,8 +53,8 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
   Future<void> _selectDates(BuildContext context) async {
     final DateTimeRange? picked = await showDateRangePicker(
       context: context,
-      firstDate: DateTime(2023), // You can set your desired start date here
-      lastDate: DateTime(2101), // You can set your desired end date here
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2101),
       initialDateRange: DateTimeRange(start: fromDate, end: toDate),
     );
     if (picked != null) {
@@ -69,7 +62,6 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
         fromDate = picked.start;
         toDate = picked.end;
       });
-      // Fetch data for the selected date range here
       await _fetchDateList();
     }
   }
@@ -113,7 +105,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(
-                      height: 320.0, // Adjust the height as needed
+                      height: 320.0,
                     ),
                     if (otList.isEmpty)
                       Expanded(
@@ -147,7 +139,6 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
 
                             return GestureDetector(
                               onTap: () {
-                                // Navigate to the other page when the card is tapped
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       WeeklyAnalsisDetailScreen(
@@ -163,10 +154,8 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                                   height: 80.0,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(_getImageByDate(
-                                          date)), // Replace with your image path
-                                      fit: BoxFit
-                                          .cover, // Adjust the fit as needed
+                                      image: AssetImage(_getImageByDate(date)),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                   child: Center(
@@ -279,12 +268,7 @@ class _WeeklyAnalysisScreenState extends State<WeeklyAnalysisScreen> {
                           ColorConstant.BLUE_BUTTON_PRESSED, () {
                         _selectDates(context);
                       }),
-                    )
-                    //  ElevatedButton(
-                    //   onPressed: () => _selectDates(context),
-                    //   child: Text("Select Dates"),
-                    // ),
-                    ),
+                    )),
               ],
             );
           }

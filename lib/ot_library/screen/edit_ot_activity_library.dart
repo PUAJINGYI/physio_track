@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:physio_track/ot_library/screen/ot_library_detail_screen.dart';
 import 'package:physio_track/ot_library/service/ot_library_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
@@ -406,7 +405,6 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
           );
 
           setState(() {
-            // Update the state with the new or updated data
             _titleController.text = updatedOTActivity.title;
             _descriptionController.text = updatedOTActivity.description;
             _levelController.text = updatedOTActivity.level;

@@ -22,7 +22,6 @@ class PTDailyListScreen extends StatefulWidget {
 }
 
 class _PTDailyListScreenState extends State<PTDailyListScreen> {
-  //String uId = FirebaseAuth.instance.currentUser!.uid;
   late List<PTActivityDetail> dailyPTList = [];
   late List<PTLibrary> ptLibraryList = [];
   late int activityId = 0;
@@ -49,7 +48,6 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
         .firstWhere((ptActivity) {
       Timestamp ptActivityTimestamp = ptActivity.date;
       DateTime ptActivityDate = ptActivityTimestamp.toDate();
-      // Compare the dates
       return ptActivityDate.year == currentDateWithoutTime.year &&
           ptActivityDate.month == currentDateWithoutTime.month &&
           ptActivityDate.day == currentDateWithoutTime.day;
@@ -62,10 +60,6 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
       progress = ptActivity.progress;
       DocumentSnapshot ptActivityDoc = ptActivitiesSnapshot.docs[0];
       DocumentReference ptActivityDocumentRef = ptActivityDoc.reference;
-      // if (progress == 1.0) {
-      //   otActivityDocumentRef.update({'isDone': true});
-      //   otActivityDocumentRef.update({'completeTime': Timestamp.now()});
-      // }
       CollectionReference activitiesCollection =
           ptActivityDocumentRef.collection('activities');
 
@@ -103,7 +97,6 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 
@@ -115,7 +108,6 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
     } else if (level == 'Beginner') {
       return LocaleKeys.Beginner.tr();
     }
-    // Default text if the level doesn't match the conditions
     return LocaleKeys.Beginner.tr();
   }
 
@@ -195,7 +187,6 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                 ),
                                               ),
                                               title: Column(
-                                                // Use a Column for title and the new Container
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -215,7 +206,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                         return ShimmeringTextListWidget(
                                                           width: 300,
                                                           numOfLines: 2,
-                                                        ); // or any loading indicator
+                                                        ); 
                                                       } else if (snapshot
                                                           .hasError) {
                                                         return Text(
@@ -236,9 +227,8 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                   ),
                                                   SizedBox(height: 5),
                                                   Container(
-                                                    // This is your new Container
                                                     width:
-                                                        90, // Customize width
+                                                        90, 
                                                     padding:
                                                         EdgeInsets.all(8.0),
                                                     decoration: BoxDecoration(
@@ -248,9 +238,9 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                       border: Border.all(
                                                         color: _getLevelColor(
                                                             ptLibrary
-                                                                .level), // Set the border color to black
+                                                                .level), 
                                                         width:
-                                                            2.0, // Set the border width
+                                                            2.0, 
                                                       ),
                                                     ),
                                                     child: Row(
@@ -258,10 +248,10 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                           MainAxisSize.min,
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .center, // Center the text horizontally
+                                                              .center, 
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .center, // Center the text vertically
+                                                              .center,
                                                       children: [
                                                         Text(
                                                           _getLevelText(
@@ -311,7 +301,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                             PTDailyDetailScreen(
                                           ptLibraryId: ptLibrary.id,
                                           activityId: activityId,
-                                        ), // Replace NextPage with your desired page
+                                        ), 
                                       ),
                                     );
 
@@ -364,7 +354,6 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                   ),
                                                 ),
                                                 title: Column(
-                                                  // Use a Column for title and the new Container
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -386,7 +375,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                           return ShimmeringTextListWidget(
                                                             width: 300,
                                                             numOfLines: 2,
-                                                          ); // or any loading indicator
+                                                          ); 
                                                         } else if (snapshot
                                                             .hasError) {
                                                           return Text(
@@ -407,9 +396,8 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                     ),
                                                     SizedBox(height: 5),
                                                     Container(
-                                                      // This is your new Container
                                                       width:
-                                                          90, // Customize width
+                                                          90, 
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       decoration: BoxDecoration(
@@ -427,10 +415,10 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                             MainAxisSize.min,
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .center, // Center the text horizontally
+                                                                .center, 
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .center, // Center the text vertically
+                                                                .center, 
                                                         children: [
                                                           Text(
                                                             _getLevelText(
@@ -454,7 +442,6 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                 ),
                                                 trailing: Container(
                                                   width: 40,
-                                                  // height: 40,
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     color: Colors.blue,
@@ -471,7 +458,7 @@ class _PTDailyListScreenState extends State<PTDailyListScreen> {
                                                                 ptLibrary.id,
                                                             activityId:
                                                                 activityId,
-                                                          ), // Replace NextPage with your desired page
+                                                          ), 
                                                         ),
                                                       );
 

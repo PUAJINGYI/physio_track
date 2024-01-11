@@ -2,17 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:physio_track/achievement/screen/progress_screen.dart';
 import 'package:physio_track/appointment/screen/appointment_patient_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
-import 'package:physio_track/user_sceen/physio/physio_home_screen.dart';
 import 'package:physio_track/profile/screen/profile_screen.dart';
 import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
-import '../admin/admin_home_screen.dart';
-import '../../authentication/signin_screen.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
 import '../../ot_library/model/ot_activity_model.dart';
@@ -45,9 +39,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   @override
   void initState() {
     super.initState();
-    // updateUserOTPTList();
-    // _fetchPTProgress();
-    // _fetchOTProgress();
     updateProgress();
   }
 
@@ -81,7 +72,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
           .firstWhere((ptActivity) {
         Timestamp ptActivityTimestamp = ptActivity.date;
         DateTime ptActivityDate = ptActivityTimestamp.toDate();
-        // Compare the dates
         return ptActivityDate.year == currentDateWithoutTime.year &&
             ptActivityDate.month == currentDateWithoutTime.month &&
             ptActivityDate.day == currentDateWithoutTime.day;
@@ -96,7 +86,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
 
       if (ptActivitiesSnapshot.docs.isNotEmpty) {
         ptProgress = ptActivity.progress;
-        //setState(() {});
       }
     }
   }
@@ -119,7 +108,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
           .firstWhere((otActivity) {
         Timestamp otActivityTimestamp = otActivity.date;
         DateTime otActivityDate = otActivityTimestamp.toDate();
-        // Compare the dates
         return otActivityDate.year == currentDateWithoutTime.year &&
             otActivityDate.month == currentDateWithoutTime.month &&
             otActivityDate.day == currentDateWithoutTime.day;
@@ -133,7 +121,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
 
       if (otActivitiesSnapshot.docs.isNotEmpty) {
         otProgress = otActivity.progress;
-        //setState(() {});
       }
     }
   }
@@ -145,23 +132,20 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
         future: updateUserOTPTList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // While waiting for data, you can return a loading indicator or any placeholder.
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircularProgressIndicator(),
-                  SizedBox(height: 16), // Adjust the spacing as needed
+                  SizedBox(height: 16),
                   Text(LocaleKeys.Fetching_Data.tr()),
                 ],
               ),
             );
           } else if (snapshot.hasError) {
-            // Handle errors if any.
             return Center(
                 child: Text('${LocaleKeys.Error.tr()}: ${snapshot.error}'));
           } else {
-            // Return your main content when the data is ready.
             return Stack(
               children: [
                 Column(
@@ -177,7 +161,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                             return Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -191,9 +176,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          14.0), // Adjust the padding as needed
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 14.0),
                                   child: Row(
                                     children: [
                                       exerciseCard(
@@ -208,16 +192,14 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                                 PTDailyListScreen(uid: uId),
                                           ),
                                         );
-                    
+
                                         if (needUpdate != null && needUpdate) {
                                           setState(() {
                                             updateProgress();
                                           });
                                         }
                                       }),
-                                      SizedBox(
-                                          width:
-                                              10.0), // Add spacing between cards
+                                      SizedBox(width: 10.0),
                                       exerciseCard(
                                           context,
                                           otProgress,
@@ -230,7 +212,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                                 OTDailyListScreen(uid: uId),
                                           ),
                                         );
-                    
+
                                         if (needUpdate != null && needUpdate) {
                                           setState(() {
                                             updateProgress();
@@ -244,7 +226,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                   height: 10,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -261,16 +244,16 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                   height: 10,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          14.0), // Adjust the padding as needed
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 14.0),
                                   child: Row(
                                     children: [
                                       customHalfSizeCard(
                                           context,
                                           ImageConstant.PROGRESS,
                                           LocaleKeys.Progress.tr(),
-                                          Color.fromARGB(255, 255, 205, 210), () {
+                                          Color.fromARGB(255, 255, 205, 210),
+                                          () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -280,14 +263,13 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                                   )),
                                         );
                                       }),
-                                      SizedBox(
-                                          width:
-                                              10.0), // Add spacing between cards
+                                      SizedBox(width: 10.0),
                                       customHalfSizeCard(
                                           context,
                                           ImageConstant.JOURNAL_IMAGE,
                                           LocaleKeys.Journal.tr(),
-                                          Color.fromARGB(255, 200, 230, 201), () {
+                                          Color.fromARGB(255, 200, 230, 201),
+                                          () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -300,16 +282,16 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                 ),
                                 SizedBox(height: 5.0),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          14.0), // Adjust the padding as needed
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 14.0),
                                   child: Row(
                                     children: [
                                       customHalfSizeCard(
                                           context,
                                           ImageConstant.SCHEDULE,
                                           LocaleKeys.Appointment.tr(),
-                                          Color.fromARGB(255, 255, 224, 178), () {
+                                          Color.fromARGB(255, 255, 224, 178),
+                                          () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -317,19 +299,18 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                                   AppointmentPatientScreen()),
                                         );
                                       }),
-                                      SizedBox(
-                                          width:
-                                              10.0), // Add spacing between cards
+                                      SizedBox(width: 10.0),
                                       customHalfSizeCard(
                                           context,
                                           ImageConstant.USER,
                                           LocaleKeys.User_Profile.tr(),
-                                          Color.fromARGB(255, 225, 190, 231), () {
+                                          Color.fromARGB(255, 225, 190, 231),
+                                          () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                ProfileScreen(), // Replace NextPage with your desired page
+                                                ProfileScreen(),
                                           ),
                                         );
                                       }),

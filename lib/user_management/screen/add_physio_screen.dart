@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/provider/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +46,6 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
       final password = _passwordTextController.text;
       final gender = _genderController.text;
       UserModel user;
-      // Sign in with email and password
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
             email: email,
@@ -102,13 +99,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
         message = LocaleKeys.An_Error_Occurred.tr();
       }
 
-      // Show Snackbar with error message
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(message)),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(), message);
-
-      // Refresh the page
       setState(() {});
     }
   }
@@ -116,14 +107,12 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
   Future<void> _showGenderPicker(BuildContext context) async {
     String selectedGender = '';
 
-    // Show the bottom sheet dialog
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (BuildContext builder) {
         return GestureDetector(
           onTap: () {
-            // Do nothing when tapped inside the dialog
           },
           child: Container(
             height: MediaQuery.of(context).copyWith().size.height / 4,
@@ -148,7 +137,7 @@ class _AddPhysioScreenState extends State<AddPhysioScreen> {
                         icon: Icon(Icons.check),
                         onPressed: () {
                           Navigator.of(context)
-                              .pop(); // Close the bottom s5heet
+                              .pop();
                         },
                       ),
                     ],

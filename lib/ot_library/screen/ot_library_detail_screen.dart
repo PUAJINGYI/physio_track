@@ -43,24 +43,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
     super.initState();
   }
 
-  // String extractVideoIdFromUrl(String url) {
-  //   // Check if the URL contains 'v='
-  //   final startIndex = url.indexOf('v=');
-  //   if (startIndex != -1) {
-  //     // Find the '&' character or the end of the string, whichever comes first
-  //     final endIndex = url.indexOf('&', startIndex);
-  //     if (endIndex != -1) {
-  //       // Extract the substring between 'v=' and '&' (or end of string)
-  //       return url.substring(startIndex + 2, endIndex);
-  //     } else {
-  //       // If there's no '&', return the substring from 'v=' to the end of the string
-  //       return url.substring(startIndex + 2);
-  //     }
-  //   }
-  //   // If 'v=' is not found in the URL, return an empty string or handle it as needed
-  //   return '';
-  // }
-
   String extractVideoIdFromUrl(String url) {
     RegExp regExp = RegExp(
       r"(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})",
@@ -68,10 +50,10 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
     RegExpMatch? match = regExp.firstMatch(url);
 
     if (match != null && match.groupCount >= 1) {
-      return match.group(1)!; // Use the non-nullable assertion operator
+      return match.group(1)!; 
     }
 
-    return ""; // If no match is found
+    return "";
   }
 
   @override
@@ -80,7 +62,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
       future: _loadOTLibraryRecord(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // Ensure that the OTLibrary record is loaded
           final videoUrl = _otLibraryRecord.videoUrl;
           final id = extractVideoIdFromUrl(videoUrl);
           print('videoUrl: ${videoUrl}');
@@ -233,7 +214,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                               ShimmeringTextListWidget(
                                                   width: 400, numOfLines: 4),
                                             ],
-                                          ); // or any loading indicator
+                                          ); 
                                         } else if (snapshot.hasError) {
                                           return Text(
                                               'Error: ${snapshot.error}');
@@ -380,7 +361,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                                                       width: 400,
                                                       numOfLines: 4),
                                                 ],
-                                              ); // or any loading indicator
+                                              ); 
                                             } else if (snapshot.hasError) {
                                               return Text(
                                                   'Error: ${snapshot.error}');
@@ -415,14 +396,13 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                           size: 35.0,
                         ),
                         onPressed: () async {
-                          //deactivate();
                           _controller.pauseVideo();
                           final needUpdate = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditOTActivityScreen(
                                 recordId: widget.recordId,
-                              ), // Replace NextPage with your desired page
+                              ), 
                             ),
                           );
 
@@ -443,7 +423,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                           size: 35.0,
                         ),
                         onPressed: () {
-                          //deactivate();
                           _controller.pauseVideo();
                           showDeleteConfirmationDialog(context);
                         },
@@ -459,7 +438,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                         ),
                         onPressed: () async {
                           await _controller.stopVideo();
-                          //await _controller.close();
                           Navigator.of(context).pop();
                         },
                       ),
@@ -487,7 +465,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
             },
           );
         } else {
-          // While loading, you can show a loading indicator or other widgets
           return Center(child: CircularProgressIndicator());
         }
       },
@@ -499,9 +476,9 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
+          contentPadding: EdgeInsets.zero, 
           titlePadding:
-              EdgeInsets.fromLTRB(24, 0, 24, 0), // Adjust title padding
+              EdgeInsets.fromLTRB(24, 0, 24, 0), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -512,7 +489,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -523,7 +500,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
           ),
           actions: [
             Center(
-              // Wrap actions in Center widget
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -553,7 +529,7 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
                     child: Text(LocaleKeys.No.tr(),
                         style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop(); 
                     },
                   ),
                 ],
@@ -571,14 +547,8 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Delete_OT_Activity.tr())),
       );
-      //Navigator.of(context).pop();
     } catch (error) {
       print('Error deleting occupational therapy activity: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //       content: Text(
-      //           LocaleKeys.Occupational_therapy_activity_could_not_be_deleted)),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Occupational_therapy_activity_could_not_be_deleted.tr());
     }
@@ -594,7 +564,6 @@ class _OTLibraryDetailScreenState extends State<OTLibraryDetailScreen> {
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 

@@ -1,8 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
 
 import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
@@ -48,9 +45,9 @@ class _AppointmentUpdatedApproveScreenState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
+          contentPadding: EdgeInsets.zero, 
           titlePadding:
-              EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+              EdgeInsets.fromLTRB(16, 0, 16, 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -61,7 +58,7 @@ class _AppointmentUpdatedApproveScreenState
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -75,7 +72,6 @@ class _AppointmentUpdatedApproveScreenState
           ),
           actions: [
             Center(
-              // Wrap actions in Center widget
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -115,7 +111,7 @@ class _AppointmentUpdatedApproveScreenState
                     child: Text(LocaleKeys.No.tr(),
                         style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],
@@ -132,9 +128,9 @@ class _AppointmentUpdatedApproveScreenState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
+          contentPadding: EdgeInsets.zero, 
           titlePadding:
-              EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+              EdgeInsets.fromLTRB(16, 0, 16, 0), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -145,7 +141,7 @@ class _AppointmentUpdatedApproveScreenState
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -159,7 +155,6 @@ class _AppointmentUpdatedApproveScreenState
           ),
           actions: [
             Center(
-              // Wrap actions in Center widget
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -177,22 +172,14 @@ class _AppointmentUpdatedApproveScreenState
                       bool isApproved = await appointmentInPendingService
                           .checkIfUpdateAppointmentSlotExist(appointmentId);
                       if (!isApproved) {
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: Text(
-                        //         LocaleKeys.Appointment_slot_not_available.tr()),
-                        //     duration: Duration(seconds: 3),
-                        //   ),
-                        // );
-
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
                               contentPadding:
-                                  EdgeInsets.zero, // Remove content padding
+                                  EdgeInsets.zero, 
                               titlePadding: EdgeInsets.fromLTRB(
-                                  16, 0, 16, 0), // Adjust title padding
+                                  16, 0, 16, 0), 
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -206,7 +193,7 @@ class _AppointmentUpdatedApproveScreenState
                                         color: ColorConstant.RED_BUTTON_TEXT),
                                     onPressed: () {
                                       Navigator.of(context)
-                                          .pop(); // Close the dialog
+                                          .pop(); 
                                     },
                                   ),
                                 ],
@@ -221,7 +208,6 @@ class _AppointmentUpdatedApproveScreenState
                               ),
                               actions: [
                                 Center(
-                                  // Wrap actions in Center widget
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -275,7 +261,7 @@ class _AppointmentUpdatedApproveScreenState
                     child: Text(LocaleKeys.No.tr(),
                         style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT)),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],
@@ -356,7 +342,6 @@ class _AppointmentUpdatedApproveScreenState
                                 children: [
                                   Row(
                                     children: [
-                                      // date and time column
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -380,7 +365,6 @@ class _AppointmentUpdatedApproveScreenState
                                         ],
                                       ),
                                       SizedBox(width: 10),
-                                      // patient and physio column
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -464,7 +448,7 @@ class _AppointmentUpdatedApproveScreenState
                                       Expanded(
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(
-                                              25.0), // Adjust the radius as needed
+                                              25.0), 
                                           child: TextButton(
                                             onPressed: () {
                                               showAppproveConfirmationDialog(
@@ -472,9 +456,9 @@ class _AppointmentUpdatedApproveScreenState
                                             },
                                             style: TextButton.styleFrom(
                                               backgroundColor: ColorConstant
-                                                  .GREEN_BUTTON_UNPRESSED, // Background color of the button
+                                                  .GREEN_BUTTON_UNPRESSED, 
                                               primary:
-                                                  Colors.white, // Text color
+                                                  Colors.white, 
                                             ),
                                             child: Row(
                                               mainAxisAlignment:
@@ -482,16 +466,16 @@ class _AppointmentUpdatedApproveScreenState
                                               children: [
                                                 Icon(
                                                   Icons
-                                                      .check_circle_outlined, // Your icon here
+                                                      .check_circle_outlined, 
                                                   color: ColorConstant
-                                                      .GREEN_BUTTON_TEXT, // Icon color
+                                                      .GREEN_BUTTON_TEXT,
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
                                                   LocaleKeys.Approve.tr(),
                                                   style: TextStyle(
                                                     fontSize:
-                                                        15.0, // Text font size
+                                                        15.0, 
                                                     color: ColorConstant
                                                         .GREEN_BUTTON_TEXT,
                                                   ),
@@ -507,7 +491,7 @@ class _AppointmentUpdatedApproveScreenState
                                       Expanded(
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(
-                                              25.0), // Adjust the radius as needed
+                                              25.0), 
                                           child: TextButton(
                                             onPressed: () {
                                               showRejectConfirmationDialog(
@@ -515,9 +499,9 @@ class _AppointmentUpdatedApproveScreenState
                                             },
                                             style: TextButton.styleFrom(
                                               backgroundColor: ColorConstant
-                                                  .RED_BUTTON_UNPRESSED, // Background color of the button
+                                                  .RED_BUTTON_UNPRESSED,
                                               primary:
-                                                  Colors.white, // Text color
+                                                  Colors.white,
                                             ),
                                             child: Row(
                                               mainAxisAlignment:
@@ -525,18 +509,18 @@ class _AppointmentUpdatedApproveScreenState
                                               children: [
                                                 Icon(
                                                   Icons
-                                                      .cancel_outlined, // Your icon here
+                                                      .cancel_outlined, 
                                                   color: ColorConstant
-                                                      .RED_BUTTON_TEXT, // Icon colorF
+                                                      .RED_BUTTON_TEXT, 
                                                 ),
                                                 SizedBox(
                                                     width:
-                                                        10.0), // Adjust the spacing between the icon and text
+                                                        10.0), 
                                                 Text(
                                                   LocaleKeys.Reject.tr(),
                                                   style: TextStyle(
                                                     fontSize:
-                                                        15.0, // Text font size
+                                                        15.0,
                                                     color: ColorConstant
                                                         .RED_BUTTON_TEXT,
                                                   ),

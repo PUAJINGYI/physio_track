@@ -1,9 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/constant/ColorConstant.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
@@ -105,7 +102,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                             AsyncSnapshot<String> snapshot) {
                                           if (snapshot.connectionState ==
                                               ConnectionState.waiting) {
-                                            return ShimmeringMessageWidget(); // or any loading indicator
+                                            return ShimmeringMessageWidget();
                                           } else if (snapshot.hasError) {
                                             return Text(
                                                 'Error: ${snapshot.error}');
@@ -140,7 +137,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                                             return ShimmeringTextListWidget(
                                                 width: 300,
                                                 numOfLines:
-                                                    4); // or any loading indicator
+                                                    4); 
                                           } else if (snapshot.hasError) {
                                             return Text(
                                                 'Error: ${snapshot.error}');

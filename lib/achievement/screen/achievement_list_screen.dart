@@ -1,13 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../../translations/service/translate_service.dart';
@@ -25,7 +21,6 @@ class AchievementListScreen extends StatefulWidget {
 }
 
 class _AchievementListScreenState extends State<AchievementListScreen> {
-  // String uId = FirebaseAuth.instance.currentUser!.uid;
   final AchievementService _achievementService = AchievementService();
   late Map<UserAchievement, Achievement> achievementMap = {};
 
@@ -69,7 +64,7 @@ class _AchievementListScreenState extends State<AchievementListScreen> {
                     Expanded(
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // Two columns
+                          crossAxisCount: 2,
                         ),
                         padding: EdgeInsets.zero,
                         itemCount: achievementMap.length,
@@ -159,14 +154,13 @@ class AchievementCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to a new screen here
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => AchievementDetailScreen(
               achievement: ach,
               userAchievement: achievement,
-            ), // Pass the achievement details to the new screen
+            ),
           ),
         );
       },
@@ -193,7 +187,7 @@ class AchievementCard extends StatelessWidget {
                           children: [
                             ShimmeringTextListWidget(width: 100, numOfLines: 1),
                           ],
-                        ); // or any loading indicator
+                        ); 
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
@@ -214,12 +208,12 @@ class AchievementCard extends StatelessWidget {
               Expanded(
                 child: Center(
                   child: Container(
-                    width: 100.0, // Set the fixed width
-                    height: 150.0, // Set the fixed height
+                    width: 100.0,
+                    height: 150.0,
                     child: Image.network(
                       ach.imageUrl,
                       fit: BoxFit
-                          .fitHeight, // You can specify the BoxFit as needed
+                          .fitHeight,
                     ),
                   ),
                 ),

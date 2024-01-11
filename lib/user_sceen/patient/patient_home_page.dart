@@ -1,31 +1,21 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:physio_track/achievement/screen/progress_screen.dart';
-import 'package:physio_track/authentication/redirect_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
-import 'package:physio_track/ot_library/screen/ot_daily_list_screen.dart';
 import 'package:physio_track/user_sceen/patient/patient_home_screen.dart';
-import 'package:physio_track/pt_library/screen/pt_daily_list_screen.dart';
-import 'package:provider/provider.dart';
 
 import '../../appointment/model/appointment_model.dart';
 import '../../appointment/screen/appointment_patient_screen.dart';
-import '../../appointment/screen/physio/appointment_schedule_screen.dart';
 import '../../appointment/service/appointment_service.dart';
 import '../../main.dart';
 import '../../notification/api/notification_api.dart';
 import '../../notification/model/received_notification_model.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import '../../ot_library/service/user_ot_list_service.dart';
 import '../../profile/screen/profile_screen.dart';
-import '../../provider/user_state.dart';
-import '../../pt_library/service/user_pt_list_service.dart';
 import '../../user_management/service/user_management_service.dart';
 
 class PatientHomePage extends StatefulWidget {
@@ -110,7 +100,6 @@ class _PatientHomePageState extends State<PatientHomePage>
     _isAndroidPermissionGranted();
     _requestPermissions();
     NotificationApi.init();
-    // listenNotifications();
     pushNotiForPatient();
     pushAppointmentNoti();
   }
@@ -159,38 +148,6 @@ class _PatientHomePageState extends State<PatientHomePage>
       });
     }
   }
-
-  // void listenNotifications() =>
-  //     NotificationApi.onNotifications.stream.listen(onClickedNotification);
-
-  // Future<void> onClickedNotification(String? payload) async {
-  //   String uid = FirebaseAuth.instance.currentUser!.uid;
-  //   if (payload == 'pt') {
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //         builder: (context) => PTDailyListScreen(
-  //               uid: uid,
-  //             )));
-  //   } else if (payload == 'ot') {
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //         builder: (context) => OTDailyListScreen(
-  //               uid: uid,
-  //             )));
-  //   } else if (payload == 'appointment') {
-  //     String role = await userManagementService.getRoleByUid(uid);
-  //     if (role == 'patient') {
-  //       Navigator.of(context).push(MaterialPageRoute(
-  //           builder: (context) => AppointmentPatientScreen()));
-  //     } else if (role == 'physio') {
-  //       Navigator.of(context).push(MaterialPageRoute(
-  //           builder: (context) => AppointmentScheduleScreen()));
-  //     } else {
-  //       Navigator.of(context)
-  //           .push(MaterialPageRoute(builder: (context) => RedirectScreen()));
-  //     }
-  //     Navigator.of(context)
-  //         .push(MaterialPageRoute(builder: (context) => RedirectScreen()));
-  //   }
-  // }
 
   void pushNotiForPatient() {
     final ptNotiId = dotenv.env['PT_REMINDER'];

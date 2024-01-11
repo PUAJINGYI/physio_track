@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis/calendar/v3.dart' as Calendar;
 import 'package:googleapis_auth/auth_io.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/appointment/service/appointment_in_pending_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
@@ -17,8 +16,6 @@ import '../../leave/model/leave_model.dart';
 import '../../leave/service/leave_service.dart';
 import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
-import '../model/appointment_in_pending_model.dart';
-import 'appointment_patient_screen.dart';
 
 class AppointmentUpdateScreen extends StatefulWidget {
   final int? appointmentId;
@@ -52,8 +49,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
   );
   int? selectedHour;
   int? oriSelectedHour;
-  final int? appointmentId; // Store the appointment ID
-
+  final int? appointmentId; 
   _AppointmentUpdateScreenState({this.appointmentId});
 
   @override
@@ -186,10 +182,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
 
     if (appointment != null) {
       setState(() {
-        // Set the initial selected date to the appointment date
         _selectedValue = appointment.date;
-
-        // Set the selected hour based on the appointment start time
         selectedHour = appointment.startTime.hour;
       });
 
@@ -241,7 +234,6 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                             selectionColor: Colors.blue,
                             selectedTextColor: Colors.white,
                             onDateChange: (date) {
-                              // New date selected
                               setState(() {
                                 _selectedValue = date;
                                 _loadEvents(_selectedValue);
@@ -263,7 +255,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                           SizedBox(height: 20),
                           Visibility(
                             visible:
-                                isFullDayLeave, // Show the Text when isFullDayLeave is false
+                                isFullDayLeave,
                             child: Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -286,7 +278,6 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Generate time slots from 10 AM to 8 PM with buttons
                                 for (int startHour = 10;
                                     startHour <= 20;
                                     startHour += 3)
@@ -304,7 +295,6 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                               width: 110,
                                               child: ElevatedButton(
                                                 onPressed: () {
-                                                  // Handle button tap for the selected time slot
                                                   setState(() {
                                                     if (events.any((event) {
                                                       final eventStartTime =
@@ -324,20 +314,16 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                                           .isAtSameMomentAs(
                                                               eventStartTime);
                                                     })) {
-                                                      // If the button meets a conflict, do nothing (it remains disabled)
                                                       MaterialState.disabled;
                                                       return;
                                                     }
 
-                                                    // If there was a previous selection, make it default again
                                                     if (selectedHour != null) {
                                                       selectedHour = null;
                                                     }
 
-                                                    // Set the current button as active
                                                     selectedHour = hour;
 
-                                                    // Update _selectedValue to match the selected hour
                                                     _selectedValue = DateTime(
                                                       _selectedValue.year,
                                                       _selectedValue.month,
@@ -355,7 +341,6 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                                       if (states.contains(
                                                           MaterialState
                                                               .disabled)) {
-                                                        // Disabled state (conflict with an event)
                                                         return Color.fromARGB(
                                                             255, 239, 154, 154);
                                                       } else if (states.contains(
@@ -363,11 +348,9 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                                                   .pressed) ||
                                                           selectedHour ==
                                                               hour) {
-                                                        // Active state (button is pressed or previously selected)
                                                         return Color.fromARGB(
                                                             255, 138, 193, 238);
                                                       } else {
-                                                        // Default state (not pressed and not selected)
                                                         return Color.fromARGB(
                                                             255, 216, 234, 248);
                                                       }
@@ -405,12 +388,12 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                                                     eventStartTime);
                                                           })
                                                             ? Colors
-                                                                .white // Text color for disabled button
+                                                                .white 
                                                             : Color.fromARGB(
                                                                 255,
                                                                 150,
                                                                 200,
-                                                                238), // Text color for active button
+                                                                238), 
                                                   ),
                                                 ),
                                               ),
@@ -441,21 +424,14 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                           ColorConstant.BLUE_BUTTON_PRESSED,
                           () async {
                             if (selectedHour == null) {
-                              // No hour selected, display a snackbar
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //   SnackBar(
-                              //     content: Text(LocaleKeys
-                              //         .Please_select_an_appointment_time.tr()),
-                              //   ),
-                              // );
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     contentPadding: EdgeInsets
-                                        .zero, // Remove content padding
+                                        .zero, 
                                     titlePadding: EdgeInsets.fromLTRB(
-                                        16, 0, 16, 0), // Adjust title padding
+                                        16, 0, 16, 0), 
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
@@ -470,7 +446,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                                   .RED_BUTTON_TEXT),
                                           onPressed: () {
                                             Navigator.of(context)
-                                                .pop(); // Close the dialog
+                                                .pop(); 
                                           },
                                         ),
                                       ],
@@ -486,7 +462,6 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                     ),
                                     actions: [
                                       Center(
-                                        // Wrap actions in Center widget
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -515,7 +490,7 @@ class _AppointmentUpdateScreenState extends State<AppointmentUpdateScreen> {
                                   );
                                 },
                               );
-                              return; // Do not proceed further
+                              return; 
                             }
 
                             await appointmentInPendingService

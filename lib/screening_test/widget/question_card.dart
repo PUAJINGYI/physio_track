@@ -10,13 +10,13 @@ class QuestionCard extends StatelessWidget {
   final Question question;
   final List<QuestionResponse> responses;
   final ValueChanged<double> onChanged;
-  final BuildContext context; // Added context parameter
+  final BuildContext context; 
 
   const QuestionCard({
     required this.question,
     required this.responses,
     required this.onChanged,
-    required this.context, // Added context parameter to the constructor
+    required this.context, 
   });
 
   @override
@@ -45,7 +45,7 @@ class QuestionCard extends StatelessWidget {
                       children: [
                         ShimmeringTextListWidget(width: 300, numOfLines: 2),
                       ],
-                    ); // or any loading indicator
+                    ); 
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -81,7 +81,7 @@ class QuestionCard extends StatelessWidget {
         return buildTextField(responseValue, onValueChanged);
       case 'date':
         return buildDatePicker(
-            responseValue, onValueChanged, context); // Pass the context
+            responseValue, onValueChanged, context); 
       case 'option':
         return buildRadioButton(responseValue, onValueChanged);
       case 'gender':
@@ -93,7 +93,7 @@ class QuestionCard extends StatelessWidget {
 
   Widget buildSlider(double value, ValueChanged<double> onChanged) {
     final roundedValue =
-        value.round(); // Round the value to the nearest integer
+        value.round(); 
 
     return Column(
       children: [
@@ -107,7 +107,7 @@ class QuestionCard extends StatelessWidget {
         ),
         Slider(
           value:
-              roundedValue.toDouble(), // Use the rounded value for the slider
+              roundedValue.toDouble(), 
           min: 1,
           max: 5,
           divisions: 4,
@@ -115,8 +115,8 @@ class QuestionCard extends StatelessWidget {
             onChanged(newValue);
           },
           onChangeEnd: (newValue) {
-            final roundedNewValue = newValue.round(); // Round the new value
-            onChanged(roundedNewValue.toDouble()); // Use the rounded new value
+            final roundedNewValue = newValue.round(); 
+            onChanged(roundedNewValue.toDouble()); 
           },
         ),
       ],
@@ -147,10 +147,10 @@ class QuestionCard extends StatelessWidget {
     final firstDate = DateTime(2000);
     DateTime? newDate = selectedDate;
 
-    final dateFormat = DateFormat('dd-MMM-yyyy'); // Define the date format
+    final dateFormat = DateFormat('dd-MMM-yyyy'); 
 
     return ListTile(
-      title: Text(dateFormat.format(newDate)), // Format the date
+      title: Text(dateFormat.format(newDate)), 
       trailing: Icon(Icons.calendar_today),
       onTap: () async {
         newDate = await showDatePicker(

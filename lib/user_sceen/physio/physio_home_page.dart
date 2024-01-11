@@ -6,15 +6,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:physio_track/achievement/screen/physio/patient_list_by_physio_screen.dart';
 import 'package:physio_track/appointment/screen/physio/appointment_schedule_screen.dart';
 import 'package:physio_track/notification/api/notification_api.dart';
 import 'package:physio_track/user_sceen/physio/physio_home_screen.dart';
 import '../../appointment/model/appointment_model.dart';
-import '../../appointment/screen/appointment_patient_screen.dart';
 import '../../appointment/service/appointment_service.dart';
-import '../../authentication/redirect_screen.dart';
 import '../../main.dart';
 import '../../notification/model/received_notification_model.dart';
 import '../../profile/screen/profile_screen.dart';
@@ -55,7 +52,6 @@ class _PhysioHomePageState extends State<PhysioHomePage>
     _isAndroidPermissionGranted();
     _requestPermissions();
     NotificationApi.init();
-    // listenNotifications();
     cancelPatientNotification();
     pushAppointmentNoti();
   }
@@ -111,28 +107,6 @@ class _PhysioHomePageState extends State<PhysioHomePage>
       });
     }
   }
-
-  // void listenNotifications() =>
-  //     NotificationApi.onNotifications.stream.listen(onClickedNotification);
-
-  // Future<void> onClickedNotification(String? payload) async {
-  //   String uid = FirebaseAuth.instance.currentUser!.uid;
-  //   if (payload == 'appointment') {
-  //     String role = await userManagementService.getRoleByUid(uid);
-  //     if (role == 'patient') {
-  //       Navigator.of(context).push(MaterialPageRoute(
-  //           builder: (context) => AppointmentPatientScreen()));
-  //     } else if (role == 'physio') {
-  //       Navigator.of(context).push(MaterialPageRoute(
-  //           builder: (context) => AppointmentScheduleScreen()));
-  //     } else {
-  //       Navigator.of(context)
-  //           .push(MaterialPageRoute(builder: (context) => RedirectScreen()));
-  //     }
-  //     Navigator.of(context)
-  //         .push(MaterialPageRoute(builder: (context) => RedirectScreen()));
-  //   }
-  // }
 
   void pushAppointmentNoti() async {
     String uid = FirebaseAuth.instance.currentUser!.uid;

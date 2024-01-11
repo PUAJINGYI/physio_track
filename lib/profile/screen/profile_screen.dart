@@ -10,7 +10,6 @@ import 'package:physio_track/profile/screen/change_language_screen.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
 import '../../authentication/change_password_screen.dart';
-import '../../authentication/service/auth_manager.dart';
 import '../../authentication/signin_screen.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
@@ -31,7 +30,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   late Map<String, dynamic> userData = {};
   String? profileImageUrl;
-  // AuthManager _authManager = AuthManager();
   NotificationService notificationService = NotificationService();
   bool hasUnreadNotifications = false;
 
@@ -65,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         this.userData = userData;
         profileImageUrl =
-            userData['profileImageUrl']; // Assign the profile image URL
+            userData['profileImageUrl']; 
       });
     }
   }
@@ -77,7 +75,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SnackBar(content: Text(LocaleKeys.Signed_out.tr())),
       );
       print("Signed out");
-      // _authManager.logout();
       Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (BuildContext context) {
@@ -140,7 +137,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () async {
                       onConfirm();
-                      //Navigator.pop(context);
                     },
                   ),
                   SizedBox(width: 10),
@@ -286,24 +282,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           backgroundColor: Colors.grey,
                                         ),
                                         SizedBox(width: 10),
-                                        // Expanded(
-                                        //   child: Padding(
-                                        //     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                        //     child: AutoSizeText(
-                                        //       userData['username'] != ''
-                                        //           ? userData['username']
-                                        //           : 'N/A',
-                                        //       style: TextStyle(
-                                        //         fontSize: 20,
-                                        //         fontWeight: FontWeight.bold,
-                                        //       ),
-                                        //       minFontSize: 12,
-                                        //       maxFontSize: 20,
-                                        //       maxLines: 1,
-                                        //       overflow: TextOverflow.ellipsis,
-                                        //     ),
-                                        //   ),
-                                        // ),
                                         Expanded(
                                           child: Padding(
                                             padding: const EdgeInsets.fromLTRB(
@@ -326,15 +304,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                                 if (userData['role'] ==
                                                     'patient')
-                                                  // AutoSizeText(
-                                                  //   'Level: ${userData['level']}',
-                                                  //   style: TextStyle(
-                                                  //     fontSize:
-                                                  //         16, // Adjust the font size as needed
-                                                  //   ),
-                                                  //   maxLines: 1,
-                                                  //   overflow: TextOverflow.ellipsis,
-                                                  // ),
                                                   Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
@@ -402,9 +371,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   userData['address'] != ''
                                       ? userData['address']
                                       : 'N/A'),
-                              //SizedBox(height: 5),
                               changePassword(),
-                              //SizedBox(height: 5),
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(20, 0, 20, 0),

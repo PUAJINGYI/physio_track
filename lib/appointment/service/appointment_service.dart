@@ -1,21 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/calendar/v3.dart';
+import 'package:googleapis/calendar/v3.dart' as Calendar;
+import 'package:googleapis_auth/auth_io.dart';
+import 'package:http/http.dart' as http;
 import 'package:physio_track/appointment/service/google_calander_service.dart';
 
 import '../../constant/TextConstant.dart';
 import '../../leave/model/leave_model.dart';
-import '../../leave/service/leave_service.dart';
 import '../../notification/service/notification_service.dart';
 import '../../profile/model/user_model.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/appointment_in_pending_model.dart';
 import '../model/appointment_model.dart';
-import 'package:googleapis/calendar/v3.dart' as Calendar;
-import 'package:googleapis_auth/auth_io.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
-
 import '../model/user_appointment_model.dart';
 
 class AppointmentService {
@@ -33,14 +31,13 @@ class AppointmentService {
 
   Future<AuthClient?> getAuthClientUsingGoogleSignIn() async {
     var scopes = [CalendarApi.calendarScope];
-    final googleSignIn = GoogleSignIn(); // Adjust scopes as needed
+    final googleSignIn = GoogleSignIn(); 
     final isSignedIn = await googleSignIn.isSignedIn();
     final googleSignInAccount = isSignedIn
         ? await googleSignIn.signInSilently()
         : await googleSignIn.signIn();
 
     if (googleSignInAccount == null) {
-      // The user is not signed in.
       return null;
     }
 
@@ -133,9 +130,7 @@ class AppointmentService {
 
       List<Appointment> newAppointmentsToAdd = [];
 
-// Iterate through the event list
       for (Event event in eventList) {
-        // Check if the event's startTime is not present in the appointmentList
         bool isEventNotInAppointments = appointmentList.every((appointment) =>
             appointment.startTime.toLocal() !=
             event.start!.dateTime!.toLocal());
@@ -149,22 +144,6 @@ class AppointmentService {
           int physioId =
               await userManagementService.getUserIdByEmail(emailList[1]);
 
-          // for (Appointment appointment in appointmentList) {
-          //   if (appointment.startTime == event.start!.dateTime!.toLocal() &&
-          //       (appointment.patientId == patientId ||
-          //           appointment.physioId == physioId)) {
-          //     isConflictAppointment = false;
-          //     break;
-          //   }
-
-          //   if (appointment.startTime == event.start!.dateTime!.toLocal() &&
-          //       (appointment.patientId != patientId ||
-          //           appointment.physioId != physioId)) {
-          //     isConflictAppointment = true;
-          //     break;
-          //   }
-          // }
-
           appointmentList.any((appointment) {
             return appointment.startTime == event.start!.dateTime!.toLocal() &&
                 (appointment.patientId != patientId &&
@@ -172,7 +151,6 @@ class AppointmentService {
                     appointment.eventId != event.id);
           });
         }
-        // If the event's startTime is not in the appointments, add it as a new appointment
         if (isEventNotInAppointments || isConflictAppointment) {
           QuerySnapshot querySnapshot = await appointmentInPendingCollection
               .orderBy('id', descending: true)
@@ -258,7 +236,6 @@ class AppointmentService {
         }
       }
 
-// Add the new appointments to the existing appointmentList
       appointmentList.addAll(newAppointmentsToAdd);
     } else {
       print('null authClient');
@@ -389,7 +366,6 @@ class AppointmentService {
   return appointmentList.isNotEmpty ? appointmentList.first : null;
 }
 
-  // fetch by physiotherapist to check their appointments
   Future<List<Appointment>> fetchAppointmentListByPhysioId(int id) async {
     List<Appointment> appointmentList = [];
     QuerySnapshot querySnapshot =
@@ -401,7 +377,6 @@ class AppointmentService {
     return appointmentList;
   }
 
-  // fetch appointment by physioId in today
   Future<List<Appointment>> fetchAppointmentListByPhysioIdInToday(
       int id) async {
     List<Appointment> appointmentList = [];
@@ -455,7 +430,6 @@ class AppointmentService {
 
   Future<void> deleteAppointmentReferenceFromUserById(
       int userId, int appointmentId) async {
-    // Get a reference to the user document by userId
     QuerySnapshot userSnapshot =
         await userCollection.where('id', isEqualTo: userId).get();
 
@@ -466,7 +440,6 @@ class AppointmentService {
       CollectionReference userAppointmentCollection =
           userRef.collection('appointments');
 
-      // Delete the specific appointment reference by its document ID
       await userAppointmentCollection
           .where('appointmentId', isEqualTo: appointmentId)
           .get()
@@ -521,7 +494,6 @@ class AppointmentService {
     return availablePhysioList;
   }
 
-  // check availibility of physio on specific date and specific time
   Future<bool> checkPhysioAvailabilityByDateAndTime(
       int physioId, DateTime date, DateTime startTime, DateTime endTime) async {
     QuerySnapshot querySnapshot = await leaveCollection
@@ -547,7 +519,6 @@ class AppointmentService {
     return true;
   }
 
-  // change status of appointment to 'Conflict' due to physio on leave on specific date and time
   Future<void> changeAppointmentStatusToConflict(int appointmentId) async {
     await appointmentInPendingCollection
         .where('id', isEqualTo: appointmentId)

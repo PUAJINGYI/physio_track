@@ -178,7 +178,6 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                             ),
                           );
                         } else {
-                          // Handle the case where you have notifications to display
                           return ListView.builder(
                             padding: EdgeInsets.only(top: 0),
                             itemCount: snapshot.data!.length,
@@ -203,7 +202,7 @@ class _LeaveListScreenState extends State<LeaveListScreen> {
                                           return ShimmeringTextListWidget(
                                               width: 300,
                                               numOfLines:
-                                                  1); // or any loading indicator
+                                                  1);
                                         } else if (snapshot.hasError) {
                                           return Text(
                                               'Error: ${snapshot.error}');

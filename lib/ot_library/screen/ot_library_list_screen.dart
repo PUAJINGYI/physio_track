@@ -61,7 +61,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(ImageConstant
-                                .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
+                                .DATA_NOT_FOUND),
                             Text(LocaleKeys.No_OT_Activity_Found.tr(),
                                 style: TextStyle(
                                     fontSize: 20.0,
@@ -83,7 +83,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                               MaterialPageRoute(
                                 builder: (context) => OTLibraryDetailScreen(
                                   recordId: otLibrary.id,
-                                ), // Replace NextPage with your desired page
+                                ), 
                               ),
                             );
 
@@ -138,7 +138,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                                 ShimmeringTextListWidget(
                                                     width: 300, numOfLines: 2),
                                               ],
-                                            ); // or any loading indicator
+                                            ); 
                                           } else if (snapshot.hasError) {
                                             return Text(
                                                 'Error: ${snapshot.error}');
@@ -167,7 +167,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                                                 builder: (context) =>
                                                     OTLibraryDetailScreen(
                                                   recordId: otLibrary.id,
-                                                ), // Replace NextPage with your desired page
+                                                ), 
                                               ),
                                             );
 
@@ -248,7 +248,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        AddOTActivityScreen(), // Replace NextPage with your desired page
+                        AddOTActivityScreen(), 
                   ),
                 );
 
@@ -267,7 +267,7 @@ class _OTLibraryListScreenState extends State<OTLibraryListScreen> {
                 height: 60,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.blue, // Replace with desired button color
+                  color: Colors.blue,
                 ),
               ),
             ),

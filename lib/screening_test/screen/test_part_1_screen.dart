@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/screening_test/screen/test_part_2_screen.dart';
 import 'package:physio_track/screening_test/widget/question_card.dart';
 import 'package:physio_track/screening_test/model/question_model.dart';
@@ -42,7 +40,7 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
         question: question.question,
         topic: question.topic,
         questionType: question.questionType,
-        response: '1.0', // Set a default response of 1.0 for all questions
+        response: '1.0', 
       ));
     }
     print("fetchQuestions");
@@ -61,7 +59,6 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
 
   void updateResponse(int index, double value) {
     if (index >= responses.length) {
-      // Add new QuestionResponse objects for unanswered questions
       for (int i = responses.length; i < index; i++) {
         responses.add(
           QuestionResponse(
@@ -70,12 +67,11 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
             topic: questions[i].topic,
             questionType: questions[i].questionType,
             response:
-                '1.0', // Set a default response of 1.0 for unanswered questions
+                '1.0', 
           ),
         );
       }
 
-      // Add the QuestionResponse for the current question
       responses.add(
         QuestionResponse(
           id: questions[index].id,
@@ -86,7 +82,6 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
         ),
       );
     } else {
-      // Update the existing QuestionResponse object
       responses[index] = QuestionResponse(
         id: questions[index].id,
         question: questions[index].question,
@@ -98,19 +93,16 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
   }
 
   void submitResponses() {
-    // Check if all questions are answered
     bool allQuestionsAnswered = (responses.length == questions.length) &&
         (responses[0].response != '1.0' && responses[2].response != '1.0');
     if (!allQuestionsAnswered) {
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Please_answer_all_questions_before_proceeding.tr());
-      return; // Stop the submission process
+      return; 
     }
 
-    // Save responses to Firestore or perform any other operations
     questionService.addResponse(uId, responses);
 
-    // Print responses for demonstration
     responses.forEach((response) {
       print('ID: ${response.id}');
       print('Question: ${response.question}');
@@ -201,11 +193,11 @@ class _TestPart1ScreenState extends State<TestPart1Screen> {
                               return QuestionCard(
                                 question: question,
                                 responses:
-                                    responses, // Provide the responses list
+                                    responses,
                                 onChanged: (value) {
                                   setState(() {
                                     updateResponse(
-                                        index, value); // Update the response
+                                        index, value); 
                                   });
                                 },
                                 context: context,

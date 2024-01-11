@@ -1,12 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:physio_track/constant/ColorConstant.dart';
 import 'package:physio_track/constant/TextConstant.dart';
 
-import '../../notification/service/notification_service.dart';
 import '../../notification/widget/shimmering_text_list_widget.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
@@ -69,7 +66,7 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                                       ShimmeringTextListWidget(
                                           width: 400, numOfLines: 1),
                                     ],
-                                  ); // or any loading indicator
+                                  ); 
                                 } else if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 } else {
@@ -102,7 +99,7 @@ class _AchievementDetailScreenState extends State<AchievementDetailScreen> {
                                       ShimmeringTextListWidget(
                                           width: 400, numOfLines: 2),
                                     ],
-                                  ); // or any loading indicator
+                                  ); 
                                 } else if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 } else {

@@ -45,7 +45,6 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
   @override
   void initState() {
     super.initState();
-    //_loadOTLibraryRecord();
   }
 
   Future<void> _loadOTLibraryRecord() async {
@@ -65,7 +64,6 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
     } else if (level == 'Beginner') {
       return Colors.green[500]!;
     }
-    // Default color if the level doesn't match the conditions
     return Colors.black;
   }
 
@@ -267,20 +265,15 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
   }
 
   String extractVideoIdFromUrl(String url) {
-    // Check if the URL contains 'v='
     final startIndex = url.indexOf('v=');
     if (startIndex != -1) {
-      // Find the '&' character or the end of the string, whichever comes first
       final endIndex = url.indexOf('&', startIndex);
       if (endIndex != -1) {
-        // Extract the substring between 'v=' and '&' (or end of string)
         return url.substring(startIndex + 2, endIndex);
       } else {
-        // If there's no '&', return the substring from 'v=' to the end of the string
         return url.substring(startIndex + 2);
       }
     }
-    // If 'v=' is not found in the URL, return an empty string or handle it as needed
     return '';
   }
 
@@ -291,15 +284,10 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
       DocumentSnapshot userSnapshot = await userRef.get();
 
       if (userSnapshot.exists) {
-        // Retrieve the existing experience and level from the document snapshot
         int existingExperience = userSnapshot.get('totalExp') ?? 0;
-        //int existingLevel = userSnapshot.get('level') ?? 1;
         int updatedExperience = _otLibraryRecord.exp + existingExperience;
-        // Calculate the new level and progress using the provided method
-        //int level = calculateLevelAndProgress(existingExperience);
         Map<int, double> levelInfo =
             calculateLevelAndProgress(updatedExperience);
-        // Update the user document with the new level and progress
         int levelUpdated = levelInfo.keys.first;
         double progressToNextLevel = levelInfo.values.first;
 
@@ -349,7 +337,6 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
     int level = 1;
     int requiredExperience = 50;
     double progressToNextLevel = 0;
-    // exp =150 > rexp=150
     while (experience >= requiredExperience) {
       level++;
       if (experience == requiredExperience) {
@@ -359,10 +346,6 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
       requiredExperience = requiredExperience + (level - 1) * 50 + 50;
       progressToNextLevel = experience / requiredExperience;
     }
-    // progressToNextLevel gt issue
-    // if (experience == requiredExperience) {
-    //   level++;
-    // }
 
     if (level == 1) {
       progressToNextLevel = experience / 50.0;
@@ -378,7 +361,6 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
       future: _loadOTLibraryRecord(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // Ensure that the OTLibrary record is loaded
           final videoUrl = _otLibraryRecord.videoUrl;
           final id = extractVideoIdFromUrl(videoUrl);
           print('videoUrl: ${videoUrl}');
@@ -439,7 +421,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                             return ShimmeringTextListWidget(
                                               width: 300,
                                               numOfLines: 2,
-                                            ); // or any loading indicator
+                                            ); 
                                           } else if (snapshot.hasError) {
                                             return Text(
                                                 'Error: ${snapshot.error}');
@@ -533,7 +515,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                             return ShimmeringTextListWidget(
                                               width: 400,
                                               numOfLines: 4,
-                                            ); // or any loading indicator
+                                            ); 
                                           } else if (snapshot.hasError) {
                                             return Text(
                                                 'Error: ${snapshot.error}');
@@ -584,7 +566,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                                 return ShimmeringTextListWidget(
                                                   width: 300,
                                                   numOfLines: 2,
-                                                ); // or any loading indicator
+                                                ); 
                                               } else if (snapshot.hasError) {
                                                 return Text(
                                                     'Error: ${snapshot.error}');
@@ -688,7 +670,7 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
                                                         width: 400,
                                                         numOfLines: 4),
                                                   ],
-                                                ); // or any loading indicator
+                                                ); 
                                               } else if (snapshot.hasError) {
                                                 return Text(
                                                     'Error: ${snapshot.error}');
@@ -773,7 +755,6 @@ class _OTDailyDetailScreenState extends State<OTDailyDetailScreen> {
             },
           );
         } else {
-          // While loading, you can show a loading indicator or other widgets
           return Center(child: CircularProgressIndicator());
         }
       },

@@ -2,15 +2,9 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-import 'package:physio_track/journal/screen/view_journal_list_screen.dart';
 import 'package:physio_track/journal/service/journal_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
 
@@ -79,11 +73,10 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      String imageUrl = ''; // Initialize imageUrl with an empty string
+      String imageUrl = '';
       int journalId = 0;
 
       if (_imageFile != null) {
-        // Upload the image to Firestorage
         imageUrl = await uploadImageToFirestorage();
       }
 
@@ -95,10 +88,9 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         feeling: _feeling,
         healthCondition: _healthCondition.round().toString(),
         comment: _comment,
-        imageUrl: imageUrl, // Assign the uploaded imageUrl to the journal
+        imageUrl: imageUrl,
       );
 
-      // TODO: Handle saving the journal object
       journalService.addJournal(userId, journal);
       bool newArchievement = await achievementService.checkFirstJournal(userId);
       if (newArchievement) {
@@ -119,16 +111,13 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
       Navigator.pop(context, true);
       print('Journal: $journal');
     } else {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Journal_failed_be_added.tr())),
-      // );
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
+            contentPadding: EdgeInsets.zero,
             titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                EdgeInsets.fromLTRB(16, 0, 16, 0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -139,7 +128,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop(); 
                   },
                 ),
               ],
@@ -153,7 +142,6 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
             ),
             actions: [
               Center(
-                // Wrap actions in Center widget
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -254,7 +242,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                       SizedBox(height: 60.0),
                                       Center(
                                         child: Text(
-                                          formattedDate, // Add the formatted date here
+                                          formattedDate,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color:
@@ -359,7 +347,6 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                                                     },
                                                     child: Column(
                                                       children: [
-                                                        // Replace with your custom feeling icon
                                                         CustomFeelingIcon(
                                                           feeling: option,
                                                           isSelected:
@@ -518,11 +505,11 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
                             borderRadius: BorderRadius.circular(10.0),
                             child: Container(
                               color: Colors
-                                  .grey, // Replace with your desired container color
+                                  .grey, 
                               child: Opacity(
                                 opacity: _imageUploaded
                                     ? 1.0
-                                    : 0.5, // Adjust the opacity value as needed
+                                    : 0.5,
                                 child: _imageUploaded
                                     ? Image.file(
                                         _imageFile!,
@@ -569,8 +556,6 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
             size: 35.0,
           ),
           onPressed: () {
-            // Perform your desired action here
-            // For example, navigate to the previous screen
             Navigator.pop(context);
           },
         ),

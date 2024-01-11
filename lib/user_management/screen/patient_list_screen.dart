@@ -7,7 +7,6 @@ import '../../profile/model/user_model.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
 import '../service/user_management_service.dart';
-import 'user_management_page.dart';
 
 class PatientListScreen extends StatefulWidget {
   @override
@@ -17,13 +16,13 @@ class PatientListScreen extends StatefulWidget {
 class _PatientListScreenState extends State<PatientListScreen> {
   UserManagementService userManagementService = UserManagementService();
   late Future<List<UserModel>>
-      _patientListFuture; // Add a member variable for the future
+      _patientListFuture; 
 
   @override
   void initState() {
     super.initState();
     _patientListFuture =
-        _fetchPatientList(); // Initialize the future in initState
+        _fetchPatientList(); 
   }
 
   Future<List<UserModel>> _fetchPatientList() async {
@@ -35,9 +34,9 @@ class _PatientListScreenState extends State<PatientListScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
+          contentPadding: EdgeInsets.zero,
           titlePadding:
-              EdgeInsets.fromLTRB(24, 0, 24, 0), // Adjust title padding
+              EdgeInsets.fromLTRB(24, 0, 24, 0), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -48,7 +47,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -62,7 +61,6 @@ class _PatientListScreenState extends State<PatientListScreen> {
           ),
           actions: [
             Center(
-              // Wrap actions in Center widget
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -79,12 +77,12 @@ class _PatientListScreenState extends State<PatientListScreen> {
                     ),
                     onPressed: () async {
                       await performDeleteLogic(
-                          id, context); // Wait for the deletion to complete
+                          id, context); 
                       setState(() {
                         _patientListFuture =
-                            _fetchPatientList(); // Refresh the patient list
+                            _fetchPatientList(); 
                       });
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop(); 
                     },
                   ),
                   SizedBox(width: 10),
@@ -100,7 +98,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                       style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop(); 
                     },
                   ),
                 ],
@@ -115,15 +113,11 @@ class _PatientListScreenState extends State<PatientListScreen> {
   Future<void> performDeleteLogic(int id, context) async {
     try {
       await userManagementService
-          .deleteUser(id); // Wait for the deletion to complete
+          .deleteUser(id); 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Patient_deleted.tr())),
       );
     } catch (error) {
-      // print('Error deleting patient: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Patient_could_not_be_deleted.tr())),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Patient_could_not_be_deleted.tr());
     }
@@ -132,7 +126,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<UserModel>>(
-      future: _patientListFuture, // Use the member variable for the future
+      future: _patientListFuture, 
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -165,7 +159,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                             child: user.profileImageUrl.isEmpty
                                 ? Image.asset(
                                     ImageConstant
-                                        .DEFAULT_USER, // Replace with the default image path
+                                        .DEFAULT_USER, 
                                     fit: BoxFit.cover,
                                   )
                                 : null,
@@ -173,7 +167,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                           title: Text(user.username,
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           subtitle: Text(
-                              user.email), // Replace with the actual user name
+                              user.email), 
                         ),
                       ),
                       Padding(
@@ -183,13 +177,13 @@ class _PatientListScreenState extends State<PatientListScreen> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors
-                                .white, // Replace with desired button color
+                                .white, 
                           ),
                           child: IconButton(
                             icon: Icon(Icons
-                                .delete_outline), // Replace with desired icon
+                                .delete_outline), 
                             color:
-                                Colors.blue, // Replace with desired icon color
+                                Colors.blue, 
                             onPressed: () {
                               showDeleteConfirmationDialog(context, user.id);
                             },
@@ -203,7 +197,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
             ),
           );
         }
-        return Container(); // Return an empty container if no data is available
+        return Container(); 
       },
     );
   }

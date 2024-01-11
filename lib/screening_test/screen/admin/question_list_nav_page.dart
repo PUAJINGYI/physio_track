@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:physio_track/screening_test/screen/admin/daily_question_list_screen.dart';
 import 'package:physio_track/screening_test/screen/admin/lower_question_list_screen.dart';
 import 'package:physio_track/screening_test/screen/admin/upper_question_list_screen.dart';
@@ -91,7 +89,7 @@ class _QuestionListNavPageState extends State<QuestionListNavPage> {
                       ),
                     ],
                   ),
-                ), // Adds spacing between text and underline
+                ), 
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.zero,
@@ -161,7 +159,7 @@ class TestNavigationBarItem extends StatelessWidget {
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
-          SizedBox(height: 4), // Adds spacing between text and underline
+          SizedBox(height: 4), 
           Container(
             height: 2,
             width: isSelected ? 150 : 0,

@@ -1,15 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../../constant/ColorConstant.dart';
 import '../../../constant/ImageConstant.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../../../user_management/service/user_management_service.dart';
 import '../../model/appointment_in_pending_model.dart';
-import '../../model/appointment_model.dart';
 import '../../service/appointment_in_pending_service.dart';
 import '../../service/appointment_service.dart';
 import 'edit_appointment_detail_screen.dart';
@@ -114,7 +111,6 @@ class _AppointmentEditInChargePhysioOnLeaveScreenState
                                 children: [
                                   Row(
                                     children: [
-                                      // date and time column
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -138,7 +134,6 @@ class _AppointmentEditInChargePhysioOnLeaveScreenState
                                         ],
                                       ),
                                       SizedBox(width: 7),
-                                      // patient and physio column
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -236,7 +231,7 @@ class _AppointmentEditInChargePhysioOnLeaveScreenState
                                       Expanded(
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(
-                                              25.0), // Adjust the radius as needed
+                                              25.0), 
                                           child: TextButton(
                                             onPressed: () async {
                                               final needUpdate =
@@ -272,7 +267,7 @@ class _AppointmentEditInChargePhysioOnLeaveScreenState
                                               backgroundColor: ColorConstant
                                                   .YELLOW_BUTTON_UNPRESSED,
                                               primary:
-                                                  Colors.white, // Text color
+                                                  Colors.white, 
                                             ),
                                             child: Row(
                                               mainAxisAlignment:
@@ -280,16 +275,16 @@ class _AppointmentEditInChargePhysioOnLeaveScreenState
                                               children: [
                                                 Icon(
                                                   Icons
-                                                      .edit_calendar_outlined, // Your icon here
+                                                      .edit_calendar_outlined,
                                                   color: ColorConstant
-                                                      .YELLOW_BUTTON_TEXT, // Icon color
+                                                      .YELLOW_BUTTON_TEXT, 
                                                 ),
                                                 SizedBox(width: 10.0),
                                                 Text(
                                                   LocaleKeys.Edit.tr(),
                                                   style: TextStyle(
                                                     fontSize:
-                                                        15.0, // Text font size
+                                                        15.0,
                                                     color: ColorConstant
                                                         .YELLOW_BUTTON_TEXT,
                                                   ),
@@ -299,54 +294,6 @@ class _AppointmentEditInChargePhysioOnLeaveScreenState
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(
-                                      //   width: 10,
-                                      // ),
-                                      // Expanded(
-                                      //   child: ClipRRect(
-                                      //     borderRadius: BorderRadius.circular(
-                                      //         25.0), // Adjust the radius as needed
-                                      //     child: TextButton(
-                                      //       onPressed: () {
-                                      //         showRejectConfirmationDialog(
-                                      //             context, appointment.id);
-                                      //       },
-                                      //       style: TextButton.styleFrom(
-                                      //         backgroundColor: Color.fromARGB(
-                                      //             255,
-                                      //             241,
-                                      //             163,
-                                      //             157), // Background color of the button
-                                      //         primary:
-                                      //             Colors.white, // Text color
-                                      //       ),
-                                      //       child: Row(
-                                      //         mainAxisAlignment:
-                                      //             MainAxisAlignment.center,
-                                      //         children: [
-                                      //           Icon(
-                                      //             Icons
-                                      //                 .cancel_outlined, // Your icon here
-                                      //             color: ColorConstant
-                                      //                 .RED_BUTTON_TEXT, // Icon colorF
-                                      //           ),
-                                      //           SizedBox(
-                                      //               width:
-                                      //                   10.0), // Adjust the spacing between the icon and text
-                                      //           Text(
-                                      //             LocaleKeys.Reject.tr(),
-                                      //             style: TextStyle(
-                                      //               fontSize:
-                                      //                   15.0, // Text font size
-                                      //               color: ColorConstant
-                                      //                   .RED_BUTTON_TEXT,
-                                      //             ),
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // ),
                                     ],
                                   ),
                                 ],

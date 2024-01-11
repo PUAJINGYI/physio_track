@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/notification/screen/notification_details_screen.dart';
 import 'package:physio_track/notification/service/notification_service.dart';
 import 'package:physio_track/translations/locale_keys.g.dart';
@@ -92,7 +91,6 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                             ),
                           );
                         } else {
-                          // Handle the case where you have notifications to display
                           return ListView.builder(
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
@@ -140,7 +138,7 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                                       snapshot) {
                                                 if (snapshot.connectionState ==
                                                     ConnectionState.waiting) {
-                                                  return ShimmeringMessageWidget(); // or any loading indicator
+                                                  return ShimmeringMessageWidget(); 
                                                 } else if (snapshot.hasError) {
                                                   return Text(
                                                       'Error: ${snapshot.error}');

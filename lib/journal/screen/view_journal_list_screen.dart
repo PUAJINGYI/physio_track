@@ -2,14 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/journal/screen/add_journal_screen.dart';
 import 'package:physio_track/journal/screen/view_journal_screen.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../constant/TextConstant.dart';
-import '../../user_sceen/patient/patient_home_screen.dart';
 import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
 import '../model/journal_model.dart';
@@ -41,7 +39,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
         isSwitched = status;
       });
     } catch (error) {
-      print('Error fetching status: $error'); // Handle any errors here
+      print('Error fetching status: $error');
     }
   }
 
@@ -49,9 +47,9 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
     try {
       await userManagementService.updateSharedJournalStatus(userId, newValue);
       print(
-          'Update successful'); // You can add appropriate success handling here
+          'Update successful');
     } catch (error) {
-      print('Error updating status: $error'); // Handle any errors here
+      print('Error updating status: $error'); 
     }
   }
 
@@ -91,7 +89,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(ImageConstant
-                                .DATA_NOT_FOUND), // Replace 'assets/no_data_image.png' with the actual image asset path
+                                .DATA_NOT_FOUND),
                             Text(LocaleKeys.No_Journal_Found.tr(),
                                 style: TextStyle(
                                     fontSize: 20.0,
@@ -115,7 +113,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                 MaterialPageRoute(
                                   builder: (context) => ViewJournalScreen(
                                     journalId: journal.id,
-                                  ), // Replace NextPage with your desired page
+                                  ), 
                                 ),
                               );
 
@@ -137,13 +135,13 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                               BorderRadius.circular(10.0),
                                           child: Image.network(
                                             journal
-                                                .imageUrl, // Replace with the actual image URL
+                                                .imageUrl,
                                             fit: BoxFit.cover,
                                             errorBuilder:
                                                 (context, error, stackTrace) {
                                               return Image.asset(
                                                 ImageConstant
-                                                    .DEFAULT_JOURNAL, // Replace with the default image path
+                                                    .DEFAULT_JOURNAL, 
                                                 fit: BoxFit.cover,
                                               );
                                             },
@@ -165,13 +163,13 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Colors
-                                            .white, // Replace with desired button color
+                                            .white, 
                                       ),
                                       child: IconButton(
                                         icon: Icon(Icons
-                                            .arrow_forward), // Replace with desired icon
+                                            .arrow_forward),
                                         color: Colors
-                                            .blue, // Replace with desired icon color
+                                            .blue, 
                                         onPressed: () async {
                                           final needUpdate =
                                               await Navigator.push(
@@ -180,7 +178,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                               builder: (context) =>
                                                   ViewJournalScreen(
                                                 journalId: journal.id,
-                                              ), // Replace NextPage with your desired page
+                                              ),
                                             ),
                                           );
 
@@ -241,9 +239,9 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               contentPadding:
-                                  EdgeInsets.zero, // Remove content padding
+                                  EdgeInsets.zero, 
                               titlePadding: EdgeInsets.fromLTRB(
-                                  16, 0, 16, 0), // Adjust title padding
+                                  16, 0, 16, 0), 
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -257,7 +255,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                         color: ColorConstant.RED_BUTTON_TEXT),
                                     onPressed: () {
                                       Navigator.of(context)
-                                          .pop(); // Close the dialog
+                                          .pop(); 
                                     },
                                   ),
                                 ],
@@ -273,7 +271,6 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                               ),
                               actions: [
                                 Center(
-                                  // Wrap actions in Center widget
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -307,9 +304,9 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               contentPadding:
-                                  EdgeInsets.zero, // Remove content padding
+                                  EdgeInsets.zero,
                               titlePadding: EdgeInsets.fromLTRB(
-                                  16, 0, 16, 0), // Adjust title padding
+                                  16, 0, 16, 0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -323,7 +320,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                                         color: ColorConstant.RED_BUTTON_TEXT),
                                     onPressed: () {
                                       Navigator.of(context)
-                                          .pop(); // Close the dialog
+                                          .pop(); 
                                     },
                                   ),
                                 ],
@@ -339,7 +336,6 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                               ),
                               actions: [
                                 Center(
-                                  // Wrap actions in Center widget
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -409,7 +405,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        AddJournalScreen(), // Replace NextPage with your desired page
+                        AddJournalScreen(), 
                   ),
                 );
               },
@@ -424,7 +420,7 @@ class _ViewJournalListScreenState extends State<ViewJournalListScreen> {
                 height: 60,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.blue, // Replace with desired button color
+                  color: Colors.blue, 
                 ),
               ),
             ),

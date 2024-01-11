@@ -40,11 +40,11 @@ class CalendarTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 60, // Adjust the width as needed
-      height: 60, // Adjust the height as needed
+      width: 60,
+      height: 60, 
       decoration: BoxDecoration(
         border: Border.all(
-            color: Colors.black), // Add a border for better visibility
+            color: Colors.black),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Stack(
@@ -54,13 +54,13 @@ class CalendarTile extends StatelessWidget {
             left: 0,
             right: 0,
             bottom:
-                30, // Adjust this value to control the height of the upper part
+                30, 
             child: Container(
-              color: Colors.black, // Black background for the upper part
+              color: Colors.black,
               child: Center(
                 child: Text(
                   getMonthText(DateFormat.MMM()
-                      .format(date)), // Display the month abbreviation
+                      .format(date)), 
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
                 ),
@@ -73,7 +73,7 @@ class CalendarTile extends StatelessWidget {
             right: 0,
             child: Center(
               child: Text(
-                date.day.toString(), // Display the day of the month
+                date.day.toString(), 
                 style: TextStyle(fontSize: 18),
               ),
             ),

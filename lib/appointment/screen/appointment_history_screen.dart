@@ -1,9 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
 import 'package:physio_track/appointment/service/appointment_service.dart';
 import 'package:physio_track/constant/ImageConstant.dart';
 import 'package:physio_track/treatment/screen/view_treatment_report_screen.dart';
@@ -25,7 +21,6 @@ class AppointmentHistoryScreen extends StatefulWidget {
 }
 
 class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
-  //String uid = FirebaseAuth.instance.currentUser!.uid;
   AppointmentService appointmentService = AppointmentService();
   UserManagementService userManagementService = UserManagementService();
   TreatmentService treatmentService = TreatmentService();
@@ -86,9 +81,7 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                   }
                   if (snapshot.hasData) {
                     List<Appointment> appointments = snapshot.data!;
-                    // Check if the appointments list is empty
                     if (appointments.isEmpty) {
-                      // Display an image when the list is empty
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -128,7 +121,6 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                                     children: [
                                       Row(
                                         children: [
-                                          // date and time column
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -153,7 +145,6 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                                             ],
                                           ),
                                           SizedBox(width: 10),
-                                          // patient and physio column
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -273,7 +264,6 @@ class _AppointmentHistoryScreenState extends State<AppointmentHistoryScreen> {
                                                 ],
                                               );
                                             } else {
-                                              // If treatment data is not available, do not show the button
                                               return Container();
                                             }
                                           }

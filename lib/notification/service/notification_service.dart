@@ -1,14 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:physio_track/notification/model/notification_model.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import '../../constant/TextConstant.dart';
-import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
 
 class NotificationService {
@@ -132,7 +127,6 @@ class NotificationService {
         await usersCollection.doc(userId).collection('notifications').get();
 
     if (notificationQuerySnapshot.docs.isNotEmpty) {
-      // Separate notifications into read and unread
       notificationList = notificationQuerySnapshot.docs
           .map((doc) => Notifications.fromSnapshot(doc))
           .toList();
@@ -145,22 +139,18 @@ class NotificationService {
         }
       }
 
-      // Sort the read notifications to put them at the end
       unreadNotifications.sort((a, b) => b.date.compareTo(a.date));
       readNotifications.sort((a, b) => b.date.compareTo(a.date));
-      // Combine read and unread notifications
       notificationList = [...unreadNotifications, ...readNotifications];
 
       print('Notification List: $notificationList');
     } else {
-      // Notification records not found
       print('Notification List not found');
     }
 
     return notificationList;
   }
 
-  // update notification isRead status
   Future<void> updateNotificationStatus(
       String userId, int notificationId) async {
     try {
@@ -168,21 +158,18 @@ class NotificationService {
           .collection('users')
           .doc(userId)
           .collection('notifications')
-          .where('id', isEqualTo: notificationId) // Query based on the id field
+          .where('id', isEqualTo: notificationId)
           .limit(1)
           .get();
 
       if (notificationSnapshot.size > 0) {
-        // Notification record found, update the isRead field
         await notificationSnapshot.docs[0].reference.update({'isRead': true});
         print('Notification Record Updated');
       } else {
-        // Notification record not found
         print('Notification Record not found');
         throw Exception('Notification Record not found');
       }
     } catch (error) {
-      // Handle any errors that occur during the update operation
       print('Error updating notification record: $error');
       throw Exception('Error updating notification record');
     }
@@ -197,7 +184,6 @@ class NotificationService {
         .get();
 
     if (notificationQuerySnapshot.docs.isNotEmpty) {
-      // Notification record found, create a Notification object
       Notifications notification =
           Notifications.fromSnapshot(notificationQuerySnapshot.docs.first);
       print('Notification: $notification');
@@ -230,15 +216,13 @@ class NotificationService {
       }
     } catch (e) {
       print(
-          'Error: $e'); // Handle the error as needed, e.g., log it or show an error message to the user
+          'Error: $e'); 
     }
   }
 
   String formatPhoneNumber(String phoneNumber) {
-    // Remove any '-' or spaces within the phone number
     phoneNumber = phoneNumber.replaceAll(RegExp(r'[-\s]'), '');
 
-    // Check if the phone number starts with '0', and if not, add '60' in front
     if (phoneNumber.startsWith('60')) {
       phoneNumber = phoneNumber;
     } else if (!phoneNumber.startsWith('0')) {

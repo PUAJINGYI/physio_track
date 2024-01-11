@@ -39,9 +39,9 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.zero, // Remove content padding
+          contentPadding: EdgeInsets.zero, 
           titlePadding:
-              EdgeInsets.fromLTRB(24, 0, 24, 0), // Adjust title padding
+              EdgeInsets.fromLTRB(24, 0, 24, 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -52,7 +52,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop(); 
                 },
               ),
             ],
@@ -66,7 +66,6 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
           ),
           actions: [
             Center(
-              // Wrap actions in Center widget
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -83,12 +82,12 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                     ),
                     onPressed: () async {
                       await performDeleteLogic(
-                          id, context); // Wait for the deletion to complete
+                          id, context); 
                       setState(() {
                         _generalQuestionListFuture =
-                            _fetchQuestionList(); // Refresh the patient list
+                            _fetchQuestionList(); 
                       });
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop(); 
                     },
                   ),
                   SizedBox(width: 10),
@@ -104,7 +103,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                       style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],
@@ -119,15 +118,12 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
   Future<void> performDeleteLogic(int id, context) async {
     try {
       await questionService
-          .deleteQuestion(id); // Wait for the deletion to complete
+          .deleteQuestion(id); 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Question_Deleted.tr())),
       );
     } catch (error) {
       print('Error deleting question: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Question_could_not_be_deleted.tr())),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Question_could_not_be_deleted.tr());
     }
@@ -151,9 +147,6 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
       });
     } catch (error) {
       print('Error adding question: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Question_could_not_be_added.tr())),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Question_could_not_be_added.tr());
     }
@@ -169,10 +162,6 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
         _generalQuestionListFuture = _fetchQuestionList();
       });
     } catch (error) {
-      // print('Error editing question: $error');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(LocaleKeys.Question_could_not_be_updated.tr())),
-      // );
       reusableDialog(context, LocaleKeys.Error.tr(),
           LocaleKeys.Question_could_not_be_updated.tr());
     }
@@ -292,18 +281,13 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                         String questionText = _questionController.text;
                         if (questionText.isNotEmpty) {
                           await performAddLogic(questionText,
-                              _questionType); // Wait for the deletion to complete
+                              _questionType); 
                           setState(() {
                             _generalQuestionListFuture =
-                                _fetchQuestionList(); // Refresh the patient list
+                                _fetchQuestionList(); 
                           });
-                          Navigator.of(context).pop(); // Close the dialog
+                          Navigator.of(context).pop(); 
                         } else {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //       content: Text(
-                          //           LocaleKeys.Question_cannot_be_empty.tr())),
-                          // );
                           reusableDialog(context, LocaleKeys.Error.tr(),
                               LocaleKeys.Question_cannot_be_empty.tr());
                         }
@@ -377,11 +361,6 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                           });
                           Navigator.of(context).pop();
                         } else {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //       content: Text(
-                          //           LocaleKeys.Question_cannot_be_empty.tr())),
-                          // );
                           reusableDialog(context, LocaleKeys.Error.tr(),
                               LocaleKeys.Question_cannot_be_empty.tr());
                         }
@@ -455,7 +434,7 @@ class _GeneralQuestionListScreenState extends State<GeneralQuestionListScreen> {
                                         ShimmeringTextListWidget(
                                             width: 400, numOfLines: 1),
                                       ],
-                                    ); // or any loading indicator
+                                    ); 
                                   } else if (snapshot.hasError) {
                                     return Text('Error: ${snapshot.error}');
                                   } else {

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:physio_track/achievement/screen/weekly_analysis_otActivity_detail_screen.dart';
 import 'package:physio_track/achievement/screen/weekly_analysis_ptActivity_detail_screen.dart';
@@ -72,7 +71,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(
-                                  15.0), // Adjust the radius as needed
+                                  15.0), 
                               child: GestureDetector(
                                 onTap: () {
                                   today = DateTime(
@@ -161,7 +160,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(
-                                  15.0), // Adjust the radius as needed
+                                  15.0), 
                               child: GestureDetector(
                                 onTap: () {
                                   today = DateTime(

@@ -3,12 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class PTActivityDetail{
   int ptid;
   bool isDone;
-  //Timestamp completeTime;
 
     PTActivityDetail({
     required this.ptid,
     required this.isDone,
-    //required this.completeTime,
   });
 
   factory PTActivityDetail.fromSnapshot(DocumentSnapshot snapshot) {
@@ -16,7 +14,6 @@ class PTActivityDetail{
     return PTActivityDetail(
       ptid: data['ptid'],
       isDone: data['isDone'], 
-      //completeTime: data['completeTime'],
     );
   }
 
@@ -24,7 +21,6 @@ class PTActivityDetail{
     Map<String, dynamic> map = {
       'ptid': ptid,
       'isDone': isDone,
-      //'completeTime': completeTime,
     };
 
     return map;

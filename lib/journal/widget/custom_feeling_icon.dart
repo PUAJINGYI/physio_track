@@ -11,7 +11,6 @@ class CustomFeelingIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Replace with your custom feeling icon widget
     return Icon(
       getFeelingIconData(feeling),
       color: isSelected ? Colors.blue : Colors.grey,
@@ -20,7 +19,6 @@ class CustomFeelingIcon extends StatelessWidget {
   }
 
   IconData getFeelingIconData(String feeling) {
-    // Add your custom logic to map feeling strings to IconData
     switch (feeling) {
       case 'Depressed':
         return Icons.mood_bad;

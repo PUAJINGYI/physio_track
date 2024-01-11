@@ -6,10 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:physio_track/profile/screen/profile_screen.dart';
 
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
@@ -73,23 +70,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       });
     }
   }
-
-  // Future<void> _uploadImage() async {
-  //   if (_profileImage == null) return;
-
-  //   final storage = FirebaseStorage.instance;
-  //   final storageRef = storage.ref();
-  //   final userId = FirebaseAuth.instance.currentUser!.uid;
-  //   final profileImageRef = storageRef.child('profile_images/$userId.jpg');
-
-  //   await profileImageRef.putFile(_profileImage!);
-
-  //   final imageUrl = await profileImageRef.getDownloadURL();
-  //   // Save the image URL to Firestore or perform any necessary actions
-  //   await FirebaseFirestore.instance.collection('users').doc(userId).update({
-  //     'profileImageUrl': imageUrl,
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -330,7 +310,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     Map<String, dynamic>? userData =
         userSnapshot.data() as Map<String, dynamic>?;
     if (userData != null) {
-      // Update the password field with the new password
       await userRef.update({
         'username': username,
         'phone': phoneNo,
@@ -338,12 +317,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         'address': address
       });
 
-      // Display a success message or perform any other necessary actions
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Profile_updated_successfully.tr())),
       );
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => ProfileScreen()));
 
       if (_profileImage != null) {
         final storage = FirebaseStorage.instance;
@@ -354,7 +330,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         await profileImageRef.putFile(_profileImage!);
 
         imageUrl = await profileImageRef.getDownloadURL();
-        // Save the image URL to Firestore or perform any necessary actions
         await FirebaseFirestore.instance
             .collection('users')
             .doc(userId)

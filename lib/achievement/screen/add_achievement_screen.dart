@@ -1,9 +1,8 @@
-import 'dart:io'; // Import 'dart:io' for File
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../constant/ColorConstant.dart';
@@ -22,7 +21,7 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
   final TextEditingController descriptionController = TextEditingController();
 
   String imageUrl = '';
-  File? imageFile; // Store the picked image file
+  File? imageFile; 
 
   final picker = ImagePicker();
 
@@ -31,14 +30,12 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
 
     if (pickedFile != null) {
       setState(() {
-        // Store the picked image file
         imageFile = File(pickedFile.path);
       });
     }
   }
 
   Future<void> _saveAchievement() async {
-    // Validate that both title, description, and image are entered
     if (titleController.text.isEmpty ||
         descriptionController.text.isEmpty ||
         imageFile == null) {
@@ -46,9 +43,9 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            contentPadding: EdgeInsets.zero, // Remove content padding
+            contentPadding: EdgeInsets.zero, 
             titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), // Adjust title padding
+                EdgeInsets.fromLTRB(16, 0, 16, 0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -59,7 +56,7 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -73,7 +70,6 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
             ),
             actions: [
               Center(
-                // Wrap actions in Center widget
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -101,27 +97,14 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
       return;
     }
 
-    // Upload the image to Firebase Storage
-    // final userId = FirebaseAuth.instance.currentUser!.uid;
     final Reference storageReference = FirebaseStorage.instance
         .ref()
         .child('achievements/${DateTime.now().millisecondsSinceEpoch}.jpg');
     await storageReference.putFile(imageFile!);
     imageUrl = await storageReference.getDownloadURL();
 
-    // Get the latest achievement ID from Firestore
-    int latestId = 1; // Default to 1 if no records exist
+    int latestId = 1;
 
-    // QuerySnapshot achievementSnapshot = await FirebaseFirestore.instance
-    //     .collection('achievements')
-    //     .orderBy('id', descending: true)
-    //     .limit(1)
-    //     .get();
-    // if (achievementSnapshot.docs.isNotEmpty) {
-    //   latestId = achievementSnapshot.docs[0].get('id') + 1;
-    // }
-
-    // Create an Achievement object with the latest ID
     final Achievement achievement = Achievement(
       id: latestId,
       title: titleController.text,
@@ -129,12 +112,7 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
       imageUrl: imageUrl,
     );
 
-    // Store the achievement record in Firestore
-    // await FirebaseFirestore.instance
-    //     .collection('achievements')
-    //     .add(achievement.toMap());
     _achievementService.addArchievementRecord(achievement);
-    // Show a snackbar to confirm the addition
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(LocaleKeys.New_Achievement_Record_Added.tr()),
@@ -142,7 +120,6 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
       ),
     );
 
-    // Reset fields and image after adding the record
     titleController.clear();
     descriptionController.clear();
     setState(() {
@@ -184,7 +161,6 @@ class _AddAchievementScreenState extends State<AddAchievementScreen> {
                 child: Text('Select Image'),
               ),
               SizedBox(height: 16.0),
-              // Display the picked image file if available
               imageFile != null ? Image.file(imageFile!) : Container(),
               SizedBox(height: 16.0),
               ElevatedButton(
