@@ -387,5 +387,20 @@
   "Appointment_conflict_has_been_solved": "预约冲突已解决",
   "Pending_Update_Appointment_Removed": "待办预约更新已移除。",
   "Pending_appointment_cancellation_request_is_removed": "待办预约取消请求已移除。",
-  "Cancel_appointment_request_is_sent_to_admin_successfully": "取消预约请求已成功发送给管理员。"
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "取消预约请求已成功发送给管理员。",
+  "Submit": "提交",
+  "Please_fill_in_the_sets_and_reps_for_Arm_Lifting": "请填写举臂的组数和次数",
+  "Please_fill_in_the_sets_and_reps_for_Leg_Lifting": "请填写举腿的组数和次数",
+  "Please_fill_in_the_sets_and_reps_for_Standing": "请填写站立的组数和次数",
+  "Please_fill_in_the_sets_and_reps_for_Foot_Stepping": "请填写踏步的组数和次数",
+  "Please_fill_in_the_remarks": "请填写备注",
+  "Incomplete_Info": "信息不完整",
+  "Set": "组",
+  "Rep": "次",
+  "Enter_remarks": "输入备注",
+  "Please_insert_username": "请输入用户名！",
+  "Please_insert_phone_number": "请输入电话号码！",
+  "Please_insert_email": "请输入电子邮件！",
+  "Please_insert_address": "请输入地址！",
+  "Please_fill_in_all_the_details": "请填写所有细节。"
 }

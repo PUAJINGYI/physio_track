@@ -1,4 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../../translations/locale_keys.g.dart';
 
 class TreatmentCard extends StatefulWidget {
   final IconData icon;
@@ -60,7 +63,7 @@ class _TreatmentCardState extends State<TreatmentCard> {
                           ),
                         ),
                         Text(
-                          'set',
+                          LocaleKeys.Set.tr(),
                           style: TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.bold,
@@ -73,7 +76,7 @@ class _TreatmentCardState extends State<TreatmentCard> {
                           ),
                         ),
                         Text(
-                          'rep',
+                          LocaleKeys.Rep.tr(),
                           style: TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.bold,

@@ -387,5 +387,20 @@
   "Appointment_conflict_has_been_solved": "Konflik Temu Janji Telah Diselesaikan",
   "Pending_Update_Appointment_Removed": "Kemaskini yang tertangguh pada temujanji telah dikeluarkan.",
   "Pending_appointment_cancellation_request_is_removed": "Permintaan pembatalan temujanji yang tertangguh telah dikeluarkan.",
-  "Cancel_appointment_request_is_sent_to_admin_successfully": "Permintaan pembatalan temujanji telah berjaya dihantar kepada pentadbir."
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "Permintaan pembatalan temujanji telah berjaya dihantar kepada pentadbir.",
+  "Submit": "Hantar",
+  "Please_fill_in_the_sets_and_reps_for_Arm_Lifting": "Sila isi set dan ulangan untuk Angkat Lengan",
+  "Please_fill_in_the_sets_and_reps_for_Leg_Lifting": "Sila isi set dan ulangan untuk Angkat Kaki",
+  "Please_fill_in_the_sets_and_reps_for_Standing": "Sila isi set dan ulangan untuk Berdiri",
+  "Please_fill_in_the_sets_and_reps_for_Foot_Stepping": "Sila isi set dan ulangan untuk Langkah Kaki",
+  "Please_fill_in_the_remarks": "Sila isi ulasan",
+  "Incomplete_Info": "Maklumat Tidak Lengkap",
+  "Set": "Set",
+  "Rep": "Rep",
+  "Enter_remarks": "Masukkan ulasan",
+  "Please_insert_username": "Sila masukkan nama pengguna!",
+  "Please_insert_phone_number": "Sila masukkan nombor telefon!",
+  "Please_insert_email": "Sila masukkan emel!",
+  "Please_insert_address": "Sila masukkan alamat!",
+  "Please_fill_in_all_the_details": "Sila isi semua butiran."
 }

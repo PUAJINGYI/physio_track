@@ -82,7 +82,7 @@ Container signInSignUpButton(
           onTap();
         },
         child: Text(
-          isLogin ? 'LOG IN' : 'Sign Up',
+          isLogin ? LocaleKeys.Login.tr() : LocaleKeys.Sign_Up.tr(),
           style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
@@ -152,7 +152,7 @@ Container resetPasswordButton(
           onTap();
         },
         child: Text(
-          "Reset Password",
+          LocaleKeys.Reset_Password.tr(),
           style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
@@ -182,7 +182,7 @@ Padding signOutButton(BuildContext context, Function onTap) {
             onTap();
           },
           child: Text(
-            'Log Out',
+            LocaleKeys.Log_Out.tr(),
             style: const TextStyle(
                 color: Color.fromRGBO(255, 0, 0, 1),
                 fontWeight: FontWeight.bold,
@@ -215,7 +215,7 @@ Padding editProfileButton(BuildContext context, Function onTap) {
             onTap();
           },
           child: Text(
-            'Edit Profile',
+            LocaleKeys.Edit_Profile.tr(),
             style: const TextStyle(
                 color: Color.fromRGBO(158, 134, 6, 1),
                 fontWeight: FontWeight.bold,
@@ -248,7 +248,7 @@ Padding changeLangButton(BuildContext context, Function onTap) {
             onTap();
           },
           child: Text(
-            'Change Language',
+            LocaleKeys.Change_Language.tr(),
             style: const TextStyle(
                 color: Color.fromRGBO(72, 208, 254, 1),
                 fontWeight: FontWeight.bold,
@@ -369,7 +369,7 @@ Container changePassword(BuildContext context, Function onTap) {
           onTap();
         },
         child: Text(
-          "Reset Password",
+          LocaleKeys.Reset_Password.tr(),
           style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
@@ -431,7 +431,7 @@ Padding updatePrfoileButton(BuildContext context, Function onTap) {
             onTap();
           },
           child: Text(
-            "Update Profile",
+            LocaleKeys.Update_Profile.tr(),
             style: const TextStyle(
                 color: Color.fromARGB(255, 4, 161, 51),
                 fontWeight: FontWeight.bold,

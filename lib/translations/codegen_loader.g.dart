@@ -403,7 +403,22 @@ class CodegenLoader extends AssetLoader{
   "Appointment_conflict_has_been_solved": "Appointment conflict has been solved",
   "Pending_Update_Appointment_Removed": "Pending Update Appointment Removed",
   "Pending_appointment_cancellation_request_is_removed": "Pending appointment cancellation request is removed",
-  "Cancel_appointment_request_is_sent_to_admin_successfully": "Cancel appointment request is sent to admin successfully"
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "Cancel appointment request is sent to admin successfully",
+  "Submit": "Submit",
+  "Please_fill_in_the_sets_and_reps_for_Arm_Lifting": "Please fill in the sets and reps for Arm Lifting",
+  "Please_fill_in_the_sets_and_reps_for_Leg_Lifting": "Please fill in the sets and reps for Leg Lifting",
+  "Please_fill_in_the_sets_and_reps_for_Standing": "Please fill in the sets and reps for Standing",
+  "Please_fill_in_the_sets_and_reps_for_Foot_Stepping": "Please fill in the sets and reps for Foot Stepping",
+  "Please_fill_in_the_remarks": "Please fill in the remarks",
+  "Incomplete_Info": "Incomplete Info",
+  "Set": "Set",
+  "Rep": "Rep",
+  "Enter_remarks": "Enter remarks",
+  "Please_insert_username": "Please insert username!",
+  "Please_insert_phone_number": "Please insert phone number!",
+  "Please_insert_email": "Please insert email!",
+  "Please_insert_address": "Please insert address!",
+  "Please_fill_in_all_the_details": "Please fill in all the details."
 };
 static const Map<String,dynamic> ms = {
   "Appointment": "Janji Temu",
@@ -794,7 +809,22 @@ static const Map<String,dynamic> ms = {
   "Appointment_conflict_has_been_solved": "Konflik Temu Janji Telah Diselesaikan",
   "Pending_Update_Appointment_Removed": "Kemaskini yang tertangguh pada temujanji telah dikeluarkan.",
   "Pending_appointment_cancellation_request_is_removed": "Permintaan pembatalan temujanji yang tertangguh telah dikeluarkan.",
-  "Cancel_appointment_request_is_sent_to_admin_successfully": "Permintaan pembatalan temujanji telah berjaya dihantar kepada pentadbir."
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "Permintaan pembatalan temujanji telah berjaya dihantar kepada pentadbir.",
+  "Submit": "Hantar",
+  "Please_fill_in_the_sets_and_reps_for_Arm_Lifting": "Sila isi set dan ulangan untuk Angkat Lengan",
+  "Please_fill_in_the_sets_and_reps_for_Leg_Lifting": "Sila isi set dan ulangan untuk Angkat Kaki",
+  "Please_fill_in_the_sets_and_reps_for_Standing": "Sila isi set dan ulangan untuk Berdiri",
+  "Please_fill_in_the_sets_and_reps_for_Foot_Stepping": "Sila isi set dan ulangan untuk Langkah Kaki",
+  "Please_fill_in_the_remarks": "Sila isi ulasan",
+  "Incomplete_Info": "Maklumat Tidak Lengkap",
+  "Set": "Set",
+  "Rep": "Rep",
+  "Enter_remarks": "Masukkan ulasan",
+  "Please_insert_username": "Sila masukkan nama pengguna!",
+  "Please_insert_phone_number": "Sila masukkan nombor telefon!",
+  "Please_insert_email": "Sila masukkan emel!",
+  "Please_insert_address": "Sila masukkan alamat!",
+  "Please_fill_in_all_the_details": "Sila isi semua butiran."
 };
 static const Map<String,dynamic> zh = {
   "Appointment": "预约",
@@ -1185,7 +1215,22 @@ static const Map<String,dynamic> zh = {
   "Appointment_conflict_has_been_solved": "预约冲突已解决",
   "Pending_Update_Appointment_Removed": "待办预约更新已移除。",
   "Pending_appointment_cancellation_request_is_removed": "待办预约取消请求已移除。",
-  "Cancel_appointment_request_is_sent_to_admin_successfully": "取消预约请求已成功发送给管理员。"
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "取消预约请求已成功发送给管理员。",
+  "Submit": "提交",
+  "Please_fill_in_the_sets_and_reps_for_Arm_Lifting": "请填写举臂的组数和次数",
+  "Please_fill_in_the_sets_and_reps_for_Leg_Lifting": "请填写举腿的组数和次数",
+  "Please_fill_in_the_sets_and_reps_for_Standing": "请填写站立的组数和次数",
+  "Please_fill_in_the_sets_and_reps_for_Foot_Stepping": "请填写踏步的组数和次数",
+  "Please_fill_in_the_remarks": "请填写备注",
+  "Incomplete_Info": "信息不完整",
+  "Set": "组",
+  "Rep": "次",
+  "Enter_remarks": "输入备注",
+  "Please_insert_username": "请输入用户名！",
+  "Please_insert_phone_number": "请输入电话号码！",
+  "Please_insert_email": "请输入电子邮件！",
+  "Please_insert_address": "请输入地址！",
+  "Please_fill_in_all_the_details": "请填写所有细节。"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ms": ms, "zh": zh};
 }

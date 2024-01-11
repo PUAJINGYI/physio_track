@@ -287,7 +287,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Select Level',
+                          LocaleKeys.Select_Level.tr(),
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -308,7 +308,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                     children: [
                       ListTile(
                         title: Text(
-                          'Beginner',
+                          LocaleKeys.Beginner.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -320,7 +320,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'Intermediate',
+                          LocaleKeys.Intermediate.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -332,7 +332,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                       ),
                       ListTile(
                         title: Text(
-                          'Advanced',
+                          LocaleKeys.Advanced.tr(),
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
@@ -442,7 +442,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Please enter a valid video URL.',
+                  LocaleKeys.Please_enter_a_valid_video_URL.tr(),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -458,7 +458,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                           ),
                           backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                         ),
-                        child: Text('OK',
+                        child: Text(LocaleKeys.OK.tr(),
                             style: TextStyle(
                                 color: ColorConstant.BLUE_BUTTON_TEXT)),
                         onPressed: () {
@@ -498,7 +498,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
             content: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Please fill in all the details.',
+                LocaleKeys.Please_fill_in_all_the_details.tr(),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -514,7 +514,7 @@ class _EditOTActivityScreenState extends State<EditOTActivityScreen> {
                         ),
                         backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                       ),
-                      child: Text('OK',
+                      child: Text(LocaleKeys.OK.tr(),
                           style:
                               TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                       onPressed: () {

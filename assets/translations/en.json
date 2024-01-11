@@ -387,5 +387,20 @@
   "Appointment_conflict_has_been_solved": "Appointment conflict has been solved",
   "Pending_Update_Appointment_Removed": "Pending Update Appointment Removed",
   "Pending_appointment_cancellation_request_is_removed": "Pending appointment cancellation request is removed",
-  "Cancel_appointment_request_is_sent_to_admin_successfully": "Cancel appointment request is sent to admin successfully"
+  "Cancel_appointment_request_is_sent_to_admin_successfully": "Cancel appointment request is sent to admin successfully",
+  "Submit": "Submit",
+  "Please_fill_in_the_sets_and_reps_for_Arm_Lifting": "Please fill in the sets and reps for Arm Lifting",
+  "Please_fill_in_the_sets_and_reps_for_Leg_Lifting": "Please fill in the sets and reps for Leg Lifting",
+  "Please_fill_in_the_sets_and_reps_for_Standing": "Please fill in the sets and reps for Standing",
+  "Please_fill_in_the_sets_and_reps_for_Foot_Stepping": "Please fill in the sets and reps for Foot Stepping",
+  "Please_fill_in_the_remarks": "Please fill in the remarks",
+  "Incomplete_Info": "Incomplete Info",
+  "Set": "Set",
+  "Rep": "Rep",
+  "Enter_remarks": "Enter remarks",
+  "Please_insert_username": "Please insert username!",
+  "Please_insert_phone_number": "Please insert phone number!",
+  "Please_insert_email": "Please insert email!",
+  "Please_insert_address": "Please insert address!",
+  "Please_fill_in_all_the_details": "Please fill in all the details."
 }

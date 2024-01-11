@@ -66,10 +66,10 @@ class _CreateTreatmentReportScreenState
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Poor',
+                      Text(LocaleKeys.Poor.tr(),
                           style: TextStyle(
                               fontSize: 12, fontWeight: FontWeight.bold)),
-                      Text('Outstanding',
+                      Text(LocaleKeys.Outstanding.tr(),
                           style: TextStyle(
                               fontSize: 12, fontWeight: FontWeight.bold)),
                     ],
@@ -104,7 +104,7 @@ class _CreateTreatmentReportScreenState
       if (_armLiftingSetsController.text.isEmpty ||
           _armLiftingRepsController.text.isEmpty) {
         showAlertDialog(
-            context, 'Please fill in the sets and reps for Arm Lifting');
+            context, LocaleKeys.Please_fill_in_the_sets_and_reps_for_Arm_Lifting.tr());
         return;
       } else {
         armLiftingSets = int.tryParse(_armLiftingSetsController.text) ?? 0;
@@ -116,7 +116,7 @@ class _CreateTreatmentReportScreenState
       if (_legLiftingSetsController.text.isEmpty ||
           _legLiftingRepsController.text.isEmpty) {
         showAlertDialog(
-            context, 'Please fill in the sets and reps for Leg Lifting');
+            context, LocaleKeys.Please_fill_in_the_sets_and_reps_for_Leg_Lifting.tr());
         return;
       } else {
         legLiftingSets = int.tryParse(_legLiftingSetsController.text) ?? 0;
@@ -128,7 +128,7 @@ class _CreateTreatmentReportScreenState
       if (_standingSetsController.text.isEmpty ||
           _standingRepsController.text.isEmpty) {
         showAlertDialog(
-            context, 'Please fill in the sets and reps for Standing');
+            context, LocaleKeys.Please_fill_in_the_sets_and_reps_for_Standing.tr());
         return;
       } else {
         standingSets = int.tryParse(_standingSetsController.text) ?? 0;
@@ -140,7 +140,7 @@ class _CreateTreatmentReportScreenState
       if (_footSteppingSetsController.text.isEmpty ||
           _footSteppingRepsController.text.isEmpty) {
         showAlertDialog(
-            context, 'Please fill in the sets and reps for Foot Stepping');
+            context, LocaleKeys.Please_fill_in_the_sets_and_reps_for_Foot_Stepping.tr());
         return;
       } else {
         footSteppingSets = int.tryParse(_footSteppingSetsController.text) ?? 0;
@@ -149,7 +149,7 @@ class _CreateTreatmentReportScreenState
     }
 
     if (remarks.isEmpty) {
-      showAlertDialog(context, 'Please fill in the remarks');
+      showAlertDialog(context, LocaleKeys.Please_fill_in_the_remarks.tr());
       return;
     }
     Appointment? appointment =
@@ -197,7 +197,7 @@ class _CreateTreatmentReportScreenState
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Incomplete Info", style: TextStyle(fontSize: 18)),
+              Text(LocaleKeys.Incomplete_Info.tr(), style: TextStyle(fontSize: 18)),
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
@@ -225,7 +225,7 @@ class _CreateTreatmentReportScreenState
                       ),
                       backgroundColor: ColorConstant.BLUE_BUTTON_UNPRESSED,
                     ),
-                    child: Text('OK',
+                    child: Text(LocaleKeys.OK.tr(),
                         style:
                             TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT)),
                     onPressed: () {
@@ -299,7 +299,7 @@ class _CreateTreatmentReportScreenState
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Leg Lifting',
+                                              LocaleKeys.Leg_Lifting.tr(),
                                               style: TextStyle(
                                                 fontSize: 14.0,
                                                 fontWeight: FontWeight.bold,
@@ -335,7 +335,7 @@ class _CreateTreatmentReportScreenState
                                                   ),
                                                 ),
                                                 Text(
-                                                  'set',
+                                                  LocaleKeys.Set.tr(),
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.bold,
@@ -369,7 +369,7 @@ class _CreateTreatmentReportScreenState
                                                   ),
                                                 ),
                                                 Text(
-                                                  'rep',
+                                                  LocaleKeys.Rep.tr(),
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.bold,
@@ -427,7 +427,7 @@ class _CreateTreatmentReportScreenState
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Standing',
+                                            LocaleKeys.Standing.tr(),
                                               style: TextStyle(
                                                 fontSize: 14.0,
                                                 fontWeight: FontWeight.bold,
@@ -463,7 +463,7 @@ class _CreateTreatmentReportScreenState
                                                   ),
                                                 ),
                                                 Text(
-                                                  'set',
+                                                  LocaleKeys.Set.tr(),
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.bold,
@@ -497,7 +497,7 @@ class _CreateTreatmentReportScreenState
                                                   ),
                                                 ),
                                                 Text(
-                                                  'rep',
+                                                  LocaleKeys.Rep.tr(),
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.bold,
@@ -555,7 +555,7 @@ class _CreateTreatmentReportScreenState
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Arm Lifting',
+                                              LocaleKeys.Arm_Lifting.tr(),
                                               style: TextStyle(
                                                 fontSize: 14.0,
                                                 fontWeight: FontWeight.bold,
@@ -591,7 +591,7 @@ class _CreateTreatmentReportScreenState
                                                   ),
                                                 ),
                                                 Text(
-                                                  'set',
+                                                  LocaleKeys.Set.tr(),
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.bold,
@@ -625,7 +625,7 @@ class _CreateTreatmentReportScreenState
                                                   ),
                                                 ),
                                                 Text(
-                                                  'rep',
+                                                  LocaleKeys.Rep.tr(),
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.bold,
@@ -683,7 +683,7 @@ class _CreateTreatmentReportScreenState
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Foot Stepping',
+                                              LocaleKeys.Foot_Stepping.tr(),
                                               style: TextStyle(
                                                 fontSize: 14.0,
                                                 fontWeight: FontWeight.bold,
@@ -719,7 +719,7 @@ class _CreateTreatmentReportScreenState
                                                   ),
                                                 ),
                                                 Text(
-                                                  'set',
+                                                  LocaleKeys.Set.tr(),
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.bold,
@@ -753,7 +753,7 @@ class _CreateTreatmentReportScreenState
                                                   ),
                                                 ),
                                                 Text(
-                                                  'rep',
+                                                  LocaleKeys.Rep.tr(),
                                                   style: TextStyle(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.bold,
@@ -789,7 +789,7 @@ class _CreateTreatmentReportScreenState
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Performance',
+                      LocaleKeys.Performance.tr(),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -815,7 +815,7 @@ class _CreateTreatmentReportScreenState
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Remarks',
+                      LocaleKeys.Remarks.tr(),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -837,7 +837,7 @@ class _CreateTreatmentReportScreenState
                             TextField(
                               controller: _remarksController,
                               decoration: InputDecoration(
-                                hintText: 'Enter remarks',
+                                hintText: LocaleKeys.Enter_remarks.tr(),
                               ),
                               onChanged: (value) {
                                 remarks = value;
@@ -858,7 +858,7 @@ class _CreateTreatmentReportScreenState
                       TextConstant.CUSTOM_BUTTON_TB_PADDING),
                   child: customButton(
                     context,
-                    'Submit',
+                    LocaleKeys.Submit.tr(),
                     ColorConstant.GREEN_BUTTON_TEXT,
                     ColorConstant.GREEN_BUTTON_UNPRESSED,
                     ColorConstant.GREEN_BUTTON_PRESSED,

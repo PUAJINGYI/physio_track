@@ -390,5 +390,20 @@ abstract class  LocaleKeys {
   static const Pending_Update_Appointment_Removed = 'Pending_Update_Appointment_Removed';
   static const Pending_appointment_cancellation_request_is_removed = 'Pending_appointment_cancellation_request_is_removed';
   static const Cancel_appointment_request_is_sent_to_admin_successfully = 'Cancel_appointment_request_is_sent_to_admin_successfully';
+  static const Submit = 'Submit';
+  static const Please_fill_in_the_sets_and_reps_for_Arm_Lifting = 'Please_fill_in_the_sets_and_reps_for_Arm_Lifting';
+  static const Please_fill_in_the_sets_and_reps_for_Leg_Lifting = 'Please_fill_in_the_sets_and_reps_for_Leg_Lifting';
+  static const Please_fill_in_the_sets_and_reps_for_Standing = 'Please_fill_in_the_sets_and_reps_for_Standing';
+  static const Please_fill_in_the_sets_and_reps_for_Foot_Stepping = 'Please_fill_in_the_sets_and_reps_for_Foot_Stepping';
+  static const Please_fill_in_the_remarks = 'Please_fill_in_the_remarks';
+  static const Incomplete_Info = 'Incomplete_Info';
+  static const Set = 'Set';
+  static const Rep = 'Rep';
+  static const Enter_remarks = 'Enter_remarks';
+  static const Please_insert_username = 'Please_insert_username';
+  static const Please_insert_phone_number = 'Please_insert_phone_number';
+  static const Please_insert_email = 'Please_insert_email';
+  static const Please_insert_address = 'Please_insert_address';
+  static const Please_fill_in_all_the_details = 'Please_fill_in_all_the_details';
 
 }
