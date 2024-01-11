@@ -38,7 +38,7 @@ class _AdminActivityManagementScreenState
                     padding: const EdgeInsets.fromLTRB(32, 0, 32, 16),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(
-                          15.0), // Adjust the radius as needed
+                          15.0), 
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -76,7 +76,7 @@ class _AdminActivityManagementScreenState
                     padding: const EdgeInsets.fromLTRB(32, 16, 32, 8),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(
-                          15.0), // Adjust the radius as needed
+                          15.0), 
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(

@@ -8,13 +8,16 @@ import 'package:physio_track/appointment/model/appointment_model.dart';
 import 'package:physio_track/appointment/model/user_appointment_model.dart';
 import 'package:physio_track/appointment/service/appointment_service.dart';
 import 'package:physio_track/reusable_widget/reusable_widget.dart';
-import 'package:sendgrid_mailer/sendgrid_mailer.dart';
+// import 'package:sendgrid_mailer/sendgrid_mailer.dart';
 
 import '../../constant/TextConstant.dart';
 import '../../leave/service/leave_service.dart';
 import '../../notification/service/notification_service.dart';
 import '../../translations/locale_keys.g.dart';
 import '../../user_management/service/user_management_service.dart';
+// import 'package:mailer/mailer.dart';
+// import 'package:mailer/smtp_server.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class AppointmentInPendingService {
   CollectionReference appointmentInPendingCollection =
@@ -27,6 +30,8 @@ class AppointmentInPendingService {
   UserManagementService userManagementService = UserManagementService();
   NotificationService notificationService = NotificationService();
   LeaveService leaveService = LeaveService();
+  String adminEmail = dotenv.get('ADMIN_EMAIL', fallback: '');
+  String adminEmailPassword = dotenv.get('ADMIN_EMAIL_PASSWORD', fallback: '');
 
   // add new pending appointment record
   Future<void> addPendingAppointmentRecord(
@@ -90,8 +95,8 @@ class AppointmentInPendingService {
       print("Pending Appointment Added");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content:
-                Text(LocaleKeys.New_appointment_request_is_sent_to_admin_successfully.tr())),
+            content: Text(LocaleKeys
+                .New_appointment_request_is_sent_to_admin_successfully.tr())),
       );
     }).catchError((error) {
       print("Failed to add pending appointment: $error");
@@ -153,8 +158,9 @@ class AppointmentInPendingService {
       }).then((value) async {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(
-                  LocaleKeys.Update_appointment_request_is_sent_to_admin_successfully.tr())),
+              content: Text(LocaleKeys
+                      .Update_appointment_request_is_sent_to_admin_successfully
+                  .tr())),
         );
       }).catchError((error) {
         print("error: ${error}");
@@ -509,7 +515,6 @@ class AppointmentInPendingService {
           "Appointment Booking Rejection",
           'Dear patient, your recent appointment booking for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. Please reschedule your appointment slot again. Thank you.');
     }
-
   }
 
   // send email to notify user
@@ -520,26 +525,20 @@ class AppointmentInPendingService {
         .getUsernameById(appointmentInPending.patientId);
     String patientEmail = await userManagementService
         .getEmailById(appointmentInPending.patientId);
-    final mailer = Mailer(
-      dotenv.get('SENDGRID_API_KEY', fallback: ''),
-    );
-    final toAddress = Address(patientEmail);
-    //change to admin email
-    final fromAddress = Address(dotenv.get('ADMIN_EMAIL', fallback: ''));
 
-    Content content = Content('text/plain', '');
+    String content = '';
     String subject = '';
 
     if (isRejectNewAppointment) {
-      content = Content('text/plain',
-          'Dear ${patientName}, \n\nI hope this email finds you well. We regret to inform you that your recent appointment booking for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. Our medical team believes that rescheduling the appointment would better suit your medical needs. \n\nPlease plan a new appointment at your earliest convenience in PhysioTrack app. We apologize for any inconvenience and appreciate your understanding. \n\n\nRegards,\nPhysioTrack');
+      content =
+          'Dear ${patientName}, \n\nI hope this email finds you well. We regret to inform you that your recent appointment booking for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. Our medical team believes that rescheduling the appointment would better suit your medical needs. \n\nPlease plan a new appointment at your earliest convenience in PhysioTrack app. We apologize for any inconvenience and appreciate your understanding. \n\n\nRegards,\nPhysioTrack';
       subject = 'Appointment Booking Rejection';
     } else {
       Appointment? appointment = await appointmentService
           .fetchAppointmentById(appointmentInPending.id);
       if (appointment != null) {
-        content = Content('text/plain',
-            'Dear ${patientName}, \n\nI hope this email finds you well. We regret to inform you that your recent appointment update for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. The appointment time will remain at  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}\n\nPlease cancel the current appointment and plan a new appointment at your earliest convenience in PhysioTrack app if you wish to reschedule your appointment. We apologize for any inconvenience and appreciate your understanding. \n\n\nRegards,\nPhysioTrack');
+        content =
+            'Dear ${patientName}, \n\nI hope this email finds you well. We regret to inform you that your recent appointment update for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been rejected. The appointment time will remain at  ${DateFormat('hh:mm a').format(appointment.startTime)}, ${DateFormat('dd MMM yyyy').format(appointment.startTime)}\n\nPlease cancel the current appointment and plan a new appointment at your earliest convenience in PhysioTrack app if you wish to reschedule your appointment. We apologize for any inconvenience and appreciate your understanding. \n\n\nRegards,\nPhysioTrack';
 
         subject = 'Appointment Update Rejection';
         await appointmentInPendingCollection
@@ -558,22 +557,25 @@ class AppointmentInPendingService {
       }
     }
 
-    final personalization = Personalization([toAddress]);
+    List<String> attachments = [];
+    bool isHTML = false;
 
-    final email =
-        Email([personalization], fromAddress, subject, content: [content]);
+    final Email email = Email(
+      body: content,
+      subject: subject,
+      recipients: [patientEmail],
+      attachmentPaths: attachments,
+      isHTML: isHTML,
+    );
+
+    String platformResponse;
 
     try {
-      // Attempt to send the email
-      final result = await mailer.send(email);
-
-      if (result.isValue) {
-        print('Email sent successfully');
-      } else {
-        print('Email sending failed: ${result.asError}');
-      }
-    } catch (e) {
-      print('Error sending email: $e');
+      await FlutterEmailSender.send(email);
+      platformResponse = 'success';
+    } catch (error) {
+      print(error);
+      platformResponse = error.toString();
     }
   }
 
@@ -583,44 +585,43 @@ class AppointmentInPendingService {
         .getUsernameById(appointmentInPending.patientId);
     String patientEmail = await userManagementService
         .getEmailById(appointmentInPending.patientId);
-    final mailer = Mailer(dotenv.get('SENDGRID_API_KEY', fallback: ''));
-    final toAddress = Address(patientEmail);
-    //change to admin email
-    final fromAddress = Address(dotenv.get('ADMIN_EMAIL', fallback: ''));
 
-    Content content = Content('text/plain', '');
+    String content = '';
     String subject = '';
 
     if (approveType == TextConstant.NEW) {
-      content = Content('text/plain',
-          'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment booking request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack');
+      content =
+          'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment booking request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack';
       subject = 'Appointment Booking Approved';
     } else if (approveType == TextConstant.UPDATED) {
-      content = Content('text/plain',
-          'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment update request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack');
+      content =
+          'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment update request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack';
       subject = 'Appointment Update Approved';
     } else if (approveType == TextConstant.CANCELLED) {
-      content = Content('text/plain',
-          'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment cancellation request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nThank you. \n\n\nRegards,\nPhysioTrack');
+      content =
+          'Dear ${patientName}, \n\nI hope this email finds you well. Your recent appointment cancellation request for ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been approved. \n\nThank you. \n\n\nRegards,\nPhysioTrack';
       subject = 'Appointment Cancellation Approved';
     }
 
-    final personalization = Personalization([toAddress]);
+    List<String> attachments = [];
+    bool isHTML = false;
 
-    final email =
-        Email([personalization], fromAddress, subject, content: [content]);
+    final Email email = Email(
+      body: content,
+      subject: subject,
+      recipients: [patientEmail],
+      attachmentPaths: attachments,
+      isHTML: isHTML,
+    );
+
+    String platformResponse;
 
     try {
-      // Attempt to send the email
-      final result = await mailer.send(email);
-
-      if (result.isValue) {
-        print('Email sent successfully');
-      } else {
-        print('Email sending failed: ${result.asError}');
-      }
-    } catch (e) {
-      print('Error sending email: $e');
+      await FlutterEmailSender.send(email);
+      platformResponse = 'success';
+    } catch (error) {
+      print(error);
+      platformResponse = error.toString();
     }
   }
 
@@ -630,47 +631,43 @@ class AppointmentInPendingService {
       DateTime updateDate,
       DateTime updateStartTime,
       DateTime updateEndTime) async {
+    // try {
+    String patientName = await userManagementService
+        .getUsernameById(appointmentInPending.patientId);
+    String patientEmail = await userManagementService
+        .getEmailById(appointmentInPending.patientId);
+
+    String content;
+    String subject;
+
+    if (isRemoveUpdatePending) {
+      content =
+          'Dear $patientName, \n\nI hope this email finds you well. Your recent appointment update for ${DateFormat('hh:mm a').format(updateStartTime)}, ${DateFormat('dd MMM yyyy').format(updateStartTime)} has been cancelled by your own. Therefore, your appointment time will still remain at ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)}.\nThank you. \n\n\nRegards,\nPhysioTrack';
+      subject = 'Cancellation Appointment Update Request';
+    } else {
+      content =
+          'Dear $patientName, \n\nI hope this email finds you well. You recently removed the appointment cancellation request at ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)}. Therefore, your appointment time will still remain at the same time. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack';
+      subject = 'Remove Appointment Cancellation Request';
+    }
+    List<String> attachments = [];
+    bool isHTML = false;
+
+    final Email email = Email(
+      body: content,
+      subject: subject,
+      recipients: [patientEmail],
+      attachmentPaths: attachments,
+      isHTML: isHTML,
+    );
+
+    String platformResponse;
+
     try {
-      String patientName = await userManagementService
-          .getUsernameById(appointmentInPending.patientId);
-      String patientEmail = await userManagementService
-          .getEmailById(appointmentInPending.patientId);
-
-      final mailer = Mailer(dotenv.get('SENDGRID_API_KEY', fallback: ''));
-
-      final fromAddress = Address(dotenv.get('ADMIN_EMAIL', fallback: ''));
-      final toAddress = Address(patientEmail);
-
-      Content content;
-      String subject;
-
-      if (isRemoveUpdatePending) {
-        content = Content(
-          'text/plain',
-          'Dear $patientName, \n\nI hope this email finds you well. Your recent appointment update for ${DateFormat('hh:mm a').format(updateStartTime)}, ${DateFormat('dd MMM yyyy').format(updateStartTime)} has been cancelled by your own. Therefore, your appointment time will still remain at ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)}.\nThank you. \n\n\nRegards,\nPhysioTrack',
-        );
-        subject = 'Cancellation Appointment Update Request';
-      } else {
-        content = Content(
-          'text/plain',
-          'Dear $patientName, \n\nI hope this email finds you well. You recently removed the appointment cancellation request at ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)}. Therefore, your appointment time will still remain at the same time. \n\nPlease remember to attend the appointment on that selected time slot. Thank you. \n\n\nRegards,\nPhysioTrack',
-        );
-        subject = 'Remove Appointment Cancellation Request';
-      }
-
-      final personalization = Personalization([toAddress]);
-      final email =
-          Email([personalization], fromAddress, subject, content: [content]);
-
-      final result = await mailer.send(email);
-
-      if (result.isValue) {
-        print('Email sent successfully');
-      } else {
-        print('Email sending failed: ${result.asError}');
-      }
-    } catch (e) {
-      print('Error sending email: $e');
+      await FlutterEmailSender.send(email);
+      platformResponse = 'success';
+    } catch (error) {
+      print(error);
+      platformResponse = error.toString();
     }
   }
 
@@ -780,6 +777,9 @@ class AppointmentInPendingService {
         .where('patientId', isEqualTo: id)
         .get();
     List<DocumentSnapshot> documents = querySnapshot.docs;
+    for (DocumentSnapshot document in documents) {
+      print(document['startTime'].toDate());
+    }
     DateTime currentTime = DateTime.now();
     documents = documents
         .where(
