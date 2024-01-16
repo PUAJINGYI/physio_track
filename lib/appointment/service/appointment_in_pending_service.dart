@@ -418,8 +418,8 @@ class AppointmentInPendingService {
           'Cancellation Appointment Update Request',
           "Dear patient, your recent appointment update for ${DateFormat('hh:mm a').format(startTime)}, ${DateFormat('dd MMM yyyy').format(startTime)} has been cancelled by your own. Therefore, your appointment time will still remain at ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)}. Thank you.");
 
-      await sendEmailToNotifyRemoveUpdatePending(
-          appointmentInPending, true, date, startTime, endTime);
+      // await sendEmailToNotifyRemoveUpdatePending(
+      //     appointmentInPending, true, date, startTime, endTime);
     }
   }
 
@@ -454,8 +454,8 @@ class AppointmentInPendingService {
           userId,
           "Remove Appointment Cancellation Request",
           "Dear patient, the appointment cancellation request at ${DateFormat('hh:mm a').format(appointmentInPending.startTime)}, ${DateFormat('dd MMM yyyy').format(appointmentInPending.startTime)} has been removed. Therefore, your appointment time will still remain at the same time. Thank you.");
-      await sendEmailToNotifyRemoveUpdatePending(
-          appointmentInPending, false, date, startTime, endTime);
+      // await sendEmailToNotifyRemoveUpdatePending(
+      //     appointmentInPending, false, date, startTime, endTime);
     }
   }
 

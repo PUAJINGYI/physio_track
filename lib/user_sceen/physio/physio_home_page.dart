@@ -53,7 +53,7 @@ class _PhysioHomePageState extends State<PhysioHomePage>
     _requestPermissions();
     NotificationApi.init();
     cancelPatientNotification();
-    pushAppointmentNoti();
+    //pushAppointmentNoti();
   }
 
   void cancelPatientNotification() async {
@@ -113,17 +113,26 @@ class _PhysioHomePageState extends State<PhysioHomePage>
     int physioId = await userManagementService.fetchUserIdByUid(uid);
     List<Appointment> appointments = await appointmentService
         .fetchAppointmentListByPhysioIdInToday(physioId);
+    appointments.sort((a, b) => a.startTime.compareTo(b.startTime));
+    appointments = appointments
+        .where((element) => element.startTime.isAfter(DateTime.now()))
+        .toList();
+    for (int i = 10; i <= 20; i++) {
+      NotificationApi.cancelNoti(id: i);
+    }
+    int i = 10;
     if (appointments.length > 0) {
       for (Appointment appointment in appointments) {
         String formattedTime =
             DateFormat('hh:mm a').format(appointment.startTime);
         NotificationApi.showScheduledNotification(
-          id: appointment.id,
+          id: i,
           title: 'Appointment Reminder',
           body: 'You have an appointment at $formattedTime',
           payload: 'appointment',
           scheduledDate: appointment.startTime.subtract(Duration(minutes: 30)),
         );
+        i++;
       }
     }
   }

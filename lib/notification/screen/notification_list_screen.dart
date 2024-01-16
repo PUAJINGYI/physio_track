@@ -232,6 +232,20 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                 },
               ),
             ),
+             Positioned(
+              top: 25,
+              right: 5,
+              child: IconButton(
+                icon: Icon(
+                  Icons.mark_email_read,
+                  size: 35.0,
+                ),
+                onPressed: () async{
+                  await notificationService.updateAllNotificationStatus(uid);
+                  _refreshIndicatorKey.currentState?.show();
+                },
+              ),
+            ),
             Positioned(
               top: 25,
               left: 0,

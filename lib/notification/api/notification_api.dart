@@ -93,24 +93,24 @@ class NotificationApi {
             styleInformation: DefaultStyleInformation(true, true)));
   }
 
-  static tz.TZDateTime _scheduleDaily(DateTime time) {
-    final now = tz.TZDateTime.now(tz.local);
-    final scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day,
-        time.hour, time.minute, time.second);
-    print('trigger time: $scheduledDate');
-    final nextDay = scheduledDate.add(const Duration(days: 1));
-    print('next day: $nextDay');
-    return scheduledDate.isBefore(now)
-        ? scheduledDate.add(const Duration(days: 1))
-        : scheduledDate;
-  }
+  // static tz.TZDateTime _scheduleDaily(DateTime time) {
+  //   final now = tz.TZDateTime.now(tz.local);
+  //   final scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day,
+  //       time.hour, time.minute, time.second);
+  //   print('trigger time: $scheduledDate');
+  //   final nextDay = scheduledDate.add(const Duration(days: 1));
+  //   print('next day: $nextDay');
+  //   return scheduledDate.isBefore(now)
+  //       ? scheduledDate.add(const Duration(days: 1))
+  //       : scheduledDate;
+  // }
 
-  static tz.TZDateTime _scheduleEvery5Seconds() {
-    final now = tz.TZDateTime.now(tz.local);
-    final scheduledDate = now.add(const Duration(seconds: 5));
-    print('Trigger time: $scheduledDate');
-    return scheduledDate;
-  }
+  // static tz.TZDateTime _scheduleEvery5Seconds() {
+  //   final now = tz.TZDateTime.now(tz.local);
+  //   final scheduledDate = now.add(const Duration(seconds: 5));
+  //   print('Trigger time: $scheduledDate');
+  //   return scheduledDate;
+  // }
 
   static void periodicallyPushNoti({
     required int id,

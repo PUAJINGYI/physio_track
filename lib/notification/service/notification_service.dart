@@ -175,6 +175,31 @@ class NotificationService {
     }
   }
 
+  // update all notification status to read by userId
+  Future<void> updateAllNotificationStatus(String userId) async {
+    try {
+      QuerySnapshot notificationSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('notifications')
+          .where('isRead', isEqualTo: false)
+          .get();
+
+      if (notificationSnapshot.size > 0) {
+        for (var notification in notificationSnapshot.docs) {
+          await notification.reference.update({'isRead': true});
+        }
+        print('All Notification Records Updated');
+      } else {
+        print('All Notification Records not found');
+        throw Exception('All Notification Records not found');
+      }
+    } catch (error) {
+      print('Error updating all notification records: $error');
+      throw Exception('Error updating all notification records');
+    }
+  }
+
   Future<Notifications?> fetchNotificationById(
       String userId, int notificationId) async {
     QuerySnapshot notificationQuerySnapshot = await usersCollection

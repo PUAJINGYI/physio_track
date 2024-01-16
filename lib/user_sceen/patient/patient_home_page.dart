@@ -101,7 +101,7 @@ class _PatientHomePageState extends State<PatientHomePage>
     _requestPermissions();
     NotificationApi.init();
     pushNotiForPatient();
-    pushAppointmentNoti();
+    // pushAppointmentNoti();
   }
 
   Future<void> _isAndroidPermissionGranted() async {
@@ -151,25 +151,28 @@ class _PatientHomePageState extends State<PatientHomePage>
 
   void pushNotiForPatient() {
     final ptNotiId = dotenv.env['PT_REMINDER'];
-    NotificationApi.periodicallyPushNoti(
-      id: int.parse(ptNotiId!),
-      title: 'Physiotherapy Reminder',
-      body: 'Please complete your Physiotherapy Activities for today',
-      payload: 'pt',
-      interval: RepeatInterval.daily,
-    );
-
     final otNotiId = dotenv.env['OT_REMINDER'];
-    NotificationApi.periodicallyPushNoti(
-      id: int.parse(otNotiId!),
-      title: 'Occupational Therapy Reminder',
-      body: 'Please complete your Occupational Therapy Activities for today',
-      payload: 'ot',
-      interval: RepeatInterval.daily,
-    );
+
+    NotificationApi.showScheduledNotification(
+        id: int.parse(ptNotiId!),
+        title: 'Physiotherapy Reminder',
+        body: 'Please complete your Physiotherapy Activities for today',
+        payload: 'pt',
+        scheduledDate: DateTime(2024, 1, 16, 9, 0, 0));
+
+    NotificationApi.showScheduledNotification(
+        id: int.parse(otNotiId!),
+        title: 'Occupational Therapy Reminder',
+        body: 'Please complete your Occupational Therapy Activities for today',
+        payload: 'ot',
+        scheduledDate: DateTime(2024, 1, 16, 9, 30, 0));
   }
 
   void pushAppointmentNoti() async {
+    final appointmentReminderId = dotenv.env['APPOINTMENT_REMINDER'];
+    for (int i = 10; i <= 20; i++) {
+      NotificationApi.cancelNoti(id: i);
+    }
     String uid = FirebaseAuth.instance.currentUser!.uid;
     int patientId = await userManagementService.fetchUserIdByUid(uid);
     Appointment? appointment =
@@ -179,7 +182,7 @@ class _PatientHomePageState extends State<PatientHomePage>
       String formattedTime = DateFormat('hh:mm a').format(appointmentDate);
 
       NotificationApi.showScheduledNotification(
-          id: appointment.id,
+          id: int.parse(appointmentReminderId!),
           title: 'Appointment Reminder',
           body: 'You have an appointment at ${formattedTime}',
           payload: 'appointment',
