@@ -25,8 +25,8 @@ class AppointmentInPendingService {
   UserManagementService userManagementService = UserManagementService();
   NotificationService notificationService = NotificationService();
   LeaveService leaveService = LeaveService();
-  String adminEmail = dotenv.get('ADMIN_EMAIL', fallback: '');
-  String adminEmailPassword = dotenv.get('ADMIN_EMAIL_PASSWORD', fallback: '');
+  // String adminEmail = dotenv.get('ADMIN_EMAIL', fallback: '');
+  // String adminEmailPassword = dotenv.get('ADMIN_EMAIL_PASSWORD', fallback: '');
 
   // add new pending appointment record
   Future<void> addPendingAppointmentRecord(
@@ -815,5 +815,33 @@ class AppointmentInPendingService {
       return appointment.startTime.isAfter(now);
     }).toList();
     return appointmentList;
+  }
+
+  //Delete all pending appointment record by patientId
+  Future<void> deleteAllPendingAppointmentRecordByPatientId(
+      int patientId) async {
+    QuerySnapshot querySnapshot = await appointmentInPendingCollection
+        .where('patientId', isEqualTo: patientId)
+        .get();
+
+    List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot document in documents) {
+      await document.reference.delete();
+    }
+  }
+
+  //Delete all pending appointment record by physioId
+  Future<void> deleteAllPendingAppointmentRecordByPhysioId(
+      int physioId) async {
+    QuerySnapshot querySnapshot = await appointmentInPendingCollection
+        .where('physioId', isEqualTo: physioId)
+        .get();
+
+    List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot document in documents) {
+      await document.reference.delete();
+    }
   }
 }

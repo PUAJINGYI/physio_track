@@ -227,7 +227,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         imageUrls.add(ach[i].imageUrl);
       }
     }
-    await createBarGroups(); 
+    await createBarGroups();
   }
 
   Future<void> createBarGroups() async {
@@ -319,7 +319,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 16, 
+      space: 16,
       child: text,
     );
   }
@@ -328,8 +328,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
     if (phoneNumber.length > 0 && phoneNumber != '') {
       String number = formatPhoneNumber(phoneNumber);
 
-      final message =
-          LocaleKeys.Hello_this_is_my_message.tr(); 
+      final message = LocaleKeys.Hello_this_is_my_message.tr();
 
       final url = dotenv.get('WHATSAPP_API_KEY', fallback: '') +
           number +
@@ -347,8 +346,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             contentPadding: EdgeInsets.zero,
-            titlePadding:
-                EdgeInsets.fromLTRB(16, 0, 16, 0), 
+            titlePadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -359,7 +357,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                 IconButton(
                   icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                   onPressed: () {
-                    Navigator.of(context).pop(); 
+                    Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -416,7 +414,6 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String formattedProgress = (progressToNextLevel * 100).toStringAsFixed(2);
     return Scaffold(
         body: Stack(
       children: [
@@ -494,8 +491,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                        15.0),
+                                    borderRadius: BorderRadius.circular(15.0),
                                     child: Card(
                                       color: Color.fromARGB(255, 255, 231, 196),
                                       elevation: 5.0,
@@ -510,8 +506,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                               child: Container(
                                                 alignment: Alignment.center,
                                                 child: Image.asset(
-                                                  ImageConstant
-                                                      .LEVEL,
+                                                  ImageConstant.LEVEL,
                                                   width: 60.0,
                                                   height: 60.0,
                                                 ),
@@ -559,7 +554,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                                       .fromLTRB(
                                                                   10, 5, 0, 0),
                                                           child: Text(
-                                                            '${formattedProgress}%',
+                                                            '${(progressToNextLevel * 100).toStringAsFixed(2)}%',
                                                             style: TextStyle(
                                                               fontSize: 12,
                                                               fontWeight:
@@ -609,8 +604,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 AchievementListScreen(
-                                                    uid:
-                                                        uid)),
+                                                    uid: uid)),
                                       );
                                     },
                                     child: Align(
@@ -619,8 +613,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                         '${LocaleKeys.More_Details.tr()} >',
                                         style: TextStyle(
                                           fontSize: 13,
-                                          color: Colors
-                                              .black, 
+                                          color: Colors.black,
                                         ),
                                       ),
                                     ),
@@ -718,8 +711,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                     children: [
                                       Expanded(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              15.0), 
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                           child: GestureDetector(
                                             onTap: () {
                                               Navigator.of(context).push(
@@ -761,7 +754,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                           CircularStrokeCap
                                                               .round,
                                                       center: Text(
-                                                        '${todayPT.progress * 100}%',
+                                                        '${(todayPT.progress * 100).toStringAsFixed(2)}%',
                                                         style: TextStyle(
                                                           fontSize: 20.0,
                                                           fontWeight:
@@ -778,8 +771,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                       ),
                                       Expanded(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              15.0), 
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                           child: GestureDetector(
                                             onTap: () {
                                               Navigator.of(context).push(
@@ -819,8 +812,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                       circularStrokeCap:
                                                           CircularStrokeCap
                                                               .round,
-                                                      center: Text(
-                                                        '${todayOT.progress * 100}%',
+                                                      center: Text(                                                       
+                                                        '${(todayOT.progress * 100).toStringAsFixed(2)}%',
                                                         style: TextStyle(
                                                           fontSize: 20.0,
                                                           fontWeight:
@@ -864,8 +857,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                       ));
                                     },
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                          15.0), 
+                                      borderRadius: BorderRadius.circular(15.0),
                                       child: Card(
                                         elevation: 5.0,
                                         child: Container(
@@ -881,8 +873,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                           .spaceBetween,
                                                   children: [
                                                     Align(
-                                                      alignment: Alignment
-                                                          .centerLeft, 
+                                                      alignment:
+                                                          Alignment.centerLeft,
                                                       child: Text(
                                                         mondayThisWeek +
                                                             " - " +
@@ -902,11 +894,12 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                             Container(
                                                               width: 10,
                                                               height: 10,
-                                                              color: Color.fromARGB(
-                                                                  255,
-                                                                  129,
-                                                                  238,
-                                                                  143), 
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      129,
+                                                                      238,
+                                                                      143),
                                                             ),
                                                             SizedBox(width: 5),
                                                             Text(
@@ -919,11 +912,12 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                             Container(
                                                               width: 10,
                                                               height: 10,
-                                                              color: Color.fromARGB(
-                                                                  255,
-                                                                  243,
-                                                                  124,
-                                                                  116), 
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      243,
+                                                                      124,
+                                                                      116),
                                                             ),
                                                             SizedBox(width: 5),
                                                             Text(
@@ -1036,8 +1030,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                         borderRadius:
                                             BorderRadius.circular(15.0),
                                         child: Container(
-                                          height:
-                                              150.0, 
+                                          height: 150.0,
                                           width: double.infinity,
                                           child: Image.asset(
                                             ImageConstant.PATIENT_LIST,
@@ -1088,8 +1081,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(15.0),
                                               child: Container(
-                                                height:
-                                                    150.0, 
+                                                height: 150.0,
                                                 width: double.infinity,
                                                 child: Image.asset(
                                                   ImageConstant.JOURNAL_IMAGE,
@@ -1104,13 +1096,11 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
-                                                  contentPadding: EdgeInsets
-                                                      .zero, 
-                                                  titlePadding: EdgeInsets.fromLTRB(
-                                                      16,
-                                                      0,
-                                                      16,
-                                                      0),
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  titlePadding:
+                                                      EdgeInsets.fromLTRB(
+                                                          16, 0, 16, 0),
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -1129,7 +1119,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                                                 .RED_BUTTON_TEXT),
                                                         onPressed: () {
                                                           Navigator.of(context)
-                                                              .pop(); 
+                                                              .pop();
                                                         },
                                                       ),
                                                     ],
@@ -1199,8 +1189,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(15.0),
                                               child: Container(
-                                                height:
-                                                    150.0, 
+                                                height: 150.0,
                                                 width: double.infinity,
                                                 child: Image.asset(
                                                   ImageConstant

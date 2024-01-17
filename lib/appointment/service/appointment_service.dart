@@ -31,7 +31,7 @@ class AppointmentService {
 
   Future<AuthClient?> getAuthClientUsingGoogleSignIn() async {
     var scopes = [CalendarApi.calendarScope];
-    final googleSignIn = GoogleSignIn(); 
+    final googleSignIn = GoogleSignIn();
     final isSignedIn = await googleSignIn.isSignedIn();
     final googleSignInAccount = isSignedIn
         ? await googleSignIn.signInSilently()
@@ -352,19 +352,19 @@ class AppointmentService {
     return appointmentList;
   }
 
- Future<Appointment?> fetchLatestAppointmentByPatientId(int id) async {
-  List<Appointment> appointmentList = [];
-  QuerySnapshot querySnapshot =
-      await appointmentCollection.where('patientId', isEqualTo: id).get();
+  Future<Appointment?> fetchLatestAppointmentByPatientId(int id) async {
+    List<Appointment> appointmentList = [];
+    QuerySnapshot querySnapshot =
+        await appointmentCollection.where('patientId', isEqualTo: id).get();
 
-  querySnapshot.docs.forEach((snapshot) {
-    appointmentList.add(Appointment.fromSnapshot(snapshot));
-  });
+    querySnapshot.docs.forEach((snapshot) {
+      appointmentList.add(Appointment.fromSnapshot(snapshot));
+    });
 
-  appointmentList.sort((a, b) => b.startTime.compareTo(a.startTime));
+    appointmentList.sort((a, b) => b.startTime.compareTo(a.startTime));
 
-  return appointmentList.isNotEmpty ? appointmentList.first : null;
-}
+    return appointmentList.isNotEmpty ? appointmentList.first : null;
+  }
 
   Future<List<Appointment>> fetchAppointmentListByPhysioId(int id) async {
     List<Appointment> appointmentList = [];
@@ -565,5 +565,31 @@ class AppointmentService {
         changeAppointmentStatusToConflict(appointment.id);
       }
     });
+  }
+
+  //Delete all pending appointment record by patientId
+  Future<void> deleteAllAppointmentRecordByPatientId(int patientId) async {
+    QuerySnapshot querySnapshot = await appointmentCollection
+        .where('patientId', isEqualTo: patientId)
+        .get();
+
+    List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot document in documents) {
+      await removeAppointmentRecord(document['id']);
+    }
+  }
+
+  //Delete all pending appointment record by physioId
+  Future<void> deleteAllAppointmentRecordByPhysioId(int physioId) async {
+    QuerySnapshot querySnapshot = await appointmentCollection
+        .where('physioId', isEqualTo: physioId)
+        .get();
+
+    List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot document in documents) {
+      await removeAppointmentRecord(document['id']);
+    }
   }
 }

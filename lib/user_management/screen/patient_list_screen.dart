@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../appointment/service/appointment_in_pending_service.dart';
+import '../../appointment/service/appointment_service.dart';
 import '../../constant/ColorConstant.dart';
 import '../../constant/ImageConstant.dart';
 import '../../profile/model/user_model.dart';
@@ -15,14 +17,15 @@ class PatientListScreen extends StatefulWidget {
 
 class _PatientListScreenState extends State<PatientListScreen> {
   UserManagementService userManagementService = UserManagementService();
-  late Future<List<UserModel>>
-      _patientListFuture; 
+  AppointmentService appointmentService = AppointmentService();
+  AppointmentInPendingService appointmentInPendingService =
+      AppointmentInPendingService();
+  late Future<List<UserModel>> _patientListFuture;
 
   @override
   void initState() {
     super.initState();
-    _patientListFuture =
-        _fetchPatientList(); 
+    _patientListFuture = _fetchPatientList();
   }
 
   Future<List<UserModel>> _fetchPatientList() async {
@@ -35,8 +38,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           contentPadding: EdgeInsets.zero,
-          titlePadding:
-              EdgeInsets.fromLTRB(24, 0, 24, 0), 
+          titlePadding: EdgeInsets.fromLTRB(24, 0, 24, 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -76,13 +78,11 @@ class _PatientListScreenState extends State<PatientListScreen> {
                       style: TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT),
                     ),
                     onPressed: () async {
-                      await performDeleteLogic(
-                          id, context); 
+                      await performDeleteLogic(id, context);
                       setState(() {
-                        _patientListFuture =
-                            _fetchPatientList(); 
+                        _patientListFuture = _fetchPatientList();
                       });
-                      Navigator.of(context).pop(); 
+                      Navigator.of(context).pop();
                     },
                   ),
                   SizedBox(width: 10),
@@ -98,7 +98,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                       style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(); 
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],
@@ -112,8 +112,10 @@ class _PatientListScreenState extends State<PatientListScreen> {
 
   Future<void> performDeleteLogic(int id, context) async {
     try {
-      await userManagementService
-          .deleteUser(id); 
+      await appointmentService.deleteAllAppointmentRecordByPatientId(id);
+      await appointmentInPendingService
+          .deleteAllPendingAppointmentRecordByPatientId(id);
+      await userManagementService.deleteUser(id);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Patient_deleted.tr())),
       );
@@ -126,7 +128,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<UserModel>>(
-      future: _patientListFuture, 
+      future: _patientListFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -158,16 +160,14 @@ class _PatientListScreenState extends State<PatientListScreen> {
                             backgroundColor: Colors.transparent,
                             child: user.profileImageUrl.isEmpty
                                 ? Image.asset(
-                                    ImageConstant
-                                        .DEFAULT_USER, 
+                                    ImageConstant.DEFAULT_USER,
                                     fit: BoxFit.cover,
                                   )
                                 : null,
                           ),
                           title: Text(user.username,
                               style: TextStyle(fontWeight: FontWeight.bold)),
-                          subtitle: Text(
-                              user.email), 
+                          subtitle: Text(user.email),
                         ),
                       ),
                       Padding(
@@ -176,14 +176,11 @@ class _PatientListScreenState extends State<PatientListScreen> {
                           width: 50,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors
-                                .white, 
+                            color: Colors.white,
                           ),
                           child: IconButton(
-                            icon: Icon(Icons
-                                .delete_outline), 
-                            color:
-                                Colors.blue, 
+                            icon: Icon(Icons.delete_outline),
+                            color: Colors.blue,
                             onPressed: () {
                               showDeleteConfirmationDialog(context, user.id);
                             },
@@ -197,7 +194,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
             ),
           );
         }
-        return Container(); 
+        return Container();
       },
     );
   }

@@ -139,7 +139,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                                               circularStrokeCap:
                                                   CircularStrokeCap.round,
                                               center: Text(
-                                                '${widget.pt.progress * 100}%',
+                                                 '${(widget.pt.progress * 100).toStringAsFixed(2)}%',
                                                 style: TextStyle(
                                                   fontSize: 20.0,
                                                   fontWeight: FontWeight.bold,
@@ -226,7 +226,7 @@ class _WeeklyAnalsisDetailScreenState extends State<WeeklyAnalsisDetailScreen> {
                                               circularStrokeCap:
                                                   CircularStrokeCap.round,
                                               center: Text(
-                                                '${widget.ot.progress * 100}%',
+                                               '${(widget.ot.progress * 100).toStringAsFixed(2)}%',
                                                 style: TextStyle(
                                                   fontSize: 20.0,
                                                   fontWeight: FontWeight.bold,

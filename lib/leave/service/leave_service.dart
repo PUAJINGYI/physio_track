@@ -199,4 +199,20 @@ class LeaveService {
     }
     return true;
   }
+
+  //delete record by physioId
+  Future<void> deleteLeaveRecordByPhysioId(int physioId) async {
+    QuerySnapshot querySnapshot = await leaveCollection
+        .where('physioId', isEqualTo: physioId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      List<Leave> leaveList =
+          querySnapshot.docs.map((doc) => Leave.fromSnapshot(doc)).toList();
+      for (Leave leave in leaveList) {
+        await deleteLeaveReferenceToPhysio(leave);
+        await leaveCollection.doc(leave.id.toString()).delete();
+      }
+    }
+  }
 }

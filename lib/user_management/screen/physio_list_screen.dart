@@ -2,7 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:physio_track/constant/ColorConstant.dart';
 
+import '../../appointment/service/appointment_in_pending_service.dart';
+import '../../appointment/service/appointment_service.dart';
 import '../../constant/ImageConstant.dart';
+import '../../leave/service/leave_service.dart';
 import '../../profile/model/user_model.dart';
 import '../../reusable_widget/reusable_widget.dart';
 import '../../translations/locale_keys.g.dart';
@@ -16,14 +19,16 @@ class PhysioListScreen extends StatefulWidget {
 
 class _PhysioListScreenState extends State<PhysioListScreen> {
   UserManagementService userManagementService = UserManagementService();
-  late Future<List<UserModel>>
-      _physioListFuture; 
+  AppointmentService appointmentService = AppointmentService();
+  AppointmentInPendingService appointmentInPendingService =
+      AppointmentInPendingService();
+  LeaveService leaveService = LeaveService();
+  late Future<List<UserModel>> _physioListFuture;
 
   @override
   void initState() {
     super.initState();
-    _physioListFuture =
-        _fetchPhysioList(); 
+    _physioListFuture = _fetchPhysioList();
   }
 
   Future<List<UserModel>> _fetchPhysioList() async {
@@ -36,8 +41,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           contentPadding: EdgeInsets.zero,
-          titlePadding:
-              EdgeInsets.fromLTRB(24, 0, 24, 0), 
+          titlePadding: EdgeInsets.fromLTRB(24, 0, 24, 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -48,7 +52,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
               IconButton(
                 icon: Icon(Icons.close, color: ColorConstant.RED_BUTTON_TEXT),
                 onPressed: () {
-                  Navigator.of(context).pop(); 
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -77,11 +81,9 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                       style: TextStyle(color: ColorConstant.BLUE_BUTTON_TEXT),
                     ),
                     onPressed: () async {
-                      await performDeleteLogic(
-                          id, context); 
+                      await performDeleteLogic(id, context);
                       setState(() {
-                        _physioListFuture =
-                            _fetchPhysioList(); 
+                        _physioListFuture = _fetchPhysioList();
                       });
                       Navigator.pop(context);
                     },
@@ -99,7 +101,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                       style: TextStyle(color: ColorConstant.RED_BUTTON_TEXT),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(); 
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],
@@ -113,8 +115,11 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
 
   Future<void> performDeleteLogic(int id, context) async {
     try {
-      await userManagementService
-          .deleteUser(id); 
+      await appointmentService.deleteAllAppointmentRecordByPhysioId(id);
+      await appointmentInPendingService
+          .deleteAllPendingAppointmentRecordByPhysioId(id);
+      await leaveService.deleteLeaveRecordByPhysioId(id);
+      await userManagementService.deleteUser(id);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(LocaleKeys.Physio_deleted.tr())),
       );
@@ -160,16 +165,14 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                               backgroundColor: Colors.transparent,
                               child: user.profileImageUrl.isEmpty
                                   ? Image.asset(
-                                      ImageConstant
-                                          .DEFAULT_USER, 
+                                      ImageConstant.DEFAULT_USER,
                                       fit: BoxFit.cover,
                                     )
                                   : null,
                             ),
                             title: Text(user.username,
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            subtitle: Text(user
-                                .email), 
+                            subtitle: Text(user.email),
                           ),
                         ),
                         Padding(
@@ -178,14 +181,11 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                             width: 50,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors
-                                  .white, 
+                              color: Colors.white,
                             ),
                             child: IconButton(
-                              icon: Icon(Icons
-                                  .delete_outline), 
-                              color: Colors
-                                  .blue, 
+                              icon: Icon(Icons.delete_outline),
+                              color: Colors.blue,
                               onPressed: () {
                                 showDeleteConfirmationDialog(context, user.id);
                               },
@@ -212,8 +212,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
                   );
                   if (needUpdate != null && needUpdate) {
                     setState(() {
-                      _physioListFuture =
-                          _fetchPhysioList(); 
+                      _physioListFuture = _fetchPhysioList();
                     });
                   }
                 },
@@ -235,7 +234,7 @@ class _PhysioListScreenState extends State<PhysioListScreen> {
             ),
           ]);
         }
-        return Container(); 
+        return Container();
       },
     );
   }
