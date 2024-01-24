@@ -227,6 +227,8 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         imageUrls.add(ach[i].imageUrl);
       }
     }
+
+    sharedJournal = await userManagementService.fetchSharedJournalStatus(uid);
     await createBarGroups();
   }
 
